@@ -1,75 +1,31 @@
-// Updated full services list for NETARK / your company
-const servicesData = [
-  {
-    icon: "/assets/images/service1.png",
-    title: "Web Development",
-    desc: "We build responsive, secure, and SEO-friendly websites tailored for modern business performance and brand engagement.",
-    btnText: "READ MORE",
-    btnLink: "/service/web-development",
-  },
-  {
-    icon: "/assets/images/service2.png",
-    title: "IT Management",
-    desc: "Comprehensive IT infrastructure management ensuring reliability, uptime, and streamlined digital operations.",
-    btnText: "READ MORE",
-    btnLink: "/service/it-management",
-  },
-  {
-    icon: "/assets/images/service3.png",
-    title: "Digital Marketing",
-    desc: "Strategic digital marketing campaigns designed to boost visibility, engagement, and measurable conversions.",
-    btnText: "READ MORE",
-    btnLink: "/service/digital-marketing",
-  },
-  {
-    icon: "/assets/images/service4.png",
-    title: "App Development",
-    desc: "Custom mobile and web applications built for scalability, speed, and user-friendly performance across devices.",
-    btnText: "READ MORE",
-    btnLink: "/service/app-development",
-  },
-  {
-    icon: "/assets/images/service5.png",
-    title: "Network & Infrastructure",
-    desc: "Secure, scalable network architecture and enterprise connectivity solutions for modern IT environments.",
-    btnText: "READ MORE",
-    btnLink: "/service/network-infrastructure",
-  },
-  {
-    icon: "/assets/images/service6.png",
-    title: "Cybersecurity Solutions",
-    desc: "End-to-end cybersecurity services protecting your digital assets from evolving threats and vulnerabilities.",
-    btnText: "READ MORE",
-    btnLink: "/service/cybersecurity",
-  },
-  {
-    icon: "/assets/images/service7.png",
-    title: "Cloud & VPS Hosting",
-    desc: "Reliable cloud and VPS hosting with 99.9% uptime, optimized for speed, scalability, and business continuity.",
-    btnText: "READ MORE",
-    btnLink: "/service/cloud-vps-hosting",
-  },
-  {
-    icon: "/assets/images/service8.png",
-    title: "Server Co-Location",
-    desc: "Professional data center and co-location services for secure, redundant, and high-performance hosting.",
-    btnText: "READ MORE",
-    btnLink: "/service/server-colocation",
-  },
-  {
-    icon: "/assets/images/service9.png",
-    title: "Unified Communications",
-    desc: "Enhance collaboration with integrated voice, video, and messaging platforms tailored for enterprise needs.",
-    btnText: "READ MORE",
-    btnLink: "/service/unified-communications",
-  },
-  {
-    icon: "/assets/images/service10.png",
-    title: "IT Consultancy",
-    desc: "Expert IT consulting and audit services to help you modernize, optimize, and secure your digital ecosystem.",
-    btnText: "READ MORE",
-    btnLink: "/service/it-consultancy",
-  },
-];
 
-export default servicesData;
+[
+  {
+    "icon": "/assets/images/service1.png",
+    "title": "Web Development",
+    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
+  },
+  {
+    "icon": "/assets/images/service2.png",
+    "title": "IT Management",
+    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
+  },
+  {
+    "icon": "/assets/images/service3.png",
+    "title": "Digital Marketing",
+    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
+  },
+  {
+    "icon": "/assets/images/service4.png",
+    "title": "App Development",
+    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
+  } 
+]
