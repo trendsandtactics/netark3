@@ -32,6 +32,7 @@ const Hero1 = ({
   };
 
   const RUBY = "#9b111e";
+  const STACK_GAP = "10px"; // control vertical spacing between text elements
 
   return (
     <div
@@ -51,30 +52,38 @@ const Hero1 = ({
           backgroundColor: "rgba(0, 0, 0, 0.55)",
           zIndex: 0,
         }}
-      ></div>
+      />
 
-      <div className="container position-relative z-10 py-5">
+      <div className="container position-relative z-10 py-4">
         <div className="row align-items-center">
           {/* LEFT CONTENT */}
           <div className="col-lg-6 col-md-7 col-sm-12">
-            <div className="hero-contant text-white">
+            <div
+              className="hero-contant text-white"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: STACK_GAP,
+              }}
+            >
               <h5
                 style={{
                   color: RUBY,
                   fontSize: "1rem",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
-                  marginBottom: "12px",
+                  margin: 0, // remove default margin
                 }}
               >
                 Enterprise Networking & IT Infrastructure Solutions in India
               </h5>
 
               <h1
-                className="fw-bold mb-3"
+                className="fw-bold"
                 style={{
                   fontSize: "2.1rem",
                   lineHeight: "1.3em",
+                  margin: 0, // remove default margin
                 }}
               >
                 {parse(
@@ -85,9 +94,9 @@ const Hero1 = ({
               <p
                 style={{
                   fontSize: "1rem",
-                  lineHeight: "1.7em",
+                  lineHeight: "1.6em",
                   color: "#e5e5e5",
-                  marginBottom: "12px",
+                  margin: 0,
                 }}
               >
                 With over 20 years of experience, we specialise in Internet
@@ -101,7 +110,7 @@ const Hero1 = ({
                   fontSize: "1rem",
                   lineHeight: "1.6em",
                   color: "#e5e5e5",
-                  marginBottom: "18px",
+                  margin: 0,
                 }}
               >
                 Whether it’s campus networking, cloud solutions, or IT security,
@@ -114,24 +123,31 @@ const Hero1 = ({
                 style={{
                   color: RUBY,
                   fontSize: "1rem",
-                  marginBottom: "24px",
+                  margin: 0,
                 }}
               >
                 Partner with NETARK – Your trusted Internet and Data Center
                 Infrastructure experts in India.
               </p>
 
-              {/* BUTTON */}
-              <div>
+              {/* BUTTON + VIDEO as a compact row */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "14px",
+                  marginTop: "6px",
+                }}
+              >
                 <Link
                   to={BtnLink}
                   style={{
                     backgroundColor: RUBY,
                     color: "#fff",
-                    padding: "10px 26px",
+                    padding: "10px 20px",
                     borderRadius: "6px",
                     textDecoration: "none",
-                    fontWeight: "500",
+                    fontWeight: 500,
                     fontSize: "0.95rem",
                     display: "inline-block",
                     transition: "0.3s",
@@ -145,27 +161,26 @@ const Hero1 = ({
                 >
                   {BtnText}
                 </Link>
-              </div>
 
-              {/* VIDEO ICON */}
-              <div
-                className="hero-video-icon mt-4 d-flex align-items-center"
-                style={{ cursor: "pointer" }}
-                onClick={handelClick}
-              >
-                <i
-                  className="bi bi-play-fill me-2"
-                  style={{
-                    fontSize: "1.3rem",
-                    backgroundColor: RUBY,
-                    color: "#fff",
-                    borderRadius: "50%",
-                    padding: "8px",
-                  }}
-                ></i>
-                <span style={{ color: "#fff", fontWeight: "500" }}>
-                  {VideoText}
-                </span>
+                <div
+                  className="hero-video-icon d-flex align-items-center"
+                  style={{ cursor: "pointer" }}
+                  onClick={handelClick}
+                >
+                  <i
+                    className="bi bi-play-fill me-2"
+                    style={{
+                      fontSize: "1.1rem",
+                      backgroundColor: RUBY,
+                      color: "#fff",
+                      borderRadius: "50%",
+                      padding: "6px",
+                    }}
+                  />
+                  <span style={{ color: "#fff", fontWeight: 500 }}>
+                    {VideoText}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -177,7 +192,8 @@ const Hero1 = ({
                 src={Image}
                 alt="NETARK Hero Visual"
                 style={{
-                  maxWidth: "85%",
+                  width: "100%",
+                  maxWidth: "520px",
                   borderRadius: "10px",
                   boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
                 }}
