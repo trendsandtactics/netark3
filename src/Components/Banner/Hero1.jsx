@@ -6,9 +6,6 @@ import { Link } from "react-router-dom";
 
 const Hero1 = ({
   bgImg,
-  SubTitle,
-  Title,
-  Content,
   BtnText,
   BtnLink,
   Image,
@@ -23,18 +20,18 @@ const Hero1 = ({
 
   const handelClick = () => {
     setIframeSrc("https://www.youtube.com/embed/rRid6GCJtgc");
-    setToggle(!toggle);
+    setToggle(true);
   };
 
   const handelClose = () => {
     setIframeSrc("about:blank");
-    setToggle(!toggle);
+    setToggle(false);
   };
 
   const RUBY = "#9b111e";
 
   return (
-    <div
+    <section
       className="hero-area d-flex align-items-center position-relative"
       data-background={bgImg}
       style={{
@@ -42,45 +39,55 @@ const Hero1 = ({
         backgroundPosition: "center",
         color: "#fff",
         minHeight: "85vh",
+        overflow: "hidden",
       }}
     >
-      {/* Overlay for better text contrast */}
+      {/* Overlay */}
       <div
         className="position-absolute top-0 start-0 w-100 h-100"
         style={{
-          backgroundColor: "rgba(0, 0, 0, 0.55)",
+          backgroundColor: "rgba(0,0,0,0.6)",
           zIndex: 0,
         }}
-      ></div>
+      />
 
-      <div className="container position-relative z-10 py-4">
+      <div className="container position-relative z-10 py-3">
         <div className="row align-items-center">
           {/* LEFT CONTENT */}
           <div className="col-lg-6 col-md-7 col-sm-12">
             <div
-              className="hero-contant text-white d-flex flex-column"
+              className="hero-content text-white d-flex flex-column"
               style={{
-                gap: "8px", // consistent small spacing
+                gap: "8px",
+                lineHeight: "1.5em",
               }}
             >
-              <h5
+              {/* Small Tag */}
+              <div
                 style={{
+                  display: "inline-block",
+                  backgroundColor: "rgba(12, 22, 53, 0.9)",
                   color: RUBY,
-                  fontSize: "1rem",
+                  fontWeight: 600,
                   letterSpacing: "1px",
                   textTransform: "uppercase",
-                  margin: 0,
+                  borderRadius: "8px",
+                  padding: "6px 14px",
+                  fontSize: "0.85rem",
+                  marginBottom: "4px",
                 }}
               >
                 Enterprise Networking & IT Infrastructure Solutions in India
-              </h5>
+              </div>
 
+              {/* Heading */}
               <h1
                 className="fw-bold"
                 style={{
                   fontSize: "2.1rem",
-                  lineHeight: "1.3em",
+                  lineHeight: "1.25em",
                   margin: 0,
+                  fontWeight: 700,
                 }}
               >
                 {parse(
@@ -88,10 +95,11 @@ const Hero1 = ({
                 )}
               </h1>
 
+              {/* Paragraphs (compact) */}
               <p
                 style={{
                   fontSize: "1rem",
-                  lineHeight: "1.6em",
+                  lineHeight: "1.55em",
                   color: "#e5e5e5",
                   margin: 0,
                 }}
@@ -105,7 +113,7 @@ const Hero1 = ({
               <p
                 style={{
                   fontSize: "1rem",
-                  lineHeight: "1.6em",
+                  lineHeight: "1.55em",
                   color: "#e5e5e5",
                   margin: 0,
                 }}
@@ -115,24 +123,25 @@ const Hero1 = ({
                 scalable.
               </p>
 
+              {/* Highlighted line */}
               <p
                 className="fw-semibold"
                 style={{
                   color: RUBY,
                   fontSize: "1rem",
                   margin: 0,
+                  paddingTop: "2px",
                 }}
               >
                 Partner with NETARK – Your trusted Internet and Data Center
                 Infrastructure experts in India.
               </p>
 
-              {/* BUTTON + VIDEO compact layout */}
+              {/* BUTTON ROW */}
               <div
+                className="d-flex align-items-center flex-wrap"
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "12px",
+                  gap: "14px",
                   marginTop: "10px",
                 }}
               >
@@ -141,11 +150,13 @@ const Hero1 = ({
                   style={{
                     backgroundColor: RUBY,
                     color: "#fff",
-                    padding: "10px 22px",
+                    padding: "10px 24px",
                     borderRadius: "6px",
                     textDecoration: "none",
-                    fontWeight: "500",
+                    fontWeight: 600,
                     fontSize: "0.95rem",
+                    display: "inline-flex",
+                    alignItems: "center",
                     transition: "0.3s",
                   }}
                   onMouseEnter={(e) =>
@@ -158,22 +169,29 @@ const Hero1 = ({
                   {BtnText}
                 </Link>
 
+                {/* VIDEO BUTTON */}
                 <div
-                  className="hero-video-icon d-flex align-items-center"
+                  className="d-flex align-items-center"
                   style={{ cursor: "pointer" }}
                   onClick={handelClick}
                 >
                   <i
                     className="bi bi-play-fill me-2"
                     style={{
-                      fontSize: "1.1rem",
+                      fontSize: "1rem",
                       backgroundColor: RUBY,
                       color: "#fff",
                       borderRadius: "50%",
                       padding: "6px",
                     }}
                   ></i>
-                  <span style={{ color: "#fff", fontWeight: "500" }}>
+                  <span
+                    style={{
+                      color: "#fff",
+                      fontWeight: 500,
+                      fontSize: "0.95rem",
+                    }}
+                  >
                     {VideoText}
                   </span>
                 </div>
@@ -189,9 +207,9 @@ const Hero1 = ({
                 alt="NETARK Hero Visual"
                 style={{
                   width: "100%",
-                  maxWidth: "520px",
+                  maxWidth: "500px",
                   borderRadius: "10px",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
                 }}
               />
             </div>
@@ -205,7 +223,7 @@ const Hero1 = ({
         iframeSrc={iframeSrc}
         handelClose={handelClose}
       />
-    </div>
+    </section>
   );
 };
 
