@@ -10,17 +10,19 @@ export default function About() {
     "\n\n" +
     "Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance." +
     "\n\n" +
-    "We specialize in:\n" +
-    "• Internet Services tailored for enterprises\n" +
-    "• Connectivity solutions including managed point-to-point, VPN, and long-distance fiber networks\n" +
-    "• Enterprise network design & implementation\n" +
-    "• Server co-location and hosting services\n" +
-    "• VPS & Cloud Solutions\n" +
-    "• Cybersecurity & Information Security services\n" +
-    "• Unified communications & mobility platforms\n" +
-    "• Open-source IT solutions" +
-    "\n\n" +
     "By working with global leaders like Cisco, HP, Lenovo, Sophos, FortiGate, Juniper, and Honeywell, we ensure our clients get world-class technology backed by local expertise.";
+
+  // Each specialization line as a title
+  const services = [
+    "Internet Services tailored for enterprises",
+    "Connectivity solutions including managed point-to-point, VPN, and long-distance fiber networks",
+    "Enterprise network design & implementation",
+    "Server co-location and hosting services",
+    "VPS & Cloud Solutions",
+    "Cybersecurity & information security services",
+    "Unified communications & mobility platforms",
+    "Open-source IT solutions",
+  ];
 
   return (
     <div className="about-page">
@@ -33,6 +35,7 @@ export default function About() {
         Content={content}
         listTitle1="Secure & Scalable IT Infrastructure"
         listTitle2="Trusted IT & Internet Partner"
+        Titles={services}
       />
 
       <Project1
