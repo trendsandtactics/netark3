@@ -8,11 +8,11 @@ export default function About() {
   const content =
     "Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions and internet services." +
     "\n\n" +
-    "Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance." +
-    "\n\n" +
+    "Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.";
+
+  const conclusion =
     "By working with global leaders like Cisco, HP, Lenovo, Sophos, FortiGate, Juniper, and Honeywell, we ensure our clients get world-class technology backed by local expertise.";
 
-  // Each specialization line as a title
   const services = [
     "Internet Services tailored for enterprises",
     "Connectivity solutions including managed point-to-point, VPN, and long-distance fiber networks",
@@ -33,9 +33,10 @@ export default function About() {
         SubTitle="NETARK TECHNOLOGIES INDIA PVT. LTD."
         Title="About NETARK – Experts in Networking & Secure IT Infrastructure"
         Content={content}
+        Titles={services}
+        Conclusion={conclusion}
         listTitle1="Secure & Scalable IT Infrastructure"
         listTitle2="Trusted IT & Internet Partner"
-        Titles={services}
       />
 
       <Project1
