@@ -1,56 +1,46 @@
-import React from "react";
-import { CheckCircle } from "lucide-react";
+import About4 from "../Components/About/About4";
+import Blog1 from "../Components/Blog/Blog1";
+import Brand from "../Components/Brand/Brand";
+import BreadCumb from "../Components/Common/BreadCumb";
+import Project1 from "../Components/Project/Project1";
 
-export default function About4({
-  MainImg,
-  SubTitle,
-  Title,
-  Content,
-  listTitle1,
-  listTitle2,
-}) {
+const About = () => {
   return (
-    <section className="about-section section-padding bg-white text-gray-900">
-      <div className="container mx-auto px-4">
-        {/* Image on top */}
-        <div className="w-full max-w-5xl mx-auto">
-          <img
-            src={MainImg}
-            alt={SubTitle}
-            className="w-full rounded-2xl shadow-xl object-cover"
-          />
-        </div>
+    <div className="about-page">
+      <BreadCumb Title="About Us"></BreadCumb>
 
-        {/* Content below image */}
-        <div className="w-full max-w-5xl mx-auto mt-8 md:mt-10">
-          <h5 className="text-red-600 font-semibold uppercase tracking-widest">
-            {SubTitle}
-          </h5>
+      <About4
+        MainImg="/assets/images/inner/about-us-thu.png"
+        SubTitle="NETARK TECHNOLOGIES INDIA PVT. LTD."
+        Title="About NETARK – Experts in Networking & Secure IT Infrastructure"
+        Content={`Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions and Internet services.
 
-          <h2 className="mt-2 text-3xl md:text-4xl font-bold leading-snug">
-            {Title}
-          </h2>
+Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.
 
-          <p className="mt-4 text-gray-700 leading-relaxed whitespace-pre-line">
-            {Content}
-          </p>
+We specialize in:
+• Internet Services tailored for enterprises
+• Connectivity solutions including managed point-to-point, VPN, and long-distance fiber networks
+• Enterprise network design & implementation
+• Server co-location and hosting services
+• VPS & Cloud Solutions
+• Cybersecurity & information security services
+• Unified communications & mobility platforms
+• Open-source IT solutions
 
-          <ul className="mt-6 space-y-3">
-            <li className="flex items-start gap-3">
-              <span className="text-red-600 mt-1">
-                <CheckCircle className="w-5 h-5" />
-              </span>
-              <span className="text-lg font-medium">{listTitle1}</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-red-600 mt-1">
-                <CheckCircle className="w-5 h-5" />
-              </span>
-              <span className="text-lg font-medium">{listTitle2}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+By working with global leaders like Cisco, HP, Lenovo, Sophos, FortiGate, Juniper, and Honeywell, we ensure our clients get world-class technology backed by local expertise.`}
+        listTitle1="Secure & Scalable IT Infrastructure"
+        listTitle2="Trusted IT & Internet Partner"
+      ></About4>
+
+      <Project1
+        bgImage="/assets/images/inner/project-bg-3.png"
+        ClassAdd="project-area style-two"
+      ></Project1>
+
+      <Brand></Brand>
+      <Blog1></Blog1>
+    </div>
   );
-}
+};
+
+export default About;
