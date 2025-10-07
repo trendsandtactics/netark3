@@ -8,11 +8,12 @@ const About = () => {
   return (
     <div className="about-page">
       <BreadCumb Title="About Us"></BreadCumb>
+
       <About4
         MainImg="/assets/images/inner/about-us-thu.png"
         SubTitle="NETARK TECHNOLOGIES INDIA PVT. LTD."
-        Title="Experts in Networking & Secure IT Infrastructure"
-        Content={`Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions and Internet services.
+        Title="About NETARK – Experts in Networking & Secure IT Infrastructure"
+        Content={`Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions And Internet services.
 
 Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.
 
@@ -28,9 +29,9 @@ We specialize in:
 
 By working with global leaders like Cisco, HP, Lenovo, Sophos, FortiGate, Juniper, and Honeywell, we ensure our clients get world-class technology backed by local expertise.`}
         listTitle1="Secure & Scalable IT Infrastructure"
-        listTitle2="Trusted by Leading Enterprises"
+        listTitle2="Trusted IT & Internet Partner"
         BoxTitle1="20+"
-        BoxTitle2="Years of Industry Experience"
+        BoxTitle2="Years of Networking Expertise"
       ></About4>
 
       <Project1
