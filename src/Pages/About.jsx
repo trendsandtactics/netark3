@@ -1,24 +1,14 @@
-// src/Components/About/About4.tsx
 import React from "react";
 import { CheckCircle } from "lucide-react";
 
-interface About4Props {
-  MainImg: string;
-  SubTitle: string;
-  Title: string;
-  Content: string;
-  listTitle1: string;
-  listTitle2: string;
-}
-
-const About4: React.FC<About4Props> = ({
+export default function About4({
   MainImg,
   SubTitle,
   Title,
   Content,
   listTitle1,
   listTitle2,
-}) => {
+}) {
   return (
     <section className="about-section section-padding bg-white text-gray-900">
       <div className="container mx-auto px-4">
@@ -59,15 +49,8 @@ const About4: React.FC<About4Props> = ({
               <span className="text-lg font-medium">{listTitle2}</span>
             </li>
           </ul>
-
-          {/* If you render a CTA button, keep it here so it's also below the image */}
-          {/* <button className="mt-8 inline-flex items-center rounded-full px-8 py-4 bg-orange-600 text-white font-semibold">
-            EXPLORE MORE
-          </button> */}
         </div>
       </div>
     </section>
   );
-};
-
-export default About4;
+}
