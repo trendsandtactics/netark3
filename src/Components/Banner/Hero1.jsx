@@ -32,7 +32,6 @@ const Hero1 = ({
   };
 
   const RUBY = "#9b111e";
-  const STACK_GAP = "10px"; // control vertical spacing between text elements
 
   return (
     <div
@@ -52,18 +51,16 @@ const Hero1 = ({
           backgroundColor: "rgba(0, 0, 0, 0.55)",
           zIndex: 0,
         }}
-      />
+      ></div>
 
       <div className="container position-relative z-10 py-4">
         <div className="row align-items-center">
           {/* LEFT CONTENT */}
           <div className="col-lg-6 col-md-7 col-sm-12">
             <div
-              className="hero-contant text-white"
+              className="hero-contant text-white d-flex flex-column"
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: STACK_GAP,
+                gap: "8px", // consistent small spacing
               }}
             >
               <h5
@@ -72,7 +69,7 @@ const Hero1 = ({
                   fontSize: "1rem",
                   letterSpacing: "1px",
                   textTransform: "uppercase",
-                  margin: 0, // remove default margin
+                  margin: 0,
                 }}
               >
                 Enterprise Networking & IT Infrastructure Solutions in India
@@ -83,7 +80,7 @@ const Hero1 = ({
                 style={{
                   fontSize: "2.1rem",
                   lineHeight: "1.3em",
-                  margin: 0, // remove default margin
+                  margin: 0,
                 }}
               >
                 {parse(
@@ -130,13 +127,13 @@ const Hero1 = ({
                 Infrastructure experts in India.
               </p>
 
-              {/* BUTTON + VIDEO as a compact row */}
+              {/* BUTTON + VIDEO compact layout */}
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "14px",
-                  marginTop: "6px",
+                  gap: "12px",
+                  marginTop: "10px",
                 }}
               >
                 <Link
@@ -144,12 +141,11 @@ const Hero1 = ({
                   style={{
                     backgroundColor: RUBY,
                     color: "#fff",
-                    padding: "10px 20px",
+                    padding: "10px 22px",
                     borderRadius: "6px",
                     textDecoration: "none",
-                    fontWeight: 500,
+                    fontWeight: "500",
                     fontSize: "0.95rem",
-                    display: "inline-block",
                     transition: "0.3s",
                   }}
                   onMouseEnter={(e) =>
@@ -176,8 +172,8 @@ const Hero1 = ({
                       borderRadius: "50%",
                       padding: "6px",
                     }}
-                  />
-                  <span style={{ color: "#fff", fontWeight: 500 }}>
+                  ></i>
+                  <span style={{ color: "#fff", fontWeight: "500" }}>
                     {VideoText}
                   </span>
                 </div>
