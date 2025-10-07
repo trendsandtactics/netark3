@@ -15,19 +15,7 @@ export default function About() {
         Title="About NETARK – Experts in Networking & Secure IT Infrastructure"
         Content={`Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions and internet services.
 
-Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.
-
-We specialize in:
-• Internet Services tailored for enterprises
-• Connectivity solutions including managed point-to-point, VPN, and long-distance fiber networks
-• Enterprise network design & implementation
-• Server co-location and hosting services
-• VPS & Cloud Solutions
-• Cybersecurity & Information Security services
-• Unified communications & mobility platforms
-• Open-source IT solutions
-
-By working with global leaders like Cisco, HP, Lenovo, Sophos, FortiGate, Juniper, and Honeywell, we ensure our clients get world-class technology backed by local expertise.`}
+Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.}
         listTitle1="Secure & Scalable IT Infrastructure"
         listTitle2="Trusted IT & Internet Partner"
       />
