@@ -1,4 +1,3 @@
-// src/Pages/About.jsx
 import BreadCumb from "../Components/Common/BreadCumb";
 import About4 from "../Components/About/About4";
 
@@ -25,9 +24,12 @@ export default function About() {
 
   return (
     <div className="about-page">
+      {/* Breadcrumb Section */}
       <BreadCumb Title="About Us" />
 
+      {/* About Section */}
       <About4
+        // ✅ Keep the image visible
         MainImg="/assets/images/inner/about-us-thu.png"
         SubTitle="NETARK TECHNOLOGIES INDIA PVT. LTD."
         Title="About NETARK – Experts in Networking & Secure IT Infrastructure"
@@ -35,7 +37,8 @@ export default function About() {
         Titles={services}
         Conclusion={conclusion}
         listTitle1="We specialize in:"
-        listTitle2="Trusted IT & Internet Partner"
+        BtnUrl="/contact"
+        BtnText="Explore More"
       />
     </div>
   );
