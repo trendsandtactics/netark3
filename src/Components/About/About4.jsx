@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const About4 = ({
   // ✅ Correct URL for files inside /public
-  MainImg = "/assets/images/aboutusthu.png",
+  MainImg = "/assets/images/about-us-thu.png",
   SubTitle = "NETARK TECHNOLOGIES INDIA PVT. LTD.",
   Title = "About NETARK – Experts in Networking & Secure IT Infrastructure",
   Content = "",
@@ -63,7 +63,7 @@ const About4 = ({
                   <div className="single-counter-box">
                     <div className="counter-icon">
                       {/* if you want a small icon, replace with your icon path */}
-                      <img src={withVersion("/assets/images/aboutusthu.png")} alt="icon" />
+                      <img src={withVersion("/assets/images/about-us-thu.png")} alt="icon" />
                     </div>
                     <div className="counter-content">
                       {BoxTitle1 && <h4 className="counter">{BoxTitle1}</h4>}
