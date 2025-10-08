@@ -1,6 +1,30 @@
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services1.json";
 import { Link } from "react-router-dom";
+import {
+  Wifi,
+  Server,
+  Network,
+  Cloud,
+  Shield,
+  Database,
+  Monitor,
+  PhoneCall,
+  Code,
+  PlusCircle
+} from "lucide-react";
+
+const iconMap: Record<string, JSX.Element> = {
+  "Internet Services": <Wifi size={50} color="#26B6E0" strokeWidth={1.6} />,
+  "Co-Location & Hosting": <Server size={50} color="#26B6E0" strokeWidth={1.6} />,
+  "Connectivity Services": <Network size={50} color="#26B6E0" strokeWidth={1.6} />,
+  "Cloud Solutions": <Cloud size={50} color="#26B6E0" strokeWidth={1.6} />,
+  "Information Security": <Shield size={50} color="#26B6E0" strokeWidth={1.6} />,
+  "Data Storage & Backup": <Database size={50} color="#26B6E0" strokeWidth={1.6} />,
+  "Managed IT & Facility Services": <Monitor size={50} color="#26B6E0" strokeWidth={1.6} />,
+  "Unified Communications & Mobility": <PhoneCall size={50} color="#26B6E0" strokeWidth={1.6} />,
+  "Open-Source IT Solutions": <Code size={50} color="#26B6E0" strokeWidth={1.6} />
+};
 
 const Services1 = () => {
   return (
@@ -24,13 +48,10 @@ const Services1 = () => {
             <div key={i} className="col-lg-4 col-md-6 col-sm-12 d-flex">
               <div className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between">
                 {/* ICON */}
-                <div className="service-icon mb-4">
-                  <img
-                    src={item.icon}
-                    alt={item.title}
-                    className="img-fluid mx-auto"
-                    style={{ width: "60px", height: "60px", objectFit: "contain" }}
-                  />
+                <div className="service-icon mb-4 d-flex justify-content-center">
+                  {iconMap[item.title] || (
+                    <Monitor size={50} color="#26B6E0" strokeWidth={1.6} />
+                  )}
                 </div>
 
                 {/* CONTENT */}
@@ -47,9 +68,12 @@ const Services1 = () => {
 
                 {/* BUTTON */}
                 <div className="service-btn mt-3">
-                  <Link to={item.btnLink} className="text-decoration-none fw-semibold text-primary">
-                    <i className="bi bi-plus"></i>
-                    <span> {item.btnText}</span>
+                  <Link
+                    to={item.btnLink}
+                    className="text-decoration-none fw-semibold text-primary d-inline-flex align-items-center gap-1"
+                  >
+                    <PlusCircle size={16} strokeWidth={2} />
+                    <span>{item.btnText}</span>
                   </Link>
                 </div>
               </div>
