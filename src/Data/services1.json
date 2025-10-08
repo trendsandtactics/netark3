@@ -1,131 +1,107 @@
-"use client";
-import React from "react";
-
-const services = [
+[
   {
-    icon: "/assets/images/service1.png",
-    title: "Internet Services",
-    desc: [
+    "icon": "/assets/images/service1.png",
+    "title": "Internet Services",
+    "desc": [
       "Secure leased line Internet solutions",
       "Managed on-demand Internet services",
       "Enterprise Wi-Fi hotspot solutions",
-      "Managed community Internet services",
+      "Managed community Internet services"
     ],
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
   },
   {
-    icon: "/assets/images/service2.png",
-    title: "Co-Location & Hosting",
-    desc: [
+    "icon": "/assets/images/service2.png",
+    "title": "Co-Location & Hosting",
+    "desc": [
       "Flexible colocation services (per U, cabinets, private cages)",
       "Direct cross-connects to carriers & cloud providers",
       "Certified data center hosting with 24/7 monitoring",
       "VPS and application hosting solutions",
       "Managed firewall & server support",
-      "Remote hands & round-the-clock physical security",
+      "Remote hands & round-the-clock physical security"
     ],
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
   },
   {
-    icon: "/assets/images/service3.png",
-    title: "Connectivity Services",
-    desc: [
+    "icon": "/assets/images/service3.png",
+    "title": "Connectivity Services",
+    "desc": [
       "Managed point-to-point and point-to-multipoint connectivity",
       "VPN and secure enterprise connections",
       "Long-distance fiber network management",
       "Redundant, high-availability hosting for mission-critical systems",
       "Flexible solutions: rack, cabinet, and private cage options",
-      "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring",
+      "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring"
     ],
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
   },
   {
-    icon: "/assets/images/service4.png",
-    title: "Cloud Solutions",
-    desc: [
+    "icon": "/assets/images/service4.png",
+    "title": "Cloud Solutions",
+    "desc": [
       "Private, hybrid & public cloud deployment",
       "Cloud migration, backup & disaster recovery",
-      "Managed cloud operations & cost optimization",
+      "Managed cloud operations & cost optimization"
     ],
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
   },
   {
-    icon: "/assets/images/service5.png",
-    title: "Information Security",
-    desc: [
+    "icon": "/assets/images/service5.png",
+    "title": "Information Security",
+    "desc": [
       "Security audits, VPN, IPS & advanced threat protection solutions",
       "Firewalls, antivirus, DLP & secure access solutions",
-      "Real-time monitoring, traffic analysis and reporting",
+      "Real-time monitoring, traffic analysis and reporting"
     ],
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
   },
   {
-    icon: "/assets/images/service6.png",
-    title: "Data Storage & Backup",
-    desc: [
+    "icon": "/assets/images/service6.png",
+    "title": "Data Storage & Backup",
+    "desc": [
       "SAN, NAS & online backup solutions",
-      "Business continuity & disaster recovery planning",
+      "Business continuity & disaster recovery planning"
     ],
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
   },
   {
-    icon: "/assets/images/service7.png",
-    title: "Managed IT & Facility Services",
-    desc: [
+    "icon": "/assets/images/service7.png",
+    "title": "Managed IT & Facility Services",
+    "desc": [
       "Network & server management",
       "IT helpdesk & asset management",
-      "Proactive monitoring & maintenance",
+      "Proactive monitoring & maintenance"
     ],
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
   },
   {
-    icon: "/assets/images/service8.png",
-    title: "Unified Communications & Mobility",
-    desc: [
+    "icon": "/assets/images/service8.png",
+    "title": "Unified Communications & Mobility",
+    "desc": [
       "VoIP, IP telephony & video conferencing",
       "Enterprise Wi-Fi and hotspot solutions",
-      "Captive portal management",
+      "Captive portal management"
     ],
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
   },
   {
-    icon: "/assets/images/service9.png",
-    title: "Open-Source IT Solutions",
-    desc: [
+    "icon": "/assets/images/service9.png",
+    "title": "Open-Source IT Solutions",
+    "desc": [
       "Linux-based servers & intranet platforms",
       "Messaging, collaboration & monitoring tools",
-      "Thin clients & terminal server deployments",
+      "Thin clients & terminal server deployments"
     ],
-  },
-];
-
-const ServiceGrid = () => {
-  return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-start justify-between bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 min-h-[420px]"
-            >
-              <div>
-                <img
-                  src={service.icon}
-                  alt={service.title}
-                  className="w-12 h-12 mb-5"
-                />
-                <h3 className="text-xl font-semibold mb-4 text-gray-900">
-                  {service.title}
-                </h3>
-                <ul className="list-disc list-inside text-gray-700 leading-relaxed space-y-1">
-                  {service.desc.map((line, idx) => (
-                    <li key={idx}>{line}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <button className="mt-6 text-teal-600 font-medium hover:underline">
-                READ MORE →
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default ServiceGrid;
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
+  }
+]
