@@ -12,12 +12,10 @@ const Contact1 = () => {
   return (
     <div
       className="contact-area"
-      data-background="/assets/images/contact-bg2.png"
       style={{
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundColor: "#ffffff", // ✅ white background
         padding: "80px 0",
-        color: "#fff",
+        color: "#111",
       }}
     >
       <div className="container">
@@ -35,7 +33,7 @@ const Contact1 = () => {
               style={{
                 fontSize: "1rem",
                 lineHeight: "1.8em",
-                color: "#eee",
+                color: "#333",
                 marginBottom: "20px",
               }}
             >
@@ -49,8 +47,9 @@ const Contact1 = () => {
             <div
               className="contact-info-box p-4 rounded-3 shadow-sm"
               style={{
-                backgroundColor: "rgba(12, 12, 12, 0.7)",
+                backgroundColor: "#f9f9f9",
                 borderLeft: `4px solid ${RUBY}`,
+                borderRadius: "10px",
               }}
             >
               <h5
@@ -63,7 +62,10 @@ const Contact1 = () => {
               >
                 Office Address
               </h5>
-              <p className="mb-3" style={{ color: "#ddd", lineHeight: "1.7" }}>
+              <p
+                className="mb-3"
+                style={{ color: "#444", lineHeight: "1.7", fontSize: "0.95rem" }}
+              >
                 <strong>NETARK Technologies India Pvt. Ltd.</strong>
                 <br />
                 Third Floor, Thachil Complex,
@@ -83,7 +85,7 @@ const Contact1 = () => {
               >
                 Phone
               </h5>
-              <p style={{ color: "#ddd", marginBottom: "0" }}>
+              <p style={{ color: "#444", marginBottom: "0" }}>
                 0422-4280009 | +91 95006 44411
               </p>
             </div>
