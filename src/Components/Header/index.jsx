@@ -50,8 +50,8 @@ export default function Header({ variant }) {
                     src="/assets/images/logo.png"
                     alt="SoluTek Logo"
                     style={{
-                      height: "42px", // ✅ same size as your SoluTek image
-                      width: "auto",
+                      height: "20px", // ✅ same size as your SoluTek image
+                      width: "20",
                       objectFit: "contain",
                       display: "block",
                       transition: "all 0.3s ease-in-out",
