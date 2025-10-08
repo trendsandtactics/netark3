@@ -38,7 +38,7 @@ const Features = () => {
       <div className="container">
         <div className="features-row-nowrap">
           {FEATURES.map((item, i) => (
-            <div key={i} className="feature-card large">
+            <div key={i} className="feature-card large grey-bg">
               <div className="icon-wrap">{item.icon}</div>
               <h3 className="feature-title">{item.title}</h3>
               <ul className="feature-list">
