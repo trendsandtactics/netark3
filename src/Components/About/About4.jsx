@@ -1,9 +1,10 @@
+// src/Components/About/About4.jsx
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
 const About4 = ({
-  // Use the image in public/assets/images
-  MainImg = "/public/assets/images/aboutusthu.png",
+  // ✅ Correct URL for files inside /public
+  MainImg = "/assets/images/aboutusthu.png",
   SubTitle = "NETARK TECHNOLOGIES INDIA PVT. LTD.",
   Title = "About NETARK – Experts in Networking & Secure IT Infrastructure",
   Content = "",
@@ -14,24 +15,19 @@ const About4 = ({
   BoxTitle2 = "",
   BtnUrl = "/contact",
   BtnText = "EXPLORE MORE",
-  // Optional: change this to bust cache after deploy (e.g., "2", "3", ...)
-  version = "",
+  version = "", // bump like "2" when you redeploy to bust cache
 }) => {
   const hasTitlesArray = Array.isArray(Titles) && Titles.length > 0;
   const fallbackList = [listTitle1, listTitle2].filter(Boolean);
 
-  // Append a cache-buster to force CDN to fetch the new file after deploy
-  const withVersion = (src) => {
-    if (!version) return src;
-    return src.includes("?") ? `${src}&v=${version}` : `${src}?v=${version}`;
-    // Example: /assets/images/about-us-thu.png?v=2
-  };
+  const withVersion = (src) =>
+    version ? (src.includes("?") ? `${src}&v=${version}` : `${src}?v=${version}`) : src;
 
   return (
     <div className="about-us-area">
       <div className="container">
         <div className="row align-items-center">
-          {/* LEFT: Text Section */}
+          {/* LEFT: Text */}
           <div className="col-lg-6">
             <div className="section-title text-left">
               <h5 className="section-sub-title">{SubTitle}</h5>
@@ -40,7 +36,6 @@ const About4 = ({
             </div>
 
             <div className="about-us-content">
-              {/* Bullet List */}
               {(hasTitlesArray || fallbackList.length > 0) && (
                 <div className="about-us-list">
                   <ul>
@@ -53,7 +48,6 @@ const About4 = ({
                 </div>
               )}
 
-              {/* Button */}
               <div className="solutek-btn">
                 <Link to={BtnUrl}>
                   {BtnText}
@@ -64,17 +58,12 @@ const About4 = ({
                 </Link>
               </div>
 
-              {/* Optional Counter Box */}
               {(BoxTitle1 || BoxTitle2) && (
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="single-counter-box">
                     <div className="counter-icon">
-                      {/* If you want the same hero image here, keep it.
-                         Otherwise, point this back to a proper small icon file. */}
-                      <img
-                        src={withVersion("/public/assets/images/aboutusthu.png")}
-                        alt="icon"
-                      />
+                      {/* if you want a small icon, replace with your icon path */}
+                      <img src={withVersion("/assets/images/aboutusthu.png")} alt="icon" />
                     </div>
                     <div className="counter-content">
                       {BoxTitle1 && <h4 className="counter">{BoxTitle1}</h4>}
@@ -87,7 +76,7 @@ const About4 = ({
             </div>
           </div>
 
-          {/* RIGHT: Single Image Only */}
+          {/* RIGHT: Single Image */}
           <div className="col-lg-6">
             <div className="about-image text-center">
               <img
