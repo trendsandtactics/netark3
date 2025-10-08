@@ -1,96 +1,62 @@
 [
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Internet Services",
-    "image": "/assets/images/inner/service-thumb1.png",
-    "desc": [
-      "Secure leased line Internet solutions",
-      "Managed on-demand Internet services",
-      "Enterprise Wi-Fi hotspot solutions",
-      "Managed community Internet services"
-    ]
+    "desc": "Secure leased line Internet connections, managed on-demand Internet, enterprise Wi-Fi hotspot deployment, and community Internet management for residential and corporate environments.",
+    "image": "/assets/images/inner/service-thumb1.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Co-Location & Hosting",
-    "image": "/assets/images/inner/service-thumb2.png",
-    "desc": [
-      "Flexible colocation services (per U, cabinets, private cages)",
-      "Direct cross-connects to carriers & cloud providers",
-      "Certified data center hosting with 24/7 monitoring",
-      "VPS and application hosting solutions",
-      "Managed firewall & server support",
-      "Remote hands & round-the-clock physical security"
-    ]
+    "desc": "Flexible colocation options including per U, full cabinet, and private cage solutions with carrier cross-connects, 24/7 monitoring, VPS & application hosting, and managed firewall support.",
+    "image": "/assets/images/inner/service-thumb2.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Connectivity Services",
-    "image": "/assets/images/inner/service-thumb3.png",
-    "desc": [
-      "Managed point-to-point and point-to-multipoint connectivity",
-      "VPN and secure enterprise connections",
-      "Long-distance fiber network management",
-      "Redundant, high-availability hosting for mission-critical systems",
-      "Flexible solutions: rack, cabinet, and private cage options",
-      "Guaranteed high-uptime SLA, backed by 24/7 proactive monitoring"
-    ]
+    "desc": "Enterprise-grade VPN and secure fiber connectivity, point-to-point and multipoint links, high-availability network hosting, and SLA-backed uptime for mission-critical infrastructure.",
+    "image": "/assets/images/inner/service-thumb3.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Cloud Solutions",
-    "image": "/assets/images/inner/service-thumb4.png",
-    "desc": [
-      "Private, hybrid & public cloud deployment",
-      "Cloud migration, backup & disaster recovery",
-      "Managed cloud operations & cost optimization"
-    ]
+    "desc": "Private, hybrid, and public cloud deployments with cloud migration, backup, disaster recovery, and optimized managed cloud operations for maximum performance and reliability.",
+    "image": "/assets/images/inner/service-thumb4.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Information Security",
-    "image": "/assets/images/inner/service-thumb5.png",
-    "desc": [
-      "Security audits, VPN, IPS & advanced threat protection solutions",
-      "Firewalls, antivirus, DLP & secure access solutions",
-      "Real-time monitoring, traffic analysis & reporting"
-    ]
+    "desc": "Comprehensive cybersecurity audits, VPN and IPS protection, firewall and DLP systems, real-time monitoring, and advanced network traffic analysis and reporting.",
+    "image": "/assets/images/inner/service-thumb5.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Data Storage & Backup",
-    "image": "/assets/images/inner/service-thumb6.png",
-    "desc": [
-      "SAN, NAS & online backup solutions",
-      "Business continuity & disaster recovery planning"
-    ]
+    "desc": "SAN, NAS, and online backup solutions with enterprise-grade redundancy, disaster recovery planning, and automated data protection for business continuity.",
+    "image": "/assets/images/inner/service-thumb6.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Managed IT & Facility Services",
-    "image": "/assets/images/inner/service-thumb7.png",
-    "desc": [
-      "Network & server management",
-      "IT helpdesk & asset management",
-      "Proactive monitoring & maintenance"
-    ]
+    "desc": "Comprehensive IT management including server monitoring, network operations, IT helpdesk, asset tracking, and proactive infrastructure maintenance and upgrades.",
+    "image": "/assets/images/inner/service-thumb7.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Unified Communications & Mobility",
-    "image": "/assets/images/inner/service-thumb8.png",
-    "desc": [
-      "VoIP, IP telephony & video conferencing",
-      "Enterprise Wi-Fi and hotspot solutions",
-      "Captive portal management"
-    ]
+    "desc": "VoIP and IP telephony systems, enterprise Wi-Fi networks, video conferencing, captive portal solutions, and unified communication platforms for modern business operations.",
+    "image": "/assets/images/inner/service-thumb8.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Open-Source IT Solutions",
-    "image": "/assets/images/inner/service-thumb9.png",
-    "desc": [
-      "Linux-based servers & intranet platforms",
-      "Messaging, collaboration & monitoring tools",
-      "Thin clients & terminal server deployments"
-    ]
+    "desc": "Linux-based servers and intranet platforms, collaboration and monitoring tools, and thin-client infrastructure for efficient, cost-effective IT deployments.",
+    "image": "/assets/images/inner/service-thumb9.png"
   },
   {
+    "icon": "/assets/images/inner/service-icon.png",
     "title": "Choose NETARK",
-    "image": "/assets/images/inner/service-thumb10.png",
-    "desc": [
-      "Reliable IT services, connectivity, and managed infrastructure across India"
-    ]
+    "desc": "Partner with NETARK Technologies for reliable, scalable, and secure IT infrastructure, connectivity, and managed services across India — powered by experience and trust.",
+    "image": "/assets/images/inner/service-thumb10.png"
   }
 ]
