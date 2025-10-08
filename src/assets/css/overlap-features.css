@@ -1,0 +1,116 @@
+/* ===== HERO foundation so features can overlap ===== */
+.hero-area {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 120px; /* space under hero for overlap */
+}
+
+/* ===== Overlap behavior ===== */
+.feature-area.overlap {
+  position: relative;
+  z-index: 5;
+  margin-top: -90px; /* overlap depth into hero */
+  padding-top: 24px;
+  padding-bottom: 60px;
+  background: transparent;
+}
+
+/* ===== Grid layout ===== */
+.features-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  justify-items: center;
+}
+
+@media (max-width: 1399.98px) {
+  .features-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 1199.98px) {
+  .features-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 991.98px) {
+  .features-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 575.98px) {
+  .features-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Card style ===== */
+.feature-card {
+  position: relative;
+  border-radius: 18px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  padding: 32px 24px 28px;
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  background-image: radial-gradient(transparent 0 20px),
+    url("/assets/images/pattern-circuits.svg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  background-blend-mode: overlay;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Icon halo ===== */
+.icon-wrap {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 14px auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.icon-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  filter: blur(2px);
+}
+
+.icon-wrap img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+/* ===== Title and text ===== */
+.feature-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 8px 0 10px;
+}
+
+.feature-desc {
+  margin: 0;
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 0.98rem;
+  min-height: 2.6em;
+}
