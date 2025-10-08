@@ -2,7 +2,7 @@ import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
 const About1 = ({
-  MainImg = "/assets/images/about-main.jpg",
+  MainImg = "/assets/images/about-thumb.png",
   ImgTitle = "About NETARK",
   SubTitle = "ABOUT US",
   Title = "About <span>NETARK – Experts</span> in Networking & Secure IT Infrastructure",
