@@ -68,7 +68,7 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
               {/* Title */}
               <h1 className="fw-bold mb-3" style={{ fontSize: "2.3rem", lineHeight: "1.3em" }}>
                 {parse(
-                  `At <strong style="color:${RUBY}">NETARK Technologies</strong>, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure.`
+                  `At <strong style="color:${RUBY}">NETARK Technologies</strong>`
                 )}
               </h1>
 
