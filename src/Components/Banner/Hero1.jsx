@@ -167,7 +167,7 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
           <div className="col-lg-6 col-md-5 col-sm-12 mt-4 mt-lg-0 text-center">
             <div className="hero-thumb position-relative">
               <img
-                src={assets/images/hero-thumb.png}
+                src="/assets/images/hero-thumb.png";
                 alt="NETARK Hero Visual"
                 style={{
                   width: "100%",
