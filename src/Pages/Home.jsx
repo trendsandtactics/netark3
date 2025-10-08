@@ -7,7 +7,7 @@ import Services1 from "../Components/Services/Services1";
 const Home = () => {
     return (
         <div className="home-page">
-            <Hero1
+               <Hero1
                 bgImg="/assets/images/hero-bg.png"
                 SubTitle="SOLUTEK IT SERVICES"
                 Title="The Beauty Behind<br>IT Services."
