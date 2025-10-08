@@ -21,7 +21,7 @@ const Nav = ({ onNavigate }) => {
 
         {/* Services with submenu */}
          <li>
-          <Link to="/services" onClick={handleNavigate}>services</Link>
+          <Link to="/services" onClick={handleNavigate}>Services</Link>
         </li>
 
         <li>
