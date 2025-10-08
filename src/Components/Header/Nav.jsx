@@ -20,23 +20,8 @@ const Nav = ({ onNavigate }) => {
         </li>
 
         {/* Services with submenu */}
-        <li className={`has-sub ${openServices ? "open" : ""}`}>
-          <button
-            type="button"
-            className="sub-toggle nav-link-btn"
-            aria-expanded={openServices}
-            onClick={() => setOpenServices((v) => !v)}
-          >
-            Services
-            <span className="caret" aria-hidden>▾</span>
-          </button>
-
-          {/* Submenu */}
-          <ul className="sub-menu" style={{ display: openServices ? "block" : "none" }}>
-            <li>
-              <Link to="/services" onClick={handleNavigate}>All Services</Link>
-            </li>
-          </ul>
+         <li>
+          <Link to="/services" onClick={handleNavigate}>services</Link>
         </li>
 
         <li>
