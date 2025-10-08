@@ -72,7 +72,7 @@ const About4 = ({
                       {/* If you want the same hero image here, keep it.
                          Otherwise, point this back to a proper small icon file. */}
                       <img
-                        src={withVersion("/assets/images/about-us-thu.png")}
+                        src={withVersion("/public/assets/images/about-us-thu.png")}
                         alt="icon"
                       />
                     </div>
