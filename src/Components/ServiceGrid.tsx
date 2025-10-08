@@ -1,41 +1,50 @@
+"use client";
 import React from "react";
-import data from "../Data/services1.json";
-import "./ServicesGrid.css";
+import services from "../Data/services1.json";
 
-export default function ServicesGrid() {
+const ServiceGrid = () => {
   return (
-    <section className="srv-wrap">
-      <div className="srv-container">
-        <div className="srv-grid">
-          {data.map((item, i) => (
-            <article className="srv-card" key={i}>
-              <header className="srv-head">
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {services.map((service, i) => (
+            <div
+              key={i}
+              className="flex flex-col justify-between bg-white rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 h-full px-10 py-10"
+            >
+              {/* ICON + TITLE */}
+              <div>
                 <img
-                  className="srv-icon"
-                  src={item.icon}
-                  alt={item.title}
-                  width="48"
-                  height="48"
-                  loading="lazy"
+                  src={service.icon}
+                  alt={service.title}
+                  className="w-14 h-14 mb-6 object-contain"
                 />
-                <h3 className="srv-title">{item.title}</h3>
-              </header>
+                <h3 className="text-xl font-semibold text-gray-900 mb-5 leading-snug">
+                  {service.title}
+                </h3>
 
-              <ul className="srv-list">
-                {item.desc.map((point, idx) => (
-                  <li key={idx}>{point}</li>
-                ))}
-              </ul>
+                {/* BULLET POINTS */}
+                <ul className="list-disc list-inside text-gray-700 leading-relaxed space-y-1">
+                  {service.desc.map((line: string, index: number) => (
+                    <li key={index}>{line}</li>
+                  ))}
+                </ul>
+              </div>
 
-              <footer className="srv-foot">
-                <a className="srv-link" href={item.btnLink}>
-                  {item.btnText} →
-                </a>
-              </footer>
-            </article>
+              {/* BUTTON */}
+              <a
+                href={service.btnLink}
+                className="mt-8 inline-block text-teal-600 font-semibold hover:underline"
+              >
+                {service.btnText} →
+              </a>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default ServiceGrid;
