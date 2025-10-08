@@ -112,7 +112,7 @@ const About4 = ({
               </div>
 
               <div className="about-us-shape">
-                <img src="/assets/images/about-us-thu.png" alt="shape" />
+                <img src="/assets/images/about-us-she.png" alt="shape" />
               </div>
             </div>
           </div>
