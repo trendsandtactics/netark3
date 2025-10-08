@@ -102,15 +102,7 @@ const Services1 = () => {
         </div>
 
         {/* Decorative Shapes (optional) */}
-        <div className="service-shape bounce-animate3">
-          <img src="/assets/images/service5.png" alt="shape" />
-        </div>
-        <div className="service-shape2">
-          <img src="/assets/images/service7.png" alt="shape" />
-        </div>
-        <div className="service-shape3 bounce-animate4">
-          <img src="/assets/images/service8.png" alt="shape" />
-        </div>
+        
       </div>
     </div>
   );
