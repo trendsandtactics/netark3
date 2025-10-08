@@ -1,15 +1,13 @@
-// src/Components/About/About4.jsx
 import parse from "html-react-parser";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import VideoModal from "../VideoModal/VideoModal";
 
 const About4 = ({
   MainImg = "/assets/images/inner/about-us-thu.png",
+  SecondaryImg = "/assets/images/inner/about-us-thu2.png",
   SubTitle = "NETARK TECHNOLOGIES INDIA PVT. LTD.",
   Title = "About NETARK – Experts in Networking & Secure IT Infrastructure",
   Content = "",
-  // Prefer passing Titles (array). If not provided, we'll show listTitle1/listTitle2 instead.
   Titles = [],
   listTitle1 = "",
   listTitle2 = "",
@@ -18,20 +16,6 @@ const About4 = ({
   BtnUrl = "/contact",
   BtnText = "EXPLORE MORE",
 }) => {
-  const [iframeSrc, setIframeSrc] = useState("about:blank");
-  const [toggle, setToggle] = useState(false);
-
-  const handelClick = () => {
-    setIframeSrc("https://www.youtube.com/embed/rRid6GCJtgc");
-    setToggle(true);
-  };
-
-  const handelClose = () => {
-    setIframeSrc("about:blank");
-    setToggle(false);
-  };
-
-  // Decide what to render as the bullet list
   const hasTitlesArray = Array.isArray(Titles) && Titles.length > 0;
   const fallbackList = [listTitle1, listTitle2].filter(Boolean);
 
@@ -78,7 +62,7 @@ const About4 = ({
                   <div className="single-counter-box">
                     <div className="counter-icon">
                       <img
-                        src="/assets/images/about-us-thu.png"
+                        src="/assets/images/inner/counter-icon.png"
                         alt="icon"
                       />
                     </div>
@@ -93,27 +77,37 @@ const About4 = ({
             </div>
           </div>
 
-          {/* RIGHT: Image + Video */}
+          {/* RIGHT: Two stacked images */}
           <div className="col-lg-6">
-            <div className="about-us-thumb">
-              <div className="about-us-img">
-                <img src={MainImg} alt="thumb" />
-              </div>
+            <div
+              className="about-images position-relative"
+              style={{ minHeight: 420 }}
+            >
+              {/* Large main image */}
+              <img
+                src={MainImg}
+                alt="about-main"
+                style={{
+                  width: "68%",
+                  borderRadius: 18,
+                  boxShadow: "0 18px 38px rgba(0,0,0,.12)",
+                  display: "block",
+                }}
+              />
 
-              <div className="about-us-video-icon" onClick={handelClick}>
-                <span
-                  className="video-vemo-icon venobox vbox-item"
-                  data-vbtype="youtube"
-                  data-autoplay="true"
-                >
-                  <i className="bi bi-play"></i>
-                  <span>WATCH VIDEO</span>
-                </span>
-              </div>
-
-              <div className="about-us-shape">
-                <img src="/assets/images/about-us-she.png" alt="shape" />
-              </div>
+              {/* Small secondary image */}
+              <img
+                src={SecondaryImg}
+                alt="about-secondary"
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  bottom: 0,
+                  width: "42%",
+                  borderRadius: 18,
+                  boxShadow: "0 18px 38px rgba(0,0,0,.12)",
+                }}
+              />
             </div>
           </div>
         </div>
@@ -126,13 +120,6 @@ const About4 = ({
           <img src="/assets/images/inner/about-us-she.png" alt="shape" />
         </div>
       </div>
-
-      {/* Video Modal */}
-      <VideoModal
-        isTrue={toggle}
-        iframeSrc={iframeSrc}
-        handelClose={handelClose}
-      />
     </div>
   );
 };
