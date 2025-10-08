@@ -24,17 +24,7 @@ const Home = () => {
                 VideoText="WATCH VIDEO"
             ></Hero1>
             <Features></Features>
-            <About1
-                MainImg="/assets/images/about-thumb.png"
-                ImgTitle="BEST IT SOLUTION"
-                SubTitle="SOLUTEK COMPANY"
-                Title="Essential IT Solutions For<br> Modern <span>Businesses.</span>"
-                Content="Monotonectally repurpose maintainable infrastruct whereas solutek in fermentum quis tempo sapien maximus design."
-                listTitle="Cloud Based Solution"
-                BottomText="Monotonectally repurpose maintainable infrastruct whereas solutek in fermentum quis tempo sapien maximus design."
-                BtnUrl="/about"
-                BtnText="EXPLORE MORE"
-            ></About1>
+            <About1></About1>
             <Services1></Services1>
             <Project1 
                 bgImage="/assets/images/project-bg.png"
