@@ -16,18 +16,21 @@ import {
   PlusCircle,
 } from "lucide-react";
 
+// Ruby Red brand color
+const RUBY_RED = "#E0115F";
+
 const Services1 = () => {
-  // ✅ Icon map for each service title
+  // ✅ Icon map for each service
   const iconMap = {
-    "Internet Services": <Wifi size={50} color="#26B6E0" strokeWidth={1.6} />,
-    "Co-Location & Hosting": <Server size={50} color="#26B6E0" strokeWidth={1.6} />,
-    "Connectivity Services": <Network size={50} color="#26B6E0" strokeWidth={1.6} />,
-    "Cloud Solutions": <Cloud size={50} color="#26B6E0" strokeWidth={1.6} />,
-    "Information Security": <Shield size={50} color="#26B6E0" strokeWidth={1.6} />,
-    "Data Storage & Backup": <Database size={50} color="#26B6E0" strokeWidth={1.6} />,
-    "Managed IT & Facility Services": <Monitor size={50} color="#26B6E0" strokeWidth={1.6} />,
-    "Unified Communications & Mobility": <PhoneCall size={50} color="#26B6E0" strokeWidth={1.6} />,
-    "Open-Source IT Solutions": <Code size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Internet Services": <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Co-Location & Hosting": <Server size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Connectivity Services": <Network size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Cloud Solutions": <Cloud size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Information Security": <Shield size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Data Storage & Backup": <Database size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Managed IT & Facility Services": <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Unified Communications & Mobility": <PhoneCall size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Open-Source IT Solutions": <Code size={50} color={RUBY_RED} strokeWidth={1.6} />,
   };
 
   return (
@@ -63,7 +66,7 @@ const Services1 = () => {
                   }}
                 >
                   {iconMap[item.title] || (
-                    <Monitor size={50} color="#26B6E0" strokeWidth={1.6} />
+                    <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />
                   )}
                 </div>
 
@@ -83,10 +86,13 @@ const Services1 = () => {
                 <div className="service-btn mt-3">
                   <Link
                     to={item.btnLink}
-                    className="text-decoration-none fw-semibold text-primary d-inline-flex align-items-center gap-1"
-                    style={{ transition: "color 0.3s ease" }}
+                    className="text-decoration-none fw-semibold d-inline-flex align-items-center gap-1"
+                    style={{
+                      color: RUBY_RED,
+                      transition: "color 0.3s ease",
+                    }}
                   >
-                    <PlusCircle size={16} strokeWidth={2} />
+                    <PlusCircle size={16} color={RUBY_RED} strokeWidth={2} />
                     <span>{item.btnText}</span>
                   </Link>
                 </div>
@@ -95,7 +101,7 @@ const Services1 = () => {
           ))}
         </div>
 
-        {/* Decorative Shapes (optional background elements) */}
+        {/* Decorative Shapes (optional) */}
         <div className="service-shape bounce-animate3">
           <img src="/assets/images/service5.png" alt="shape" />
         </div>
