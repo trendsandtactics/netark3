@@ -5,9 +5,10 @@ const Features = () => {
   return (
     <section className="feature-area overlap py-0">
       <div className="container">
+        {/* 3-column grid layout */}
         <div className="features-row">
           {data.map((item, i) => (
-            <article key={i} className="feature-card large">
+            <article key={i} className="feature-card">
               {/* ICON */}
               <div className="icon-wrap">
                 <img
@@ -22,7 +23,7 @@ const Features = () => {
               {/* TITLE */}
               <h3 className="feature-title">{item.title}</h3>
 
-              {/* DESC — display line by line */}
+              {/* DESC */}
               <ul className="feature-list">
                 {Array.isArray(item.desc)
                   ? item.desc.map((point, index) => (
