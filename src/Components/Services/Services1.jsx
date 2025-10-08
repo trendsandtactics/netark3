@@ -16,7 +16,7 @@ const Services1 = () => {
                             </div>
                         </div>
                         {data.map((item, i) => (
-                        <div key={i} className="col-xl-3 col-lg-4 col-md-6">
+                        <div key={i} className="col-xl-3 col-lg-3 col-md-6">
                             <div className="service-single-box">
                                 <div className="service-icon">
                                     <img src={item.icon} alt="service1" />
