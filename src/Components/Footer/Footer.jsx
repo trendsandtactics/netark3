@@ -21,16 +21,16 @@ const Footer = () => {
 
       const LogoContent = {
         img1:'/assets/images/footer-logo.png',
-        Content:'Globally monetize plug-and-play data it solu monotonectally disseminate oriented busine multifunctional mind design.'
+        Content:At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help..'
       }
 
       const NewsletterContent = {
-            Content:'Globally monetize plug-and-play data it solu monotonectally disseminate oriented busine multifunctional mind design.'
+            Content:'At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.'
       }
 
       const AdressContent = {
-        Title:'Elevating Customer Experience.',
-        Number:'+44 920 090 505'
+        Title:'Let’s Connect',
+        Number:'0422-4280009 | +91 95006 44411'
       }
 
     return (
@@ -130,7 +130,7 @@ const Footer = () => {
                     <div className="row copyright">
                         <div className="col-lg-6 col-md-6 col-sm-6">
                             <div className="-copyright-text">
-                                <p>© Copyright 2024 By Solutek</p>
+                                <p>© Copyright 2024 By NETARK Technologies</p>
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-6">
