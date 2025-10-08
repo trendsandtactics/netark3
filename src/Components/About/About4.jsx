@@ -78,7 +78,7 @@ const About4 = ({
                   <div className="single-counter-box">
                     <div className="counter-icon">
                       <img
-                        src="/assets/images/inner/counter-icon.png"
+                        src="/assets/images/about-us-thu.png"
                         alt="icon"
                       />
                     </div>
