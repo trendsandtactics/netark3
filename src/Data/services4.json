@@ -1,52 +1,95 @@
 [
   {
     "title": "Internet Services",
-    "desc": "· Secure leased line Internet solutions · Managed on-demand Internet services · Enterprise Wi-Fi hotspot solutions · Managed community Internet services",
+    "desc": [
+      "Secure leased line Internet solutions",
+      "Managed on-demand Internet services",
+      "Enterprise Wi-Fi hotspot solutions",
+      "Managed community Internet services"
+    ],
     "image": "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Co-Location & Hosting",
-    "desc": "· Flexible colocation services (per U, cabinets, private cages) · Direct cross-connects to carriers & cloud providers · Certified data center hosting with 24/7 monitoring · VPS and application hosting solutions · Managed firewall & server support · Remote hands & round-the-clock physical security",
+    "desc": [
+      "Flexible colocation services (per U, cabinets, private cages)",
+      "Direct cross-connects to carriers & cloud providers",
+      "Certified data center hosting with 24/7 monitoring",
+      "VPS and application hosting solutions",
+      "Managed firewall & server support",
+      "Remote hands & round-the-clock physical security"
+    ],
     "image": "/assets/images/inner/service-thumb2.png"
   },
   {
     "title": "Connectivity Services",
-    "desc": "· Managed point-to-point and point-to-multipoint connectivity · VPN and secure enterprise connections · Long-distance fiber network management · Redundant, high-availability hosting for mission-critical systems · Flexible solutions: rack, cabinet, and private cage options · Guaranteed high uptime SLA, backed by 24/7 proactive monitoring",
+    "desc": [
+      "Managed point-to-point and point-to-multipoint connectivity",
+      "VPN and secure enterprise connections",
+      "Long-distance fiber network management"
+    ],
     "image": "/assets/images/inner/service-thumb3.png"
   },
   {
-    "title": "Cloud Solutions",
-    "desc": "· Private, hybrid, and public cloud deployment · Cloud migration, backup, and disaster recovery · Managed cloud operations & cost optimization · High-availability infrastructure and 24/7 monitoring",
+    "title": "Hosting Services",
+    "desc": [
+      "Redundant, high-availability hosting for your mission-critical systems",
+      "Flexible solutions: rack, cabinet, and private cage options",
+      "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring"
+    ],
     "image": "/assets/images/inner/service-thumb4.png"
   },
   {
-    "title": "Information Security",
-    "desc": "· Security audits, VPN, IPS & advanced threat protection solutions · Firewalls, antivirus, DLP & secure access controls · Real-time monitoring, traffic analysis, and incident reporting · Compliance-driven cybersecurity frameworks for enterprises",
+    "title": "Cloud Solutions",
+    "desc": [
+      "Private, hybrid & public cloud deployment",
+      "Cloud migration, backup & disaster recovery",
+      "Managed cloud operations & cost optimization"
+    ],
     "image": "/assets/images/inner/service-thumb5.png"
   },
   {
-    "title": "Data Storage & Backup",
-    "desc": "· SAN, NAS & online backup solutions · Business continuity & disaster recovery planning · Scalable cloud-based backup solutions · Automated data archiving & retrieval systems",
+    "title": "Information Security",
+    "desc": [
+      "Security audits, VPN, IPS & advanced threat protection solutions",
+      "Firewalls, antivirus, DLP & secure access solutions",
+      "Real-time monitoring and traffic analysis and reporting"
+    ],
     "image": "/assets/images/inner/service-thumb6.png"
   },
   {
-    "title": "Managed IT & Facility Services",
-    "desc": "· Network & server management · IT helpdesk & asset management · Proactive monitoring & maintenance · Facility infrastructure & hardware lifecycle management",
+    "title": "Data Storage & Backup",
+    "desc": [
+      "SAN, NAS & online backup solutions",
+      "Business continuity & disaster recovery planning"
+    ],
     "image": "/assets/images/inner/service-thumb7.png"
   },
   {
-    "title": "Unified Communications & Mobility",
-    "desc": "· VoIP, IP telephony & video conferencing · Enterprise Wi-Fi and hotspot management · Captive portal setup and administration · Cloud-based communication integration for remote teams",
+    "title": "Managed IT & Facility Services",
+    "desc": [
+      "Network & server management",
+      "IT helpdesk & asset management",
+      "Proactive monitoring & maintenance"
+    ],
     "image": "/assets/images/inner/service-thumb8.png"
   },
   {
-    "title": "Open-Source IT Solutions",
-    "desc": "· Linux-based servers & intranet platforms · Messaging, collaboration & monitoring tools · Thin clients & terminal server deployments · Scalable open-source ERP and CRM systems",
+    "title": "Unified Communications & Mobility",
+    "desc": [
+      "VoIP, IP telephony & video conferencing",
+      "Enterprise Wi-Fi and hotspot solutions",
+      "Captive portal management"
+    ],
     "image": "/assets/images/inner/service-thumb9.png"
   },
   {
-    "title": "Business Continuity & Support",
-    "desc": "· 24/7 remote IT support and service desk · Incident response & rapid recovery services · Performance optimization & patch management · Long-term infrastructure stability planning",
+    "title": "Open-Source IT Solutions",
+    "desc": [
+      "Linux-based servers & intranet platforms",
+      "Messaging, collaboration & monitoring tools",
+      "Thin clients & terminal server deployments"
+    ],
     "image": "/assets/images/inner/service-thumb10.png"
   }
 ]
