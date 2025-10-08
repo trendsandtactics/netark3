@@ -1,59 +1,65 @@
-
 [
   {
     "icon": "/assets/images/service1.png",
-    "title": "Web Development",
-    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "title": "Internet Services",
+    "desc": "• Secure leased line Internet solutions\n• Managed on-demand Internet services\n• Enterprise Wi-Fi hotspot solutions\n• Managed community Internet services",
     "btnText": "READ MORE",
     "btnLink": "/service/service-details"
   },
   {
     "icon": "/assets/images/service2.png",
-    "title": "IT Management",
-    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "title": "Co-Location & Hosting",
+    "desc": "• Flexible colocation services (per U, cabinets, private cages)\n• Direct cross-connects to carriers & cloud providers\n• Certified data center hosting with 24/7 monitoring\n• VPS and application hosting solutions\n• Managed firewall & server support\n• Remote hands & round-the-clock physical security",
     "btnText": "READ MORE",
     "btnLink": "/service/service-details"
   },
   {
     "icon": "/assets/images/service3.png",
-    "title": "Digital Marketing",
-    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "title": "Connectivity Services",
+    "desc": "• Managed point-to-point and point-to-multipoint connectivity\n• VPN and secure enterprise connections\n• Long-distance fiber network management\n• Redundant, high-availability hosting for mission-critical systems\n• Flexible solutions: rack, cabinet, and private cage options\n• Guaranteed high uptime SLA, backed by 24/7 proactive monitoring",
     "btnText": "READ MORE",
     "btnLink": "/service/service-details"
   },
   {
     "icon": "/assets/images/service4.png",
-    "title": "App Development",
-    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  } ,
-  {
-    "icon": "/assets/images/service1.png",
-    "title": "Web Development",
-    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "title": "Cloud Solutions",
+    "desc": "• Private, hybrid & public cloud deployment\n• Cloud migration, backup & disaster recovery\n• Managed cloud operations & cost optimization",
     "btnText": "READ MORE",
     "btnLink": "/service/service-details"
   },
   {
-    "icon": "/assets/images/service2.png",
-    "title": "IT Management",
-    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "icon": "/assets/images/service5.png",
+    "title": "Information Security",
+    "desc": "• Security audits, VPN, IPS & advanced threat protection solutions\n• Firewalls, antivirus, DLP & secure access solutions\n• Real-time monitoring, traffic analysis and reporting",
     "btnText": "READ MORE",
     "btnLink": "/service/service-details"
   },
   {
-    "icon": "/assets/images/service3.png",
-    "title": "Digital Marketing",
-    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "icon": "/assets/images/service6.png",
+    "title": "Data Storage & Backup",
+    "desc": "• SAN, NAS & online backup solutions\n• Business continuity & disaster recovery planning",
     "btnText": "READ MORE",
     "btnLink": "/service/service-details"
   },
   {
-    "icon": "/assets/images/service4.png",
-    "title": "App Development",
-    "desc": "Marketing repurpose success in professions whereas in services sapien maximus design.",   
+    "icon": "/assets/images/service7.png",
+    "title": "Managed IT & Facility Services",
+    "desc": "• Network & server management\n• IT helpdesk & asset management\n• Proactive monitoring & maintenance",
     "btnText": "READ MORE",
     "btnLink": "/service/service-details"
-  } 
+  },
+  {
+    "icon": "/assets/images/service8.png",
+    "title": "Unified Communications & Mobility",
+    "desc": "• VoIP, IP telephony & video conferencing\n• Enterprise Wi-Fi and hotspot solutions\n• Captive portal management",
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
+  },
+  {
+    "icon": "/assets/images/service9.png",
+    "title": "Open-Source IT Solutions",
+    "desc": "• Linux-based servers & intranet platforms\n• Messaging, collaboration & monitoring tools\n• Thin clients & terminal server deployments",
+    "btnText": "READ MORE",
+    "btnLink": "/service/service-details"
+  }
 ]
