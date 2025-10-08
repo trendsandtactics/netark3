@@ -12,124 +12,23 @@ export default function Nav({ setMobileToggle }) {
               <Link to="/" onClick={() => setMobileToggle(false)}>
               Home Version 1
               </Link>
-            </li>
-            <li>
-              <Link to="/home2" onClick={() => setMobileToggle(false)}>
-              Home Version 2
-              </Link>
-            </li>
-            <li>
-              <Link to="/home3" onClick={() => setMobileToggle(false)}>
-                Home Version 3
-              </Link>
-            </li>            
+            </li> 
           </ul>
         </DropDown>
       </li>
-      <li className="menu-item-has-children">
-        <Link to="#">Company</Link>
-        <DropDown>
-          <ul>
-            <li>
+       <li>
               <Link to="/about" onClick={() => setMobileToggle(false)}>
                 About Us
               </Link>
-            </li>
-            <li>
-              <Link to="/team" onClick={() => setMobileToggle(false)}>
-               Our Team
-              </Link>
-            </li>            
-            <li>
-              <Link to="/team/team-details" onClick={() => setMobileToggle(false)}>
-                Team Details
-              </Link>
-            </li>
-            <li>
-              <Link to="/testimonial" onClick={() => setMobileToggle(false)}>
-              Testimonial
-              </Link>
-            </li>              
-            <li>
-              <Link to="/project" onClick={() => setMobileToggle(false)}>
-                Project
-              </Link>
-            </li>           
-            <li>
-              <Link to="/project/project-details" onClick={() => setMobileToggle(false)}>
-                 Project Details
-              </Link>
-            </li> 
-            <li>
-              <Link to="/pricing" onClick={() => setMobileToggle(false)}>
-              Pricing
-              </Link>
-            </li> 
-            <li>
-              <Link to="/faq" onClick={() => setMobileToggle(false)}>
-              Faq
-              </Link>
-            </li> 
-            <li>
-              <Link to="/contact" onClick={() => setMobileToggle(false)}>
-              Contact
-              </Link>
-            </li>                         
-          </ul>
-        </DropDown>
-      </li>      
-      <li>
-        <Link to="/project" onClick={() => setMobileToggle(false)}>
-        Portfolio  
-        </Link>
-      </li>      
-      <li className="menu-item-has-children">
-        <Link to="/service" onClick={() => setMobileToggle(false)}>
-          Services
-        </Link>
-        <DropDown>
+            </li>     
           <ul>
             <li>
               <Link to="/service" onClick={() => setMobileToggle(false)}>
                 Services
               </Link>
             </li>
-            <li>
-              <Link to="/service/service-details" onClick={() => setMobileToggle(false)}>
-                Service Details
-              </Link>
-            </li>
           </ul>
-        </DropDown>
-
       </li>      
-      <li className="menu-item-has-children">
-        <Link to="/blog" onClick={() => setMobileToggle(false)}>
-          Blog
-        </Link>
-        <DropDown>
-          <ul>
-            <li>
-              <Link to="/blog" onClick={() => setMobileToggle(false)}>
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link to="/blog-sidebar" onClick={() => setMobileToggle(false)}>
-                Blog With Sidebar
-              </Link>
-            </li>            
-            <li>
-              <Link
-                to="/blog/blog-details"
-                onClick={() => setMobileToggle(false)}
-              >
-                Blog Details
-              </Link>
-            </li>
-          </ul>
-        </DropDown>
-      </li>
       <li>
         <Link to="/contact" onClick={() => setMobileToggle(false)}>
           Contact
