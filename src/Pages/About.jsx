@@ -30,7 +30,7 @@ export default function About() {
       {/* About Section */}
       <About4
         // ✅ Keep the image visible
-        MainImg="/assets/images/inner/about-us-thu.png"
+        MainImg="/assets/images/about-us-thu.png"
         SubTitle="NETARK TECHNOLOGIES INDIA PVT. LTD."
         Title="About NETARK – Experts in Networking & Secure IT Infrastructure"
         Content={content}
