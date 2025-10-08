@@ -1,36 +1,40 @@
 import data from "../../Data/feature.json";
 import "../../assets/css/overlap-features.css";
 
-const cleanDesc = (desc) => {
-  if (Array.isArray(desc)) return desc.join(" ");
-  if (typeof desc === "string")
-    return desc
-      .replace(/•/g, "")
-      .replace(/\s*\n+\s*/g, " ")
-      .replace(/\s{2,}/g, " ")
-      .trim();
-  return "";
-};
-
 const Features = () => {
   return (
     <section className="feature-area overlap py-0">
       <div className="container">
         <div className="features-row">
           {data.map((item, i) => (
-            <article key={i} className="feature-card">
+            <article key={i} className="feature-card large">
+              {/* ICON */}
               <div className="icon-wrap">
                 <img
                   src={item.img}
                   alt={item.title}
-                  width={56}
-                  height={56}
+                  width={64}
+                  height={64}
                   loading="lazy"
                 />
               </div>
 
+              {/* TITLE */}
               <h3 className="feature-title">{item.title}</h3>
-              <p className="feature-desc">{cleanDesc(item.desc)}</p>
+
+              {/* DESC — display line by line */}
+              <ul className="feature-list">
+                {Array.isArray(item.desc)
+                  ? item.desc.map((point, index) => (
+                      <li key={index}>{point.replace(/^•/, "").trim()}</li>
+                    ))
+                  : item.desc
+                      .split("\n")
+                      .filter((line) => line.trim() !== "")
+                      .map((line, index) => (
+                        <li key={index}>{line.replace(/^•/, "").trim()}</li>
+                      ))}
+              </ul>
             </article>
           ))}
         </div>
