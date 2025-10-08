@@ -1,151 +1,177 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
-
 const Footer = () => {
+  const RUBY = "#9b111e";
 
-    const Services = [
-        'IT Management',
-        'Digital Marketing',
-        'Web Development',
-        'App Development',
-        'Digital Marketing',
-      ];
+  const LogoContent = {
+    img1: "/assets/images/footer-logo.png",
+    Content:
+      "At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
+  };
 
-      const UsefulLinks = [
-        {title:'About Company', link:'/about'},
-        {title:'Meet Our Team', link:'/team'},
-        {title:'Latest Blog', link:'/blog'},
-        {title:'Contact Us', link:'/contact'},
-        {title:'Testimonials', link:'/testimonial'}
-      ];  
+  // 🔹 All 9 services for the footer
+  const ServicesList = [
+    { name: "Internet Services", link: "/service/internet" },
+    { name: "Co-Location & Hosting", link: "/service/hosting" },
+    { name: "Connectivity Solutions", link: "/service/connectivity" },
+    { name: "Cloud Solutions", link: "/service/cloud" },
+    { name: "Cybersecurity & Info Security", link: "/service/cybersecurity" },
+    { name: "Enterprise Networking", link: "/service/networking" },
+    { name: "Surveillance & Access Control", link: "/service/surveillance" },
+    { name: "Data Center Solutions", link: "/service/datacenter" },
+    { name: "Open Source IT Solutions", link: "/service/opensource" },
+  ];
 
-      const LogoContent = {
-        img1:'/assets/images/footer-logo.png',
-        Content:At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help..'
-      }
-
-      const NewsletterContent = {
-            Content:'At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.'
-      }
-
-      const AdressContent = {
-        Title:'Let’s Connect',
-        Number:'0422-4280009 | +91 95006 44411'
-      }
-
-    return (
-        <div className="footer_main_area">
-            <div className="address-area">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-6 col-md-12">
-                            <div className="address-box">
-                                <div className="address-icon">
-                                    <img src="/assets/images/address1.png" alt="address1" />
-                                </div>
-                                <div className="address-title">
-                                    <h3>{AdressContent.Title}</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-md-12">
-                            <div className="address-box2">
-                                <div className="address-icon">
-                                    <img src="/assets/images/address2.png" alt="address1" />
-                                </div>
-                                <div className="solutek-btn">
-                                    <Link to="/contact">
-                                        {AdressContent.Number}
-                                        <div className="solutek-hover-btn hover-bx"></div>
-                                        <div className="solutek-hover-btn hover-bx2"></div>
-                                        <div className="solutek-hover-btn hover-bx3"></div>
-                                        <div className="solutek-hover-btn hover-bx4"></div>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <footer
+      className="footer-area text-white position-relative"
+      style={{
+        backgroundColor: "#0b0c10",
+        paddingTop: "60px",
+        paddingBottom: "30px",
+      }}
+    >
+      <div className="container">
+        <div className="row gy-5">
+          {/* ====== LEFT: LOGO + DESCRIPTION ====== */}
+          <div className="col-lg-4 col-md-6 text-center text-md-start">
+            <div className="footer-logo mb-3">
+              <img
+                src={LogoContent.img1}
+                alt="NETARK Technologies Logo"
+                style={{
+                  width: "180px",
+                  height: "auto",
+                  marginBottom: "10px",
+                }}
+              />
             </div>
-            <div className="footer-area">
-                <div className="container">
-                    <div className="row footer">
-                        <div className="col-lg-4 col-md-6 col-sm-6">
-                            <div className="footer-widget">
-                                <div className="footer-logo">
-                                <Link to="/"><img src={"/assets/images/footer-bg.png"} alt="footer-logo" /></Link>
-                                </div>
-                                <p className="footer-widget-text">{LogoContent.Content}</p>
-                                <div className="footer-social">
-                                    <div className="footer-widget-social">
-                                        <a href="#"><i className="bi bi-facebook"></i></a>
-                                        <a href="#"><i className="bi bi-twitter"></i></a>
-                                        <a href="#"><i className="bi bi-linkedin"></i></a>
-                                        <a href="#"><i className="bi bi-instagram"></i></a>                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-2 col-md-6 col-sm-6">
-                            <div className="footer-widget left">
-                                <div className="widget-title">
-                                    <h2>Useful Links</h2>
-                                </div>
-                                <ul>
-                                {UsefulLinks.map((item, i) => (
-                                    <li key={i}><Link to={item.link}>{item.title}</Link></li>
-                                ))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-sm-6">
-                            <div className="footer-widget left">
-                                <div className="widget-title">
-                                    <h2>Services.</h2>
-                                </div>
-                                <ul>
-                                {Services.map((item, i) => ( 
-                                    <li key={i}><Link to="/service/service-details">{item}</Link></li>
-                                ))}
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-md-6 col-sm-6">
-                            <div className="footer-widget-newsletter">
-                                <div className="widget-title">
-                                    <h2>Newsletter</h2>
-                                </div>
-                                <p className="newsletter-text">{NewsletterContent.Content}</p>
-                                <div className="Subscribe-form2">
-                                    <form>
-                                        <div className="form-field2">
-                                            <input type="email" name="EMAIL" placeholder="Enter Your E-mail" required="" />
-                                            <button className="subscribe-button" type="submit"><i className="bi bi-send"></i></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row copyright">
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                            <div className="-copyright-text">
-                                <p>© Copyright 2024 By NETARK Technologies</p>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-md-6 col-sm-6">
-                            <div className="copyright-list">
-                                <ul>
-                                    <li><Link to="/">Privacy Policy</Link></li>
-                                    <li><Link to="/">Supports</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-	        </div>
+            <p
+              className="footer-text"
+              style={{
+                color: "#ccc",
+                fontSize: "0.95rem",
+                lineHeight: "1.7",
+                maxWidth: "360px",
+                margin: "0 auto 0 0",
+              }}
+            >
+              {LogoContent.Content}
+            </p>
+          </div>
+
+          {/* ====== MIDDLE: OUR SERVICES (9 ITEMS) ====== */}
+          <div className="col-lg-4 col-md-6 text-center text-md-start">
+            <h5
+              className="fw-semibold mb-3"
+              style={{
+                color: RUBY,
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Our Services
+            </h5>
+            <div className="d-flex justify-content-between flex-wrap">
+              <ul
+                className="list-unstyled mb-0"
+                style={{ color: "#ccc", lineHeight: "1.9", width: "48%" }}
+              >
+                {ServicesList.slice(0, 5).map((item, i) => (
+                  <li key={i}>
+                    <Link to={item.link} className="footer-link">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <ul
+                className="list-unstyled mb-0"
+                style={{ color: "#ccc", lineHeight: "1.9", width: "48%" }}
+              >
+                {ServicesList.slice(5).map((item, i) => (
+                  <li key={i}>
+                    <Link to={item.link} className="footer-link">
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* ====== RIGHT: QUICK LINKS ====== */}
+          <div className="col-lg-4 col-md-12 text-center text-md-start">
+            <h5
+              className="fw-semibold mb-3"
+              style={{
+                color: RUBY,
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Quick Links
+            </h5>
+            <ul
+              className="list-unstyled mb-0"
+              style={{ color: "#ccc", lineHeight: "1.9" }}
+            >
+              <li>
+                <Link to="/" className="footer-link">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="footer-link">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="footer-link">
+                  All Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="footer-link">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-    );
+
+        {/* ====== COPYRIGHT ====== */}
+        <div
+          className="footer-bottom text-center mt-5 pt-3"
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.1)",
+          }}
+        >
+          <p style={{ color: "#aaa", fontSize: "0.9rem", margin: 0 }}>
+            © {new Date().getFullYear()}{" "}
+            <span style={{ color: RUBY, fontWeight: 600 }}>
+              NETARK Technologies
+            </span>
+            . All Rights Reserved.
+          </p>
+        </div>
+      </div>
+
+      {/* ====== INLINE HOVER STYLES ====== */}
+      <style>{`
+        .footer-link {
+          color: #ccc;
+          text-decoration: none;
+          transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+        .footer-link:hover {
+          color: ${RUBY};
+          padding-left: 4px;
+        }
+      `}</style>
+    </footer>
+  );
 };
 
 export default Footer;
