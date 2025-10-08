@@ -39,22 +39,14 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
       {/* Overlay */}
       <div
         className="position-absolute top-0 start-0 w-100 h-100"
-        style={{
-          backgroundColor: "rgba(0,0,0,0.65)",
-          zIndex: 0,
-        }}
+        style={{ backgroundColor: "rgba(0,0,0,0.65)", zIndex: 0 }}
       />
 
       <div className="container position-relative z-1 py-5">
         <div className="row align-items-center">
           {/* LEFT CONTENT */}
           <div className="col-lg-6 col-md-7 col-sm-12">
-            <div
-              className="hero-content text-white"
-              style={{
-                lineHeight: "1.6",
-              }}
-            >
+            <div className="hero-content text-white" style={{ lineHeight: "1.6" }}>
               {/* Tagline */}
               <div
                 style={{
@@ -74,13 +66,7 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
               </div>
 
               {/* Title */}
-              <h1
-                className="fw-bold mb-3"
-                style={{
-                  fontSize: "2.3rem",
-                  lineHeight: "1.3em",
-                }}
-              >
+              <h1 className="fw-bold mb-3" style={{ fontSize: "2.3rem", lineHeight: "1.3em" }}>
                 {parse(
                   `At <strong style="color:${RUBY}">NETARK Technologies</strong>, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure.`
                 )}
@@ -88,29 +74,21 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
 
               {/* Description */}
               <p className="mb-2" style={{ color: "#ddd", fontSize: "1rem" }}>
-                With over 20 years of experience, we specialise in Internet
-                services, networking, data center solutions, server colocation,
-                hosting, and data backup systems that power mission-critical
-                businesses.
+                With over 20 years of experience, we specialise in Internet services, networking, data
+                center solutions, server colocation, hosting, and data backup systems that power
+                mission-critical businesses.
               </p>
               <p className="mb-2" style={{ color: "#ddd", fontSize: "1rem" }}>
-                Whether it’s campus networking, cloud solutions, or IT security,
-                our team ensures your business stays connected, protected, and
-                scalable.
+                Whether it’s campus networking, cloud solutions, or IT security, our team ensures your
+                business stays connected, protected, and scalable.
               </p>
-              <p
-                className="fw-semibold mb-0"
-                style={{ color: RUBY, fontSize: "1rem" }}
-              >
-                Partner with NETARK – Your trusted Internet and Data Center
-                Infrastructure experts in India.
+              <p className="fw-semibold mb-0" style={{ color: RUBY, fontSize: "1rem" }}>
+                Partner with NETARK – Your trusted Internet and Data Center Infrastructure experts in
+                India.
               </p>
 
               {/* BUTTONS */}
-              <div
-                className="d-flex align-items-center flex-wrap gap-3 mt-4"
-                style={{ zIndex: 2 }}
-              >
+              <div className="d-flex align-items-center flex-wrap gap-3 mt-4" style={{ zIndex: 2 }}>
                 <Link
                   to={BtnLink}
                   style={{
@@ -123,22 +101,14 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
                     fontSize: "0.95rem",
                     transition: "0.3s ease",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = "#b3192d")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = RUBY)
-                  }
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#b3192d")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = RUBY)}
                 >
                   {BtnText}
                 </Link>
 
                 {/* Video Button */}
-                <div
-                  className="d-flex align-items-center"
-                  style={{ cursor: "pointer" }}
-                  onClick={handelClick}
-                >
+                <div className="d-flex align-items-center" style={{ cursor: "pointer" }} onClick={handelClick}>
                   <i
                     className="bi bi-play-fill me-2"
                     style={{
@@ -148,16 +118,8 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
                       borderRadius: "50%",
                       padding: "6px",
                     }}
-                  ></i>
-                  <span
-                    style={{
-                      color: "#fff",
-                      fontWeight: 500,
-                      fontSize: "0.95rem",
-                    }}
-                  >
-                    {VideoText}
-                  </span>
+                  />
+                  <span style={{ color: "#fff", fontWeight: 500, fontSize: "0.95rem" }}>{VideoText}</span>
                 </div>
               </div>
             </div>
@@ -166,7 +128,8 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
           {/* RIGHT IMAGE */}
           <div className="col-lg-6 col-md-5 col-sm-12 mt-4 mt-lg-0 text-center">
             <div className="hero-thumb position-relative">
-             <img src="/assets/images/hero-thumb.png" alt="Hero" />
+              <img
+                src={Image || "/assets/images/hero-thumb.png"}
                 alt="NETARK Hero Visual"
                 style={{
                   width: "100%",
@@ -181,11 +144,7 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
       </div>
 
       {/* VIDEO MODAL */}
-      <VideoModal
-        isTrue={toggle}
-        iframeSrc={iframeSrc}
-        handelClose={handelClose}
-      />
+      <VideoModal isTrue={toggle} iframeSrc={iframeSrc} handelClose={handelClose} />
     </section>
   );
 };
