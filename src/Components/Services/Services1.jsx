@@ -1,6 +1,5 @@
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services1.json";
-import { Link } from "react-router-dom";
 
 // ✅ Import Lucide icons
 import {
@@ -13,7 +12,6 @@ import {
   Monitor,
   PhoneCall,
   Code,
-  PlusCircle,
 } from "lucide-react";
 
 // Ruby Red brand color
@@ -56,14 +54,13 @@ const Services1 = () => {
                 className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between border border-light"
                 style={{
                   transition: "all 0.3s ease",
+                  cursor: "default", // prevents click hover pointer
                 }}
               >
                 {/* ICON */}
                 <div
                   className="service-icon mb-4 d-flex justify-content-center"
-                  style={{
-                    transition: "transform 0.3s ease",
-                  }}
+                  style={{ transition: "transform 0.3s ease" }}
                 >
                   {iconMap[item.title] || (
                     <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />
@@ -81,28 +78,11 @@ const Services1 = () => {
                     ))}
                   </ul>
                 </div>
-
-                {/* BUTTON */}
-                <div className="service-btn mt-3">
-                  <Link
-                    to={item.btnLink}
-                    className="text-decoration-none fw-semibold d-inline-flex align-items-center gap-1"
-                    style={{
-                      color: RUBY_RED,
-                      transition: "color 0.3s ease",
-                    }}
-                  >
-                    <PlusCircle size={16} color={RUBY_RED} strokeWidth={2} />
-                    <span>{item.btnText}</span>
-                  </Link>
-                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Decorative Shapes (optional) */}
-        
       </div>
     </div>
   );
