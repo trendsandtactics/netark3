@@ -1,18 +1,13 @@
-import About4 from "../Components/About/About4";
-import Blog1 from "../Components/Blog/Blog1";
-import Brand from "../Components/Brand/Brand";
+// src/Pages/About.jsx
 import BreadCumb from "../Components/Common/BreadCumb";
-import Project1 from "../Components/Project/Project1";
+import About4 from "../Components/About/About4";
 
 export default function About() {
+  // Main paragraph content
   const content =
-    "Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions and internet services." +
-    "\n\n" +
-    "Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.";
+    "Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions and Internet services. Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.";
 
-  const conclusion =
-    "By working with global leaders like Cisco, HP, Lenovo, Sophos, FortiGate, Juniper, and Honeywell, we ensure our clients get world-class technology backed by local expertise.";
-
+  // “We specialize in” list
   const services = [
     "Internet Services tailored for enterprises",
     "Connectivity solutions including managed point-to-point, VPN, and long-distance fiber networks",
@@ -23,6 +18,10 @@ export default function About() {
     "Unified communications & mobility platforms",
     "Open-source IT solutions",
   ];
+
+  // Closing line
+  const conclusion =
+    "By working with global leaders like Cisco, HP, Lenovo, Sophos, FortiGate, Juniper, and Honeywell, we ensure our clients get world-class technology backed by local expertise.";
 
   return (
     <div className="about-page">
@@ -35,17 +34,9 @@ export default function About() {
         Content={content}
         Titles={services}
         Conclusion={conclusion}
-        listTitle1="Secure & Scalable IT Infrastructure"
+        listTitle1="We specialize in:"
         listTitle2="Trusted IT & Internet Partner"
       />
-
-      <Project1
-        bgImage="/assets/images/inner/project-bg-3.png"
-        ClassAdd="project-area style-two"
-      />
-
-      <Brand />
-      <Blog1 />
     </div>
   );
 }
