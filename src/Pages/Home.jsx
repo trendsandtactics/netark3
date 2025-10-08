@@ -10,8 +10,8 @@ const Home = () => {
                <Hero1
                 bgImg="/assets/images/hero-bg.png"
                 SubTitle="NETARK Technologies"
-                Title="•	Enterprise Networking & IT Infrastructure <br>Solutions in India"
-                Content="•	At NETARK Technologies, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, we specialise in Internet services, networking, data center solutions, server colocation services,  hosting services , and data backup services that support mission-critical businesses."
+                Title="Enterprise Networking & IT Infrastructure <br>Solutions in India"
+                Content="At NETARK Technologies, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, we specialise in Internet services, networking, data center solutions, server colocation services,  hosting services , and data backup services that support mission-critical businesses."
                 BtnText="EXPLORE MORE"
                 BtnLink="/about"
                 Image="/assets/images/hero-thumb.png"
