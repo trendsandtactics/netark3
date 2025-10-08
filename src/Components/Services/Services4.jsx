@@ -2,6 +2,17 @@ import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services4.json";
 
 const Services4 = () => {
+  // helper to normalize desc => array of points
+  const toPoints = (desc) => {
+    if (Array.isArray(desc)) return desc.map((d) => String(d).trim()).filter(Boolean);
+    const s = String(desc ?? "")
+      .replace(/•/g, "·"); // normalize bullets if some items use •
+    return s
+      .split("·")
+      .map((t) => t.trim())
+      .filter(Boolean);
+  };
+
   return (
     <div className="sservice-area style-two py-5">
       <div className="container">
@@ -19,66 +30,58 @@ const Services4 = () => {
 
         {/* Services Grid */}
         <div className="row g-4 justify-content-center">
-          {data.map((item, i) => (
-            <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
-              <div
-                className="single-service-box text-center d-flex flex-column justify-content-between w-100 shadow-sm rounded-4 p-4"
-                style={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #eee",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                }}
-              >
-                {/* Service Image */}
-                <div className="service-thumb mb-3">
-                  <img
-                    src={item.image}
-                    alt="thumb"
-                    style={{
-                      width: "100%",
-                      borderRadius: "12px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
+          {data.map((item, i) => {
+            const points = toPoints(item.desc);
+            return (
+              <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
+                <div
+                  className="single-service-box text-center d-flex flex-column justify-content-between w-100 shadow-sm rounded-4 p-4"
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #eee",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  }}
+                >
+                  {/* Service Image */}
+                  <div className="service-thumb mb-3">
+                    <img
+                      src={item.image}
+                      alt="thumb"
+                      style={{ width: "100%", borderRadius: "12px", objectFit: "cover" }}
+                    />
+                  </div>
 
-                {/* Service Content */}
-                <div className="service-content flex-grow-1 text-start">
-                  <h3
-                    className="service-title mb-3 fw-bold text-center"
-                    style={{
-                      fontSize: "1.15rem",
-                      color: "#0f172a",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    {item.title}
-                  </h3>
+                  {/* Content */}
+                  <div className="service-content flex-grow-1 text-start">
+                    <h3
+                      className="service-title mb-3 fw-bold text-center"
+                      style={{ fontSize: "1.15rem", color: "#0f172a", lineHeight: "1.4" }}
+                    >
+                      {item.title}
+                    </h3>
 
-                  {/* Description — show one point per line */}
-                  <ul
-                    style={{
-                      listStyleType: "disc",
-                      paddingLeft: "1.2rem",
-                      marginBottom: 0,
-                      color: "#555",
-                      fontSize: "0.95rem",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    {item.desc.split("·").map((point, index) => {
-                      const cleanPoint = point.trim();
-                      return cleanPoint ? (
-                        <li key={index} style={{ marginBottom: "4px" }}>
-                          {cleanPoint}
+                    {/* bullet points */}
+                    <ul
+                      style={{
+                        listStyleType: "disc",
+                        paddingLeft: "1.2rem",
+                        marginBottom: 0,
+                        color: "#555",
+                        fontSize: "0.95rem",
+                        lineHeight: "1.7",
+                      }}
+                    >
+                      {points.map((p, idx) => (
+                        <li key={idx} style={{ marginBottom: "4px" }}>
+                          {p}
                         </li>
-                      ) : null;
-                    })}
-                  </ul>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Decorative Shapes */}
