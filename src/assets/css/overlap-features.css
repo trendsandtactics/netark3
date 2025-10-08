@@ -1,4 +1,4 @@
-/* ===== Overlap section remains the same ===== */
+/* ===== Overlap section (with mobile-safe tweak) ===== */
 .feature-area.overlap {
   position: relative;
   z-index: 5;
@@ -7,32 +7,39 @@
   padding-bottom: 60px;
   background: transparent;
 }
+@media (max-width: 767px) {
+  .feature-area.overlap {
+    margin-top: -40px; /* reduce negative overlap on small screens */
+    padding-top: 32px;
+  }
+}
 
 /* ===== One row, 3 equal columns ===== */
 .features-row-nowrap {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* ✅ 3 columns only */
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 1×3 layout */
   gap: 30px;
-  justify-items: center;
-  align-items: stretch;
+  align-items: stretch;      /* equal heights */
+  justify-items: center;     /* center cards when they have max-width */
 }
 
+/* Tablets: 2 columns */
 @media (max-width: 991px) {
   .features-row-nowrap {
-    grid-template-columns: repeat(2, 1fr); /* for tablets */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
+/* Mobile: 1 column */
 @media (max-width: 576px) {
   .features-row-nowrap {
-    grid-template-columns: 1fr; /* stack for mobile */
+    grid-template-columns: 1fr;
   }
 }
 
-/* ===== Larger, centered cards ===== */
+/* ===== Card ===== */
 .feature-card.large {
   width: 100%;
-  max-width: 400px;
+  max-width: 400px; /* keeps a pleasant max width; remove if you want full-width columns */
   border-radius: 20px;
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -40,19 +47,40 @@
   padding: 40px 32px;
   text-align: center;
   min-height: 420px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  background-image: radial-gradient(transparent 0 20px),
+  display: flex;
+  flex-direction: column;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  background-image:
+    radial-gradient(transparent 0 20px),
     url("/assets/images/pattern-circuits.svg");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
   background-blend-mode: overlay;
 }
+.features-row-nowrap > .feature-card.large {
+  height: 100%; /* ensures equal heights inside grid */
+}
 
+/* Hover + focus visible */
 .feature-card.large:hover {
   transform: translateY(-6px);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
   border-color: rgba(0, 0, 0, 0.12);
+}
+.feature-card.large:focus-within {
+  outline: 2px solid #0ea5e9; /* teal focus ring */
+  outline-offset: 3px;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card.large {
+    transition: none;
+  }
+  .feature-card.large:hover {
+    transform: none;
+  }
 }
 
 /* ===== Icon halo ===== */
@@ -64,33 +92,58 @@
   display: grid;
   place-items: center;
   position: relative;
+  /* subtle halo */
+  background: radial-gradient(closest-side, rgba(14,165,233,0.12), transparent 70%);
 }
-
+.icon-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(14, 165, 233, 0.25); /* thin teal ring */
+  pointer-events: none;
+}
 .icon-wrap img {
   width: 64px;
   height: 64px;
   object-fit: contain;
 }
 
+/* ===== Title ===== */
 .feature-title {
   font-size: 1.3rem;
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 10px;
+  line-height: 1.25;
 }
 
-/* ===== Bullet list styling ===== */
+/* ===== Bullet list ===== */
 .feature-list {
   text-align: left;
-  margin: 0 auto;
-  margin-top: 14px;
+  margin: 14px auto 0;
   padding-left: 20px;
   max-width: 90%;
   line-height: 1.6;
   color: #444;
   font-size: 0.98rem;
 }
-
 .feature-list li {
   margin-bottom: 6px;
+}
+.feature-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== Optional: dark-mode friendly (if you use a dark theme) ===== */
+@media (prefers-color-scheme: dark) {
+  .feature-card.large {
+    background-color: #0b1220;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    background-blend-mode: soft-light;
+  }
+  .feature-title { color: #e5e7eb; }
+  .feature-list { color: #cbd5e1; }
+  .icon-wrap::after { border-color: rgba(125, 211, 252, 0.35); }
 }
