@@ -1,42 +1,52 @@
-import data from "../../Data/feature.json";
+import { Network, Shield, Server } from "lucide-react";
 import "../../assets/css/overlap-features.css";
+
+const FEATURES = [
+  {
+    icon: <Network size={40} color="#E0115F" strokeWidth={2} />,
+    title: "Campus Networking & IT Infrastructure",
+    desc: [
+      "LAN/WAN design, switching, routing & structured cabling",
+      "Wi-Fi solutions for enterprises, campuses and offices",
+      "Fiber optic solutions for campus and industries",
+      "Network monitoring, optimisation & performance tuning",
+    ],
+  },
+  {
+    icon: <Shield size={40} color="#E0115F" strokeWidth={2} />,
+    title: "Surveillance & Security Systems",
+    desc: [
+      "Enterprise-grade IP CCTV & video management",
+      "Access control, visitor management & safety integration solutions for offices, factories and campuses",
+      "Fire alarm, intrusion detection & monitoring systems",
+    ],
+  },
+  {
+    icon: <Server size={40} color="#E0115F" strokeWidth={2} />,
+    title: "Enterprise Systems & Servers",
+    desc: [
+      "Certified green servers, storage & networking hardware",
+      "Network equipment rentals",
+      "Consulting for lifecycle planning & upgrades",
+    ],
+  },
+];
 
 const Features = () => {
   return (
     <section className="feature-area overlap py-0">
       <div className="container">
-        {/* 3-column grid layout */}
-        <div className="features-row">
-          {data.map((item, i) => (
-            <article key={i} className="feature-card">
-              {/* ICON */}
-              <div className="icon-wrap">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  width={64}
-                  height={64}
-                  loading="lazy"
-                />
-              </div>
-
-              {/* TITLE */}
+        <div className="features-row-nowrap">
+          {FEATURES.map((item, i) => (
+            <div key={i} className="feature-card large">
+              <div className="icon-wrap">{item.icon}</div>
               <h3 className="feature-title">{item.title}</h3>
-
-              {/* DESC */}
               <ul className="feature-list">
-                {Array.isArray(item.desc)
-                  ? item.desc.map((point, index) => (
-                      <li key={index}>{point.replace(/^•/, "").trim()}</li>
-                    ))
-                  : item.desc
-                      .split("\n")
-                      .filter((line) => line.trim() !== "")
-                      .map((line, index) => (
-                        <li key={index}>{line.replace(/^•/, "").trim()}</li>
-                      ))}
+                {item.desc.map((point, index) => (
+                  <li key={index}>{point}</li>
+                ))}
               </ul>
-            </article>
+            </div>
           ))}
         </div>
       </div>
