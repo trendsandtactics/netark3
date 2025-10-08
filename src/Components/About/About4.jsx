@@ -2,7 +2,8 @@ import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
 const About4 = ({
-  MainImg = "/assets/images/about-us-thu.png", // ✅ only one image
+  // Use the image in public/assets/images
+  MainImg = "/assets/images/about-us-thu.png",
   SubTitle = "NETARK TECHNOLOGIES INDIA PVT. LTD.",
   Title = "About NETARK – Experts in Networking & Secure IT Infrastructure",
   Content = "",
@@ -13,9 +14,18 @@ const About4 = ({
   BoxTitle2 = "",
   BtnUrl = "/contact",
   BtnText = "EXPLORE MORE",
+  // Optional: change this to bust cache after deploy (e.g., "2", "3", ...)
+  version = "",
 }) => {
   const hasTitlesArray = Array.isArray(Titles) && Titles.length > 0;
   const fallbackList = [listTitle1, listTitle2].filter(Boolean);
+
+  // Append a cache-buster to force CDN to fetch the new file after deploy
+  const withVersion = (src) => {
+    if (!version) return src;
+    return src.includes("?") ? `${src}&v=${version}` : `${src}?v=${version}`;
+    // Example: /assets/images/about-us-thu.png?v=2
+  };
 
   return (
     <div className="about-us-area">
@@ -59,8 +69,10 @@ const About4 = ({
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="single-counter-box">
                     <div className="counter-icon">
+                      {/* If you want the same hero image here, keep it.
+                         Otherwise, point this back to a proper small icon file. */}
                       <img
-                        src="/assets/about-us-thu.png"
+                        src={withVersion("/assets/images/about-us-thu.png")}
                         alt="icon"
                       />
                     </div>
@@ -79,7 +91,7 @@ const About4 = ({
           <div className="col-lg-6">
             <div className="about-image text-center">
               <img
-                src={MainImg}
+                src={withVersion(MainImg)}
                 alt="about"
                 style={{
                   width: "100%",
