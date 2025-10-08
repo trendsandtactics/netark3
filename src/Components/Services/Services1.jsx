@@ -1,6 +1,8 @@
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services1.json";
 import { Link } from "react-router-dom";
+
+// ✅ Import Lucide icons
 import {
   Wifi,
   Server,
@@ -11,22 +13,23 @@ import {
   Monitor,
   PhoneCall,
   Code,
-  PlusCircle
+  PlusCircle,
 } from "lucide-react";
 
-const iconMap: Record<string, JSX.Element> = {
-  "Internet Services": <Wifi size={50} color="#26B6E0" strokeWidth={1.6} />,
-  "Co-Location & Hosting": <Server size={50} color="#26B6E0" strokeWidth={1.6} />,
-  "Connectivity Services": <Network size={50} color="#26B6E0" strokeWidth={1.6} />,
-  "Cloud Solutions": <Cloud size={50} color="#26B6E0" strokeWidth={1.6} />,
-  "Information Security": <Shield size={50} color="#26B6E0" strokeWidth={1.6} />,
-  "Data Storage & Backup": <Database size={50} color="#26B6E0" strokeWidth={1.6} />,
-  "Managed IT & Facility Services": <Monitor size={50} color="#26B6E0" strokeWidth={1.6} />,
-  "Unified Communications & Mobility": <PhoneCall size={50} color="#26B6E0" strokeWidth={1.6} />,
-  "Open-Source IT Solutions": <Code size={50} color="#26B6E0" strokeWidth={1.6} />
-};
-
 const Services1 = () => {
+  // ✅ Icon map for each service title
+  const iconMap = {
+    "Internet Services": <Wifi size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Co-Location & Hosting": <Server size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Connectivity Services": <Network size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Cloud Solutions": <Cloud size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Information Security": <Shield size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Data Storage & Backup": <Database size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Managed IT & Facility Services": <Monitor size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Unified Communications & Mobility": <PhoneCall size={50} color="#26B6E0" strokeWidth={1.6} />,
+    "Open-Source IT Solutions": <Code size={50} color="#26B6E0" strokeWidth={1.6} />,
+  };
+
   return (
     <div className="service-area py-5">
       <div className="container">
@@ -46,9 +49,19 @@ const Services1 = () => {
         <div className="row g-4 justify-content-center">
           {data.map((item, i) => (
             <div key={i} className="col-lg-4 col-md-6 col-sm-12 d-flex">
-              <div className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between">
+              <div
+                className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between border border-light"
+                style={{
+                  transition: "all 0.3s ease",
+                }}
+              >
                 {/* ICON */}
-                <div className="service-icon mb-4 d-flex justify-content-center">
+                <div
+                  className="service-icon mb-4 d-flex justify-content-center"
+                  style={{
+                    transition: "transform 0.3s ease",
+                  }}
+                >
                   {iconMap[item.title] || (
                     <Monitor size={50} color="#26B6E0" strokeWidth={1.6} />
                   )}
@@ -56,7 +69,7 @@ const Services1 = () => {
 
                 {/* CONTENT */}
                 <div className="service-content flex-grow-1">
-                  <h3 className="service-title mb-3">{item.title}</h3>
+                  <h3 className="service-title mb-3 fw-semibold">{item.title}</h3>
                   <ul className="list-unstyled text-start d-inline-block text-secondary small">
                     {item.desc.map((point, index) => (
                       <li key={index} className="mb-1">
@@ -71,6 +84,7 @@ const Services1 = () => {
                   <Link
                     to={item.btnLink}
                     className="text-decoration-none fw-semibold text-primary d-inline-flex align-items-center gap-1"
+                    style={{ transition: "color 0.3s ease" }}
                   >
                     <PlusCircle size={16} strokeWidth={2} />
                     <span>{item.btnText}</span>
@@ -81,7 +95,7 @@ const Services1 = () => {
           ))}
         </div>
 
-        {/* Decorative Shapes */}
+        {/* Decorative Shapes (optional background elements) */}
         <div className="service-shape bounce-animate3">
           <img src="/assets/images/service5.png" alt="shape" />
         </div>
