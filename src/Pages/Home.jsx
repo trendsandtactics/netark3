@@ -2,6 +2,7 @@ import About1 from "../Components/About/About1";
 import Hero1 from "../Components/Banner/Hero1";
 import Contact1 from "../Components/Contact/Contact1";
 import Features from "../Components/Features/Features";
+import Services1 from "../Components/Services/Services1";
 
 const Home = () => {
     return (
