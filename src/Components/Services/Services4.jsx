@@ -42,19 +42,7 @@ const Services4 = () => {
                   />
                 </div>
 
-                {/* Service Icon */}
-                <div className="service-icon mb-3">
-                  <img
-                    src={item.icon}
-                    alt="icon"
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                    }}
-                  />
-                </div>
-
-                {/* Service Text */}
+                {/* Service Content */}
                 <div className="service-content flex-grow-1">
                   <h3
                     className="service-title mb-3 fw-semibold"
