@@ -27,7 +27,7 @@ const Hero1 = ({ bgImg, BtnText, BtnLink, Image, VideoText }) => {
   return (
     <section
       className="hero-area position-relative d-flex align-items-center"
-      data-background={bgImg}
+      data-background={"/assets/images/hero-bg.png"}
       style={{
         backgroundSize: "cover",
         backgroundPosition: "center",
