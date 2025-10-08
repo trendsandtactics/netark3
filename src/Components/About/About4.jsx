@@ -2,8 +2,7 @@ import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
 const About4 = ({
-  MainImg = "/assets/images/about-us-thu.png",          // ✅ main image
-  SecondaryImg = "/assets/images/about-us-thu.png",      // ✅ secondary image
+  MainImg = "/assets/images/about-us-thu.png", // ✅ only one image
   SubTitle = "NETARK TECHNOLOGIES INDIA PVT. LTD.",
   Title = "About NETARK – Experts in Networking & Secure IT Infrastructure",
   Content = "",
@@ -21,7 +20,7 @@ const About4 = ({
   return (
     <div className="about-us-area">
       <div className="container">
-        <div className="row">
+        <div className="row align-items-center">
           {/* LEFT: Text Section */}
           <div className="col-lg-6">
             <div className="section-title text-left">
@@ -31,7 +30,7 @@ const About4 = ({
             </div>
 
             <div className="about-us-content">
-              {/* Bullet list */}
+              {/* Bullet List */}
               {(hasTitlesArray || fallbackList.length > 0) && (
                 <div className="about-us-list">
                   <ul>
@@ -55,7 +54,7 @@ const About4 = ({
                 </Link>
               </div>
 
-              {/* Counter Box */}
+              {/* Optional Counter Box */}
               {(BoxTitle1 || BoxTitle2) && (
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="single-counter-box">
@@ -76,47 +75,21 @@ const About4 = ({
             </div>
           </div>
 
-          {/* RIGHT: Two stacked images */}
+          {/* RIGHT: Single Image Only */}
           <div className="col-lg-6">
-            <div
-              className="about-images position-relative"
-              style={{ minHeight: 420 }}
-            >
-              {/* Main Image */}
+            <div className="about-image text-center">
               <img
                 src={MainImg}
-                alt="about-main"
+                alt="about"
                 style={{
-                  width: "68%",
-                  borderRadius: 18,
-                  boxShadow: "0 18px 38px rgba(0,0,0,.12)",
-                  display: "block",
-                }}
-              />
-
-              {/* Secondary Image */}
-              <img
-                src={SecondaryImg}
-                alt="about-secondary"
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  bottom: 0,
-                  width: "42%",
-                  borderRadius: 18,
-                  boxShadow: "0 18px 38px rgba(0,0,0,.12)",
+                  width: "100%",
+                  maxWidth: "520px",
+                  borderRadius: "18px",
+                  boxShadow: "0 18px 38px rgba(0,0,0,0.12)",
                 }}
               />
             </div>
           </div>
-        </div>
-
-        {/* Decorative Shapes */}
-        <div className="about2-us-shape">
-          <img src="/assets/images/inner/about-us-sh.png" alt="shape" />
-        </div>
-        <div className="about-us-shape2">
-          <img src="/assets/images/inner/about-us-she.png" alt="shape" />
         </div>
       </div>
     </div>
