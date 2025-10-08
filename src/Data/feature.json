@@ -1,27 +1,17 @@
 [
   {
-    "img": "/assets/images/feature1.png",   
-    "title": "Data Security",
-    "desc": "Monotonectally solutek in fermentum quis"
+    "img": "/assets/images/feature1.png",
+    "title": "Campus Networking & IT Infrastructure",
+    "desc": "• LAN/WAN design, switching, routing & structured cabling\n• Wi-Fi solutions for enterprises, campuses and offices\n• Fiber optic solutions for campus and industries\n• Network monitoring, optimisation & performance tuning"
   },
   {
-    "img": "/assets/images/feature2.png",   
-    "title": "Digital Marketing",
-    "desc": "Monotonectally solutek in fermentum quis"
+    "img": "/assets/images/feature2.png",
+    "title": "Surveillance & Security Systems",
+    "desc": "• Enterprise-grade IP CCTV & video management\n• Access control, visitor management & safety integration solutions for offices, factories and campuses\n• Fire alarm, intrusion detection & monitoring systems"
   },
   {
-    "img": "/assets/images/feature3.png",   
-    "title": "IT Consultation",
-    "desc": "Monotonectally solutek in fermentum quis"
-  },
-  {
-    "img": "/assets/images/feature4.png",   
-    "title": "Cloud Services",
-    "desc": "Monotonectally solutek in fermentum quis"
-  },  
-  {
-    "img": "/assets/images/feature5.png",   
-    "title": "Technology",
-    "desc": "Monotonectally solutek in fermentum quis"
-  }   
+    "img": "/assets/images/feature3.png",
+    "title": "Enterprise Systems & Servers",
+    "desc": "• Certified green servers, storage & networking hardware\n• Network equipment rentals\n• Consulting for lifecycle planning & upgrades"
+  }
 ]
