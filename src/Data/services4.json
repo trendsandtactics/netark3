@@ -7,46 +7,46 @@
   {
     "title": "Co-Location & Hosting",
     "desc": "Flexible colocation options including per U, full cabinet, and private cage solutions with carrier cross-connects, 24/7 monitoring, VPS & application hosting, and managed firewall support.",
-    "image": "/assets/images/inner/service-thumb2.png"
+    "image":  "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Connectivity Services",
     "desc": "Enterprise-grade VPN and secure fiber connectivity, point-to-point and multipoint links, high-availability network hosting, and SLA-backed uptime for mission-critical infrastructure.",
-    "image": "/assets/images/inner/service-thumb3.png"
+    "image":  "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Cloud Solutions",
     "desc": "Private, hybrid, and public cloud deployments with cloud migration, backup, disaster recovery, and optimized managed cloud operations for maximum performance and reliability.",
-    "image": "/assets/images/inner/service-thumb4.png"
+    "image":  "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Information Security",
     "desc": "Comprehensive cybersecurity audits, VPN and IPS protection, firewall and DLP systems, real-time monitoring, and advanced network traffic analysis and reporting.",
-    "image": "/assets/images/inner/service-thumb5.png"
+    "image": "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Data Storage & Backup",
     "desc": "SAN, NAS, and online backup solutions with enterprise-grade redundancy, disaster recovery planning, and automated data protection for business continuity.",
-    "image": "/assets/images/inner/service-thumb6.png"
+    "image": "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Managed IT & Facility Services",
     "desc": "Comprehensive IT management including server monitoring, network operations, IT helpdesk, asset tracking, and proactive infrastructure maintenance and upgrades.",
-    "image": "/assets/images/inner/service-thumb7.png"
+    "image":  "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Unified Communications & Mobility",
     "desc": "VoIP and IP telephony systems, enterprise Wi-Fi networks, video conferencing, captive portal solutions, and unified communication platforms for modern business operations.",
-    "image": "/assets/images/inner/service-thumb8.png"
+    "image":  "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Open-Source IT Solutions",
     "desc": "Linux-based servers and intranet platforms, collaboration and monitoring tools, and thin-client infrastructure for efficient, cost-effective IT deployments.",
-    "image": "/assets/images/inner/service-thumb9.png"
+    "image":  "/assets/images/inner/service-thumb1.png"
   },
   {
     "title": "Choose NETARK",
     "desc": "Partner with NETARK Technologies for reliable, scalable, and secure IT infrastructure, connectivity, and managed services across India — powered by experience and trust.",
-    "image": "/assets/images/inner/service-thumb10.png"
+    "image":  "/assets/images/inner/service-thumb1.png"
   }
 ]
