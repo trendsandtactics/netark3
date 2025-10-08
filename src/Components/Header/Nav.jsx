@@ -36,18 +36,6 @@ const Nav = ({ onNavigate }) => {
             <li>
               <Link to="/services" onClick={handleNavigate}>All Services</Link>
             </li>
-            <li>
-              <Link to="/service/internet" onClick={handleNavigate}>Internet Services</Link>
-            </li>
-            <li>
-              <Link to="/service/hosting" onClick={handleNavigate}>Co-Location & Hosting</Link>
-            </li>
-            <li>
-              <Link to="/service/connectivity" onClick={handleNavigate}>Connectivity</Link>
-            </li>
-            <li>
-              <Link to="/service/cloud" onClick={handleNavigate}>Cloud Solutions</Link>
-            </li>
           </ul>
         </li>
 
