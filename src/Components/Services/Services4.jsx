@@ -43,26 +43,38 @@ const Services4 = () => {
                 </div>
 
                 {/* Service Content */}
-                <div className="service-content flex-grow-1">
+                <div className="service-content flex-grow-1 text-start">
                   <h3
-                    className="service-title mb-3 fw-semibold"
+                    className="service-title mb-3 fw-bold text-center"
                     style={{
                       fontSize: "1.15rem",
                       color: "#0f172a",
+                      lineHeight: "1.4",
                     }}
                   >
                     {item.title}
                   </h3>
-                  <p
-                    className="service-text text-secondary"
+
+                  {/* Description — show one point per line */}
+                  <ul
                     style={{
-                      fontSize: "0.95rem",
-                      lineHeight: "1.6",
+                      listStyleType: "disc",
+                      paddingLeft: "1.2rem",
                       marginBottom: 0,
+                      color: "#555",
+                      fontSize: "0.95rem",
+                      lineHeight: "1.7",
                     }}
                   >
-                    {item.desc}
-                  </p>
+                    {item.desc.split("·").map((point, index) => {
+                      const cleanPoint = point.trim();
+                      return cleanPoint ? (
+                        <li key={index} style={{ marginBottom: "4px" }}>
+                          {cleanPoint}
+                        </li>
+                      ) : null;
+                    })}
+                  </ul>
                 </div>
               </div>
             </div>
