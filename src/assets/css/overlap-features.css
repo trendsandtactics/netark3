@@ -41,25 +41,23 @@
   width: 100%;
   max-width: 400px;
   border-radius: 20px;
-  background-color: #f5f5f5; /* ✅ Light grey background */
+  background-color: #ffffff; /* ✅ Always white background */
   border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
   padding: 40px 32px;
   text-align: center;
   min-height: 420px;
   display: flex;
   flex-direction: column;
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
-  background-image:
-    radial-gradient(transparent 0 20px),
-    url("/assets/images/pattern-circuits.svg");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
   background-blend-mode: overlay;
+  color: #000000; /* ✅ text inside card always black */
 }
 .features-row-nowrap > .feature-card.large {
-  height: 100%; /* ensures equal heights inside grid */
+  height: 100%;
 }
 
 /* Hover + focus visible */
@@ -67,10 +65,10 @@
   transform: translateY(-6px);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
   border-color: rgba(0, 0, 0, 0.12);
-  background-color: #e9e9e9; /* ✅ Slightly darker grey on hover */
+  background-color: #ffffff; /* ✅ still white on hover */
 }
 .feature-card.large:focus-within {
-  outline: 2px solid #e0115f; /* Ruby red focus ring */
+  outline: 2px solid #E0115F; /* Ruby red focus ring */
   outline-offset: 3px;
 }
 
@@ -93,14 +91,14 @@
   display: grid;
   place-items: center;
   position: relative;
-  background: rgba(224, 17, 95, 0.1); /* ✅ subtle ruby halo */
+  background: rgba(224, 17, 95, 0.1); /* subtle ruby halo */
 }
 .icon-wrap::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid rgba(224, 17, 95, 0.25); /* ✅ thin ruby ring */
+  border: 1px solid rgba(224, 17, 95, 0.25);
   pointer-events: none;
 }
 .icon-wrap img {
@@ -113,7 +111,7 @@
 .feature-title {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #000000; /* ✅ black */
   margin-bottom: 10px;
   line-height: 1.25;
 }
@@ -125,7 +123,7 @@
   padding-left: 20px;
   max-width: 90%;
   line-height: 1.6;
-  color: #444;
+  color: #000000; /* ✅ black text */
   font-size: 0.98rem;
 }
 .feature-list li {
@@ -135,15 +133,13 @@
   margin-bottom: 0;
 }
 
-/* ===== Optional: dark-mode friendly (if you use a dark theme) ===== */
+/* ===== Dark mode (keeps white) ===== */
 @media (prefers-color-scheme: dark) {
   .feature-card.large {
-    background-color: #0b1220;
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
-    background-blend-mode: soft-light;
+    background-color: #ffffff !important; /* ✅ force white even in dark mode */
+    color: #000000 !important;
+    border-color: rgba(0, 0, 0, 0.08);
   }
-  .feature-title { color: #e5e7eb; }
-  .feature-list { color: #cbd5e1; }
-  .icon-wrap::after { border-color: rgba(224, 17, 95, 0.35); }
+  .feature-title { color: #000000 !important; }
+  .feature-list { color: #000000 !important; }
 }
