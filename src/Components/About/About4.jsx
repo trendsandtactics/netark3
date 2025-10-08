@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const About4 = ({
   // Use the image in public/assets/images
-  MainImg = "/assets/images/about-us-thu.png",
+  MainImg = "/public/assets/images/aboutusthu.png",
   SubTitle = "NETARK TECHNOLOGIES INDIA PVT. LTD.",
   Title = "About NETARK – Experts in Networking & Secure IT Infrastructure",
   Content = "",
