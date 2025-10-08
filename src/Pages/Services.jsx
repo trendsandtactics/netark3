@@ -8,8 +8,6 @@ const Services = () => {
         <div className="service-page">
             <BreadCumb Title="Services"></BreadCumb>
             <Services4></Services4>
-            <Team1></Team1>
-            <Blog1></Blog1>
         </div>
     );
 };
