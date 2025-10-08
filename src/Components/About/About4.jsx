@@ -1,10 +1,9 @@
 import parse from "html-react-parser";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const About4 = ({
-  MainImg = "/assets/images/inner/about-us-thu.png",
-  SecondaryImg = "/assets/images/inner/about-us-thu2.png",
+  MainImg = "/assets/images/about-us-thu.png",          // ✅ main image
+  SecondaryImg = "/assets/images/about-us-thu.png",      // ✅ secondary image
   SubTitle = "NETARK TECHNOLOGIES INDIA PVT. LTD.",
   Title = "About NETARK – Experts in Networking & Secure IT Infrastructure",
   Content = "",
@@ -23,7 +22,7 @@ const About4 = ({
     <div className="about-us-area">
       <div className="container">
         <div className="row">
-          {/* LEFT: Text */}
+          {/* LEFT: Text Section */}
           <div className="col-lg-6">
             <div className="section-title text-left">
               <h5 className="section-sub-title">{SubTitle}</h5>
@@ -56,7 +55,7 @@ const About4 = ({
                 </Link>
               </div>
 
-              {/* Counter box */}
+              {/* Counter Box */}
               {(BoxTitle1 || BoxTitle2) && (
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className="single-counter-box">
@@ -83,7 +82,7 @@ const About4 = ({
               className="about-images position-relative"
               style={{ minHeight: 420 }}
             >
-              {/* Large main image */}
+              {/* Main Image */}
               <img
                 src={MainImg}
                 alt="about-main"
@@ -95,7 +94,7 @@ const About4 = ({
                 }}
               />
 
-              {/* Small secondary image */}
+              {/* Secondary Image */}
               <img
                 src={SecondaryImg}
                 alt="about-secondary"
@@ -112,7 +111,7 @@ const About4 = ({
           </div>
         </div>
 
-        {/* Decorative shapes */}
+        {/* Decorative Shapes */}
         <div className="about2-us-shape">
           <img src="/assets/images/inner/about-us-sh.png" alt="shape" />
         </div>
