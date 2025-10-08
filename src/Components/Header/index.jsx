@@ -11,9 +11,9 @@ export default function Header({ variant }) {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
       if (currentScrollPos > prevScrollPos) {
-        setIsSticky("cs-gescout_sticky"); // Scrolling down
+        setIsSticky("cs-gescout_sticky"); // scrolling down
       } else if (currentScrollPos !== 0) {
-        setIsSticky("cs-gescout_show cs-gescout_sticky"); // Scrolling up
+        setIsSticky("cs-gescout_show cs-gescout_sticky"); // scrolling up
       } else {
         setIsSticky();
       }
@@ -48,9 +48,9 @@ export default function Header({ variant }) {
                 >
                   <img
                     src="/assets/images/logo.png"
-                    alt="NETARK Logo"
+                    alt="SoluTek Logo"
                     style={{
-                      height: "55px", // ✅ smaller logo size
+                      height: "42px", // ✅ same size as your SoluTek image
                       width: "auto",
                       objectFit: "contain",
                       display: "block",
@@ -85,7 +85,7 @@ export default function Header({ variant }) {
                     style={{
                       color: "#fff",
                       backgroundColor: RUBY,
-                      padding: "10px 24px",
+                      padding: "10px 22px",
                       borderRadius: "6px",
                       fontWeight: 600,
                       textDecoration: "none",
@@ -108,7 +108,7 @@ export default function Header({ variant }) {
         </div>
       </header>
 
-      {/* Bottom spacing so content doesn't hide behind sticky header */}
+      {/* Space below header to prevent overlap */}
       <div className="cs_site_header_spacing_130"></div>
     </div>
   );
