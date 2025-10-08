@@ -1,74 +1,68 @@
-/* ===== Let hero breathe so cards can overlap it ===== */
-.hero-area {
-  position: relative;
-  z-index: 1;
-  padding-bottom: 120px; /* adjust if your hero is taller/shorter */
-}
-
-/* ===== Pull cards upward into hero like the screenshot ===== */
+/* ===== Keep overlap look ===== */
 .feature-area.overlap {
   position: relative;
   z-index: 5;
-  margin-top: -80px;   /* how deep the overlap looks */
-  padding-top: 16px;
+  margin-top: -90px;
+  padding-top: 24px;
   padding-bottom: 60px;
   background: transparent;
 }
 
-/* ===== Row layout matching screenshot (5 across on wide screens) ===== */
-.features-row.like-screenshot {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 28px;
-  align-items: stretch;
+/* ===== One-row layout with horizontal scroll ===== */
+.features-row-nowrap {
+  display: flex;
+  flex-wrap: nowrap;          /* ✅ Prevent wrapping */
+  gap: 24px;
+  overflow-x: auto;           /* ✅ Enable horizontal scroll if too many */
+  scroll-snap-type: x mandatory;
+  padding-bottom: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #aaa transparent;
 }
 
-@media (max-width: 1400px) {
-  .features-row.like-screenshot { grid-template-columns: repeat(4, 1fr); }
-}
-@media (max-width: 1200px) {
-  .features-row.like-screenshot { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 992px) {
-  .features-row.like-screenshot { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 576px) {
-  .features-row.like-screenshot { grid-template-columns: 1fr; }
+.features-row-nowrap::-webkit-scrollbar {
+  height: 8px;
 }
 
-/* ===== Card style to mimic screenshot ===== */
-.feature-card.tile {
-  position: relative;
-  border-radius: 20px;
-  background: #f7f7f7;            /* very light tile (pattern will overlay) */
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
-  padding: 28px 22px 26px;
+.features-row-nowrap::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
+
+.features-row-nowrap::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===== Larger card style ===== */
+.feature-card.large {
+  flex: 0 0 380px; /* ✅ fixed width keeps them same size in one row */
+  scroll-snap-align: start;
+  border-radius: 18px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+  padding: 40px 32px 36px;
   text-align: center;
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-  background-image:
-    radial-gradient(transparent 0 20px),
-    url("/assets/images/pattern-circuits.svg"); /* optional subtle pattern */
+  min-height: 420px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  background-image: radial-gradient(transparent 0 20px),
+    url("/assets/images/pattern-circuits.svg");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
   background-blend-mode: overlay;
-  min-height: 300px;              /* keep consistent height like screenshot */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
 }
 
-.feature-card.tile:hover {
+.feature-card.large:hover {
   transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
-  border-color: rgba(0,0,0,0.12);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.12);
 }
 
-/* ===== Icon + halo (soft white circle behind icon) ===== */
-.icon-wrap.halo {
-  width: 88px;
-  height: 88px;
+/* ===== Icon and title ===== */
+.icon-wrap {
+  width: 90px;
+  height: 90px;
   margin: 0 auto 18px auto;
   border-radius: 50%;
   display: grid;
@@ -76,35 +70,31 @@
   position: relative;
 }
 
-.icon-wrap.halo::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.85);
-  filter: blur(1px);
-}
-
-.icon-wrap img,
-.icon-wrap svg {
-  position: relative;
-  z-index: 1;
-  width: 56px;
-  height: 56px;
+.icon-wrap img {
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 
-/* ===== Title + description (matches weight/spacing of screenshot) ===== */
 .feature-title {
+  font-size: 1.3rem;
   font-weight: 700;
   color: #0f172a;
-  margin: 8px 0 8px;
+  margin-bottom: 10px;
 }
 
-.feature-desc {
+/* ===== Bullet list ===== */
+.feature-list {
+  text-align: left;
   margin: 0 auto;
-  color: #5b6270;                  /* muted gray like screenshot */
-  line-height: 1.7;
-  font-size: 1.02rem;
-  max-width: 340px;                /* keeps paragraphs to 2 lines */
+  margin-top: 14px;
+  padding-left: 20px;
+  max-width: 90%;
+  line-height: 1.6;
+  color: #444;
+  font-size: 0.98rem;
+}
+
+.feature-list li {
+  margin-bottom: 6px;
 }
