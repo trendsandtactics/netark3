@@ -99,7 +99,7 @@ export default function Header({ variant }) {
                       (e.target.style.backgroundColor = RUBY)
                     }
                   >
-                    Get A Quote Now
+                    Get in Touch
                   </Link>
                 </div>
               </div>
