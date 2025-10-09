@@ -20,10 +20,11 @@ const BreadCumb = ({ Title }) => {
         backgroundPosition: "center",
       }}
     >
-      <div className="container text-center text-white">
+      <div className="container text-center">
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="breadcumb-content">
+              {/* ✅ Title in Ruby Red */}
               <h4
                 style={{
                   color: RUBY_RED,
@@ -31,10 +32,13 @@ const BreadCumb = ({ Title }) => {
                   fontSize: "2rem",
                   textTransform: "uppercase",
                   letterSpacing: "1px",
+                  marginBottom: "10px",
                 }}
               >
                 {Title}
               </h4>
+
+              {/* ✅ Breadcrumb List */}
               <ul
                 className="breadcumb-list list-inline mt-3"
                 style={{
@@ -43,7 +47,6 @@ const BreadCumb = ({ Title }) => {
                   alignItems: "center",
                   gap: "10px",
                   fontSize: "1rem",
-                  color: "#fff",
                   listStyle: "none",
                   margin: 0,
                   padding: 0,
@@ -53,15 +56,18 @@ const BreadCumb = ({ Title }) => {
                   <Link
                     to="/"
                     style={{
-                      color: "#fff",
+                      color: "#444",
                       textDecoration: "none",
                       fontWeight: 500,
                       transition: "color 0.3s ease",
                     }}
+                    onMouseOver={(e) => (e.target.style.color = RUBY_RED)}
+                    onMouseOut={(e) => (e.target.style.color = "#444")}
                   >
                     Home
                   </Link>
                 </li>
+
                 <li
                   className="list-arrow"
                   style={{
@@ -72,6 +78,7 @@ const BreadCumb = ({ Title }) => {
                 >
                   &lt;
                 </li>
+
                 <li style={{ color: RUBY_RED, fontWeight: 600 }}>{Title}</li>
               </ul>
             </div>
@@ -79,20 +86,9 @@ const BreadCumb = ({ Title }) => {
         </div>
       </div>
 
-      {/* ✅ Ruby Red styling overrides */}
+      {/* ✅ Ruby Red text accents only (no background tint) */}
       <style>
         {`
-          .breadcumb-area::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(155, 17, 30, 0.35); /* Ruby red overlay tint */
-            z-index: 0;
-          }
-
           .breadcumb-content {
             position: relative;
             z-index: 2;
