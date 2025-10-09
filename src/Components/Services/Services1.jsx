@@ -14,7 +14,7 @@ import {
   Code,
 } from "lucide-react";
 
-// Ruby Red brand color
+// ✅ Ruby Red brand color
 const RUBY_RED = "#E0115F";
 
 const Services1 = () => {
@@ -32,21 +32,21 @@ const Services1 = () => {
   };
 
   return (
-    <div className="service-area py-5">
+    <div className="service-area py-5" style={{ background: "#fff" }}>
       <div className="container">
-        {/* Section Header */}
+        {/* ===== Section Header ===== */}
         <div className="row align-items-center mb-5">
           <div className="col-lg-12">
             <div className="section-title text-center">
               <SectionTitle
                 SubTitle="SOLUTEK COMPANY"
-                Title="How Professional IT Services<br> Can Drive <span>Success.</span>"
+                Title={`How Professional IT Services<br> Can Drive <span style='color:${RUBY_RED};'>Success.</span>`}
               />
             </div>
           </div>
         </div>
 
-        {/* 3×3 GRID */}
+        {/* ===== 3×3 GRID ===== */}
         <div className="row g-4 justify-content-center">
           {data.map((item, i) => (
             <div key={i} className="col-lg-4 col-md-6 col-sm-12 d-flex">
@@ -54,8 +54,8 @@ const Services1 = () => {
                 className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between border border-light"
                 style={{
                   transition: "all 0.3s ease",
-                  cursor: "default",
                   background: "#fff",
+                  cursor: "default",
                 }}
               >
                 {/* ICON */}
@@ -70,7 +70,12 @@ const Services1 = () => {
 
                 {/* CONTENT */}
                 <div className="service-content flex-grow-1">
-                  <h3 className="service-title mb-3 fw-semibold">{item.title}</h3>
+                  <h3
+                    className="service-title mb-3 fw-semibold"
+                    style={{ color: "#333", transition: "color 0.3s ease" }}
+                  >
+                    {item.title}
+                  </h3>
                   <ul className="service-points list-unstyled text-start d-inline-block small">
                     {item.desc.map((point, index) => (
                       <li key={index} className="mb-1">
@@ -85,17 +90,11 @@ const Services1 = () => {
         </div>
       </div>
 
-      {/* ✅ Inline CSS for hover color effect */}
+      {/* ===== Inline CSS for Hover Effects ===== */}
       <style>
         {`
           .service-single-box {
-            background: #fff;
             color: #555;
-          }
-
-          .service-single-box .service-title {
-            color: #333;
-            transition: color 0.3s ease;
           }
 
           .service-single-box .service-points li {
@@ -103,10 +102,12 @@ const Services1 = () => {
             transition: color 0.3s ease;
           }
 
-          /* Hover effect */
+          /* Hover effect: Ruby red background + white text */
           .service-single-box:hover {
             background: ${RUBY_RED};
             color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(224, 17, 95, 0.25);
           }
 
           .service-single-box:hover .service-title {
