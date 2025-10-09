@@ -19,7 +19,7 @@
       "Managed firewall & server support",
       "Remote hands & round-the-clock physical security"
     ],
-    "image": "/assets/images/inner/service-thumb2.png"
+   "image": "/assets/images/01.jpg"
   },
   {
     "title": "Connectivity Services",
@@ -28,7 +28,7 @@
       "VPN and secure enterprise connections",
       "Long-distance fiber network management"
     ],
-    "image": "/assets/images/inner/service-thumb3.png"
+     "image": "/assets/images/01.jpg"vvv
   },
   {
     "title": "Hosting Services",
@@ -37,7 +37,7 @@
       "Flexible solutions: rack, cabinet, and private cage options",
       "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring"
     ],
-    "image": "/assets/images/inner/service-thumb4.png"
+     "image": "/assets/images/01.jpg"
   },
   {
     "title": "Cloud Solutions",
@@ -46,7 +46,7 @@
       "Cloud migration, backup & disaster recovery",
       "Managed cloud operations & cost optimization"
     ],
-    "image": "/assets/images/inner/service-thumb5.png"
+     "image": "/assets/images/01.jpg"
   },
   {
     "title": "Information Security",
@@ -55,7 +55,7 @@
       "Firewalls, antivirus, DLP & secure access solutions",
       "Real-time monitoring and traffic analysis and reporting"
     ],
-    "image": "/assets/images/inner/service-thumb6.png"
+     "image": "/assets/images/01.jpg"
   },
   {
     "title": "Data Storage & Backup",
@@ -63,7 +63,7 @@
       "SAN, NAS & online backup solutions",
       "Business continuity & disaster recovery planning"
     ],
-    "image": "/assets/images/inner/service-thumb7.png"
+     "image": "/assets/images/01.jpg"
   },
   {
     "title": "Managed IT & Facility Services",
@@ -72,7 +72,7 @@
       "IT helpdesk & asset management",
       "Proactive monitoring & maintenance"
     ],
-    "image": "/assets/images/inner/service-thumb8.png"
+     "image": "/assets/images/01.jpg"
   },
   {
     "title": "Unified Communications & Mobility",
@@ -81,7 +81,7 @@
       "Enterprise Wi-Fi and hotspot solutions",
       "Captive portal management"
     ],
-    "image": "/assets/images/inner/service-thumb9.png"
+    "image": "/assets/images/01.jpg"
   },
   {
     "title": "Open-Source IT Solutions",
@@ -90,6 +90,6 @@
       "Messaging, collaboration & monitoring tools",
       "Thin clients & terminal server deployments"
     ],
-    "image": "/assets/images/inner/service-thumb10.png"
+     "image": "/assets/images/01.jpg"
   }
 ]
