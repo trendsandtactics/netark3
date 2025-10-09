@@ -20,9 +20,10 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* NAVIGATION */}
+      {/* ===== NAV BAR ===== */}
       <nav className="main-nav">
         {!isMobile ? (
+          // Desktop links (same as before)
           <ul className="nav-list">
             <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
             <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
@@ -30,6 +31,7 @@ const Nav = ({ onNavigate }) => {
             <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
           </ul>
         ) : (
+          // Single red hamburger button on right
           <button
             id="nav-hamburger"
             className="nav-hamburger"
@@ -41,7 +43,7 @@ const Nav = ({ onNavigate }) => {
         )}
       </nav>
 
-      {/* SIDEBAR (for mobile) */}
+      {/* ===== MOBILE SIDEBAR ===== */}
       {isMobile && (
         <>
           <div
@@ -53,15 +55,6 @@ const Nav = ({ onNavigate }) => {
             role="dialog"
             aria-modal="true"
           >
-            <div className="sidebar-header">
-              <h3>Menu</h3>
-              <button
-                className="close-btn"
-                onClick={() => setSidebarOpen(false)}
-              >
-                ✕
-              </button>
-            </div>
             <ul className="sidebar-nav">
               <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
               <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
@@ -73,7 +66,7 @@ const Nav = ({ onNavigate }) => {
       )}
 
       <style>{`
-        /* ---------- DESKTOP NAV ---------- */
+        /* ---------- DESKTOP ---------- */
         .main-nav .nav-list {
           list-style: none;
           margin: 0;
@@ -91,11 +84,13 @@ const Nav = ({ onNavigate }) => {
           transition: color 0.3s ease;
         }
 
-        .main-nav a:hover { color: ${RUBY}; }
+        .main-nav a:hover {
+          color: ${RUBY};
+        }
 
-        /* ---------- MOBILE NAV ---------- */
+        /* ---------- MOBILE ---------- */
         @media (max-width: 991px) {
-          /* Hide theme’s default hamburger */
+          /* Hide any other theme togglers */
           header button:has(span:nth-child(3)):not(#nav-hamburger),
           .site-header button:has(span:nth-child(3)):not(#nav-hamburger),
           .main-nav button:has(span:nth-child(3)):not(#nav-hamburger),
@@ -114,7 +109,7 @@ const Nav = ({ onNavigate }) => {
             background: transparent;
           }
 
-          /* Our red hamburger */
+          /* Single ruby hamburger */
           .nav-hamburger {
             background: transparent;
             border: none;
@@ -136,7 +131,7 @@ const Nav = ({ onNavigate }) => {
             transition: transform 0.3s ease, opacity 0.3s ease;
           }
 
-          /* Sidebar styles */
+          /* Sidebar */
           .sidebar {
             position: fixed;
             top: 0;
@@ -147,32 +142,13 @@ const Nav = ({ onNavigate }) => {
             color: #fff;
             z-index: 2000;
             transition: right 0.3s ease;
-            padding: 18px 16px;
+            padding: 60px 20px 20px;
             display: flex;
             flex-direction: column;
           }
 
-          .sidebar.open { right: 0; }
-
-          .sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-          }
-
-          .sidebar-header h3 {
-            margin: 0;
-            font-size: 1.1rem;
-            font-weight: 700;
-          }
-
-          .close-btn {
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 1.4rem;
-            cursor: pointer;
+          .sidebar.open {
+            right: 0;
           }
 
           .sidebar-nav {
@@ -185,15 +161,18 @@ const Nav = ({ onNavigate }) => {
 
           .sidebar-nav li a {
             display: block;
-            padding: 14px 8px;
+            padding: 14px 0;
             border-bottom: 1px solid rgba(255,255,255,0.08);
             color: #fff;
             text-decoration: none;
             font-weight: 500;
           }
 
-          .sidebar-nav li a:hover { color: ${RUBY}; }
+          .sidebar-nav li a:hover {
+            color: ${RUBY};
+          }
 
+          /* Background overlay */
           .sidebar-overlay {
             position: fixed;
             inset: 0;
@@ -210,7 +189,9 @@ const Nav = ({ onNavigate }) => {
           }
 
           /* Hide inline links on mobile */
-          .main-nav .nav-list { display: none; }
+          .main-nav .nav-list {
+            display: none;
+          }
         }
 
         @media (min-width: 992px) {
