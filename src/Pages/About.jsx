@@ -2,6 +2,9 @@ import BreadCumb from "../Components/Common/BreadCumb";
 import About4 from "../Components/About/About4";
 
 export default function About() {
+  // ✅ Brand Ruby Red
+  const RUBY_RED = "#9B111E";
+
   // Main paragraph content
   const content =
     "Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions and Internet services. Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.";
@@ -31,14 +34,42 @@ export default function About() {
       <About4
         MainImg="/assets/images/about-us-thu.png"
         SubTitle="NETARK TECHNOLOGIES INDIA PVT. LTD."
-        Title="About <span>Netrak </span> – Experts in Networking & Secure IT Infrastructure"
+        Title={`About <span style='color:${RUBY_RED};'>NETARK</span> – Experts in Networking & Secure IT Infrastructure`}
         Content={content}
         Titles={services}
         Conclusion={conclusion}
         listTitle1="We specialize in:"
         BtnUrl="/contact"
         BtnText="Explore More"
+        // ✅ Force button and accent to Ruby Red
+        BtnStyle={{
+          backgroundColor: RUBY_RED,
+          color: "#fff",
+          border: "none",
+          fontWeight: 700,
+          padding: "10px 18px",
+          borderRadius: "8px",
+          transition: "all 0.3s ease",
+        }}
       />
+
+      {/* Inline CSS for hover accent (in case About4 uses .thm-btn or highlights) */}
+      <style>
+        {`
+          .thm-btn {
+            background-color: ${RUBY_RED} !important;
+            border-color: ${RUBY_RED} !important;
+            color: #fff !important;
+          }
+          .thm-btn:hover {
+            background-color: #7b0d16 !important;
+            border-color: #7b0d16 !important;
+          }
+          .section-title span {
+            color: ${RUBY_RED} !important;
+          }
+        `}
+      </style>
     </div>
   );
 }
