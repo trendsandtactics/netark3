@@ -14,8 +14,6 @@ const Home = () => {
         Content="At NETARK Technologies, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, we specialise in Internet services, networking, data center solutions, server colocation services, hosting services, and data backup services that support mission-critical businesses."
         BtnText="EXPLORE MORE"
         BtnLink="/about"
-        Image="/assets/images/hero-thumb.png"
-        VideoText="WATCH VIDEO"
       />
 
       <Features />
