@@ -1,219 +1,176 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const RUBY = "#E0115F";
-
 const Nav = ({ onNavigate }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const drawerRef = useRef(null);
+  const [openServices, setOpenServices] = useState(false);
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
-    setIsOpen(false);
   };
 
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => (document.body.style.overflow = "");
-  }, [isOpen]);
-
-  // Close on Escape
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") setIsOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
   return (
-    <header className="site-header">
-      <nav className="nav">
-        <Link to="/" className="brand" onClick={handleNavigate}>
-          NETARK
-        </Link>
+    <nav className="main-nav">
+      <ul className="nav-list">
+        <li>
+          <Link to="/" onClick={handleNavigate}>Home</Link>
+        </li>
 
-        {/* Desktop nav */}
-        <ul className="nav-list desktop">
-          <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-          <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-          <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-          <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-        </ul>
+        <li>
+          <Link to="/about" onClick={handleNavigate}>About</Link>
+        </li>
 
-        {/* Mobile hamburger */}
-        <button
-          className={`hamburger ${isOpen ? "active" : ""}`}
-          aria-label="Toggle menu"
-          aria-expanded={isOpen}
-          aria-controls="mobile-drawer"
-          onClick={() => setIsOpen((s) => !s)}
-        >
-          <span />
-          <span />
-          <span />
-        </button>
-      </nav>
+        {/* Services */}
+        <li>
+          <Link to="/services" onClick={handleNavigate}>Services</Link>
+        </li>
 
-      {/* Overlay */}
-      <div
-        className={`overlay ${isOpen ? "show" : ""}`}
-        onClick={() => setIsOpen(false)}
-      />
-
-      {/* Mobile drawer */}
-      <aside
-        id="mobile-drawer"
-        ref={drawerRef}
-        className={`drawer ${isOpen ? "open" : ""}`}
-        role="dialog"
-        aria-modal="true"
-      >
-        <ul className="nav-list mobile">
-          <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-          <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-          <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-          <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-        </ul>
-      </aside>
+        <li>
+          <Link to="/contact" onClick={handleNavigate}>Contact</Link>
+        </li>
+      </ul>
 
       <style>{`
-        /* Layout */
-        .site-header {
-          position: sticky;
-          top: 0;
-          z-index: 1000;
-          background: #0e0f2c;
-          border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        .nav {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 14px 16px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-        }
-
-        /* Brand */
-        .brand {
-          color: #fff;
-          font-weight: 800;
-          letter-spacing: .5px;
-          text-decoration: none;
-          font-size: 1.05rem;
-          line-height: 1;
-          display: inline-block;
-          padding: 8px 6px;
-        }
-
-        /* Desktop list */
-        .nav-list {
+        /* ---------- DESKTOP ---------- */
+        .main-nav .nav-list {
           list-style: none;
           margin: 0;
           padding: 0;
-        }
-        .nav-list.desktop {
           display: flex;
+          gap: 24px;
           align-items: center;
-          gap: clamp(14px, 3vw, 28px);
         }
-        .nav-list li a {
+
+        .main-nav a,
+        .nav-link-btn {
           text-decoration: none;
-          color: #fff;
+          color: #fff; /* same color as others */
           font-weight: 500;
-          font-size: 0.98rem;
-          padding: 10px 6px;
-          display: inline-block;
-          transition: color .25s ease, transform .08s ease;
-        }
-        .nav-list li a:hover {
-          color: ${RUBY};
-        }
-        .nav-list li a:active { transform: translateY(1px); }
-
-        /* Hamburger */
-        .hamburger {
-          display: none;
-          width: 42px;
-          height: 42px;
-          border-radius: 10px;
-          border: 1px solid rgba(255,255,255,0.14);
-          background: transparent;
-          align-items: center;
-          justify-content: center;
-          gap: 5px;
+          background: none;
+          border: none;
           cursor: pointer;
+          font-size: 1rem;
+          transition: color 0.3s ease;
         }
-        .hamburger span {
-          display: block;
-          width: 20px;
-          height: 2px;
+
+        .main-nav a:hover,
+        .nav-link-btn:hover {
+          color: #e63946; /* ruby red hover */
+        }
+
+        .has-sub {
+          position: relative;
+        }
+
+        .sub-toggle {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .sub-menu {
+          list-style: none;
+          margin: 8px 0 0;
+          padding: 10px 12px;
+          position: absolute;
+          left: 0;
+          top: 100%;
           background: #fff;
-          transition: transform .25s ease, opacity .25s ease;
-        }
-        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-        /* Drawer + overlay */
-        .overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,0.35);
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity .25s ease;
-          z-index: 999;
-        }
-        .overlay.show {
-          opacity: 1;
-          pointer-events: auto;
-        }
-        .drawer {
-          position: fixed;
-          top: 0;
-          right: 0;
-          height: 100vh;
-          width: min(86vw, 340px);
-          background: #0e0f2c;
-          border-left: 1px solid rgba(255,255,255,0.08);
-          transform: translateX(100%);
-          transition: transform .25s ease;
-          z-index: 1000;
-          padding: 18px 16px;
-          display: flex;
-        }
-        .drawer.open { transform: translateX(0%); }
-
-        .nav-list.mobile {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-          gap: 4px;
-          margin-top: 8px;
-        }
-        .nav-list.mobile li a {
-          width: 100%;
-          padding: 14px 10px;
-          border-radius: 10px;
-          background: rgba(255,255,255,0.04);
-        }
-        .nav-list.mobile li a:hover {
-          background: rgba(255,255,255,0.08);
-          color: ${RUBY};
+          border: 1px solid #eee;
+          border-radius: 8px;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+          min-width: 220px;
+          z-index: 99;
         }
 
-        /* Responsive rules */
-        @media (max-width: 992px) {
-          .nav-list.desktop { display: none; }
-          .hamburger { display: inline-flex; }
-          .brand { padding-left: 2px; }
+        .sub-menu li {
+          margin: 0;
+          padding: 6px 0;
+        }
+
+        .sub-menu a {
+          display: block;
+          padding: 6px 8px;
+          color: #111;
+          font-weight: 500;
+        }
+
+        .sub-menu a:hover {
+          color: #e63946;
+        }
+
+        .has-sub:not(.open) .sub-menu {
+          display: none !important;
+        }
+
+        /* ---------- MOBILE ---------- */
+        @media (max-width: 991px) {
+          .main-nav {
+            width: 100%;
+            background: #0e0f2c; /* dark bg */
+            padding: 16px;
+          }
+
+          .main-nav .nav-list {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            width: 100%;
+            background: #0e0f2c;
+            border-radius: 8px;
+            overflow: hidden;
+          }
+
+          .main-nav .nav-list li {
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          }
+
+          .main-nav .nav-list li:last-child {
+            border-bottom: none;
+          }
+
+          .main-nav a,
+          .nav-link-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 1rem;
+            color: #fff;
+            transition: background 0.3s ease, color 0.3s ease;
+          }
+
+          .main-nav a:hover,
+          .nav-link-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #e63946; /* ruby red hover */
+          }
+
+          /* Submenu styling on mobile */
+          .sub-menu {
+            position: static;
+            background: #1a1a2e;
+            border: none;
+            box-shadow: none;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+            width: 100%;
+          }
+
+          .sub-menu li a {
+            padding: 12px 24px;
+            color: #ccc;
+            font-size: 0.95rem;
+          }
+
+          .sub-menu li a:hover {
+            color: #fff;
+            background: rgba(230, 57, 70, 0.2);
+          }
         }
       `}</style>
-    </header>
+    </nav>
   );
 };
 
