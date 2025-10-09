@@ -1154,7 +1154,7 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   content: "";
   width: 30px;
   height: 7px;
-  background: #ff3d00;
+  background: #9B111E;
   border-radius: 30px;
   left: -8%;
   top: 14px;
@@ -1186,7 +1186,7 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
 }
 
 .solutek-btn a:hover {
-  color: #ff3d00;
+  color: #9B111E;
 }
 
 .hero-video-icon {
@@ -1195,7 +1195,7 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
 
 .hero-video-icon span i {
   display: inline-block;
-  background: #ff3d00;
+  background: #9B111E;
   width: 55px;
   height: 55px;
   line-height: 55px;
@@ -1380,7 +1380,7 @@ p.feature-text {
 }
 
 .feature-sinble-single-box:hover {
-  border: 1px solid #ff4208;
+  border: 1px solid #9B111E;
 }
 
 .feature-sinble-single-box:hover .feature-icon::before {
@@ -1439,7 +1439,7 @@ h5.section-sub-title::before {
   content: "";
   width: 30px;
   height: 7px;
-  background: #ff3d00;
+  background: #9B111E;
   border-radius: 30px;
   left: -8%;
   top: 14px;
@@ -1456,7 +1456,7 @@ h1.section-main-title {
 
 h1.section-main-title span {
   display: inline-block;
-  color: #ff3d00;
+  color: #9B111E;
 }
 
 p.section-title-descr {
@@ -1536,7 +1536,7 @@ h6.section-sub-title::before {
   content: '';
   width: 70px;
   height: 2px;
-  background-image: linear-gradient(270deg, #ffffff 0%, #ff3b00 100%);
+  background-image: linear-gradient(270deg, #ffffff 0%,  100%);
   left: -76px;
   top: 12px;
 }
@@ -1546,7 +1546,7 @@ h6.section-sub-title::after {
   content: '';
   width: 70px;
   height: 2px;
-  background-image: linear-gradient(270deg, #ff3b00 0%, #ffffff 100%);
+  background-image: linear-gradient(270deg, #9B111E 0%, #ffffff 100%);
   right: -74px;
   top: 12px;
 }
@@ -1584,11 +1584,11 @@ h1.section-main-title2 {
 }
 
 .case-studies-area h6.section-sub-title::before {
-  background-image: linear-gradient(270deg, #05091d 0%, #ff3b00 100%);
+  background-image: linear-gradient(270deg, #05091d 0%, #9B111E 100%);
 }
 
 .case-studies-area h6.section-sub-title::after {
-  background-image: linear-gradient(270deg, #ff3b00 0%, #05091d 100%);
+  background-image: linear-gradient(270deg, #9B111E 0%, #05091d 100%);
 }
 
 .case-studies-area h1.section-main-title2 {
@@ -1697,7 +1697,7 @@ h1.section-main-title2 {
 }
 
 .quote_button button {
-  background: #ff3d00;
+  background: #9B111E;
   padding: 14px 48px 14px;
   border-radius: 30px;
   transition: 0.5s;
@@ -1718,7 +1718,7 @@ h1.section-main-title2 {
 
 .form_box input:focus,
 .form_box textarea:focus {
-  border-color: #ff3d00;
+  border-color: #9B111E;
   outline: 0;
   box-shadow: 0 0 4px rgb(255, 61, 0, 0.5);
 }
@@ -1796,7 +1796,7 @@ h1.section-main-title2 {
 }
 
 .blog-date {
-  background: #fe3c00;
+  background: #9B111E;
   border-radius: 10px;
   padding: 10px 24px;
   position: absolute;
@@ -1847,7 +1847,7 @@ h3.blog-title a {
 }
 
 h3.blog-title a:hover {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 h3.blog-title {
@@ -1871,7 +1871,7 @@ p.blog-tex {
 }
 
 .blog-btn a:hover {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .blog-btn a i {
@@ -1918,7 +1918,7 @@ p.blog-tex {
 .blog-date-tow h4 i {
   display: inline-block;
   font-size: 16px;
-  color: #ff3d00;
+  color: #9B111E;
   margin-right: 16px;
 }
 
@@ -1934,7 +1934,7 @@ p.blog-tex {
   content: "";
   height: 20px;
   width: 1px;
-  background: #ff3d00;
+  background: #9B111E;
   left: -48px;
   top: 8px;
 }
@@ -1955,7 +1955,7 @@ h3.blog-title-two a {
 }
 
 h3.blog-title-two a:hover {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .blog-btn-tow a {
@@ -1970,7 +1970,7 @@ h3.blog-title-two a:hover {
 }
 
 .blog-btn-tow a:hover {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .blog-btn-tow a i {
@@ -2073,7 +2073,7 @@ h4.about-title {
 
 .solutek-btn a {
   display: inline-block;
-  background: #ff3b00;
+  background: #9B111E;
   text-decoration: none;
   padding: 16px 28px;
   font-size: 15px;
@@ -2141,7 +2141,7 @@ h4.about-title {
 }
 .solutek-button a {
   display: inline-block;
-  background: #ff3b00;
+  background: #9B111E;
   text-decoration: none;
   padding: 16px 28px;
   font-size: 15px;
@@ -2155,10 +2155,10 @@ h4.about-title {
 .btn-2:hover {
   background-image: linear-gradient(
     90deg,
-    #ff3b00 0%,
+    #9B111E 0%,
     #ffcf00 49%,
     #a52600 80%,
-    #ff3b00 100%
+    #9B111E 100%
   );
   animation: slidebg 5s linear infinite;
   color: #fff;
@@ -2285,7 +2285,7 @@ p.service-text {
 
 .service-single-box:hover .service-btn i {
   color: #fff;
-  background: #ff6d3e;
+  background: #C41E3A;
 }
 
 .service-shape {
@@ -2404,7 +2404,7 @@ p.project-text::before {
   content: "";
   height: 100%;
   width: 100%;
-  background: #ff3d00;
+  background: #9B111E;
   left: 0;
   top: 0;
   z-index: -12;
@@ -2418,7 +2418,7 @@ p.project-text:hover::before {
 }
 
 h3.project-title a:hover {
-  color: #ff3d00;
+  color: #9B111E;
 }
 
 .project-area .owl-dots {
@@ -2430,7 +2430,7 @@ h3.project-title a:hover {
 .owl-dot.active {
   width: 10px;
   height: 10px;
-  background: #ff3d00;
+  background: #9B111E;
   display: inline-block;
   margin-right: 26px;
   border-radius: 50%;
@@ -2469,7 +2469,7 @@ h3.project-title a:hover {
 =======================================*/
 
 .brand-area {
-  background: #ff3d00;
+  background: #9B111E;
   padding: 41px 0;
   margin: 0 49px 0;
   left: 0;
@@ -2589,7 +2589,7 @@ ul.pricing-list li {
 }
 
 ul.pricing-list li i {
-  color: #ff3d00;
+  color: #9B111E;
   font-size: 18px;
   position: relative;
   top: 2px;
@@ -2597,13 +2597,13 @@ ul.pricing-list li i {
 }
 
 .pricing-area .solutek-hover-btn {
-  background-color: #ff3d00;
+  background-color: #9B111E;
 }
 
 .pricing-area .solutek-btn a {
   background: #f5ebe8;
   padding: 16px 55px;
-  color: #ff3d00;
+  color: #9B111E;
 }
 
 .pricing-area .solutek-btn a:hover {
@@ -2713,7 +2713,7 @@ ul.accordion {
 .accordion a:before {
   width: 3px;
   height: 16px;
-  background: #ff3d00;
+  background: #9B111E;
   position: absolute;
   right: 32px;
   content: " ";
@@ -2726,7 +2726,7 @@ ul.accordion {
 .accordion a:after {
   width: 16px;
   height: 3px;
-  background: #ff3d00;
+  background: #9B111E;
   position: absolute;
   right: 26px;
   content: " ";
@@ -2739,7 +2739,7 @@ ul.accordion {
   transform: rotate(0deg);
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-  background: #ff3d00;
+  background: #9B111E;
   z-index: -1;
 }
 
@@ -3175,7 +3175,7 @@ ul.testi-rating li {
   content: '';
   width: 36px;
   height: 2px;
-  background-image: linear-gradient(270deg, #ff3b00 0%, #ffffff 100%);
+  background-image: linear-gradient(270deg, #9B111E 0%, #ffffff 100%);
   left: 13px;
   bottom: 13px;
 }
@@ -3185,7 +3185,7 @@ ul.testi-rating li {
   content: '';
   width: 36px;
   height: 2px;
-  background-image: linear-gradient(270deg, #ffffff 0%, #ff3b00 100%);
+  background-image: linear-gradient(270deg, #ffffff 0%, #9B111E 100%);
   right:13px;
   bottom: 13px;
 }
@@ -3261,7 +3261,7 @@ ul.testi-rating li {
   content: "";
   width: 50px;
   height: 2px;
-  background-image: linear-gradient(270deg, #f3f3f3 0%, #ff3b00 100%);
+  background-image: linear-gradient(270deg, #f3f3f3 0%, #9B111E 100%);
   left: -57px;
   top: 13px;
 }
@@ -3296,7 +3296,7 @@ ul.testi-rating li {
   content: "";
   width: 2px;
   height: 120px;
-  background-image: linear-gradient(0deg, #ff3b00 0%, #ffffff 100%);
+  background-image: linear-gradient(0deg, #9B111E 0%, #ffffff 100%);
   left: 34px;
   top: 65px;
 }
@@ -3306,7 +3306,7 @@ ul.testi-rating li {
   content: "";
   width: 2px;
   height: 120px;
-  background-image: linear-gradient(0deg, #ffffff 0%, #ff3b00 100%);
+  background-image: linear-gradient(0deg, #ffffff 0%, #9B111E 100%);
   left: 34px;
   bottom: 72px;
 }
@@ -3319,7 +3319,7 @@ ul.testi-rating li {
 =======================================*/
 
 .address-area {
-  background: #ff3d00;
+  background: #9B111E;
   margin: 0 50px 0;
   padding: 25px 0 25px;
   border-radius: 40px 40px 0 0;
@@ -3392,7 +3392,7 @@ ul.testi-rating li {
 }
 
 .address-area .solutek-btn a:hover {
-  color: #ff3d00;
+  color: #9B111E;
 }
 
 /*=====================================
@@ -3525,11 +3525,11 @@ p.newsletter-text {
 }
 
 .footer-widget-social a i:hover {
-  color: #ff3d00;
+  color: #9B111E;
 }
 
 .footer-widget.left ul li a:hover {
-  color: #ff3d00;
+  color: #9B111E;
 }
 
 .footer-widget.left ul li a:hover::before {
@@ -3575,7 +3575,7 @@ p.newsletter-text {
 }
 
 .copyright-list ul li a:hover {
-  color: #ff3d00;
+  color: #9B111E;
 }
 
 /*=====================================
@@ -3706,7 +3706,7 @@ p.newsletter-text {
 }
 
 .xs-bg-black {
-  background-color: #ff3b00;
+  background-color: #9B111E;
 }
 
 /*html css*/
@@ -3715,7 +3715,7 @@ p.newsletter-text {
 }
 
 .nav-btn.navSidebar-button a {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .sidebar-info-contents .widget-search {
@@ -3765,7 +3765,7 @@ button.icon {
   top: 0;
   height: 56px;
   width: 60px;
-  background: #ff3b00;
+  background: #9B111E;
   border-radius: 0 4px 4px 0;
 }
 
@@ -3822,8 +3822,8 @@ li.item1 {
   margin: 0px 6px 15px 0;
   border: 0;
   font-weight: 500;
-  color: #ff3b00;
-  border: 2px solid #ff3b00;
+  color: #9B111E;
+  border: 2px solid #9B111E;
   transition: 0.5s;
   border-radius: 30px;
   position: relative;
@@ -3838,7 +3838,7 @@ li.item1 {
   right: 0;
   top: 0;
   bottom: 0;
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
   border: 2px solid #fff;
   border-radius: 30px;
@@ -3865,13 +3865,13 @@ li.item1 {
 }
 
 ul.list-style-one li a:hover span {
-  background: #ff3b00;
+  background: #9B111E;
   border-radius: 30px;
   color: #fff;
 }
 
 ul.list-style-one li a:hover {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .follow-company-icon {
@@ -3906,7 +3906,7 @@ ul.list-style-one li a:hover {
   top: 0;
   width: 0;
   height: 100%;
-  background-color: #ff3b00;
+  background-color: #9B111E;
   transition: 0.5s;
   opacity: 0;
   visibility: hidden;
@@ -3946,7 +3946,7 @@ ul.list-style-one li a:hover {
 }
 
 .solutek_nav_manu.style-two .sidebar-button a {
-  color: #ff3b00;
+  color: #9B111E;
   display: inline-block;
   background-color: rgb(255 59 0/7%);
   height: 45px;
@@ -4244,7 +4244,7 @@ ul.list-style-one li a:hover {
 }
 
 .service-area.style-two .single-service-box:hover .service-icon {
-  background: #ff3b00;
+  background: #9B111E;
 }
 
 .service-area.style-two .single-service-box:hover .service-icon img {
@@ -4700,7 +4700,7 @@ ul.list-style-one li a:hover {
 }
 
 .project-area.styl-two .project-single-box:hover .project-icon span {
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
 }
 
@@ -4719,13 +4719,13 @@ ul.list-style-one li a:hover {
   display: inline-block;
   text-align: center;
   border-radius: 10px 0px 10px 10px;
-  color: #ff3b00;
+  color: #9B111E;
   font-size: 22px;
   transition: 0.5s;
 }
 
 .project-area.styl-two .owl-prev:hover {
-  background-color: #ff3b00;
+  background-color: #9B111E;
   color: #fff;
 }
 
@@ -4733,7 +4733,7 @@ ul.list-style-one li a:hover {
   width: 55px;
   height: 55px;
   line-height: 55px;
-  background: #ff3b00;
+  background: #9B111E;
   display: inline-block;
   text-align: center;
   border-radius: 10px 0px 10px 10px;
@@ -4743,7 +4743,7 @@ ul.list-style-one li a:hover {
 }
 
 .project-area.styl-two .owl-next:hover {
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
 }
 
@@ -4948,7 +4948,7 @@ ul.list-style-one li a:hover {
   font-size: 15px;
   text-decoration: none;
   color: #fff;
-  background: #ff3d00;
+  background: #9B111E;
   padding: 7px 19px;
   border-radius: 20px;
   font-family: "Fira Sans";
@@ -5033,11 +5033,11 @@ ul.list-style-one li a:hover {
 
 .blog-area.style-two .blog-meta-top a:hover {
   background: #fff;
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .blog-area.style-two .single-blog-box:hover .blog-box-content a {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .blog-area.style-two .single-blog-box:hover .single-blog-thumb img {
@@ -5148,7 +5148,7 @@ ul.list-style-one li a:hover {
 }
 
 .solutek_nav_manu.style-three .sidebar-button a {
-  color: #ff3b00;
+  color: #9B111E;
   display: inline-block;
   background-color: rgb(255 59 0/7%);
   height: 45px;
@@ -5341,7 +5341,7 @@ ul.list-style-one li a:hover {
   content: '';
   width: 2px;
   height: 166px;
-  background-image: linear-gradient(0deg, #ff3b00 0%, #05091d 100%);
+  background-image: linear-gradient(0deg, #9B111E 0%, #05091d 100%);
   left: 13px;
   bottom: 200px;
 }
@@ -5351,7 +5351,7 @@ ul.list-style-one li a:hover {
   content: '';
   width: 2px;
   height: 166px;
-  background-image: linear-gradient(0deg, #05091d 0%, #ff3b00 100%);
+  background-image: linear-gradient(0deg, #05091d 0%, #9B111E 100%);
   left: 13px;
   bottom: 36px;
 }
@@ -5407,7 +5407,7 @@ ul.list-style-one li a:hover {
   content: "";
   width: 80px;
   height: 2px;
-  background-image: linear-gradient(270deg, #ffffff 0%, #ff3b00 100%);
+  background-image: linear-gradient(270deg, #ffffff 0%, #9B111E 100%);
   left: 0;
   bottom: -5px;
 }
@@ -5465,7 +5465,7 @@ ul.list-style-one li a:hover {
   content: '';
   width: 45px;
   height: 2px;
-  background-image: linear-gradient(270deg, #ffffff 0%, #ff3b00 100%);
+  background-image: linear-gradient(270deg, #ffffff 0%, #9B111E 100%);
   left: -53px;
   top: 12px;
 }
@@ -5582,7 +5582,7 @@ ul.list-style-one li a:hover {
   content: "";
   width: 50px;
   height: 2px;
-  background-image: linear-gradient(270deg, #15192b 0%, #ff3b00 100%);
+  background-image: linear-gradient(270deg, #15192b 0%, #9B111E 100%);
   left: -60px;
   top: 12px;
 }
@@ -5665,7 +5665,7 @@ ul.list-style-one li a:hover {
   content: '';
   width: 50px;
   height: 2px;
-  background-image: linear-gradient(270deg, #05091d 0%, #ff3b00 100%);
+  background-image: linear-gradient(270deg, #05091d 0%, #9B111E 100%);
   left: -62px;
   top: 12px;
 }
@@ -5699,7 +5699,7 @@ ul.list-style-one li a:hover {
 }
 
 .case-studies-single-box:hover .case-studie-content h6::before{
-  background-image: linear-gradient(270deg, #ff3b00 0%, #ffffff 100%);
+  background-image: linear-gradient(270deg, #9B111E 0%, #ffffff 100%);
 }
 
 .case-studies-single-box:hover .case-studies-icon{
@@ -5904,7 +5904,7 @@ ul.breadcumb-list {
   font-size: 16px;
   line-height: 26px;
   text-transform: uppercase;
-  color: #ff3b00;
+  color: #9B111E;
   font-weight: 500;
   font-family: "Fira Sans";
 }
@@ -5957,7 +5957,7 @@ li.list-arrow {
   content: "";
   width: 11px;
   height: 11px;
-  background: #ff3b00;
+  background: #9B111E;
   left: 0;
   top: 5px;
   border-radius: 50%;
@@ -6029,7 +6029,7 @@ li.list-arrow {
   display: inline-block;
   color: #fff;
   font-size: 30px;
-  background: #ff3b00;
+  background: #9B111E;
   border-radius: 50%;
   padding: 10px;
   cursor: pointer;
@@ -6188,15 +6188,15 @@ li.list-arrow {
 
 /* all hover */
 .sservice-area.style-two .single-service-box:hover h3.service-title {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .sservice-area.style-two .single-service-box:hover .service-btn a {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .sservice-area.style-two .single-service-box:hover .service-btn i {
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
 }
 
@@ -6389,8 +6389,8 @@ li.list-arrow {
 
 .team-details-area .contact-info-icon i {
   display: inline-block;
-  color: #ff3b00;
-  border: 2px solid #ff3b00;
+  color: #9B111E;
+  border: 2px solid #9B111E;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -6409,7 +6409,7 @@ li.list-arrow {
 
 .team-details-area .contact-info-content p {
   font-size: 26px;
-  color: #ff3b00;
+  color: #9B111E;
   font-weight: 600;
   margin: 0;
   padding: 0;
@@ -6437,7 +6437,7 @@ li.list-arrow {
 }
 
 .team-details-area .team-details-social-icon ul li i:hover {
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
 }
 
@@ -6545,7 +6545,7 @@ li.list-arrow {
 .skill-bar {
   width: 74% !important;
   height: 7px;
-  background: #ff3b00;
+  background: #9B111E;
   display: block;
   position: relative;
   border-radius: 100px;
@@ -6562,7 +6562,7 @@ li.list-arrow {
   font-size: 18px;
   padding: 3px 0;
   font-weight: 500;
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .skill-bar {
@@ -6607,7 +6607,7 @@ li.list-arrow {
 .skill-bar {
   width: 74% !important;
   height: 7px;
-  background: #ff3b00;
+  background: #9B111E;
   display: block;
   position: relative;
   border-radius: 100px;
@@ -6624,7 +6624,7 @@ li.list-arrow {
   font-size: 18px;
   padding: 3px 0;
   font-weight: 500;
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .skill-bar {
@@ -6692,7 +6692,7 @@ p.services-details-desc {
 }
 
 .service-details-list li i {
-  color: #ff3b00;
+  color: #9B111E;
   margin-right: 12px;
 }
 
@@ -6728,7 +6728,7 @@ p.services-details-desc {
   cursor: pointer;
   z-index: 1;
   font-size: 18px;
-  color: #ff3b00 !important;
+  color: #9B111E !important;
   font-weight: 500;
   background: transparent;
   border: 2px solid #fff;
@@ -6789,7 +6789,7 @@ p.services-details-desc {
   height: 2px;
   left: 0;
   bottom: -8px;
-  background: #ff3b00;
+  background: #9B111E;
 }
 
 .widget-category ul li img {
@@ -6868,7 +6868,7 @@ p.services-details-desc {
 }
 
 .widget-sidber-download-button a.active {
-  background: #ff3b00 !important;
+  background: #9B111E !important;
 }
 
 .widget-sidber-download-button i {
@@ -6930,7 +6930,7 @@ span.widget-sidber-contact-gmail {
 span.widget-sidber-contact-gmail i {
   display: inline-block;
   font-size: 17px;
-  color: #ff3b00;
+  color: #9B111E;
   position: relative;
   top: 2px;
   margin-right: 6px;
@@ -6942,17 +6942,17 @@ span.widget-sidber-contact-gmail i {
   color: #ffffff;
   font-weight: 400;
   text-decoration: none;
-  background: #ff3b00;
+  background: #9B111E;
   padding: 16px 98px 15px;
   border-radius: 5px;
   margin-top: 55px;
   transition: 0.5s;
-  border: 2px solid #ff3b00;
+  border: 2px solid #9B111E;
 }
 
 .widget-sidber-contact-btn a:hover {
   background: transparent;
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .widget-sidber-contact-btn a i {
@@ -7016,13 +7016,13 @@ button.icons {
 }
 
 .sidber-widget-recent-post:hover .recent-widget-content a {
-  color: #ff3b00 !important;
+  color: #9B111E !important;
 }
 
 .recent-widget-content p {
   font-size: 14px;
   margin: 0;
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 /* widget tag */
@@ -7045,7 +7045,7 @@ button.icons {
   height: 100%;
   left: 50%;
   top: 0;
-  background: #ff3b00;
+  background: #9B111E;
   transition: 0.5s;
   z-index: -1;
 }
@@ -7107,7 +7107,7 @@ button.icons {
 .case_study_menu ul li::before {
   animation: opacityFallbackOut 0.5s step-end forwards;
   backface-visibility: hidden;
-  background-color: #ff3b00;
+  background-color: #9B111E;
   clip-path: polygon(-1% 0, 0 0, -25% 104%, -1% 100%);
   content: "";
   height: 100%;
@@ -7132,7 +7132,7 @@ button.icons {
 
 li.current_menu_item {
   color: #fff !important;
-  background: #ff3b00 !important;
+  background: #9B111E !important;
 }
 
 .case-study-single-box {
@@ -7184,7 +7184,7 @@ li.current_menu_item {
 }
 
 .case-study-title h3 a:hover {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .case-study-icon {
@@ -7198,7 +7198,7 @@ li.current_menu_item {
 }
 
 .case-study-content:hover .case-study-icon {
-  background: #ff3b00;
+  background: #9B111E;
 }
 
 .case-study-icon i {
@@ -7274,7 +7274,7 @@ p.project-details-desc {
 
 .project-details-list-item ul li i {
   display: inline-block;
-  color: #ff3b00;
+  color: #9B111E;
   font-size: 19px;
   margin-right: 11px;
   position: relative;
@@ -7285,7 +7285,7 @@ a.project-details-text {
   display: inline-block;
   font-size: 28px;
   line-height: 38px;
-  color: #ff3b00;
+  color: #9B111E;
   font-weight: 700;
   margin-top: 50px;
   margin-bottom: 19px;
@@ -7387,7 +7387,7 @@ a.project-details-text {
   content: "";
   height: 100%;
   width: 100%;
-  background: #ff3d00;
+  background: #9B111E;
   left: 0;
   top: 0;
   border-radius: 20px;
@@ -7398,7 +7398,7 @@ a.project-details-text {
 
 /* all hover grid */
 .blog-area.style-grid .blog-box-content h3 a:hover{
-  color:#ff3b00;
+  color:#9B111E;
 }
 
 .blog-area.style-grid .blog-button:hover a{
@@ -7456,12 +7456,12 @@ a.project-details-text {
   height: 2px;
   left: 5px;
   top: 11px;
-  background: #ff3b00;
+  background: #9B111E;
 }
 
 .blog-details-area .meta-blog i {
   display: inline-block;
-  color: #ff3b00;
+  color: #9B111E;
   padding-right: 9px;
 }
 
@@ -7522,7 +7522,7 @@ p.blog-details-desc {
   height: 2px;
   left: -58px;
   top: 12px;
-  background: #ff3b00;
+  background: #9B111E;
 }
 
 h3.blog-details-title {
@@ -7549,7 +7549,7 @@ p.blog-details-desc.two {
 
 .blog-details-list-item ul li i {
   display: inline-block;
-  color: #ff3b00;
+  color: #9B111E;
   font-size: 18px;
   margin-right: 16px;
 }
@@ -7582,12 +7582,12 @@ p.blog-details-desc.three {
 }
 
 .blog-details-category span a:hover {
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
 }
 
 .blog-details-category span a.active-class {
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
 }
 
@@ -7601,7 +7601,7 @@ p.blog-details-desc.three {
 
 .blog-details-social-icon ul li i {
   display: inline-block;
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
   width: 30px;
   height: 30px;
@@ -7678,7 +7678,7 @@ p.blog-details-desc.three {
 }
 
 .blog-details-comment-reply a {
-  background: #ff3b00;
+  background: #9B111E;
   padding: 3px 20px;
   font-size: 14px;
   font-weight: 600;
@@ -7726,7 +7726,7 @@ p.blog-details-desc.three {
 }
 
 .blog-details-submi-button button {
-  background: #ff3b00;
+  background: #9B111E;
   color: #fff;
   text-transform: uppercase;
   border: transparent;
@@ -7736,13 +7736,13 @@ p.blog-details-desc.three {
   position: relative;
   z-index: 1;
   transition: 0.5s;
-  border: 2px solid #ff3b00;
+  border: 2px solid #9B111E;
   border-radius: 5px;
   font-weight: 500;
 }
 
 .blog-details-submi-button button:hover {
-  color: #ff3b00;
+  color: #9B111E;
 }
 
 .blog-details-submi-button button:before {
@@ -7785,7 +7785,7 @@ p.blog-details-desc.three {
   left: 0;
   width: 50px;
   height: 50px;
-  border: 1px solid #ff3d00;
+  border: 1px solid #9B111E;
   border-radius: 50%;
   pointer-events: none;
   transform: translate(-50%, -50%);
@@ -7799,7 +7799,7 @@ p.blog-details-desc.three {
   left: 0;
   width: 8px;
   height: 8px;
-  background: #ff3d00;
+  background: #9B111E;
   border-radius: 50%;
   pointer-events: none;
   transform: translate(-50%, -50%);
@@ -7921,7 +7921,7 @@ p.blog-details-desc.three {
   color: #fff;
   top: 3px;
   z-index: 1;
-  background: #ff3b00;
+  background: #9B111E;
 }
 
 .top-wrap .go-top-button i {
@@ -8015,7 +8015,7 @@ p.blog-details-desc.three {
   border-radius: 50%;
   transition: all 1s 1s ease;
   border: 3px solid transparent;
-  border-top-color: #ff3b00;
+  border-top-color: #9B111E;
   -webkit-animation: spin 1.5s linear infinite;
   -moz-animation: spin 1.5s linear infinite;
   -o-animation: spin 1.5s linear infinite;
@@ -8031,7 +8031,7 @@ p.blog-details-desc.three {
   bottom: 6px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-left-color: #ff3d00;
+  border-left-color: #9B111E;
   -webkit-animation: spin 2s linear infinite;
   -moz-animation: spin 2s linear infinite;
   -o-animation: spin 2s linear infinite;
@@ -8815,7 +8815,7 @@ p.blog-details-desc.three {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  background-color: #ff3d00;
+  background-color: #9B111E;
   -webkit-transition: all .4s ease;
   transition: all .4s ease;
   cursor: pointer;
@@ -8861,7 +8861,7 @@ p.blog-details-desc.three {
 }
 .solutek-btn2 a {
   display: inline-block;
-  background: #ff3b00;
+  background: #9B111E;
   text-decoration: none;
   padding: 12px 30px;
   font-size: 16px;
@@ -8919,7 +8919,7 @@ z-index: 999;
   transition: 0.5s;
 }
 .menu-filtering li.active{
-  background-color: #ff3b00;
+  background-color: #9B111E;
   color: #fff;
 }
 
