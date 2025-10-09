@@ -1,176 +1,208 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const RUBY = "#e63946";
+
 const Nav = ({ onNavigate }) => {
-  const [openServices, setOpenServices] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
+    setIsOpen(false); // close sidebar when navigating
   };
 
+  // disable scroll when sidebar open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  }, [isOpen]);
+
   return (
-    <nav className="main-nav">
-      <ul className="nav-list">
-        <li>
-          <Link to="/" onClick={handleNavigate}>Home</Link>
-        </li>
+    <>
+      <nav className="main-nav">
+        <div className="nav-container">
+          <div className="brand">
+            <Link to="/" onClick={handleNavigate}>
+              NETARK
+            </Link>
+          </div>
 
-        <li>
-          <Link to="/about" onClick={handleNavigate}>About</Link>
-        </li>
+          {/* Desktop nav */}
+          <ul className="nav-list desktop">
+            <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
+            <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+            <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
+            <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+          </ul>
 
-        {/* Services */}
-        <li>
-          <Link to="/services" onClick={handleNavigate}>Services</Link>
-        </li>
+          {/* Mobile hamburger */}
+          <button
+            className={`hamburger ${isOpen ? "active" : ""}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
 
-        <li>
-          <Link to="/contact" onClick={handleNavigate}>Contact</Link>
-        </li>
-      </ul>
+      {/* Overlay */}
+      <div
+        className={`overlay ${isOpen ? "show" : ""}`}
+        onClick={() => setIsOpen(false)}
+      ></div>
+
+      {/* Sidebar for mobile */}
+      <aside className={`sidebar ${isOpen ? "open" : ""}`}>
+        <ul className="nav-list mobile">
+          <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
+          <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+          <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
+          <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+        </ul>
+      </aside>
 
       <style>{`
-        /* ---------- DESKTOP ---------- */
-        .main-nav .nav-list {
-          list-style: none;
-          margin: 0;
-          padding: 0;
+        /* ===== Desktop Layout ===== */
+        .main-nav {
+          background: #0e0f2c;
+          color: #fff;
+          padding: 16px 20px;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+        }
+
+        .nav-container {
+          max-width: 1200px;
+          margin: 0 auto;
           display: flex;
-          gap: 24px;
+          justify-content: space-between;
           align-items: center;
         }
 
-        .main-nav a,
-        .nav-link-btn {
+        .brand a {
+          font-weight: 700;
+          font-size: 1.1rem;
+          color: #fff;
           text-decoration: none;
-          color: #fff; /* same color as others */
+        }
+
+        .nav-list {
+          list-style: none;
+          display: flex;
+          gap: 24px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .nav-list li a {
+          text-decoration: none;
+          color: #fff;
           font-weight: 500;
-          background: none;
-          border: none;
-          cursor: pointer;
-          font-size: 1rem;
           transition: color 0.3s ease;
         }
 
-        .main-nav a:hover,
-        .nav-link-btn:hover {
-          color: #e63946; /* ruby red hover */
+        .nav-list li a:hover {
+          color: ${RUBY};
         }
 
-        .has-sub {
-          position: relative;
-        }
-
-        .sub-toggle {
-          display: flex;
+        /* ===== Hamburger (hidden on desktop) ===== */
+        .hamburger {
+          display: none;
+          flex-direction: column;
+          justify-content: center;
           align-items: center;
-          gap: 6px;
+          gap: 5px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          z-index: 1100;
         }
 
-        .sub-menu {
-          list-style: none;
-          margin: 8px 0 0;
-          padding: 10px 12px;
-          position: absolute;
-          left: 0;
-          top: 100%;
+        .hamburger span {
+          width: 24px;
+          height: 2px;
           background: #fff;
-          border: 1px solid #eee;
-          border-radius: 8px;
-          box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-          min-width: 220px;
-          z-index: 99;
+          transition: all 0.3s ease;
         }
 
-        .sub-menu li {
-          margin: 0;
-          padding: 6px 0;
+        .hamburger.active span:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
         }
 
-        .sub-menu a {
+        /* ===== Overlay ===== */
+        .overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.45);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease;
+          z-index: 998;
+        }
+
+        .overlay.show {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 80%;
+          max-width: 300px;
+          height: 100vh;
+          background: #0e0f2c;
+          color: #fff;
+          padding: 80px 20px 20px;
+          transition: right 0.3s ease;
+          z-index: 999;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .sidebar.open {
+          right: 0;
+        }
+
+        .nav-list.mobile {
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .nav-list.mobile li a {
           display: block;
-          padding: 6px 8px;
-          color: #111;
-          font-weight: 500;
+          padding: 14px 12px;
+          border-radius: 6px;
+          transition: background 0.3s ease, color 0.3s ease;
         }
 
-        .sub-menu a:hover {
-          color: #e63946;
+        .nav-list.mobile li a:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: ${RUBY};
         }
 
-        .has-sub:not(.open) .sub-menu {
-          display: none !important;
-        }
-
-        /* ---------- MOBILE ---------- */
+        /* ===== Responsive rules ===== */
         @media (max-width: 991px) {
-          .main-nav {
-            width: 100%;
-            background: #0e0f2c; /* dark bg */
-            padding: 16px;
+          .nav-list.desktop {
+            display: none;
           }
-
-          .main-nav .nav-list {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 0;
-            width: 100%;
-            background: #0e0f2c;
-            border-radius: 8px;
-            overflow: hidden;
-          }
-
-          .main-nav .nav-list li {
-            width: 100%;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          }
-
-          .main-nav .nav-list li:last-child {
-            border-bottom: none;
-          }
-
-          .main-nav a,
-          .nav-link-btn {
-            display: block;
-            width: 100%;
-            padding: 14px 16px;
-            text-align: left;
-            font-size: 1rem;
-            color: #fff;
-            transition: background 0.3s ease, color 0.3s ease;
-          }
-
-          .main-nav a:hover,
-          .nav-link-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #e63946; /* ruby red hover */
-          }
-
-          /* Submenu styling on mobile */
-          .sub-menu {
-            position: static;
-            background: #1a1a2e;
-            border: none;
-            box-shadow: none;
-            margin: 0;
-            padding: 0;
-            border-radius: 0;
-            width: 100%;
-          }
-
-          .sub-menu li a {
-            padding: 12px 24px;
-            color: #ccc;
-            font-size: 0.95rem;
-          }
-
-          .sub-menu li a:hover {
-            color: #fff;
-            background: rgba(230, 57, 70, 0.2);
+          .hamburger {
+            display: flex;
           }
         }
       `}</style>
-    </nav>
+    </>
   );
 };
 
