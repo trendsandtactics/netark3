@@ -1,107 +1,132 @@
-[
-  {
-    "icon": "/assets/images/service1.png",
-    "title": "Internet Services",
-    "desc": [
-      "Secure leased line Internet solutions",
-      "Managed on-demand Internet services",
-      "Enterprise Wi-Fi hotspot solutions",
-      "Managed community Internet services"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  },
-  {
-    "icon": "/assets/images/service2.png",
-    "title": "Co-Location & Hosting",
-    "desc": [
-      "Flexible colocation services (per U, cabinets, private cages)",
-      "Direct cross-connects to carriers & cloud providers",
-      "Certified data center hosting with 24/7 monitoring",
-      "VPS and application hosting solutions",
-      "Managed firewall & server support",
-      "Remote hands & round-the-clock physical security"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  },
-  {
-    "icon": "/assets/images/service3.png",
-    "title": "Connectivity Services",
-    "desc": [
-      "Managed point-to-point and point-to-multipoint connectivity",
-      "VPN and secure enterprise connections",
-      "Long-distance fiber network management",
-      "Redundant, high-availability hosting for mission-critical systems",
-      "Flexible solutions: rack, cabinet, and private cage options",
-      "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  },
-  {
-    "icon": "/assets/images/service4.png",
-    "title": "Cloud Solutions",
-    "desc": [
-      "Private, hybrid & public cloud deployment",
-      "Cloud migration, backup & disaster recovery",
-      "Managed cloud operations & cost optimization"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  },
-  {
-    "icon": "/assets/images/service5.png",
-    "title": "Information Security",
-    "desc": [
-      "Security audits, VPN, IPS & advanced threat protection solutions",
-      "Firewalls, antivirus, DLP & secure access solutions",
-      "Real-time monitoring, traffic analysis and reporting"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  },
-  {
-    "icon": "/assets/images/service6.png",
-    "title": "Data Storage & Backup",
-    "desc": [
-      "SAN, NAS & online backup solutions",
-      "Business continuity & disaster recovery planning"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  },
-  {
-    "icon": "/assets/images/service7.png",
-    "title": "Managed IT & Facility Services",
-    "desc": [
-      "Network & server management",
-      "IT helpdesk & asset management",
-      "Proactive monitoring & maintenance"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  },
-  {
-    "icon": "/assets/images/service8.png",
-    "title": "Unified Communications & Mobility",
-    "desc": [
-      "VoIP, IP telephony & video conferencing",
-      "Enterprise Wi-Fi and hotspot solutions",
-      "Captive portal management"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  },
-  {
-    "icon": "/assets/images/service9.png",
-    "title": "Open-Source IT Solutions",
-    "desc": [
-      "Linux-based servers & intranet platforms",
-      "Messaging, collaboration & monitoring tools",
-      "Thin clients & terminal server deployments"
-    ],
-    "btnText": "READ MORE",
-    "btnLink": "/service/service-details"
-  }
-]
+import SectionTitle from "../Common/SectionTitle";
+import data from "../../Data/services1.json";
+
+// ✅ Import Lucide icons
+import {
+  Wifi,
+  Server,
+  Network,
+  Cloud,
+  Shield,
+  Database,
+  Monitor,
+  PhoneCall,
+  Code,
+} from "lucide-react";
+
+// ✅ Correct Ruby Red (deep tone)
+const RUBY_RED = "#9B111E";
+
+const Services1 = () => {
+  // ✅ Icon map for each service
+  const iconMap = {
+    "Internet Services": <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Co-Location & Hosting": <Server size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Connectivity Services": <Network size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Cloud Solutions": <Cloud size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Information Security": <Shield size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Data Storage & Backup": <Database size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Managed IT & Facility Services": <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Unified Communications & Mobility": <PhoneCall size={50} color={RUBY_RED} strokeWidth={1.6} />,
+    "Open-Source IT Solutions": <Code size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  };
+
+  return (
+    <div className="service-area py-5" style={{ background: "#fff" }}>
+      <div className="container">
+        {/* ===== Section Header ===== */}
+        <div className="row align-items-center mb-5">
+          <div className="col-lg-12">
+            <div className="section-title text-center">
+              <SectionTitle
+                SubTitle="SOLUTEK COMPANY"
+                Title={`How Professional IT Services<br> Can Drive <span style='color:${RUBY_RED};'>Success.</span>`}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* ===== 3×3 GRID ===== */}
+        <div className="row g-4 justify-content-center">
+          {data.map((item, i) => (
+            <div key={i} className="col-lg-4 col-md-6 col-sm-12 d-flex">
+              <div
+                className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between border border-light"
+                style={{
+                  transition: "all 0.3s ease",
+                  background: "#fff",
+                  cursor: "default",
+                }}
+              >
+                {/* ICON */}
+                <div
+                  className="service-icon mb-4 d-flex justify-content-center"
+                  style={{ transition: "transform 0.3s ease" }}
+                >
+                  {iconMap[item.title] || (
+                    <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />
+                  )}
+                </div>
+
+                {/* CONTENT */}
+                <div className="service-content flex-grow-1">
+                  <h3
+                    className="service-title mb-3 fw-semibold"
+                    style={{ color: "#333", transition: "color 0.3s ease" }}
+                  >
+                    {item.title}
+                  </h3>
+                  <ul className="service-points list-unstyled text-start d-inline-block small">
+                    {item.desc.map((point, index) => (
+                      <li key={index} className="mb-1">
+                        • {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ===== Inline CSS for Hover Effects ===== */}
+      <style>
+        {`
+          .service-single-box {
+            color: #555;
+          }
+
+          .service-single-box .service-points li {
+            color: #777;
+            transition: color 0.3s ease;
+          }
+
+          /* Hover effect: Deep Ruby Red background + white text */
+          .service-single-box:hover {
+            background: ${RUBY_RED};
+            color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(155, 17, 30, 0.25);
+          }
+
+          .service-single-box:hover .service-title {
+            color: #fff;
+          }
+
+          .service-single-box:hover .service-points li {
+            color: #fff;
+          }
+
+          .service-single-box:hover .service-icon svg {
+            transform: scale(1.1);
+            stroke: #fff;
+            transition: all 0.3s ease;
+          }
+        `}
+      </style>
+    </div>
+  );
+};
+
+export default Services1;
