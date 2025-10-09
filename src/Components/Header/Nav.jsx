@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const RUBY = "#A1162A"; // brand red
+const RUBY = "#A1162A";
 
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
-    setSidebarOpen(false);
   };
 
   useEffect(() => {
@@ -19,51 +17,13 @@ const Nav = ({ onNavigate }) => {
   }, []);
 
   return (
-    <>
-      {/* ===== NAV BAR ===== */}
-      <nav className="main-nav">
-        {!isMobile ? (
-          // Desktop links (same as before)
-          <ul className="nav-list">
-            <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-            <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-            <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-            <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-          </ul>
-        ) : (
-          // Single red hamburger button on right
-          <button
-            id="nav-hamburger"
-            className="nav-hamburger"
-            aria-label="Open menu"
-            onClick={() => setSidebarOpen(true)}
-          >
-            <span /><span /><span />
-          </button>
-        )}
-      </nav>
-
-      {/* ===== MOBILE SIDEBAR ===== */}
-      {isMobile && (
-        <>
-          <div
-            className={`sidebar-overlay ${sidebarOpen ? "show" : ""}`}
-            onClick={() => setSidebarOpen(false)}
-          />
-          <aside
-            className={`sidebar ${sidebarOpen ? "open" : ""}`}
-            role="dialog"
-            aria-modal="true"
-          >
-            <ul className="sidebar-nav">
-              <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-              <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-              <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-              <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-            </ul>
-          </aside>
-        </>
-      )}
+    <nav className="main-nav">
+      <ul className="nav-list">
+        <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
+        <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+        <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
+        <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+      </ul>
 
       <style>{`
         /* ---------- DESKTOP ---------- */
@@ -90,118 +50,55 @@ const Nav = ({ onNavigate }) => {
 
         /* ---------- MOBILE ---------- */
         @media (max-width: 991px) {
-          /* Hide any other theme togglers */
-          header button:has(span:nth-child(3)):not(#nav-hamburger),
-          .site-header button:has(span:nth-child(3)):not(#nav-hamburger),
-          .main-nav button:has(span:nth-child(3)):not(#nav-hamburger),
-          header .hamburger:not(#nav-hamburger),
-          header .mobile-toggle:not(#nav-hamburger),
-          header .navbar-toggler:not(#nav-hamburger) {
+          .main-nav {
+            display: flex;
+            justify-content: flex-end; /* ✅ Move hamburger to right */
+            align-items: center;
+            width: 100%;
+            background: transparent;
+            padding: 10px 12px;
+          }
+
+          /* Hide our custom ruby hamburger if it exists anywhere */
+          #nav-hamburger,
+          .nav-hamburger {
             display: none !important;
           }
 
-          .main-nav {
-            display: flex;
+          /* Make sure theme's existing hamburger stays visible and aligned right */
+          header button:has(span:nth-child(3)),
+          .site-header button:has(span:nth-child(3)) {
+            display: flex !important;
             justify-content: flex-end;
-            align-items: center;
-            padding: 10px 12px;
-            background: transparent;
-          }
-
-          /* Single ruby hamburger */
-          .nav-hamburger {
+            position: absolute;
+            right: 20px; /* ✅ Move to right */
+            top: 50%;
+            transform: translateY(-50%);
             background: transparent;
             border: none;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            cursor: pointer;
+            z-index: 1001;
           }
 
-          .nav-hamburger span {
-            width: 22px;
-            height: 2px;
-            background: ${RUBY};
-            transition: transform 0.3s ease, opacity 0.3s ease;
+          /* Adjust header container if necessary */
+          header,
+          .site-header {
+            position: relative;
           }
 
-          /* Sidebar */
-          .sidebar {
-            position: fixed;
-            top: 0;
-            right: -280px;
-            width: 260px;
-            height: 100vh;
-            background: #0e0f2c;
-            color: #fff;
-            z-index: 2000;
-            transition: right 0.3s ease;
-            padding: 60px 20px 20px;
-            display: flex;
-            flex-direction: column;
-          }
-
-          .sidebar.open {
-            right: 0;
-          }
-
-          .sidebar-nav {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-          }
-
-          .sidebar-nav li a {
-            display: block;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-          }
-
-          .sidebar-nav li a:hover {
-            color: ${RUBY};
-          }
-
-          /* Background overlay */
-          .sidebar-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.45);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            z-index: 1500;
-          }
-
-          .sidebar-overlay.show {
-            opacity: 1;
-            visibility: visible;
-          }
-
-          /* Hide inline links on mobile */
+          /* Sidebar links from original menu remain unchanged */
           .main-nav .nav-list {
             display: none;
           }
         }
 
         @media (min-width: 992px) {
-          #nav-hamburger,
-          .sidebar,
-          .sidebar-overlay {
-            display: none;
+          /* Hide theme hamburger on desktop */
+          header button:has(span:nth-child(3)) {
+            display: none !important;
           }
         }
       `}</style>
-    </>
+    </nav>
   );
 };
 
