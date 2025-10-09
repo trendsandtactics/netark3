@@ -41,6 +41,7 @@ const About4 = ({
                   <ul>
                     {(hasTitlesArray ? Titles : fallbackList).map((item, i) => (
                       <li key={i}>
+                        {/* No icon image — simple text bullet */}
                         <span>{item}</span>
                       </li>
                     ))}
@@ -48,6 +49,7 @@ const About4 = ({
                 </div>
               )}
 
+              {/* CTA Button */}
               <div className="solutek-btn">
                 <Link to={BtnUrl}>
                   {BtnText}
@@ -58,17 +60,15 @@ const About4 = ({
                 </Link>
               </div>
 
+              {/* Optional stats box WITHOUT any image icons */}
               {(BoxTitle1 || BoxTitle2) && (
-                <div className="col-lg-3 col-md-6 col-sm-6">
-                  <div className="single-counter-box">
-                    <div className="counter-icon">
-                      {/* if you want a small icon, replace with your icon path */}
-                      <img src={withVersion("/assets/images/about-us-thu.png")} alt="icon" />
-                    </div>
-                    <div className="counter-content">
-                      {BoxTitle1 && <h4 className="counter">{BoxTitle1}</h4>}
-                      {BoxTitle1 && <span>+</span>}
-                      {BoxTitle2 && <p>{BoxTitle2}</p>}
+                <div className="col-lg-3 col-md-6 col-sm-6 p-0">
+                  <div className="single-counter-box" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    {/* Removed .counter-icon <img>. Pure text now. */}
+                    <div className="counter-content" style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+                      {BoxTitle1 && <h4 className="counter" style={{ margin: 0 }}>{BoxTitle1}</h4>}
+                      {BoxTitle1 && <span style={{ fontWeight: 600 }}>+</span>}
+                      {BoxTitle2 && <p style={{ margin: 0 }}>{BoxTitle2}</p>}
                     </div>
                   </div>
                 </div>
@@ -76,7 +76,7 @@ const About4 = ({
             </div>
           </div>
 
-          {/* RIGHT: Single Image */}
+          {/* RIGHT: Single Image (kept) */}
           <div className="col-lg-6">
             <div className="about-image text-center">
               <img
