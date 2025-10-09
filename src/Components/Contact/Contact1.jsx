@@ -40,7 +40,7 @@ const Contact1 = () => {
     if (!form.message.trim()) e.message = "Please share your requirements.";
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address.";
-    if (form.phone && !/^[0-9+()\\-\\s]{7,20}$/.test(form.phone))
+    if (form.phone && !/^[0-9+()\- \s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
     return e;
   };
@@ -61,10 +61,7 @@ const Contact1 = () => {
   };
 
   return (
-    <div
-      className="contact-area"
-      style={{ backgroundColor: "#fff", padding: "80px 0", color: "#111" }}
-    >
+    <div className="contact-area" style={{ backgroundColor: "#fff", padding: "80px 0", color: "#111" }}>
       <div className="container">
         <div className="row align-items-start g-4">
           {/* ===== LEFT ===== */}
@@ -82,7 +79,7 @@ const Contact1 = () => {
               services, or IT security solutions, our team is here to help.
             </p>
 
-            {/* Address Card */}
+            {/* Address Card (Get in Touch removed) */}
             <div
               className="shadow-sm"
               style={{
@@ -106,20 +103,13 @@ const Contact1 = () => {
               <h5 style={{ color: RUBY, fontWeight: 700, textTransform: "uppercase", fontSize: "1rem" }}>
                 Phone
               </h5>
-              <p style={{ color: "#444", marginBottom: 12 }}>
+              <p style={{ color: "#444", marginBottom: 0 }}>
                 0422-4280009 &nbsp;|&nbsp; +91 95006 44411
               </p>
-
-              <div style={{ marginTop: 8, paddingTop: 10, borderTop: "1px dashed #e5e5e5" }}>
-                <h5 style={{ fontWeight: 800, marginBottom: 6, color: "#111" }}>Get in Touch with Us</h5>
-                <p style={{ margin: 0, color: "#444" }}>
-                  Fill out the form below, and one of our experts will get back to you within 24 hours.
-                </p>
-              </div>
             </div>
           </div>
 
-          {/* ===== RIGHT (Form first for top alignment), Map second ===== */}
+          {/* ===== RIGHT (Form first), Map second ===== */}
           <div className="col-lg-6 col-md-5">
             {/* Form */}
             <div
@@ -140,7 +130,8 @@ const Contact1 = () => {
                     fontWeight: 600,
                   }}
                 >
-                  Thank you for contacting <strong>NETARK</strong>. Our team will review your request and get back to you shortly.
+                  Thank you for contacting <strong>NETARK</strong>. Our team will review your request and get back to you
+                  shortly.
                 </div>
               )}
 
@@ -237,11 +228,7 @@ const Contact1 = () => {
             {/* Map */}
             <div
               className="map-box shadow-sm rounded-3 overflow-hidden"
-              style={{
-                border: `3px solid ${RUBY}`,
-                height: 260,                // slightly shorter so it visually pairs with form
-                borderRadius: 10,
-              }}
+              style={{ border: `3px solid ${RUBY}`, height: 260, borderRadius: 10 }}
             >
               <iframe
                 title="NETARK Office Location"
