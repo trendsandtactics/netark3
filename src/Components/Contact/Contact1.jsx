@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
 import loadBackgroudImages from "../Common/loadBackgroudImages";
 
+const RUBY = "#9b111e";
+
 const Contact1 = () => {
   useEffect(() => {
     loadBackgroudImages();
   }, []);
-
-  const RUBY = "#9b111e";
 
   // --- Form State ---
   const [form, setForm] = useState({
@@ -40,126 +40,78 @@ const Contact1 = () => {
     if (!form.message.trim()) e.message = "Please share your requirements.";
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address.";
-    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
+    if (form.phone && !/^[0-9+()\\-\\s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
     return e;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: undefined }));
+    setForm((p) => ({ ...p, [name]: value }));
+    setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const eobj = validate();
     setErrors(eobj);
-    if (Object.keys(eobj).length > 0) return;
-
+    if (Object.keys(eobj).length) return;
     setSubmitted(true);
-    setForm({
-      name: "",
-      company: "",
-      email: "",
-      phone: "",
-      service: "",
-      message: "",
-    });
+    setForm({ name: "", company: "", email: "", phone: "", service: "", message: "" });
   };
 
   return (
     <div
       className="contact-area"
-      style={{
-        backgroundColor: "#ffffff",
-        padding: "80px 0",
-        color: "#111",
-      }}
+      style={{ backgroundColor: "#fff", padding: "80px 0", color: "#111" }}
     >
       <div className="container">
-        <div className="row align-items-center">
-          {/* ===== LEFT CONTENT ===== */}
+        <div className="row align-items-start g-4">
+          {/* ===== LEFT ===== */}
           <div className="col-lg-6 col-md-7">
-            <div className="section-title text-left mb-4">
+            <div className="section-title text-left mb-3">
               <SectionTitle
                 SubTitle="LET’S CONNECT"
-                Title="Partner with <span style='color:#9b111e;'>NETARK Technologies</span>"
+                Title={`Partner with <span style='color:${RUBY};'>NETARK Technologies</span>`}
               />
             </div>
 
-            <p
-              style={{
-                fontSize: "1rem",
-                lineHeight: "1.8em",
-                color: "#333",
-                marginBottom: "20px",
-              }}
-            >
-              At NETARK Technologies, we believe the best solutions start with a
-              conversation. Whether you’re looking for enterprise networking,
-              data center hosting, cloud services, or IT security solutions, our
-              team is here to help.
+            <p style={{ fontSize: "1rem", lineHeight: "1.8", color: "#333", marginBottom: 20 }}>
+              At NETARK Technologies, we believe the best solutions start with a conversation.
+              Whether you’re looking for enterprise networking, data center hosting, cloud
+              services, or IT security solutions, our team is here to help.
             </p>
 
-            {/* Contact Info Box */}
+            {/* Address Card */}
             <div
-              className="contact-info-box p-4 rounded-3 shadow-sm"
+              className="shadow-sm"
               style={{
-                backgroundColor: "#f9f9f9",
+                background: "#f9f9f9",
+                border: "1px solid #eee",
                 borderLeft: `4px solid ${RUBY}`,
-                borderRadius: "10px",
+                borderRadius: 10,
+                padding: 20,
               }}
             >
-              <h5
-                style={{
-                  color: RUBY,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  fontSize: "1rem",
-                }}
-              >
+              <h5 style={{ color: RUBY, fontWeight: 700, textTransform: "uppercase", fontSize: "1rem" }}>
                 Office Address
               </h5>
-              <p
-                className="mb-3"
-                style={{ color: "#444", lineHeight: "1.7", fontSize: "0.95rem" }}
-              >
-                <strong>NETARK Technologies India Pvt. Ltd.</strong>
-                <br />
-                Third Floor, Thachil Complex,
-                <br />
-                No. 10 Raja Annamalai Road,
-                <br />
+              <p className="mb-3" style={{ color: "#444", lineHeight: "1.7", fontSize: "0.95rem" }}>
+                <strong>NETARK Technologies India Pvt. Ltd.</strong><br />
+                Third Floor, Thachil Complex,<br />
+                No. 10 Raja Annamalai Road,<br />
                 Saibaba Colony, Coimbatore – 641 011
               </p>
 
-              <h5
-                style={{
-                  color: RUBY,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  fontSize: "1rem",
-                }}
-              >
+              <h5 style={{ color: RUBY, fontWeight: 700, textTransform: "uppercase", fontSize: "1rem" }}>
                 Phone
               </h5>
-              <p style={{ color: "#444", marginBottom: "12px" }}>
-                0422-4280009 | +91 95006 44411
+              <p style={{ color: "#444", marginBottom: 12 }}>
+                0422-4280009 &nbsp;|&nbsp; +91 95006 44411
               </p>
 
-              {/* ▶️ Moved here: Get in Touch section directly below address/phone */}
-              <div
-                className="get-in-touch"
-                style={{
-                  marginTop: 8,
-                  paddingTop: 10,
-                  borderTop: "1px dashed #e5e5e5",
-                }}
-              >
-                <h5 style={{ fontWeight: 800, marginBottom: 6, color: "#111" }}>
-                  Get in Touch with Us
-                </h5>
+              <div style={{ marginTop: 8, paddingTop: 10, borderTop: "1px dashed #e5e5e5" }}>
+                <h5 style={{ fontWeight: 800, marginBottom: 6, color: "#111" }}>Get in Touch with Us</h5>
                 <p style={{ margin: 0, color: "#444" }}>
                   Fill out the form below, and one of our experts will get back to you within 24 hours.
                 </p>
@@ -167,42 +119,16 @@ const Contact1 = () => {
             </div>
           </div>
 
-          {/* ===== RIGHT: MAP + FORM ===== */}
-          <div className="col-lg-6 col-md-5 mt-4 mt-md-0">
-            {/* Map */}
-            <div
-              className="map-box shadow-lg rounded-3 overflow-hidden"
-              style={{
-                border: `3px solid ${RUBY}`,
-                height: "300px",
-                marginBottom: 20,
-              }}
-            >
-              <iframe
-                title="NETARK Office Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.951615322128!2d76.9367359749368!3d11.017957089142246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857d226f1a1d9%3A0x2d403b0bba4de43c!2sNETARK%20Technologies!5e0!3m2!1sen!2sin!4v1696172855664!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: "0" }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-
+          {/* ===== RIGHT (Form first for top alignment), Map second ===== */}
+          <div className="col-lg-6 col-md-5">
             {/* Form */}
             <div
-              className="contact-form shadow-sm rounded-3"
-              style={{
-                background: "#fff",
-                border: "1px solid #eee",
-                padding: 16,
-                borderRadius: 10,
-              }}
+              className="contact-form shadow-sm rounded-3 mb-3"
+              style={{ background: "#fff", border: "1px solid #eee", padding: 16, borderRadius: 10 }}
             >
-              {submitted ? (
+              {submitted && (
                 <div
-                  className="alert alert-success"
+                  className="alert"
                   role="alert"
                   style={{
                     background: "#f1fff3",
@@ -214,138 +140,91 @@ const Contact1 = () => {
                     fontWeight: 600,
                   }}
                 >
-                  Thank you for contacting <strong>NETARK</strong>. Our team will review your request and get back to you
-                  shortly.
+                  Thank you for contacting <strong>NETARK</strong>. Our team will review your request and get back to you shortly.
                 </div>
-              ) : null}
+              )}
 
               <form onSubmit={handleSubmit} noValidate>
                 <div className="row g-2">
-                  {/* Full Name* */}
                   <div className="col-12">
                     <label className="form-label" htmlFor="name" style={{ fontWeight: 600 }}>
                       Full Name*
                     </label>
                     <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      value={form.name}
-                      onChange={handleChange}
-                      className="form-control"
-                      placeholder="Your full name"
-                      required
+                      id="name" name="name" type="text" value={form.name} onChange={handleChange}
+                      className="form-control" placeholder="Your full name" required
                       style={inputStyle(errors.name)}
                     />
                     {errors.name && <small style={errorStyle}>{errors.name}</small>}
                   </div>
 
-                  {/* Company / Organization */}
                   <div className="col-12">
                     <label className="form-label" htmlFor="company" style={{ fontWeight: 600 }}>
                       Company / Organization
                     </label>
                     <input
-                      id="company"
-                      name="company"
-                      type="text"
-                      value={form.company}
-                      onChange={handleChange}
-                      className="form-control"
-                      placeholder="Company name (optional)"
-                      style={inputStyle()}
+                      id="company" name="company" type="text" value={form.company} onChange={handleChange}
+                      className="form-control" placeholder="Company name (optional)" style={inputStyle()}
                     />
                   </div>
 
-                  {/* Email Address* */}
                   <div className="col-md-6">
                     <label className="form-label" htmlFor="email" style={{ fontWeight: 600 }}>
                       Email Address*
                     </label>
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      className="form-control"
-                      placeholder="you@company.com"
-                      required
+                      id="email" name="email" type="email" value={form.email} onChange={handleChange}
+                      className="form-control" placeholder="you@company.com" required
                       style={inputStyle(errors.email)}
                     />
                     {errors.email && <small style={errorStyle}>{errors.email}</small>}
                   </div>
 
-                  {/* Phone Number* */}
                   <div className="col-md-6">
                     <label className="form-label" htmlFor="phone" style={{ fontWeight: 600 }}>
                       Phone Number*
                     </label>
                     <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={form.phone}
-                      onChange={handleChange}
-                      className="form-control"
-                      placeholder="+91 9XXXXXXXXX"
-                      required
+                      id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange}
+                      className="form-control" placeholder="+91 9XXXXXXXXX" required
                       style={inputStyle(errors.phone)}
                     />
                     {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                   </div>
 
-                  {/* Service Interested In */}
                   <div className="col-12">
                     <label className="form-label" htmlFor="service" style={{ fontWeight: 600 }}>
                       Service Interested In
                     </label>
                     <select
-                      id="service"
-                      name="service"
-                      value={form.service}
-                      onChange={handleChange}
-                      className="form-select"
-                      style={inputStyle()}
+                      id="service" name="service" value={form.service} onChange={handleChange}
+                      className="form-select" style={inputStyle()}
                     >
                       <option value="">Select a service</option>
-                      {["Internet Services","Data Center Hosting","Cloud Solutions","Connectivity","Information Security","Managed IT","Others"].map((s) => (
+                      {services.map((s) => (
                         <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
                   </div>
 
-                  {/* Message* */}
                   <div className="col-12">
                     <label className="form-label" htmlFor="message" style={{ fontWeight: 600 }}>
                       Your Message / Requirements*
                     </label>
                     <textarea
-                      id="message"
-                      name="message"
-                      rows={4}
-                      value={form.message}
-                      onChange={handleChange}
-                      className="form-control"
-                      placeholder="Briefly describe your requirements…"
-                      required
-                      style={inputStyle(errors.message)}
+                      id="message" name="message" rows={4} value={form.message} onChange={handleChange}
+                      className="form-control" placeholder="Briefly describe your requirements…"
+                      required style={inputStyle(errors.message)}
                     />
                     {errors.message && <small style={errorStyle}>{errors.message}</small>}
                   </div>
 
-                  {/* Submit */}
                   <div className="col-12">
                     <button
-                      type="submit"
-                      className="thm-btn"
+                      type="submit" className="thm-btn"
                       style={{
-                        background: RUBY,
-                        color: "#fff",
-                        border: "none",
-                        padding: "10px 16px",
-                        borderRadius: 8,
-                        fontWeight: 700,
+                        background: RUBY, color: "#fff", border: "none",
+                        padding: "10px 16px", borderRadius: 8, fontWeight: 700,
                       }}
                     >
                       Send Message
@@ -355,7 +234,22 @@ const Contact1 = () => {
               </form>
             </div>
 
-            <p style={{ color: "#666", fontSize: 12, marginTop: 8 }}>* Required fields</p>
+            {/* Map */}
+            <div
+              className="map-box shadow-sm rounded-3 overflow-hidden"
+              style={{
+                border: `3px solid ${RUBY}`,
+                height: 260,                // slightly shorter so it visually pairs with form
+                borderRadius: 10,
+              }}
+            >
+              <iframe
+                title="NETARK Office Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.951615322128!2d76.9367359749368!3d11.017957089142246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857d226f1a1d9%3A0x2d403b0bba4de43c!2sNETARK%20Technologies!5e0!3m2!1sen!2sin!4v1696172855664!5m2!1sen!2sin"
+                width="100%" height="100%" style={{ border: 0 }}
+                allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -363,7 +257,7 @@ const Contact1 = () => {
   );
 };
 
-// --- tiny style helpers ---
+// helpers
 const inputStyle = (hasError) => ({
   borderRadius: 8,
   border: `1px solid ${hasError ? "#e03131" : "#e5e5e5"}`,
@@ -372,11 +266,6 @@ const inputStyle = (hasError) => ({
   width: "100%",
   boxShadow: "none",
 });
-const errorStyle = {
-  color: "#e03131",
-  fontSize: 12,
-  marginTop: 4,
-  display: "inline-block",
-};
+const errorStyle = { color: "#e03131", fontSize: 12, marginTop: 4, display: "inline-block" };
 
 export default Contact1;
