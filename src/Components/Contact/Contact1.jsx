@@ -38,10 +38,8 @@ const Contact1 = () => {
     if (!form.email.trim()) e.email = "Email Address is required.";
     if (!form.phone.trim()) e.phone = "Phone Number is required.";
     if (!form.message.trim()) e.message = "Please share your requirements.";
-    // Basic email check
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address.";
-    // Basic phone check (lenient)
     if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
     return e;
@@ -50,7 +48,7 @@ const Contact1 = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: undefined })); // clear field error on edit
+    setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
   const handleSubmit = (e) => {
@@ -59,11 +57,7 @@ const Contact1 = () => {
     setErrors(eobj);
     if (Object.keys(eobj).length > 0) return;
 
-    // TODO: integrate with your backend or email service
-    // For now, just simulate success:
     setSubmitted(true);
-
-    // Optional: reset the form
     setForm({
       name: "",
       company: "",
@@ -115,7 +109,6 @@ const Contact1 = () => {
                 backgroundColor: "#f9f9f9",
                 borderLeft: `4px solid ${RUBY}`,
                 borderRadius: "10px",
-                marginBottom: 24,
               }}
             >
               <h5
@@ -151,16 +144,27 @@ const Contact1 = () => {
               >
                 Phone
               </h5>
-              <p style={{ color: "#444", marginBottom: "0" }}>
+              <p style={{ color: "#444", marginBottom: "12px" }}>
                 0422-4280009 | +91 95006 44411
               </p>
-            </div>
 
-            {/* --- New Content Heading --- */}
-            <h5 style={{ fontWeight: 800, marginBottom: 8 }}>Get in Touch with Us</h5>
-            <p style={{ marginTop: 0, color: "#444", marginBottom: 20 }}>
-              Fill out the form below, and one of our experts will get back to you within 24 hours.
-            </p>
+              {/* ▶️ Moved here: Get in Touch section directly below address/phone */}
+              <div
+                className="get-in-touch"
+                style={{
+                  marginTop: 8,
+                  paddingTop: 10,
+                  borderTop: "1px dashed #e5e5e5",
+                }}
+              >
+                <h5 style={{ fontWeight: 800, marginBottom: 6, color: "#111" }}>
+                  Get in Touch with Us
+                </h5>
+                <p style={{ margin: 0, color: "#444" }}>
+                  Fill out the form below, and one of our experts will get back to you within 24 hours.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* ===== RIGHT: MAP + FORM ===== */}
@@ -210,7 +214,8 @@ const Contact1 = () => {
                     fontWeight: 600,
                   }}
                 >
-                  Thank you for contacting <strong>NETARK</strong>. Our team will review your request and get back to you shortly.
+                  Thank you for contacting <strong>NETARK</strong>. Our team will review your request and get back to you
+                  shortly.
                 </div>
               ) : null}
 
@@ -304,10 +309,8 @@ const Contact1 = () => {
                       style={inputStyle()}
                     >
                       <option value="">Select a service</option>
-                      {services.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
+                      {["Internet Services","Data Center Hosting","Cloud Solutions","Connectivity","Information Security","Managed IT","Others"].map((s) => (
+                        <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
                   </div>
@@ -352,10 +355,7 @@ const Contact1 = () => {
               </form>
             </div>
 
-            {/* tiny helper text */}
-            <p style={{ color: "#666", fontSize: 12, marginTop: 8 }}>
-              * Required fields
-            </p>
+            <p style={{ color: "#666", fontSize: 12, marginTop: 8 }}>* Required fields</p>
           </div>
         </div>
       </div>
