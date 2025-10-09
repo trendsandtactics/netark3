@@ -94,7 +94,6 @@ const Nav = ({ onNavigate }) => {
           header button:has(span:nth-child(3)):not(#nav-hamburger),
           .site-header button:has(span:nth-child(3)):not(#nav-hamburger),
           .main-nav button:has(span:nth-child(3)):not(#nav-hamburger),
-          header .menu-toggle:not(#nav-hamburger),
           header .hamburger:not(#nav-hamburger),
           header .mobile-toggle:not(#nav-hamburger),
           header .navbar-toggler:not(#nav-hamburger) {
