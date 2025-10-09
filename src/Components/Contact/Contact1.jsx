@@ -40,7 +40,7 @@ const Contact1 = () => {
     if (!form.message.trim()) e.message = "Please share your requirements.";
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address.";
-    if (form.phone && !/^[0-9+()\- \s]{7,20}$/.test(form.phone))
+    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
     return e;
   };
@@ -64,7 +64,7 @@ const Contact1 = () => {
     <div className="contact-area" style={{ backgroundColor: "#fff", padding: "80px 0", color: "#111" }}>
       <div className="container">
         <div className="row align-items-start g-4">
-          {/* ===== LEFT: Address + Map (map moved here, below address) ===== */}
+          {/* ===== LEFT: Address + Map ===== */}
           <div className="col-lg-6 col-md-7">
             <div className="section-title text-left mb-3">
               <SectionTitle
@@ -109,7 +109,7 @@ const Contact1 = () => {
               </p>
             </div>
 
-            {/* Map BELOW address */}
+            {/* Map */}
             <div
               className="map-box shadow-sm rounded-3 overflow-hidden"
               style={{ border: `3px solid ${RUBY}`, height: 300, borderRadius: 10 }}
@@ -127,8 +127,24 @@ const Contact1 = () => {
           <div className="col-lg-6 col-md-5">
             <div
               className="contact-form shadow-sm rounded-3"
-              style={{ background: "#fff", border: "1px solid #eee", padding: 16, borderRadius: 10 }}
+              style={{ background: "#fff", border: "1px solid #eee", padding: 24, borderRadius: 10 }}
             >
+              {/* ===== New Title Above Form ===== */}
+              <h4
+                style={{
+                  fontWeight: 800,
+                  color: RUBY,
+                  fontSize: "1.4rem",
+                  marginBottom: 20,
+                  textTransform: "uppercase",
+                  borderBottom: `2px solid ${RUBY}`,
+                  display: "inline-block",
+                  paddingBottom: 6,
+                }}
+              >
+                Get in Touch
+              </h4>
+
               {submitted && (
                 <div
                   className="alert"
@@ -238,6 +254,7 @@ const Contact1 = () => {
               </form>
             </div>
           </div>
+          {/* ===== END RIGHT ===== */}
         </div>
       </div>
     </div>
