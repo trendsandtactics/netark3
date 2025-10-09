@@ -7,7 +7,7 @@
       "Enterprise Wi-Fi hotspot solutions",
       "Managed community Internet services"
     ],
-    src="/01.jpg"
+    "image": "/01.jpg"
   },
   {
     "title": "Co-Location & Hosting",
