@@ -1,172 +1,136 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const RUBY = "#e63946";
+const RUBY = "#E0115F";
 
 const Nav = ({ onNavigate }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
-    setIsOpen(false); // close sidebar when navigating
+    setSidebarOpen(false);
   };
 
-  // disable scroll when sidebar open
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "auto";
-  }, [isOpen]);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
+      {/* === MAIN NAV === */}
       <nav className="main-nav">
-        <div className="nav-container">
-          <div className="brand">
-            <Link to="/" onClick={handleNavigate}>
-              NETARK
-            </Link>
-          </div>
-
-          {/* Desktop nav */}
-          <ul className="nav-list desktop">
+        {!isMobile ? (
+          // ✅ Desktop Nav (stays same)
+          <ul className="nav-list">
             <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
             <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
             <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
             <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
           </ul>
-
-          {/* Mobile hamburger */}
+        ) : (
+          // ✅ Mobile Hamburger
           <button
-            className={`hamburger ${isOpen ? "active" : ""}`}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
+            className="hamburger"
+            aria-label="Open Menu"
+            onClick={() => setSidebarOpen(true)}
           >
             <span></span>
             <span></span>
             <span></span>
           </button>
-        </div>
+        )}
       </nav>
 
-      {/* Overlay */}
-      <div
-        className={`overlay ${isOpen ? "show" : ""}`}
-        onClick={() => setIsOpen(false)}
-      ></div>
+      {/* === SIDEBAR MENU for MOBILE === */}
+      {isMobile && (
+        <>
+          <div
+            className={`sidebar-overlay ${sidebarOpen ? "show" : ""}`}
+            onClick={() => setSidebarOpen(false)}
+          ></div>
 
-      {/* Sidebar for mobile */}
-      <aside className={`sidebar ${isOpen ? "open" : ""}`}>
-        <ul className="nav-list mobile">
-          <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-          <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-          <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-          <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-        </ul>
-      </aside>
+          <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+            <div className="sidebar-header">
+              <h3>Menu</h3>
+              <button
+                className="close-btn"
+                onClick={() => setSidebarOpen(false)}
+                aria-label="Close Menu"
+              >
+                ✕
+              </button>
+            </div>
 
+            <ul className="sidebar-nav">
+              <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
+              <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+              <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
+              <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+            </ul>
+          </aside>
+        </>
+      )}
+
+      {/* === STYLES === */}
       <style>{`
-        /* ===== Desktop Layout ===== */
-        .main-nav {
-          background: #0e0f2c;
-          color: #fff;
-          padding: 16px 20px;
-          position: sticky;
-          top: 0;
-          z-index: 1000;
-        }
-
-        .nav-container {
-          max-width: 1200px;
-          margin: 0 auto;
+        /* ---------- DESKTOP ---------- */
+        .main-nav .nav-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
           display: flex;
-          justify-content: space-between;
+          gap: 24px;
           align-items: center;
         }
 
-        .brand a {
-          font-weight: 700;
-          font-size: 1.1rem;
-          color: #fff;
-          text-decoration: none;
-        }
-
-        .nav-list {
-          list-style: none;
-          display: flex;
-          gap: 24px;
-          margin: 0;
-          padding: 0;
-        }
-
-        .nav-list li a {
+        .main-nav a {
           text-decoration: none;
           color: #fff;
           font-weight: 500;
+          font-size: 1rem;
           transition: color 0.3s ease;
         }
 
-        .nav-list li a:hover {
+        .main-nav a:hover {
           color: ${RUBY};
         }
 
-        /* ===== Hamburger (hidden on desktop) ===== */
+        /* ---------- HAMBURGER (MOBILE) ---------- */
         .hamburger {
-          display: none;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 5px;
           background: transparent;
           border: none;
           cursor: pointer;
-          z-index: 1100;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          padding: 10px;
         }
 
         .hamburger span {
+          display: block;
           width: 24px;
           height: 2px;
           background: #fff;
-          transition: all 0.3s ease;
+          transition: 0.3s;
         }
 
-        .hamburger.active span:nth-child(1) {
-          transform: translateY(7px) rotate(45deg);
-        }
-        .hamburger.active span:nth-child(2) {
-          opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-          transform: translateY(-7px) rotate(-45deg);
-        }
-
-        /* ===== Overlay ===== */
-        .overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.45);
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.3s ease;
-          z-index: 998;
-        }
-
-        .overlay.show {
-          opacity: 1;
-          pointer-events: auto;
-        }
-
-        /* ===== Sidebar ===== */
+        /* ---------- SIDEBAR ---------- */
         .sidebar {
           position: fixed;
           top: 0;
-          right: -100%;
-          width: 80%;
-          max-width: 300px;
+          right: -280px;
           height: 100vh;
+          width: 260px;
           background: #0e0f2c;
           color: #fff;
-          padding: 80px 20px 20px;
           transition: right 0.3s ease;
-          z-index: 999;
+          z-index: 2000;
+          padding: 20px;
           display: flex;
           flex-direction: column;
         }
@@ -175,31 +139,75 @@ const Nav = ({ onNavigate }) => {
           right: 0;
         }
 
-        .nav-list.mobile {
+        .sidebar-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 20px;
+        }
+
+        .sidebar-header h3 {
+          margin: 0;
+          font-size: 1.1rem;
+          font-weight: 600;
+        }
+
+        .close-btn {
+          background: transparent;
+          color: #fff;
+          font-size: 1.4rem;
+          border: none;
+          cursor: pointer;
+        }
+
+        .sidebar-nav {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 10px;
         }
 
-        .nav-list.mobile li a {
+        .sidebar-nav li a {
+          color: #fff;
+          text-decoration: none;
+          font-size: 1rem;
+          font-weight: 500;
+          padding: 10px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
           display: block;
-          padding: 14px 12px;
-          border-radius: 6px;
-          transition: background 0.3s ease, color 0.3s ease;
+          transition: color 0.3s ease;
         }
 
-        .nav-list.mobile li a:hover {
-          background: rgba(255, 255, 255, 0.1);
+        .sidebar-nav li a:hover {
           color: ${RUBY};
         }
 
-        /* ===== Responsive rules ===== */
-        @media (max-width: 991px) {
-          .nav-list.desktop {
-            display: none;
-          }
-          .hamburger {
-            display: flex;
-          }
+        /* Overlay for background dimming */
+        .sidebar-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.5);
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease;
+          z-index: 1500;
+        }
+
+        .sidebar-overlay.show {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        /* Hide hamburger on desktop */
+        @media (min-width: 992px) {
+          .hamburger { display: none; }
+          .sidebar { display: none; }
+          .sidebar-overlay { display: none; }
         }
       `}</style>
     </>
