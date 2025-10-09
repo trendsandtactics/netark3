@@ -21,8 +21,8 @@ const Services4 = () => {
           <div className="col-lg-12">
             <div className="section-title text-center">
               <SectionTitle
-                SubTitle="SOLUTEK COMPANY"
-                Title="How Professional IT Services<br> Can Drive <span>Success.</span>"
+                SubTitle="NETARK COMPANY"
+                Title="Choose <span>Netrak </span> for reliable IT service, connectivity, and managed infrastructure across India"
               />
             </div>
           </div>
