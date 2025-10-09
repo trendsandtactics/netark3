@@ -64,7 +64,7 @@ const Contact1 = () => {
     <div className="contact-area" style={{ backgroundColor: "#fff", padding: "80px 0", color: "#111" }}>
       <div className="container">
         <div className="row align-items-start g-4">
-          {/* ===== LEFT ===== */}
+          {/* ===== LEFT: Address + Map (map moved here, below address) ===== */}
           <div className="col-lg-6 col-md-7">
             <div className="section-title text-left mb-3">
               <SectionTitle
@@ -79,7 +79,7 @@ const Contact1 = () => {
               services, or IT security solutions, our team is here to help.
             </p>
 
-            {/* Address Card (Get in Touch removed) */}
+            {/* Address Card */}
             <div
               className="shadow-sm"
               style={{
@@ -88,6 +88,7 @@ const Contact1 = () => {
                 borderLeft: `4px solid ${RUBY}`,
                 borderRadius: 10,
                 padding: 20,
+                marginBottom: 16,
               }}
             >
               <h5 style={{ color: RUBY, fontWeight: 700, textTransform: "uppercase", fontSize: "1rem" }}>
@@ -107,13 +108,25 @@ const Contact1 = () => {
                 0422-4280009 &nbsp;|&nbsp; +91 95006 44411
               </p>
             </div>
+
+            {/* Map BELOW address */}
+            <div
+              className="map-box shadow-sm rounded-3 overflow-hidden"
+              style={{ border: `3px solid ${RUBY}`, height: 300, borderRadius: 10 }}
+            >
+              <iframe
+                title="NETARK Office Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.951615322128!2d76.9367359749368!3d11.017957089142246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857d226f1a1d9%3A0x2d403b0bba4de43c!2sNETARK%20Technologies!5e0!3m2!1sen!2sin!4v1696172855664!5m2!1sen!2sin"
+                width="100%" height="100%" style={{ border: 0 }}
+                allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
           </div>
 
-          {/* ===== RIGHT (Form first), Map second ===== */}
+          {/* ===== RIGHT: Form ===== */}
           <div className="col-lg-6 col-md-5">
-            {/* Form */}
             <div
-              className="contact-form shadow-sm rounded-3 mb-3"
+              className="contact-form shadow-sm rounded-3"
               style={{ background: "#fff", border: "1px solid #eee", padding: 16, borderRadius: 10 }}
             >
               {submitted && (
@@ -223,19 +236,6 @@ const Contact1 = () => {
                   </div>
                 </div>
               </form>
-            </div>
-
-            {/* Map */}
-            <div
-              className="map-box shadow-sm rounded-3 overflow-hidden"
-              style={{ border: `3px solid ${RUBY}`, height: 260, borderRadius: 10 }}
-            >
-              <iframe
-                title="NETARK Office Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.951615322128!2d76.9367359749368!3d11.017957089142246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857d226f1a1d9%3A0x2d403b0bba4de43c!2sNETARK%20Technologies!5e0!3m2!1sen!2sin!4v1696172855664!5m2!1sen!2sin"
-                width="100%" height="100%" style={{ border: 0 }}
-                allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-              />
             </div>
           </div>
         </div>
