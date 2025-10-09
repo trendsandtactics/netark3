@@ -13,9 +13,6 @@ const Hero1 = ({bgImg,SubTitle,Title,Content,BtnText,BtnLink,Image,VideoText}) =
 	  const [iframeSrc, setIframeSrc] = useState('about:blank');
 	  const [toggle, setToggle] = useState(false);
 	
-	  const handelClick = () => {
-		setIframeSrc("https://www.youtube.com/embed/rRid6GCJtgc");
-		setToggle(!toggle);
 	  };
 	  const handelClose = () => {
 		setIframeSrc('about:blank');
@@ -40,9 +37,7 @@ const Hero1 = ({bgImg,SubTitle,Title,Content,BtnText,BtnLink,Image,VideoText}) =
 								<div className="solutek-hover-btn hover-bx4"></div>
 							</Link>
 						</div>
-						<div className="hero-video-icon" onClick={handelClick}>	
-							<span className="video-vemo-icon venobox vbox-item" data-vbtype="youtube" data-autoplay="true"><i className="bi bi-play"></i><span>{VideoText}</span></span>
-						</div>
+						
 					</div>
 				</div>
 				<div className="col-lg-6">
