@@ -1,26 +1,78 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const RUBY = "#A1162A"; // brand red
+const RUBY = "#A1162A"; // brand red (hover color)
 
 const Nav = ({ onNavigate }) => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 991);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
+    setSidebarOpen(false);
   };
 
+  // Attach click to the THEME'S hamburger (no extra buttons)
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 991);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    const onResize = () => setIsMobile(window.innerWidth <= 991);
+    window.addEventListener("resize", onResize);
+
+    // Try common selectors; fallback to any header button that looks like a hamburger
+    const candidates = Array.from(
+      document.querySelectorAll(
+        [
+          "header .menu-toggle",
+          "header .hamburger",
+          "header .mobile-toggle",
+          "header .navbar-toggler",
+          'header button[aria-label*="menu" i]',
+          ".site-header .menu-toggle",
+          ".site-header .hamburger",
+          ".site-header .mobile-toggle",
+          ".site-header .navbar-toggler",
+        ].join(",")
+      )
+    );
+
+    // Fallback heuristic: three stacked spans inside a header button
+    if (candidates.length === 0) {
+      const guess = Array.from(
+        document.querySelectorAll("header button, .site-header button")
+      ).find((b) => b.querySelectorAll("span").length >= 3);
+      if (guess) candidates.push(guess);
+    }
+
+    // Click handler to open our sidebar
+    const openSidebar = (e) => {
+      // Prevent double toggles if theme also opens something else
+      e.stopPropagation();
+      setSidebarOpen(true);
+    };
+
+    // Attach listeners on mobile only
+    if (isMobile) {
+      candidates.forEach((btn) => btn.addEventListener("click", openSidebar));
+    }
+
+    // Close on ESC
+    const onKey = (e) => {
+      if (e.key === "Escape") setSidebarOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("keydown", onKey);
+      candidates.forEach((btn) =>
+        btn.removeEventListener("click", openSidebar)
+      );
+    };
+  }, [isMobile]);
 
   return (
     <>
-      {/* ===== NAVBAR ===== */}
+      {/* Desktop inline nav (unchanged) */}
       <nav className="main-nav">
-        {/* Desktop Navigation */}
         {!isMobile && (
           <ul className="nav-list">
             <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
@@ -31,20 +83,30 @@ const Nav = ({ onNavigate }) => {
         )}
       </nav>
 
-      {/* ===== SIDEBAR MENU LINKS (MOBILE) ===== */}
+      {/* Mobile sidebar & overlay (opens when theme hamburger is clicked) */}
       {isMobile && (
-        <aside className="existing-sidebar">
-          <ul className="sidebar-links">
-            <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-            <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-            <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-            <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-          </ul>
-        </aside>
+        <>
+          <div
+            className={`sidebar-overlay ${sidebarOpen ? "show" : ""}`}
+            onClick={() => setSidebarOpen(false)}
+          />
+          <aside
+            className={`sidebar ${sidebarOpen ? "open" : ""}`}
+            role="dialog"
+            aria-modal="true"
+          >
+            <ul className="sidebar-nav">
+              <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
+              <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+              <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
+              <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+            </ul>
+          </aside>
+        </>
       )}
 
       <style>{`
-        /* ---------- DESKTOP ---------- */
+        /* ---------- Desktop (unchanged) ---------- */
         .main-nav .nav-list {
           list-style: none;
           margin: 0;
@@ -53,86 +115,92 @@ const Nav = ({ onNavigate }) => {
           gap: 24px;
           align-items: center;
         }
-
         .main-nav a {
           text-decoration: none;
           color: #fff;
           font-weight: 500;
           font-size: 1rem;
-          transition: color 0.3s ease;
+          transition: color .25s ease;
         }
+        .main-nav a:hover { color: ${RUBY}; }
 
-        .main-nav a:hover {
-          color: ${RUBY};
-        }
-
-        /* ---------- MOBILE ---------- */
+        /* ---------- Mobile-only behavior ---------- */
         @media (max-width: 991px) {
-          /* Hide desktop links */
-          .main-nav .nav-list {
-            display: none;
-          }
+          /* Hide inline links on mobile; we use the sidebar */
+          .main-nav .nav-list { display: none; }
 
-          /* Align the default theme hamburger to right */
-          header button:has(span:nth-child(3)),
-          .site-header button:has(span:nth-child(3)) {
-            display: flex !important;
+          /* (Optional) nudge your theme hamburger to the right edge */
+          header, .site-header { position: relative; }
+          header .menu-toggle,
+          header .hamburger,
+          header .mobile-toggle,
+          header .navbar-toggler,
+          header button[aria-label*="menu" i],
+          .site-header .menu-toggle,
+          .site-header .hamburger,
+          .site-header .mobile-toggle,
+          .site-header .navbar-toggler {
             position: absolute;
-            right: 20px;
+            right: 16px;
             top: 50%;
             transform: translateY(-50%);
-            background: transparent;
-            border: none;
             z-index: 1001;
           }
 
-          /* Sidebar nav links (inside your existing sidebar) */
-          .existing-sidebar {
+          /* Overlay */
+          .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .25s ease, visibility .25s ease;
+            z-index: 1500;
+          }
+          .sidebar-overlay.show {
+            opacity: 1;
+            visibility: visible;
+          }
+
+          /* Sidebar panel (right) */
+          .sidebar {
             position: fixed;
             top: 0;
-            right: 0;
+            right: -280px;
             width: 260px;
             height: 100vh;
             background: #0e0f2c;
+            color: #fff;
+            z-index: 2000;
+            transition: right .25s ease;
+            padding: 70px 18px 18px; /* top padding so it clears header */
             display: flex;
             flex-direction: column;
-            padding: 80px 20px 20px;
-            z-index: 1500;
+            border-left: 1px solid rgba(255,255,255,0.08);
           }
+          .sidebar.open { right: 0; }
 
-          .sidebar-links {
+          .sidebar-nav {
             list-style: none;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
           }
-
-          .sidebar-links li {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-          }
-
-          .sidebar-links li:last-child {
-            border-bottom: none;
-          }
-
-          .sidebar-links a {
-            color: #fff;
+          .sidebar-nav li a {
             display: block;
-            padding: 14px 0;
+            padding: 14px 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
             text-decoration: none;
-            font-size: 1rem;
             font-weight: 500;
-            transition: color 0.3s ease;
           }
-
-          .sidebar-links a:hover {
-            color: ${RUBY};
-          }
+          .sidebar-nav li:last-child a { border-bottom: 0; }
+          .sidebar-nav li a:hover { color: ${RUBY}; }
         }
 
         @media (min-width: 992px) {
-          .existing-sidebar { display: none; }
+          .sidebar, .sidebar-overlay { display: none; }
         }
       `}</style>
     </>
