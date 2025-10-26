@@ -1,106 +1,146 @@
-import React from "react";
-import BreadCumb from "../Components/Common/BreadCumb";
+import SectionTitle from "../Components/Common/SectionTitle";
 
 const RUBY = "#A1162A";
 
-export default function Solutions() {
+const Solutions = () => {
+  const solutions = [
+    {
+      title: "Campus Networking & IT Infrastructure",
+      image: "/assets/images/solutions/networking.jpg",
+      desc: [
+        "LAN/WAN design, switching, routing & structured cabling",
+        "Wi-Fi solutions for enterprises, campuses, and offices",
+        "Fiber optic infrastructure for campuses and industries",
+        "Network monitoring, optimization & performance tuning",
+      ],
+    },
+    {
+      title: "Surveillance & Security Systems",
+      image: "/assets/images/solutions/security.jpg",
+      desc: [
+        "Enterprise-grade IP CCTV & video management",
+        "Access control & visitor management systems",
+        "Fire alarm, intrusion detection & monitoring systems",
+        "Centralized security monitoring & integration",
+      ],
+    },
+    {
+      title: "Enterprise Systems & Servers",
+      image: "/assets/images/solutions/servers.jpg",
+      desc: [
+        "Certified green servers, storage & networking hardware",
+        "Network equipment leasing & lifecycle consulting",
+        "Enterprise backup and redundancy systems",
+        "Server installation, upgrades & configuration",
+      ],
+    },
+  ];
+
   return (
-    <div className="solutions-page">
-      {/* Breadcrumb (same pattern as About page) */}
-      <BreadCumb Title="Solutions" />
-
-      <main
-        className="solutions-page"
-        style={{
-          color: "#000", // ✅ text color black
-          backgroundColor: "#fff", // ✅ white background
-          minHeight: "100vh",
-        }}
-      >
-        <section
-          className="container"
-          style={{
-            maxWidth: "900px",
-            margin: "0 auto",
-            padding: "80px 20px",
-          }}
-        >
-          <h1
-            style={{
-              color: RUBY, // ✅ brand red for title
-              fontSize: "2.2rem",
-              fontWeight: 700,
-              marginBottom: "1.5rem",
-              lineHeight: 1.3,
-            }}
-          >
-            Comprehensive IT &amp; Networking Solutions for Modern Enterprises
-          </h1>
-
-          <div style={{ lineHeight: 1.7, fontSize: "1rem", color: "#333" }}>
-            <h2
-              style={{
-                color: RUBY,
-                fontSize: "1.4rem",
-                marginTop: "1.5rem",
-              }}
-            >
-              1. Campus Networking &amp; IT Infrastructure
-            </h2>
-            <ul>
-              <li>LAN/WAN design, switching, routing &amp; structured cabling</li>
-              <li>Wi-Fi solutions for enterprises, campuses, and offices</li>
-              <li>Fiber optic solutions for campuses and industries</li>
-              <li>Network monitoring, optimization &amp; performance tuning</li>
-            </ul>
-
-            <h2
-              style={{
-                color: RUBY,
-                fontSize: "1.4rem",
-                marginTop: "1.5rem",
-              }}
-            >
-              2. Surveillance &amp; Security Systems
-            </h2>
-            <ul>
-              <li>Enterprise-grade IP CCTV &amp; video management</li>
-              <li>
-                Access control, visitor management &amp; safety integration for
-                offices, factories, and campuses
-              </li>
-              <li>Fire alarm, intrusion detection &amp; monitoring systems</li>
-            </ul>
-
-            <h2
-              style={{
-                color: RUBY,
-                fontSize: "1.4rem",
-                marginTop: "1.5rem",
-              }}
-            >
-              3. Enterprise Systems &amp; Servers
-            </h2>
-            <ul>
-              <li>Certified green servers, storage &amp; networking hardware</li>
-              <li>Network equipment rentals</li>
-              <li>Consulting for lifecycle planning &amp; upgrades</li>
-            </ul>
-
-            <p
-              style={{
-                marginTop: "2rem",
-                fontWeight: 600,
-                fontSize: "1.1rem",
-                color: "#222", // ✅ darker black for emphasis
-              }}
-            >
-              <strong style={{ color: RUBY }}>NETARK</strong> — A trusted name in
-              networking, security, and IT infrastructure solutions in India.
-            </p>
+    <div className="sservice-area style-two py-5" style={{ backgroundColor: "#fff", color: "#000" }}>
+      <div className="container">
+        {/* Section Header */}
+        <div className="row align-items-center mb-5">
+          <div className="col-lg-12">
+            <div className="section-title text-center">
+              <SectionTitle
+                SubTitle="OUR SOLUTIONS"
+                Title="Empowering <span>Businesses</span> with Smart IT Infrastructure & Enterprise Systems"
+              />
+            </div>
           </div>
-        </section>
-      </main>
+        </div>
+
+        {/* Solutions Grid */}
+        <div className="row g-4 justify-content-center">
+          {solutions.map((item, i) => (
+            <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
+              <div
+                className="single-service-box text-center d-flex flex-column justify-content-between w-100 shadow-sm rounded-4 p-4"
+                style={{
+                  backgroundColor: "#fff",
+                  border: "1px solid #eee",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                }}
+              >
+                {/* Image */}
+                <div
+                  className="service-thumb mb-3"
+                  style={{
+                    width: "100%",
+                    height: "180px",
+                    overflow: "hidden",
+                    borderRadius: "12px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#f7f7f7",
+                  }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="service-content flex-grow-1 text-start">
+                  <h3
+                    className="service-title mb-3 fw-bold text-center"
+                    style={{
+                      fontSize: "1.15rem",
+                      color: RUBY,
+                      lineHeight: "1.4",
+                      minHeight: "3rem",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+
+                  <ul
+                    style={{
+                      listStyleType: "disc",
+                      paddingLeft: "1.2rem",
+                      marginBottom: 0,
+                      color: "#333",
+                      fontSize: "0.95rem",
+                      lineHeight: "1.7",
+                    }}
+                  >
+                    {item.desc.map((p, idx) => (
+                      <li key={idx} style={{ marginBottom: "4px" }}>
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Decorative Shapes */}
+        <div className="service-shape bounce-animate3">
+          <img src="/assets/images/service5.png" alt="shape1" />
+        </div>
+        <div className="service-shape2">
+          <img src="/assets/images/service7.png" alt="shape2" />
+        </div>
+        <div className="service-shape3 bounce-animate4">
+          <img src="/assets/images/service8.png" alt="shape3" />
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default Solutions;
