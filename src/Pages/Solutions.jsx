@@ -13,7 +13,7 @@ const Solutions = () => {
         "Fiber optic solutions for campuses and industries",
         "Network monitoring, optimization & performance tuning",
       ],
-      image: "/assets/images/Networking.jpg",
+      image: "/assets/images/Campusnetworking.jpg",
     },
     {
       title: "Surveillance & Security Systems",
@@ -22,7 +22,7 @@ const Solutions = () => {
         "Access control, visitor management & safety integration for offices, factories, and campuses",
         "Fire alarm, intrusion detection & monitoring systems",
       ],
-      image: "/assets/images/SecuritySystems.jpg",
+      image: "/assets/images/surveillance.jpg",
     },
     {
       title: "Enterprise Systems & Servers",
@@ -31,7 +31,7 @@ const Solutions = () => {
         "Network equipment rentals",
         "Consulting for lifecycle planning & upgrades",
       ],
-      image: "/assets/images/Servers.jpg",
+      image: "/assets/images/enterprise.jpg",
     },
   ];
 
