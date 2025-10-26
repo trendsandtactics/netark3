@@ -62,16 +62,12 @@ const Nav = ({ onNavigate }) => {
     window.addEventListener("resize", onResize);
 
     const onDocClick = (e) => {
-      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.button !== 0) return;
       const a = e.target.closest("a,button");
       if (!a) return;
       const href = (a.getAttribute("href") || "").toLowerCase();
       const text = (a.textContent || "").toLowerCase();
       const isQuoteLink =
-        a.hasAttribute("data-quote") ||
-        href.includes("quote") ||
-        href === "#quote" ||
-        text.includes("get a quote");
+        href.includes("quote") || href === "#quote" || text.includes("get a quote");
       if (isQuoteLink) {
         e.preventDefault();
         setQuoteOpen(true);
@@ -159,8 +155,8 @@ const Nav = ({ onNavigate }) => {
 
                 <form className="quote-form" onSubmit={onSubmitQuote} noValidate>
                   <div className="row">
-                    <label>
-                      Full Name*
+                    <div className="col">
+                      <label>Full Name*</label>
                       <input
                         ref={firstFieldRef}
                         type="text"
@@ -172,9 +168,9 @@ const Nav = ({ onNavigate }) => {
                         style={inputStyle(!!errors.name)}
                       />
                       {errors.name && <small style={errorStyle}>{errors.name}</small>}
-                    </label>
-                    <label>
-                      Company / Organization
+                    </div>
+                    <div className="col">
+                      <label>Company / Organization</label>
                       <input
                         type="text"
                         name="company"
@@ -182,12 +178,12 @@ const Nav = ({ onNavigate }) => {
                         value={form.company}
                         onChange={handleChange}
                       />
-                    </label>
+                    </div>
                   </div>
 
                   <div className="row">
-                    <label>
-                      Email Address*
+                    <div className="col">
+                      <label>Email Address*</label>
                       <input
                         type="email"
                         name="email"
@@ -197,9 +193,9 @@ const Nav = ({ onNavigate }) => {
                         required
                       />
                       {errors.email && <small style={errorStyle}>{errors.email}</small>}
-                    </label>
-                    <label>
-                      Phone Number*
+                    </div>
+                    <div className="col">
+                      <label>Phone Number*</label>
                       <input
                         type="tel"
                         name="phone"
@@ -209,31 +205,35 @@ const Nav = ({ onNavigate }) => {
                         required
                       />
                       {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
-                    </label>
+                    </div>
                   </div>
 
-                  <label>
-                    Service Interested In
-                    <select name="service" value={form.service} onChange={handleChange}>
-                      <option value="">Select a service</option>
-                      {services.map((s) => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                  </label>
+                  <div className="row single">
+                    <div className="col">
+                      <label>Service Interested In</label>
+                      <select name="service" value={form.service} onChange={handleChange}>
+                        <option value="">Select a service</option>
+                        {services.map((s) => (
+                          <option key={s} value={s}>{s}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
 
-                  <label>
-                    Your Message / Requirements*
-                    <textarea
-                      name="message"
-                      placeholder="Briefly describe your requirements…"
-                      rows={4}
-                      value={form.message}
-                      onChange={handleChange}
-                      required
-                    />
-                    {errors.message && <small style={errorStyle}>{errors.message}</small>}
-                  </label>
+                  <div className="row single">
+                    <div className="col">
+                      <label>Your Message / Requirements*</label>
+                      <textarea
+                        name="message"
+                        placeholder="Briefly describe your requirements…"
+                        rows={4}
+                        value={form.message}
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors.message && <small style={errorStyle}>{errors.message}</small>}
+                    </div>
+                  </div>
 
                   <div className="actions">
                     <button type="button" className="btn ghost" onClick={() => setQuoteOpen(false)}>
@@ -251,23 +251,6 @@ const Nav = ({ onNavigate }) => {
         )}
 
       <style>{`
-        .main-nav .nav-list {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: flex;
-          gap: 24px;
-          align-items: center;
-        }
-        .main-nav a {
-          text-decoration: none;
-          color: #fff;
-          font-weight: 500;
-          font-size: 1rem;
-          transition: color .25s ease;
-        }
-        .main-nav a:hover { color: ${RUBY}; }
-
         body.modal-open { overflow: hidden; }
 
         .quote-layer {
@@ -293,8 +276,9 @@ const Nav = ({ onNavigate }) => {
           background: #fff;
           color: #000;
           border-radius: 14px;
+          border-top: 4px solid ${RUBY};
           box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-          padding: 24px;
+          padding: 28px;
           animation: modalIn .2s ease-out both;
         }
         @keyframes modalIn {
@@ -312,45 +296,49 @@ const Nav = ({ onNavigate }) => {
           cursor: pointer;
         }
         .quote-panel h3 {
-          margin: 0 0 14px 0;
+          margin: 0 0 20px 0;
           color: ${RUBY};
-          font-size: 1.4rem;
-          font-weight: 700;
+          font-size: 1.5rem;
+          font-weight: 800;
         }
         .quote-form {
           display: flex;
           flex-direction: column;
-          gap: 14px;
-          color: #000;
+          gap: 18px;
         }
-        .quote-form .row {
+        .row {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 12px;
+          gap: 16px;
         }
-        .quote-form label {
-          color: #000;
+        .row.single { grid-template-columns: 1fr; }
+        .col {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        label {
           font-weight: 600;
+          color: #000;
+          font-size: 0.95rem;
         }
-        .quote-form input,
-        .quote-form select,
-        .quote-form textarea {
+        input, select, textarea {
           background: #fff;
           color: #000;
           border: 1px solid #ccc;
           border-radius: 8px;
           padding: 10px 12px;
           font-size: 0.95rem;
+          width: 100%;
+          box-sizing: border-box;
         }
-        .quote-form input::placeholder,
-        .quote-form textarea::placeholder {
-          color: #777;
-        }
+        input::placeholder, textarea::placeholder { color: #777; }
+        textarea { resize: vertical; }
         .actions {
           display: flex;
           justify-content: flex-end;
           gap: 10px;
-          margin-top: 8px;
+          margin-top: 10px;
         }
         .btn {
           padding: 10px 16px;
@@ -364,14 +352,12 @@ const Nav = ({ onNavigate }) => {
           color: #fff;
           border-color: ${RUBY};
         }
-        .btn.primary:hover { filter: brightness(0.95); }
         .btn.ghost {
           background: transparent;
           color: #000;
           border-color: #ccc;
         }
         .btn.ghost:hover { border-color: #777; }
-
         .alert {
           background: #f1fff3;
           border: 1px solid #cfead5;
@@ -381,9 +367,8 @@ const Nav = ({ onNavigate }) => {
           margin-bottom: 12px;
           font-weight: 600;
         }
-
         @media (max-width: 640px) {
-          .quote-form .row { grid-template-columns: 1fr; }
+          .row { grid-template-columns: 1fr; }
         }
       `}</style>
     </>
