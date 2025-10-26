@@ -16,7 +16,6 @@ const Nav = ({ onNavigate }) => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
 
-    // Find your theme's hamburger
     const selectors = [
       "header .menu-toggle",
       "header .hamburger",
@@ -30,24 +29,20 @@ const Nav = ({ onNavigate }) => {
     ];
     let toggleBtn = document.querySelector(selectors.join(","));
     if (!toggleBtn) {
-      // fallback: button with 3+ spans inside header
-      toggleBtn = Array.from(
-        document.querySelectorAll("header button, .site-header button")
-      ).find((b) => b.querySelectorAll("span").length >= 3) || null;
+      toggleBtn =
+        Array.from(
+          document.querySelectorAll("header button, .site-header button")
+        ).find((b) => b.querySelectorAll("span").length >= 3) || null;
     }
 
     const openDrawer = (e) => {
-      // stop theme’s own menu from opening over/under ours
       e.preventDefault();
       e.stopPropagation();
       setDrawerOpen(true);
     };
 
-    if (isMobile && toggleBtn) {
-      toggleBtn.addEventListener("click", openDrawer);
-    }
+    if (isMobile && toggleBtn) toggleBtn.addEventListener("click", openDrawer);
 
-    // ESC to close
     const onKey = (e) => e.key === "Escape" && setDrawerOpen(false);
     window.addEventListener("keydown", onKey);
 
@@ -60,22 +55,31 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* Desktop inline nav (unchanged) */}
+      {/* Desktop inline nav */}
       <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
             <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
             <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-            <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
             <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+
+            {/* Highlighted Services Button */}
+            <li>
+              <Link
+                to="/services"
+                onClick={handleNavigate}
+                className="services-btn"
+              >
+                Services
+              </Link>
+            </li>
           </ul>
         )}
       </nav>
 
-      {/* Mobile drawer & overlay */}
+      {/* Mobile drawer */}
       {isMobile && (
         <>
-          {/* Overlay sits BELOW the drawer so clicks on drawer work */}
           <div
             className={`app-mobile-overlay ${drawerOpen ? "show" : ""}`}
             onClick={() => setDrawerOpen(false)}
@@ -88,15 +92,25 @@ const Nav = ({ onNavigate }) => {
             <ul className="app-drawer-links">
               <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
               <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-              <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
               <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+
+              {/* Highlighted Services Button (Mobile) */}
+              <li>
+                <Link
+                  to="/services"
+                  onClick={handleNavigate}
+                  className="services-btn"
+                >
+                  Services
+                </Link>
+              </li>
             </ul>
           </aside>
         </>
       )}
 
       <style>{`
-        /* ---------- Desktop (unchanged) ---------- */
+        /* ---------- Desktop ---------- */
         .main-nav .nav-list {
           list-style: none;
           margin: 0;
@@ -114,30 +128,24 @@ const Nav = ({ onNavigate }) => {
         }
         .main-nav a:hover { color: ${RUBY}; }
 
-        /* ---------- Mobile-only ---------- */
+        /* Services Button Styling */
+        .services-btn {
+          background: ${RUBY};
+          color: #fff !important;
+          padding: 8px 16px;
+          border-radius: 6px;
+          font-weight: 600;
+          transition: background .3s ease;
+        }
+        .services-btn:hover {
+          background: #8e1426;
+          color: #fff !important;
+        }
+
+        /* ---------- Mobile ---------- */
         @media (max-width: 991px) {
-          /* Hide inline links on mobile; drawer will show them */
           .main-nav .nav-list { display: none; }
 
-          /* Ensure your theme hamburger is on the right (optional) */
-          header, .site-header { position: relative; }
-          header .menu-toggle,
-          header .hamburger,
-          header .mobile-toggle,
-          header .navbar-toggler,
-          header button[aria-label*="menu" i],
-          .site-header .menu-toggle,
-          .site-header .hamburger,
-          .site-header .mobile-toggle,
-          .site-header .navbar-toggler {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1001; /* under our drawer (which is higher) */
-          }
-
-          /* Overlay (below the drawer) */
           .app-mobile-overlay {
             position: fixed;
             inset: 0;
@@ -145,14 +153,13 @@ const Nav = ({ onNavigate }) => {
             opacity: 0;
             visibility: hidden;
             transition: opacity .25s ease, visibility .25s ease;
-            z-index: 2147483646; /* very high, but drawer is higher */
+            z-index: 2147483646;
           }
           .app-mobile-overlay.show {
             opacity: 1;
             visibility: visible;
           }
 
-          /* Drawer (ALWAYS on top of everything) */
           .app-mobile-drawer {
             position: fixed;
             top: 0;
@@ -162,12 +169,11 @@ const Nav = ({ onNavigate }) => {
             background: #0e0f2c;
             color: #fff;
             transition: right .25s ease;
-            padding: 70px 18px 18px; /* clear header */
+            padding: 70px 18px 18px;
             display: flex;
             flex-direction: column;
             border-left: 1px solid rgba(255,255,255,0.08);
-            /* Max z-index to beat theme overlays/headers */
-            z-index: 2147483647; /* higher than overlay */
+            z-index: 2147483647;
           }
           .app-mobile-drawer.open { right: 0; }
 
@@ -188,6 +194,15 @@ const Nav = ({ onNavigate }) => {
           }
           .app-drawer-links li:last-child a { border-bottom: 0; }
           .app-drawer-links li a:hover { color: ${RUBY}; }
+
+          .services-btn {
+            background: ${RUBY};
+            display: inline-block;
+            margin-top: 16px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-align: center;
+          }
         }
 
         @media (min-width: 992px) {
