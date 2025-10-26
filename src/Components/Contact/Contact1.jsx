@@ -116,9 +116,14 @@ const Contact1 = () => {
             >
               <iframe
                 title="NETARK Office Location"
-                src="<iframe src="https://www.google.com/maps/d/embed?mid=1Z6MdAQo2hMtje3kETAx9ZjdzO60TIHo&ehbc=2E312F" width="640" height="480"></iframe>"
-                width="100%" height="100%" style={{ border: 0 }}
-                allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+                // ✅ Just the URL (no nested <iframe> inside src)
+                src="https://www.google.com/maps/d/embed?mid=1Z6MdAQo2hMtje3kETAx9ZjdzO60TIHo&ehbc=2E312F"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
               />
             </div>
           </div>
