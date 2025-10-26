@@ -7,7 +7,7 @@ const Solutions = () => {
   const solutions = [
     {
       title: "Campus Networking & IT Infrastructure",
-      image: "/assets/images/solutions/networking.jpg",
+      image: "/assets/images/solutions/Campusnetworking.jpg",
       desc: [
         "LAN/WAN design, switching, routing & structured cabling",
         "Wi-Fi solutions for enterprises, campuses, and offices",
@@ -17,7 +17,7 @@ const Solutions = () => {
     },
     {
       title: "Surveillance & Security Systems",
-      image: "/assets/images/solutions/security.jpg",
+      image: "/assets/images/solutions/surveillance.jpg",
       desc: [
         "Enterprise-grade IP CCTV & video management",
         "Access control & visitor management systems",
