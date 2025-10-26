@@ -9,12 +9,11 @@ export default function Solutions() {
       {/* Breadcrumb (same pattern as About page) */}
       <BreadCumb Title="Solutions" />
 
-      {/* Your original content (unchanged) */}
       <main
         className="solutions-page"
         style={{
-          color: "#fff",
-          backgroundColor: "#0e0f2c",
+          color: "#000", // ✅ text color black
+          backgroundColor: "#fff", // ✅ white background
           minHeight: "100vh",
         }}
       >
@@ -28,7 +27,7 @@ export default function Solutions() {
         >
           <h1
             style={{
-              color: RUBY,
+              color: RUBY, // ✅ brand red for title
               fontSize: "2.2rem",
               fontWeight: 700,
               marginBottom: "1.5rem",
@@ -38,7 +37,7 @@ export default function Solutions() {
             Comprehensive IT &amp; Networking Solutions for Modern Enterprises
           </h1>
 
-          <div style={{ lineHeight: 1.7, fontSize: "1rem" }}>
+          <div style={{ lineHeight: 1.7, fontSize: "1rem", color: "#333" }}>
             <h2
               style={{
                 color: RUBY,
@@ -93,7 +92,7 @@ export default function Solutions() {
                 marginTop: "2rem",
                 fontWeight: 600,
                 fontSize: "1.1rem",
-                color: "#ddd",
+                color: "#222", // ✅ darker black for emphasis
               }}
             >
               <strong style={{ color: RUBY }}>NETARK</strong> — A trusted name in
