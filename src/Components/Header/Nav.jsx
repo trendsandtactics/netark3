@@ -1,13 +1,56 @@
+// src/components/Nav.jsx
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const RUBY = "#A1162A";
+
+const services = [
+  "Internet Services",
+  "Data Center Hosting",
+  "Cloud Solutions",
+  "Connectivity",
+  "Information Security",
+  "Managed IT",
+  "Others",
+];
+
+const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+const phoneOk = (v) => /^[0-9+()\-\s]{7,20}$/.test(v);
 
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const firstFieldRef = useRef(null);
+
+  // form state (mirrors Contact1)
+  const [form, setForm] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const validate = () => {
+    const e = {};
+    if (!form.name.trim()) e.name = "Full Name is required.";
+    if (!form.email.trim()) e.email = "Email Address is required.";
+    if (!form.phone.trim()) e.phone = "Phone Number is required.";
+    if (!form.message.trim()) e.message = "Please share your requirements.";
+    if (form.email && !emailOk(form.email)) e.email = "Enter a valid email address.";
+    if (form.phone && !phoneOk(form.phone)) e.phone = "Enter a valid phone number.";
+    return e;
+  };
+
+  const handleChange = (ev) => {
+    const { name, value } = ev.target;
+    setForm((p) => ({ ...p, [name]: value }));
+    setErrors((p) => ({ ...p, [name]: undefined }));
+  };
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
@@ -18,6 +61,7 @@ const Nav = ({ onNavigate }) => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
 
+    // Try to hook existing site toggle buttons if present
     const selectors = [
       "header .menu-toggle",
       "header .hamburger",
@@ -44,15 +88,19 @@ const Nav = ({ onNavigate }) => {
     };
     if (isMobile && toggleBtn) toggleBtn.addEventListener("click", openDrawer);
 
-    // Event delegation for your existing "GET A QUOTE" link
+    // Open modal from any link that is a "quote" link
     const onDocClick = (e) => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.button !== 0) return;
-      const a = e.target.closest("a");
+      const a = e.target.closest("a,button");
       if (!a) return;
       const href = (a.getAttribute("href") || "").toLowerCase();
       const text = (a.textContent || "").toLowerCase();
       const isQuoteLink =
-        a.hasAttribute("data-quote") || href.includes("quote") || href === "#quote" || text.includes("get a quote");
+        a.hasAttribute("data-quote") ||
+        href.includes("quote") ||
+        href === "#quote" ||
+        text.includes("get a quote") ||
+        text.includes("get a quote now");
       if (isQuoteLink) {
         e.preventDefault();
         setQuoteOpen(true);
@@ -76,7 +124,7 @@ const Nav = ({ onNavigate }) => {
     };
   }, [isMobile]);
 
-  // Focus & body scroll lock when modal opens
+  // Focus & body lock
   useEffect(() => {
     if (quoteOpen) {
       document.body.classList.add("modal-open");
@@ -88,17 +136,33 @@ const Nav = ({ onNavigate }) => {
 
   const onSubmitQuote = (e) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
-    console.log("Quote request:", data);
-    alert("Thanks! We’ll get back to you shortly.");
-    setQuoteOpen(false);
-    form.reset();
+    const eobj = validate();
+    setErrors(eobj);
+    if (Object.keys(eobj).length) return;
+
+    // Handle submission (replace with API call if needed)
+    console.log("Quote request:", form);
+    setSubmitted(true);
+    // brief success then close
+    setTimeout(() => {
+      setQuoteOpen(false);
+      setSubmitted(false);
+    }, 1200);
+
+    // reset fields
+    setForm({
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      service: "",
+      message: "",
+    });
   };
 
   return (
     <>
-      {/* Desktop inline nav (unchanged) */}
+      {/* HEADER NAV */}
       <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
@@ -107,6 +171,18 @@ const Nav = ({ onNavigate }) => {
             <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
             <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
             <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+
+            {/* >>> Get A Quote NOW CTA in header */}
+            <li className="nav-cta">
+              <a
+                href="#quote"
+                data-quote
+                className="quote-cta"
+                onClick={(e) => { e.preventDefault(); setQuoteOpen(true); }}
+              >
+                Get A Quote NOW
+              </a>
+            </li>
           </ul>
         )}
       </nav>
@@ -130,16 +206,23 @@ const Nav = ({ onNavigate }) => {
               <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
               <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
             </ul>
+
+            {/* Mobile CTA */}
+            <button
+              data-quote
+              className="drawer-quote-cta"
+              onClick={() => setQuoteOpen(true)}
+            >
+              Get A Quote NOW
+            </button>
           </aside>
         </>
       )}
 
-      {/* Quote Modal */}
+      {/* Quote Modal (fields mirror Contact1) */}
       {quoteOpen && (
         <>
-          {/* blur + dim the whole page */}
           <div className="quote-overlay" onClick={() => setQuoteOpen(false)} />
-          {/* perfectly centered dialog */}
           <div
             className="quote-modal"
             role="dialog"
@@ -153,73 +236,114 @@ const Nav = ({ onNavigate }) => {
             >
               ×
             </button>
+
             <h3 id="quoteTitle">Get a Quote</h3>
 
-            <form className="quote-form" onSubmit={onSubmitQuote}>
+            {submitted && (
+              <div
+                className="alert"
+                role="alert"
+                style={{
+                  background: "#f1fff3",
+                  border: "1px solid #cfead5",
+                  color: "#0f5132",
+                  padding: "12px 14px",
+                  borderRadius: 8,
+                  marginBottom: 12,
+                  fontWeight: 600,
+                }}
+              >
+                Thank you for contacting <strong>NETARK</strong>. Our team will reach out shortly.
+              </div>
+            )}
+
+            <form className="quote-form" onSubmit={onSubmitQuote} noValidate>
               <div className="row">
                 <label>
-                  Name
+                  Full Name*
                   <input
                     ref={firstFieldRef}
                     type="text"
                     name="name"
                     placeholder="Your full name"
+                    value={form.name}
+                    onChange={handleChange}
                     required
+                    style={inputStyle(!!errors.name)}
                   />
+                  {errors.name && <small style={errorStyle}>{errors.name}</small>}
                 </label>
+
                 <label>
-                  Email
+                  Company / Organization
                   <input
-                    type="email"
-                    name="email"
-                    placeholder="you@example.com"
-                    required
+                    type="text"
+                    name="company"
+                    placeholder="Company name (optional)"
+                    value={form.company}
+                    onChange={handleChange}
+                    style={inputStyle(false)}
                   />
                 </label>
               </div>
 
               <div className="row">
                 <label>
-                  Phone
+                  Email Address*
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="you@company.com"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    style={inputStyle(!!errors.email)}
+                  />
+                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
+                </label>
+
+                <label>
+                  Phone Number*
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 9XXXXXXXXX"
+                    value={form.phone}
+                    onChange={handleChange}
                     required
+                    style={inputStyle(!!errors.phone)}
                   />
-                </label>
-                <label>
-                  Company
-                  <input
-                    type="text"
-                    name="company"
-                    placeholder="Company / Institution"
-                  />
+                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                 </label>
               </div>
 
               <label>
-                What do you need?
-                <select name="service" defaultValue="">
-                  <option value="" disabled>Select a service</option>
-                  <option>Campus Networking & IT Infrastructure</option>
-                  <option>Surveillance & Security Systems</option>
-                  <option>Enterprise Systems & Servers</option>
-                  <option>Other</option>
+                Service Interested In
+                <select
+                  name="service"
+                  value={form.service}
+                  onChange={handleChange}
+                  style={inputStyle(false)}
+                >
+                  <option value="">Select a service</option>
+                  {services.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
                 </select>
               </label>
 
               <label>
-                Message
+                Your Message / Requirements*
                 <textarea
                   name="message"
-                  placeholder="Tell us a bit about your requirement…"
+                  placeholder="Briefly describe your requirements…"
                   rows={4}
+                  value={form.message}
+                  onChange={handleChange}
+                  required
+                  style={inputStyle(!!errors.message)}
                 />
-              </label>
-
-              <label className="checkbox">
-                <input type="checkbox" name="callback" /> Prefer a call back
+                {errors.message && <small style={errorStyle}>{errors.message}</small>}
               </label>
 
               <div className="actions">
@@ -252,14 +376,19 @@ const Nav = ({ onNavigate }) => {
           transition: color .25s ease;
         }
         .main-nav a:hover { color: ${RUBY}; }
-
-        /* Move existing "GET A QUOTE NOW" button slightly left (no new button added) */
-        header a[href*="quote"],
-        .header a[href*="quote"] {
-          margin-right: 30px !important;
-          position: relative;
-          right: 10px; /* tweak value for more/less left shift */
+        .nav-cta { margin-left: auto; }
+        .quote-cta {
+          display: inline-block;
+          padding: 10px 14px;
+          border-radius: 10px;
+          background: ${RUBY};
+          color: #fff;
+          font-weight: 800;
+          letter-spacing: .2px;
+          text-transform: uppercase;
+          border: 1px solid ${RUBY};
         }
+        .quote-cta:hover { filter: brightness(.95); }
 
         @media (max-width: 991px) {
           .main-nav .nav-list { display: none; }
@@ -289,6 +418,7 @@ const Nav = ({ onNavigate }) => {
             flex-direction: column;
             border-left: 1px solid rgba(255,255,255,0.08);
             z-index: 2147483647;
+            gap: 12px;
           }
           .app-mobile-drawer.open { right: 0; }
 
@@ -309,6 +439,18 @@ const Nav = ({ onNavigate }) => {
           }
           .app-drawer-links li:last-child a { border-bottom: 0; }
           .app-drawer-links li a:hover { color: ${RUBY}; }
+
+          .drawer-quote-cta {
+            margin-top: auto;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: ${RUBY};
+            color: #fff;
+            font-weight: 800;
+            letter-spacing: .2px;
+            text-transform: uppercase;
+            border: 1px solid ${RUBY};
+          }
         }
 
         @media (min-width: 992px) {
@@ -316,17 +458,15 @@ const Nav = ({ onNavigate }) => {
         }
 
         /* ===== Body lock when modal open ===== */
-        body.modal-open {
-          overflow: hidden;
-        }
+        body.modal-open { overflow: hidden; }
 
-        /* ===== Overlay: blur + dim background ===== */
+        /* ===== Overlay ===== */
         .quote-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(0,0,0,0.35);         /* dim */
-          backdrop-filter: blur(6px);            /* blur page behind */
-          -webkit-backdrop-filter: blur(6px);    /* Safari */
+          background: rgba(0,0,0,0.35);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
           z-index: 2147483646;
           opacity: 1;
         }
@@ -336,7 +476,7 @@ const Nav = ({ onNavigate }) => {
           position: fixed;
           top: 50%;
           left: 50%;
-          transform: translate(-50%, -50%);   /* perfect center */
+          transform: translate(-50%, -50%);
           width: min(680px, 92vw);
           background: #0e0f2c;
           color: #fff;
@@ -396,15 +536,7 @@ const Nav = ({ onNavigate }) => {
           outline: none;
         }
         .quote-form input::placeholder,
-        .quote-form textarea::placeholder {
-          color: rgba(255,255,255,0.6);
-        }
-        .quote-form .checkbox {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          font-size: 0.95rem;
-        }
+        .quote-form textarea::placeholder { color: rgba(255,255,255,0.6); }
         .actions {
           display: flex;
           gap: 10px;
@@ -418,17 +550,9 @@ const Nav = ({ onNavigate }) => {
           cursor: pointer;
           font-weight: 600;
         }
-        .btn.primary {
-          background: ${RUBY};
-          color: #fff;
-          border-color: ${RUBY};
-        }
+        .btn.primary { background: ${RUBY}; color: #fff; border-color: ${RUBY}; }
         .btn.primary:hover { filter: brightness(0.95); }
-        .btn.ghost {
-          background: transparent;
-          color: #fff;
-          border-color: rgba(255,255,255,0.3);
-        }
+        .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.3); }
         .btn.ghost:hover { border-color: rgba(255,255,255,0.5); }
 
         @media (max-width: 640px) {
@@ -437,6 +561,22 @@ const Nav = ({ onNavigate }) => {
       `}</style>
     </>
   );
+};
+
+// styles reused
+const inputStyle = (hasError) => ({
+  borderRadius: 8,
+  border: `1px solid ${hasError ? "#e03131" : "#e5e5e5"}`,
+  padding: "10px 12px",
+  outline: "none",
+  width: "100%",
+  boxShadow: "none",
+});
+const errorStyle = {
+  color: "#e03131",
+  fontSize: 12,
+  marginTop: 4,
+  display: "inline-block",
 };
 
 export default Nav;
