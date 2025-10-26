@@ -1,5 +1,6 @@
 // src/components/Nav.jsx
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 
 const RUBY = "#A1162A";
@@ -139,7 +140,7 @@ const Nav = ({ onNavigate }) => {
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
 
-    console.log("Quote request:", form);
+    console.log("Quote request:", form); // swap with API call as needed
     setSubmitted(true);
     setTimeout(() => {
       setQuoteOpen(false);
@@ -167,7 +168,6 @@ const Nav = ({ onNavigate }) => {
             <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
             <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
             <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-            {/* (No added button here) */}
           </ul>
         )}
       </nav>
@@ -191,150 +191,150 @@ const Nav = ({ onNavigate }) => {
               <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
               <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
             </ul>
-            {/* (No added drawer CTA) */}
           </aside>
         </>
       )}
 
-      {/* Quote Modal */}
-      {quoteOpen && (
-        <>
-          <div className="quote-overlay" onClick={() => setQuoteOpen(false)} />
-          <div
-            className="quote-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="quoteTitle"
-          >
-            <button
-              className="quote-close"
-              aria-label="Close"
-              onClick={() => setQuoteOpen(false)}
-            >
-              ×
-            </button>
+      {/* Quote Modal via PORTAL */}
+      {quoteOpen &&
+        createPortal(
+          <>
+            <div className="quote-layer" role="dialog" aria-modal="true" aria-labelledby="quoteTitle">
+              <div className="quote-backdrop" onClick={() => setQuoteOpen(false)} />
 
-            <h3 id="quoteTitle">Get a Quote</h3>
-
-            {submitted && (
-              <div
-                className="alert"
-                role="alert"
-                style={{
-                  background: "#f1fff3",
-                  border: "1px solid #cfead5",
-                  color: "#0f5132",
-                  padding: "12px 14px",
-                  borderRadius: 8,
-                  marginBottom: 12,
-                  fontWeight: 600,
-                }}
-              >
-                Thank you for contacting <strong>NETARK</strong>. Our team will reach out shortly.
-              </div>
-            )}
-
-            <form className="quote-form" onSubmit={onSubmitQuote} noValidate>
-              <div className="row">
-                <label>
-                  Full Name*
-                  <input
-                    ref={firstFieldRef}
-                    type="text"
-                    name="name"
-                    placeholder="Your full name"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                    style={inputStyle(!!errors.name)}
-                  />
-                  {errors.name && <small style={errorStyle}>{errors.name}</small>}
-                </label>
-
-                <label>
-                  Company / Organization
-                  <input
-                    type="text"
-                    name="company"
-                    placeholder="Company name (optional)"
-                    value={form.company}
-                    onChange={handleChange}
-                    style={inputStyle(false)}
-                  />
-                </label>
-              </div>
-
-              <div className="row">
-                <label>
-                  Email Address*
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="you@company.com"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    style={inputStyle(!!errors.email)}
-                  />
-                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
-                </label>
-
-                <label>
-                  Phone Number*
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="+91 9XXXXXXXXX"
-                    value={form.phone}
-                    onChange={handleChange}
-                    required
-                    style={inputStyle(!!errors.phone)}
-                  />
-                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
-                </label>
-              </div>
-
-              <label>
-                Service Interested In
-                <select
-                  name="service"
-                  value={form.service}
-                  onChange={handleChange}
-                  style={inputStyle(false)}
+              <div className="quote-panel" role="document">
+                <button
+                  className="quote-close"
+                  aria-label="Close"
+                  onClick={() => setQuoteOpen(false)}
                 >
-                  <option value="">Select a service</option>
-                  {services.map((s) => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
-              </label>
-
-              <label>
-                Your Message / Requirements*
-                <textarea
-                  name="message"
-                  placeholder="Briefly describe your requirements…"
-                  rows={4}
-                  value={form.message}
-                  onChange={handleChange}
-                  required
-                  style={inputStyle(!!errors.message)}
-                />
-                {errors.message && <small style={errorStyle}>{errors.message}</small>}
-              </label>
-
-              <div className="actions">
-                <button type="button" className="btn ghost" onClick={() => setQuoteOpen(false)}>
-                  Cancel
+                  ×
                 </button>
-                <button className="btn primary" type="submit">
-                  Submit Request
-                </button>
+
+                <h3 id="quoteTitle">Get a Quote</h3>
+
+                {submitted && (
+                  <div
+                    className="alert"
+                    role="alert"
+                    style={{
+                      background: "#f1fff3",
+                      border: "1px solid #cfead5",
+                      color: "#0f5132",
+                      padding: "12px 14px",
+                      borderRadius: 8,
+                      marginBottom: 12,
+                      fontWeight: 600,
+                    }}
+                  >
+                    Thank you for contacting <strong>NETARK</strong>. Our team will reach out shortly.
+                  </div>
+                )}
+
+                <form className="quote-form" onSubmit={onSubmitQuote} noValidate>
+                  <div className="row">
+                    <label>
+                      Full Name*
+                      <input
+                        ref={firstFieldRef}
+                        type="text"
+                        name="name"
+                        placeholder="Your full name"
+                        value={form.name}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle(!!errors.name)}
+                      />
+                      {errors.name && <small style={errorStyle}>{errors.name}</small>}
+                    </label>
+
+                    <label>
+                      Company / Organization
+                      <input
+                        type="text"
+                        name="company"
+                        placeholder="Company name (optional)"
+                        value={form.company}
+                        onChange={handleChange}
+                        style={inputStyle(false)}
+                      />
+                    </label>
+                  </div>
+
+                  <div className="row">
+                    <label>
+                      Email Address*
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="you@company.com"
+                        value={form.email}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle(!!errors.email)}
+                      />
+                      {errors.email && <small style={errorStyle}>{errors.email}</small>}
+                    </label>
+
+                    <label>
+                      Phone Number*
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="+91 9XXXXXXXXX"
+                        value={form.phone}
+                        onChange={handleChange}
+                        required
+                        style={inputStyle(!!errors.phone)}
+                      />
+                      {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
+                    </label>
+                  </div>
+
+                  <label>
+                    Service Interested In
+                    <select
+                      name="service"
+                      value={form.service}
+                      onChange={handleChange}
+                      style={inputStyle(false)}
+                    >
+                      <option value="">Select a service</option>
+                      {services.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </label>
+
+                  <label>
+                    Your Message / Requirements*
+                    <textarea
+                      name="message"
+                      placeholder="Briefly describe your requirements…"
+                      rows={4}
+                      value={form.message}
+                      onChange={handleChange}
+                      required
+                      style={inputStyle(!!errors.message)}
+                    />
+                    {errors.message && <small style={errorStyle}>{errors.message}</small>}
+                  </label>
+
+                  <div className="actions">
+                    <button type="button" className="btn ghost" onClick={() => setQuoteOpen(false)}>
+                      Cancel
+                    </button>
+                    <button className="btn primary" type="submit">
+                      Submit Request
+                    </button>
+                  </div>
+                </form>
               </div>
-            </form>
-          </div>
-        </>
-      )}
+            </div>
+          </>,
+          document.body
+        )
+      }
 
       <style>{`
         .main-nav .nav-list {
@@ -409,7 +409,7 @@ const Nav = ({ onNavigate }) => {
           .app-mobile-drawer, .app-mobile-overlay { display: none; }
         }
 
-        /* Keep your existing nudge for the ORIGINAL header CTA (if present) */
+        /* Keep the nudge for your ORIGINAL header CTA (if present) */
         header a[href*="quote"],
         .header a[href*="quote"] {
           margin-right: 30px !important;
@@ -420,50 +420,53 @@ const Nav = ({ onNavigate }) => {
         /* ===== Body lock when modal open ===== */
         body.modal-open { overflow: hidden; }
 
-        /* ===== Overlay ===== */
-        .quote-overlay {
+        /* ======== PORTAL MODAL LAYOUT ======== */
+        .quote-layer {
           position: fixed;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)) 16px;
+          z-index: 2147483647;
+        }
+        .quote-backdrop {
+          position: absolute;
           inset: 0;
           background: rgba(0,0,0,0.35);
           backdrop-filter: blur(6px);
           -webkit-backdrop-filter: blur(6px);
-          z-index: 2147483646;
-          opacity: 1;
         }
-
-        /* ===== Centered modal ===== */
-        .quote-modal {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: min(680px, 92vw);
+        .quote-panel {
+          position: relative;
+          width: min(720px, 96vw);
+          max-height: min(88vh, 820px);
           background: #0e0f2c;
           color: #fff;
           border: 1px solid rgba(255,255,255,0.08);
-          border-radius: 12px;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-          z-index: 2147483647;
-          padding: 22px 22px 18px;
-          opacity: 0;
-          animation: modal-in 160ms ease-out forwards;
+          border-radius: 14px;
+          box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+          padding: 22px;
+          overflow: auto; /* internal scroll if content is tall */
+          box-sizing: border-box;
+          animation: modal-in 160ms ease-out both;
         }
         @keyframes modal-in {
-          from { transform: translate(-50%, -48%) scale(0.98); opacity: 0; }
-          to   { transform: translate(-50%, -50%) scale(1);   opacity: 1; }
+          from { transform: translateY(8px) scale(0.98); opacity: 0; }
+          to   { transform: translateY(0)   scale(1);    opacity: 1; }
         }
-
         .quote-close {
-          position: absolute;
-          top: 6px;
-          right: 10px;
+          position: sticky; /* stays visible while scrolling inside */
+          top: 0;
+          float: right;
+          margin-left: 12px;
           background: transparent;
           border: 0;
           font-size: 24px;
           color: #fff;
           cursor: pointer;
         }
-        .quote-modal h3 {
+        .quote-panel h3 {
           margin: 0 0 14px 0;
           color: ${RUBY};
           font-size: 1.4rem;
