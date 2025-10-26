@@ -24,7 +24,6 @@ const Nav = ({ onNavigate }) => {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const firstFieldRef = useRef(null);
 
-  // form state (mirrors Contact1)
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -62,34 +61,6 @@ const Nav = ({ onNavigate }) => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
 
-    // Try to hook existing site toggle buttons if present
-    const selectors = [
-      "header .menu-toggle",
-      "header .hamburger",
-      "header .mobile-toggle",
-      "header .navbar-toggler",
-      'header button[aria-label*="menu" i]',
-      ".site-header .menu-toggle",
-      ".site-header .hamburger",
-      ".site-header .mobile-toggle",
-      ".site-header .navbar-toggler",
-    ];
-    let toggleBtn = document.querySelector(selectors.join(","));
-    if (!toggleBtn) {
-      toggleBtn =
-        Array.from(
-          document.querySelectorAll("header button, .site-header button")
-        ).find((b) => b.querySelectorAll("span").length >= 3) || null;
-    }
-
-    const openDrawer = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setDrawerOpen(true);
-    };
-    if (isMobile && toggleBtn) toggleBtn.addEventListener("click", openDrawer);
-
-    // Open modal from any existing "Get a quote" link/button in your header/site
     const onDocClick = (e) => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.button !== 0) return;
       const a = e.target.closest("a,button");
@@ -108,23 +79,16 @@ const Nav = ({ onNavigate }) => {
     };
     document.addEventListener("click", onDocClick, true);
 
-    const onKey = (e) => {
-      if (e.key === "Escape") {
-        setDrawerOpen(false);
-        setQuoteOpen(false);
-      }
-    };
+    const onKey = (e) => e.key === "Escape" && (setDrawerOpen(false), setQuoteOpen(false));
     window.addEventListener("keydown", onKey);
 
     return () => {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKey);
-      if (toggleBtn) toggleBtn.removeEventListener("click", openDrawer);
       document.removeEventListener("click", onDocClick, true);
     };
-  }, [isMobile]);
+  }, []);
 
-  // Focus & body lock
   useEffect(() => {
     if (quoteOpen) {
       document.body.classList.add("modal-open");
@@ -140,7 +104,7 @@ const Nav = ({ onNavigate }) => {
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
 
-    console.log("Quote request:", form); // swap with API call as needed
+    console.log("Quote request:", form);
     setSubmitted(true);
     setTimeout(() => {
       setQuoteOpen(false);
@@ -159,7 +123,6 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* HEADER NAV (no new CTA injected) */}
       <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
@@ -172,37 +135,12 @@ const Nav = ({ onNavigate }) => {
         )}
       </nav>
 
-      {/* Mobile drawer (no added CTA button) */}
-      {isMobile && (
-        <>
-          <div
-            className={`app-mobile-overlay ${drawerOpen ? "show" : ""}`}
-            onClick={() => setDrawerOpen(false)}
-          />
-          <aside
-            className={`app-mobile-drawer ${drawerOpen ? "open" : ""}`}
-            role="dialog"
-            aria-modal="true"
-          >
-            <ul className="app-drawer-links">
-              <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-              <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-              <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
-              <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-              <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-            </ul>
-          </aside>
-        </>
-      )}
-
-      {/* Quote Modal via PORTAL */}
       {quoteOpen &&
         createPortal(
           <>
-            <div className="quote-layer" role="dialog" aria-modal="true" aria-labelledby="quoteTitle">
+            <div className="quote-layer" role="dialog" aria-modal="true">
               <div className="quote-backdrop" onClick={() => setQuoteOpen(false)} />
-
-              <div className="quote-panel" role="document">
+              <div className="quote-panel">
                 <button
                   className="quote-close"
                   aria-label="Close"
@@ -214,19 +152,7 @@ const Nav = ({ onNavigate }) => {
                 <h3 id="quoteTitle">Get a Quote</h3>
 
                 {submitted && (
-                  <div
-                    className="alert"
-                    role="alert"
-                    style={{
-                      background: "#f1fff3",
-                      border: "1px solid #cfead5",
-                      color: "#0f5132",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      marginBottom: 12,
-                      fontWeight: 600,
-                    }}
-                  >
+                  <div className="alert">
                     Thank you for contacting <strong>NETARK</strong>. Our team will reach out shortly.
                   </div>
                 )}
@@ -247,7 +173,6 @@ const Nav = ({ onNavigate }) => {
                       />
                       {errors.name && <small style={errorStyle}>{errors.name}</small>}
                     </label>
-
                     <label>
                       Company / Organization
                       <input
@@ -256,7 +181,6 @@ const Nav = ({ onNavigate }) => {
                         placeholder="Company name (optional)"
                         value={form.company}
                         onChange={handleChange}
-                        style={inputStyle(false)}
                       />
                     </label>
                   </div>
@@ -271,11 +195,9 @@ const Nav = ({ onNavigate }) => {
                         value={form.email}
                         onChange={handleChange}
                         required
-                        style={inputStyle(!!errors.email)}
                       />
                       {errors.email && <small style={errorStyle}>{errors.email}</small>}
                     </label>
-
                     <label>
                       Phone Number*
                       <input
@@ -285,7 +207,6 @@ const Nav = ({ onNavigate }) => {
                         value={form.phone}
                         onChange={handleChange}
                         required
-                        style={inputStyle(!!errors.phone)}
                       />
                       {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                     </label>
@@ -293,12 +214,7 @@ const Nav = ({ onNavigate }) => {
 
                   <label>
                     Service Interested In
-                    <select
-                      name="service"
-                      value={form.service}
-                      onChange={handleChange}
-                      style={inputStyle(false)}
-                    >
+                    <select name="service" value={form.service} onChange={handleChange}>
                       <option value="">Select a service</option>
                       {services.map((s) => (
                         <option key={s} value={s}>{s}</option>
@@ -315,7 +231,6 @@ const Nav = ({ onNavigate }) => {
                       value={form.message}
                       onChange={handleChange}
                       required
-                      style={inputStyle(!!errors.message)}
                     />
                     {errors.message && <small style={errorStyle}>{errors.message}</small>}
                   </label>
@@ -333,8 +248,7 @@ const Nav = ({ onNavigate }) => {
             </div>
           </>,
           document.body
-        )
-      }
+        )}
 
       <style>{`
         .main-nav .nav-list {
@@ -354,116 +268,48 @@ const Nav = ({ onNavigate }) => {
         }
         .main-nav a:hover { color: ${RUBY}; }
 
-        @media (max-width: 991px) {
-          .main-nav .nav-list { display: none; }
-
-          .app-mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.45);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity .25s ease, visibility .25s ease;
-            z-index: 2147483646;
-          }
-          .app-mobile-overlay.show { opacity: 1; visibility: visible; }
-
-          .app-mobile-drawer {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100vh;
-            background: #0e0f2c;
-            color: #fff;
-            transition: right .25s ease;
-            padding: 70px 18px 18px;
-            display: flex;
-            flex-direction: column;
-            border-left: 1px solid rgba(255,255,255,0.08);
-            z-index: 2147483647;
-            gap: 12px;
-          }
-          .app-mobile-drawer.open { right: 0; }
-
-          .app-drawer-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-          }
-          .app-drawer-links li a {
-            display: block;
-            padding: 14px 6px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-          }
-          .app-drawer-links li:last-child a { border-bottom: 0; }
-          .app-drawer-links li a:hover { color: ${RUBY}; }
-        }
-
-        @media (min-width: 992px) {
-          .app-mobile-drawer, .app-mobile-overlay { display: none; }
-        }
-
-        /* Keep the nudge for your ORIGINAL header CTA (if present) */
-        header a[href*="quote"],
-        .header a[href*="quote"] {
-          margin-right: 30px !important;
-          position: relative;
-          right: 10px;
-        }
-
-        /* ===== Body lock when modal open ===== */
+        /* ===== Modal Portal Styles ===== */
         body.modal-open { overflow: hidden; }
 
-        /* ======== PORTAL MODAL LAYOUT ======== */
         .quote-layer {
           position: fixed;
           inset: 0;
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)) 16px;
+          padding: 20px;
           z-index: 2147483647;
         }
         .quote-backdrop {
           position: absolute;
           inset: 0;
-          background: rgba(0,0,0,0.35);
+          background: rgba(0,0,0,0.45);
           backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
         }
         .quote-panel {
           position: relative;
           width: min(720px, 96vw);
-          max-height: min(88vh, 820px);
-          background: #0e0f2c;
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.08);
+          max-height: 88vh;
+          overflow: auto;
+          background: #fff;
+          color: #111;
           border-radius: 14px;
-          box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-          padding: 22px;
-          overflow: auto; /* internal scroll if content is tall */
-          box-sizing: border-box;
-          animation: modal-in 160ms ease-out both;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+          padding: 24px;
+          animation: modalIn .2s ease-out both;
         }
-        @keyframes modal-in {
-          from { transform: translateY(8px) scale(0.98); opacity: 0; }
-          to   { transform: translateY(0)   scale(1);    opacity: 1; }
+        @keyframes modalIn {
+          from { transform: scale(0.98) translateY(8px); opacity: 0; }
+          to { transform: scale(1) translateY(0); opacity: 1; }
         }
         .quote-close {
-          position: sticky; /* stays visible while scrolling inside */
-          top: 0;
-          float: right;
-          margin-left: 12px;
+          position: absolute;
+          top: 10px;
+          right: 14px;
+          border: none;
           background: transparent;
-          border: 0;
-          font-size: 24px;
-          color: #fff;
+          font-size: 22px;
+          color: #333;
           cursor: pointer;
         }
         .quote-panel h3 {
@@ -482,41 +328,55 @@ const Nav = ({ onNavigate }) => {
           grid-template-columns: 1fr 1fr;
           gap: 12px;
         }
-        .quote-form label {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          font-size: 0.95rem;
-        }
         .quote-form input,
         .quote-form select,
         .quote-form textarea {
-          background: rgba(255,255,255,0.06);
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.16);
+          background: #fff;
+          color: #111;
+          border: 1px solid #ccc;
           border-radius: 8px;
           padding: 10px 12px;
-          outline: none;
+          font-size: 0.95rem;
         }
         .quote-form input::placeholder,
-        .quote-form textarea::placeholder { color: rgba(255,255,255,0.6); }
+        .quote-form textarea::placeholder {
+          color: #999;
+        }
         .actions {
           display: flex;
-          gap: 10px;
           justify-content: flex-end;
-          margin-top: 6px;
+          gap: 10px;
+          margin-top: 8px;
         }
         .btn {
-          padding: 10px 14px;
+          padding: 10px 16px;
           border-radius: 8px;
+          font-weight: 600;
           border: 1px solid transparent;
           cursor: pointer;
+        }
+        .btn.primary {
+          background: ${RUBY};
+          color: #fff;
+          border-color: ${RUBY};
+        }
+        .btn.primary:hover { filter: brightness(0.95); }
+        .btn.ghost {
+          background: transparent;
+          color: #111;
+          border-color: #ccc;
+        }
+        .btn.ghost:hover { border-color: #888; }
+
+        .alert {
+          background: #f1fff3;
+          border: 1px solid #cfead5;
+          color: #0f5132;
+          padding: 12px 14px;
+          border-radius: 8px;
+          margin-bottom: 12px;
           font-weight: 600;
         }
-        .btn.primary { background: ${RUBY}; color: #fff; border-color: ${RUBY}; }
-        .btn.primary:hover { filter: brightness(0.95); }
-        .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.3); }
-        .btn.ghost:hover { border-color: rgba(255,255,255,0.5); }
 
         @media (max-width: 640px) {
           .quote-form .row { grid-template-columns: 1fr; }
@@ -526,15 +386,12 @@ const Nav = ({ onNavigate }) => {
   );
 };
 
-// shared styles
-const inputStyle = (hasError) => ({
+const inputStyle = (err) => ({
+  border: `1px solid ${err ? "#e03131" : "#ccc"}`,
   borderRadius: 8,
-  border: `1px solid ${hasError ? "#e03131" : "#e5e5e5"}`,
   padding: "10px 12px",
-  outline: "none",
-  width: "100%",
-  boxShadow: "none",
 });
+
 const errorStyle = {
   color: "#e03131",
   fontSize: 12,
