@@ -1,4 +1,4 @@
-import data from "../../Data/services4.json";
+import data from "../Data/services4.json"; // ✅ fixed path
 
 const RUBY = "#A1162A";
 
@@ -15,7 +15,6 @@ const Solutions = () => {
   return (
     <div className="solutions-area py-5" style={{ backgroundColor: "#fff" }}>
       <div className="container">
-        {/* ===== Header ===== */}
         <div className="row align-items-center mb-5">
           <div className="col-lg-12 text-center">
             <h2
@@ -35,7 +34,6 @@ const Solutions = () => {
           </div>
         </div>
 
-        {/* ===== Solution Cards Grid ===== */}
         <div className="row g-4 justify-content-center">
           {data.map((item, i) => {
             const points = toPoints(item.desc);
@@ -59,7 +57,6 @@ const Solutions = () => {
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
-                  {/* ===== Image ===== */}
                   <div
                     className="solution-thumb mb-3"
                     style={{
@@ -84,7 +81,6 @@ const Solutions = () => {
                     />
                   </div>
 
-                  {/* ===== Text Content ===== */}
                   <div className="solution-content flex-grow-1 text-start">
                     <h3
                       className="solution-title mb-3 fw-bold text-center"
