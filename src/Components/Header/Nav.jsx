@@ -21,7 +21,7 @@ const Nav = ({ onNavigate }) => {
       "header .hamburger",
       "header .mobile-toggle",
       "header .navbar-toggler",
-      'header button[aria-label*="menu" i]',
+      'header button[aria-label*=\"menu\" i]',
       ".site-header .menu-toggle",
       ".site-header .hamburger",
       ".site-header .mobile-toggle",
@@ -55,20 +55,25 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* Desktop inline nav (unchanged except Solutions) */}
+      {/* ================= Desktop Navbar ================= */}
       <nav className="main-nav">
         {!isMobile && (
-          <ul className="nav-list">
-            <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-            <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-            <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
-            <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-            <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-          </ul>
+          <div className="nav-container">
+            <ul className="nav-list">
+              <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
+              <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+              <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
+              <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
+              <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+            </ul>
+
+            {/* CTA Button (moved slightly left) */}
+            <a href="/contact" className="quote-btn">GET A QUOTE NOW →</a>
+          </div>
         )}
       </nav>
 
-      {/* Mobile drawer & overlay */}
+      {/* ================= Mobile Drawer ================= */}
       {isMobile && (
         <>
           <div
@@ -87,11 +92,22 @@ const Nav = ({ onNavigate }) => {
               <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
               <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
             </ul>
+
+            {/* Mobile CTA Button */}
+            <a href="/contact" className="quote-btn-mobile">GET A QUOTE NOW →</a>
           </aside>
         </>
       )}
 
       <style>{`
+        /* =============== Desktop Navigation =============== */
+        .nav-container {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 40px; /* spacing between links and button */
+        }
+
         .main-nav .nav-list {
           list-style: none;
           margin: 0;
@@ -100,6 +116,7 @@ const Nav = ({ onNavigate }) => {
           gap: 24px;
           align-items: center;
         }
+
         .main-nav a {
           text-decoration: none;
           color: #fff;
@@ -107,10 +124,27 @@ const Nav = ({ onNavigate }) => {
           font-size: 1rem;
           transition: color .25s ease;
         }
+
         .main-nav a:hover { color: ${RUBY}; }
 
+        /* CTA button styling */
+        .quote-btn {
+          color: ${RUBY};
+          font-weight: 600;
+          font-size: 0.95rem;
+          text-decoration: none;
+          letter-spacing: 0.5px;
+          transition: all 0.3s ease;
+          margin-right: 30px; /* moved slightly left from edge */
+        }
+        .quote-btn:hover {
+          color: #fff;
+        }
+
+        /* =============== Mobile Styles =============== */
         @media (max-width: 991px) {
           .main-nav .nav-list { display: none; }
+          .quote-btn { display: none; }
 
           .app-mobile-overlay {
             position: fixed;
@@ -150,6 +184,7 @@ const Nav = ({ onNavigate }) => {
             display: flex;
             flex-direction: column;
           }
+
           .app-drawer-links li a {
             display: block;
             padding: 14px 6px;
@@ -158,8 +193,19 @@ const Nav = ({ onNavigate }) => {
             text-decoration: none;
             font-weight: 500;
           }
+
           .app-drawer-links li:last-child a { border-bottom: 0; }
           .app-drawer-links li a:hover { color: ${RUBY}; }
+
+          /* CTA button in mobile drawer */
+          .quote-btn-mobile {
+            margin-top: 20px;
+            color: ${RUBY};
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            letter-spacing: 0.5px;
+          }
         }
 
         @media (min-width: 992px) {
