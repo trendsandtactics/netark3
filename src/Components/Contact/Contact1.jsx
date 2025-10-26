@@ -116,7 +116,7 @@ const Contact1 = () => {
             >
               <iframe
                 title="NETARK Office Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.951615322128!2d76.9367359749368!3d11.017957089142246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857d226f1a1d9%3A0x2d403b0bba4de43c!2sNETARK%20Technologies!5e0!3m2!1sen!2sin!4v1696172855664!5m2!1sen!2sin"
+                src="<iframe src="https://www.google.com/maps/d/embed?mid=1Z6MdAQo2hMtje3kETAx9ZjdzO60TIHo&ehbc=2E312F" width="640" height="480"></iframe>"
                 width="100%" height="100%" style={{ border: 0 }}
                 allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
               />
