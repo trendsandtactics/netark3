@@ -27,7 +27,7 @@ const Solutions = () => {
     },
     {
       title: "Enterprise Systems & Servers",
-      image: "/assets/images/servers.jpg",
+      image: "/assets/images/enterprise.jpg",
       desc: [
         "Certified green servers, storage & networking hardware",
         "Network equipment leasing & lifecycle consulting",
