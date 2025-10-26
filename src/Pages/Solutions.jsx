@@ -13,7 +13,7 @@ const Solutions = () => {
         "Fiber optic solutions for campuses and industries",
         "Network monitoring, optimization & performance tuning",
       ],
-      image: "/assets/images/Campusnetworking.jpg",
+      image: "/assets/images/Networking.jpg",
     },
     {
       title: "Surveillance & Security Systems",
@@ -22,7 +22,7 @@ const Solutions = () => {
         "Access control, visitor management & safety integration for offices, factories, and campuses",
         "Fire alarm, intrusion detection & monitoring systems",
       ],
-      image: "/assets/images/surveillance.jpg",
+      image: "/assets/images/SecuritySystems.jpg",
     },
     {
       title: "Enterprise Systems & Servers",
@@ -31,7 +31,7 @@ const Solutions = () => {
         "Network equipment rentals",
         "Consulting for lifecycle planning & upgrades",
       ],
-      image: "/assets/images/enterprise.jpg",
+      image: "/assets/images/Servers.jpg",
     },
   ];
 
@@ -44,13 +44,13 @@ const Solutions = () => {
         paddingTop: "0",
       }}
     >
-      {/* ✅ Breadcrumb (flush to top, no white gap) */}
+      {/* ✅ Breadcrumb */}
       <div style={{ marginTop: "0", paddingTop: "0" }}>
         <BreadCumb Title="Solutions" />
       </div>
 
       <div className="container py-5">
-        {/* Header */}
+        {/* Header Section */}
         <div className="row align-items-center mb-5">
           <div className="col-lg-12">
             <div className="section-title text-center">
@@ -82,7 +82,7 @@ const Solutions = () => {
           </div>
         </div>
 
-        {/* Cards */}
+        {/* Solution Cards */}
         <div className="row g-4 justify-content-center">
           {data.map((item, i) => (
             <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
@@ -129,7 +129,7 @@ const Solutions = () => {
                   />
                 </div>
 
-                {/* Content */}
+                {/* Text Content */}
                 <div className="service-content flex-grow-1 text-start">
                   <h3
                     className="service-title mb-3 fw-bold text-center"
@@ -165,17 +165,6 @@ const Solutions = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Shapes (optional) */}
-        <div className="service-shape bounce-animate3">
-          <img src="/assets/images/service5.png" alt="shape" />
-        </div>
-        <div className="service-shape2">
-          <img src="/assets/images/service7.png" alt="shape" />
-        </div>
-        <div className="service-shape3 bounce-animate4">
-          <img src="/assets/images/service8.png" alt="shape" />
         </div>
       </div>
     </div>
