@@ -138,7 +138,7 @@ const Nav = ({ onNavigate }) => {
       {quoteOpen &&
         createPortal(
           <>
-            <div className="quote-layer" role="dialog" aria-modal="true">
+            <div className="quote-layer">
               <div className="quote-backdrop" onClick={() => setQuoteOpen(false)} />
               <div className="quote-panel">
                 <button
@@ -268,7 +268,6 @@ const Nav = ({ onNavigate }) => {
         }
         .main-nav a:hover { color: ${RUBY}; }
 
-        /* ===== Modal Portal Styles ===== */
         body.modal-open { overflow: hidden; }
 
         .quote-layer {
@@ -292,7 +291,7 @@ const Nav = ({ onNavigate }) => {
           max-height: 88vh;
           overflow: auto;
           background: #fff;
-          color: #111;
+          color: #000;
           border-radius: 14px;
           box-shadow: 0 20px 60px rgba(0,0,0,0.35);
           padding: 24px;
@@ -309,7 +308,7 @@ const Nav = ({ onNavigate }) => {
           border: none;
           background: transparent;
           font-size: 22px;
-          color: #333;
+          color: #000;
           cursor: pointer;
         }
         .quote-panel h3 {
@@ -322,17 +321,22 @@ const Nav = ({ onNavigate }) => {
           display: flex;
           flex-direction: column;
           gap: 14px;
+          color: #000;
         }
         .quote-form .row {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 12px;
         }
+        .quote-form label {
+          color: #000;
+          font-weight: 600;
+        }
         .quote-form input,
         .quote-form select,
         .quote-form textarea {
           background: #fff;
-          color: #111;
+          color: #000;
           border: 1px solid #ccc;
           border-radius: 8px;
           padding: 10px 12px;
@@ -340,7 +344,7 @@ const Nav = ({ onNavigate }) => {
         }
         .quote-form input::placeholder,
         .quote-form textarea::placeholder {
-          color: #999;
+          color: #777;
         }
         .actions {
           display: flex;
@@ -363,10 +367,10 @@ const Nav = ({ onNavigate }) => {
         .btn.primary:hover { filter: brightness(0.95); }
         .btn.ghost {
           background: transparent;
-          color: #111;
+          color: #000;
           border-color: #ccc;
         }
-        .btn.ghost:hover { border-color: #888; }
+        .btn.ghost:hover { border-color: #777; }
 
         .alert {
           background: #f1fff3;
@@ -390,6 +394,8 @@ const inputStyle = (err) => ({
   border: `1px solid ${err ? "#e03131" : "#ccc"}`,
   borderRadius: 8,
   padding: "10px 12px",
+  color: "#000",
+  background: "#fff",
 });
 
 const errorStyle = {
