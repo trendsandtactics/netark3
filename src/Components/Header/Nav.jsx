@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import QuoteForm from "../Contact/QuoteForm"; // ✅ reuse the same form
+import QuoteForm from "../Contact/QuoteForm"; // ✅ Corrected path
 
 const RUBY = "#A1162A";
 
@@ -18,12 +18,13 @@ const Nav = ({ onNavigate }) => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
 
+    // Hamburger toggle detection
     const selectors = [
       "header .menu-toggle",
       "header .hamburger",
       "header .mobile-toggle",
       "header .navbar-toggler",
-      'header button[aria-label*="menu" i]',
+      'header button[aria-label*=\"menu\" i]',
       ".site-header .menu-toggle",
       ".site-header .hamburger",
       ".site-header .mobile-toggle",
@@ -45,7 +46,7 @@ const Nav = ({ onNavigate }) => {
 
     if (isMobile && toggleBtn) toggleBtn.addEventListener("click", openDrawer);
 
-    // Detect quote button anywhere
+    // Detect click on "Get a Quote Now"
     const onDocClick = (e) => {
       const a = e.target.closest("a");
       if (!a) return;
@@ -58,6 +59,7 @@ const Nav = ({ onNavigate }) => {
     };
     document.addEventListener("click", onDocClick, true);
 
+    // Escape key closes all
     const onKey = (e) => {
       if (e.key === "Escape") {
         setDrawerOpen(false);
@@ -74,6 +76,7 @@ const Nav = ({ onNavigate }) => {
     };
   }, [isMobile]);
 
+  // Disable scroll when modal open
   useEffect(() => {
     if (quoteOpen) document.body.classList.add("modal-open");
     else document.body.classList.remove("modal-open");
@@ -131,7 +134,7 @@ const Nav = ({ onNavigate }) => {
             </button>
             <h3 id="quoteTitle">Get a Quote</h3>
 
-            {/* ✅ Reused Contact form */}
+            {/* ✅ Reuse same form from Contact page */}
             <QuoteForm variant="modal" onSuccess={() => setQuoteOpen(false)} />
           </div>
         </>
