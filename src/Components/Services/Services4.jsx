@@ -5,8 +5,7 @@ const Services4 = () => {
   // helper to normalize desc => array of points
   const toPoints = (desc) => {
     if (Array.isArray(desc)) return desc.map((d) => String(d).trim()).filter(Boolean);
-    const s = String(desc ?? "")
-      .replace(/•/g, "·"); // normalize bullets if some items use •
+    const s = String(desc ?? "").replace(/•/g, "·"); // normalize bullets
     return s
       .split("·")
       .map((t) => t.trim())
@@ -43,11 +42,27 @@ const Services4 = () => {
                   }}
                 >
                   {/* Service Image */}
-                  <div className="service-thumb mb-3">
+                  <div
+                    className="service-thumb mb-3"
+                    style={{
+                      width: "100%",
+                      height: "180px", // ✅ consistent height for all images
+                      overflow: "hidden",
+                      borderRadius: "12px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#f7f7f7", // fallback bg
+                    }}
+                  >
                     <img
                       src={item.image}
-                      alt="thumb"
-                      style={{ width: "100%", borderRadius: "12px", objectFit: "cover" }}
+                      alt={item.title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover", // ✅ ensures uniform scaling
+                      }}
                     />
                   </div>
 
@@ -55,7 +70,16 @@ const Services4 = () => {
                   <div className="service-content flex-grow-1 text-start">
                     <h3
                       className="service-title mb-3 fw-bold text-center"
-                      style={{ fontSize: "1.15rem", color: "#0f172a", lineHeight: "1.4" }}
+                      style={{
+                        fontSize: "1.15rem",
+                        color: "#0f172a",
+                        lineHeight: "1.4",
+                        minHeight: "3rem", // ✅ equal heading height balance
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        textAlign: "center",
+                      }}
                     >
                       {item.title}
                     </h3>
