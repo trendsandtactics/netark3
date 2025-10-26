@@ -1,0 +1,46 @@
+import React from "react";
+
+const RUBY = "#A1162A";
+
+const Solutions = () => {
+  return (
+    <main className="solutions-page" style={{ color: "#fff", background: "#0e0f2c", minHeight: "100vh" }}>
+      <section className="container" style={{ maxWidth: "900px", margin: "0 auto", padding: "80px 20px" }}>
+        <h1 style={{ color: RUBY, fontSize: "2.2rem", fontWeight: "700", marginBottom: "1.5rem" }}>
+          Comprehensive IT & Networking Solutions for Modern Enterprises
+        </h1>
+
+        <div style={{ lineHeight: "1.7", fontSize: "1rem" }}>
+          <h2 style={{ color: RUBY, fontSize: "1.4rem", marginTop: "1.5rem" }}>1. Campus Networking & IT Infrastructure</h2>
+          <ul>
+            <li>LAN/WAN design, switching, routing & structured cabling</li>
+            <li>Wi-Fi solutions for enterprises, campuses, and offices</li>
+            <li>Fiber optic solutions for campus and industries</li>
+            <li>Network monitoring, optimisation & performance tuning</li>
+          </ul>
+
+          <h2 style={{ color: RUBY, fontSize: "1.4rem", marginTop: "1.5rem" }}>2. Surveillance & Security Systems</h2>
+          <ul>
+            <li>Enterprise-grade IP CCTV & video management</li>
+            <li>Access control, visitor management & safety integration solutions for offices, factories and campus</li>
+            <li>Fire alarm, intrusion detection & monitoring systems</li>
+          </ul>
+
+          <h2 style={{ color: RUBY, fontSize: "1.4rem", marginTop: "1.5rem" }}>3. Enterprise Systems & Servers</h2>
+          <ul>
+            <li>Certified green servers, storage & networking hardware</li>
+            <li>Network equipment rentals</li>
+            <li>Consulting for lifecycle planning & upgrades</li>
+          </ul>
+
+          <p style={{ marginTop: "2rem", fontWeight: "600", fontSize: "1.1rem", color: "#ddd" }}>
+            <strong style={{ color: RUBY }}>NETARK</strong> – A trusted name in networking, security, and IT infrastructure
+            solutions in India.
+          </p>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+export default Solutions;
