@@ -7,7 +7,7 @@ const Solutions = () => {
   const solutions = [
     {
       title: "Campus Networking & IT Infrastructure",
-      image: "/assets/images/solutions/Campusnetworking.jpg",
+      image: "/assets/images/Campusnetworking.jpg",
       desc: [
         "LAN/WAN design, switching, routing & structured cabling",
         "Wi-Fi solutions for enterprises, campuses, and offices",
@@ -17,7 +17,7 @@ const Solutions = () => {
     },
     {
       title: "Surveillance & Security Systems",
-      image: "/assets/images/solutions/surveillance.jpg",
+      image: "/assets/images/surveillance.jpg",
       desc: [
         "Enterprise-grade IP CCTV & video management",
         "Access control & visitor management systems",
@@ -27,7 +27,7 @@ const Solutions = () => {
     },
     {
       title: "Enterprise Systems & Servers",
-      image: "/assets/images/solutions/servers.jpg",
+      image: "/assets/images/servers.jpg",
       desc: [
         "Certified green servers, storage & networking hardware",
         "Network equipment leasing & lifecycle consulting",
