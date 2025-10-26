@@ -2,12 +2,13 @@
   "version": 2,
   "name": "netark",
   "public": true,
+  "framework": "vite",
   "installCommand": "npm install",
   "buildCommand": "vite build",
   "outputDirectory": "dist",
-  "framework": "vite",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
   ],
   "env": {
     "VITE_APP_NAME": "Netark",
