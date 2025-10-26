@@ -1,21 +1,16 @@
-
 {
   "version": 2,
-  "name": "veggies",
+  "name": "netark",
   "public": true,
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
+  "installCommand": "npm install",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "env": {
-    "ADMIN_EMAIL": "hariharantt015@gmail.com",
-    "ADMIN_PASSWORD": "veggies@123"
-  },
-  "framework": "create-react-app",
-  "outputDirectory": "build",
-  "installCommand": "npm install",
-  "buildCommand": "npm run build"
+    "VITE_APP_NAME": "Netark",
+    "VITE_BRAND_COLOR": "#A1162A"
+  }
 }
