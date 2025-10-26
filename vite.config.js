@@ -4,31 +4,26 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: "/", // ✅ ensures all paths resolve from root
 
-  // ✅ Ensures all assets resolve from the site root
-  base: "/",
-
-  // ✅ Optimize build output
   build: {
-    outDir: "dist",
+    outDir: "dist", // ✅ default build output directory
     assetsDir: "assets",
-    sourcemap: false, // optional: disable for smaller builds
-    chunkSizeWarningLimit: 1000, // optional: prevents warnings for large assets
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
   },
 
-  // ✅ Development server config
   server: {
-    port: 5173,
-    open: true, // auto-open browser
+    historyApiFallback: true, // ✅ allows client-side routing
+    port: 5173, // optional: your dev port
+    open: true,
     strictPort: true,
     watch: {
-      usePolling: true, // improves file watching on macOS/Linux
+      usePolling: true, // ✅ improves file watching on macOS/Linux
     },
-    // ✅ Required for React Router to handle client-side routing
-    historyApiFallback: true,
   },
 
-  // ✅ Optional: improve JSX compatibility
+  // ✅ Automatically injects React import in JSX (no need to import manually)
   esbuild: {
     jsxInject: `import React from 'react'`,
   },
