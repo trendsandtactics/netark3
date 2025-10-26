@@ -62,33 +62,6 @@ const Nav = ({ onNavigate }) => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
 
-    // Try to hook existing site toggle buttons if present
-    const selectors = [
-      "header .menu-toggle",
-      "header .hamburger",
-      "header .mobile-toggle",
-      "header .navbar-toggler",
-      'header button[aria-label*="menu" i]',
-      ".site-header .menu-toggle",
-      ".site-header .hamburger",
-      ".site-header .mobile-toggle",
-      ".site-header .navbar-toggler",
-    ];
-    let toggleBtn = document.querySelector(selectors.join(","));
-    if (!toggleBtn) {
-      toggleBtn =
-        Array.from(
-          document.querySelectorAll("header button, .site-header button")
-        ).find((b) => b.querySelectorAll("span").length >= 3) || null;
-    }
-
-    const openDrawer = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setDrawerOpen(true);
-    };
-    if (isMobile && toggleBtn) toggleBtn.addEventListener("click", openDrawer);
-
     // Open modal from any existing "Get a quote" link/button in your header/site
     const onDocClick = (e) => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.button !== 0) return;
@@ -119,10 +92,9 @@ const Nav = ({ onNavigate }) => {
     return () => {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKey);
-      if (toggleBtn) toggleBtn.removeEventListener("click", openDrawer);
       document.removeEventListener("click", onDocClick, true);
     };
-  }, [isMobile]);
+  }, []);
 
   // Focus & body lock
   useEffect(() => {
@@ -159,7 +131,7 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* HEADER NAV (no new CTA injected) */}
+      {/* HEADER NAV (unchanged) */}
       <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
@@ -172,7 +144,7 @@ const Nav = ({ onNavigate }) => {
         )}
       </nav>
 
-      {/* Mobile drawer (no added CTA button) */}
+      {/* Mobile drawer (unchanged) */}
       {isMobile && (
         <>
           <div
@@ -195,7 +167,7 @@ const Nav = ({ onNavigate }) => {
         </>
       )}
 
-      {/* Quote Modal via PORTAL */}
+      {/* Quote Modal via PORTAL (now white bg + black text) */}
       {quoteOpen &&
         createPortal(
           <>
@@ -217,15 +189,6 @@ const Nav = ({ onNavigate }) => {
                   <div
                     className="alert"
                     role="alert"
-                    style={{
-                      background: "#f1fff3",
-                      border: "1px solid #cfead5",
-                      color: "#0f5132",
-                      padding: "12px 14px",
-                      borderRadius: 8,
-                      marginBottom: 12,
-                      fontWeight: 600,
-                    }}
                   >
                     Thank you for contacting <strong>NETARK</strong>. Our team will reach out shortly.
                   </div>
@@ -409,14 +372,6 @@ const Nav = ({ onNavigate }) => {
           .app-mobile-drawer, .app-mobile-overlay { display: none; }
         }
 
-        /* Keep the nudge for your ORIGINAL header CTA (if present) */
-        header a[href*="quote"],
-        .header a[href*="quote"] {
-          margin-right: 30px !important;
-          position: relative;
-          right: 10px;
-        }
-
         /* ===== Body lock when modal open ===== */
         body.modal-open { overflow: hidden; }
 
@@ -437,17 +392,19 @@ const Nav = ({ onNavigate }) => {
           backdrop-filter: blur(6px);
           -webkit-backdrop-filter: blur(6px);
         }
+
+        /* ===== White modal box with black text ===== */
         .quote-panel {
           position: relative;
           width: min(720px, 96vw);
           max-height: min(88vh, 820px);
-          background: #0e0f2c;
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.08);
+          background: #fff;        /* white box */
+          color: #000;             /* black text */
+          border: 1px solid rgba(0,0,0,0.1);
           border-radius: 14px;
           box-shadow: 0 24px 80px rgba(0,0,0,0.45);
-          padding: 22px;
-          overflow: auto; /* internal scroll if content is tall */
+          padding: 24px;
+          overflow: auto;          /* scroll inside if tall */
           box-sizing: border-box;
           animation: modal-in 160ms ease-out both;
         }
@@ -456,26 +413,27 @@ const Nav = ({ onNavigate }) => {
           to   { transform: translateY(0)   scale(1);    opacity: 1; }
         }
         .quote-close {
-          position: sticky; /* stays visible while scrolling inside */
-          top: 0;
-          float: right;
-          margin-left: 12px;
+          position: absolute;
+          top: 10px;
+          right: 14px;
           background: transparent;
           border: 0;
-          font-size: 24px;
-          color: #fff;
+          font-size: 22px;
+          color: #000;            /* black close icon */
           cursor: pointer;
         }
         .quote-panel h3 {
-          margin: 0 0 14px 0;
+          margin: 0 0 18px 0;
           color: ${RUBY};
-          font-size: 1.4rem;
+          font-size: 1.5rem;
           font-weight: 700;
         }
+
         .quote-form {
           display: flex;
           flex-direction: column;
-          gap: 14px;
+          gap: 16px;
+          color: #000;            /* ensure all text is black */
         }
         .quote-form .row {
           display: grid;
@@ -487,19 +445,23 @@ const Nav = ({ onNavigate }) => {
           flex-direction: column;
           gap: 6px;
           font-size: 0.95rem;
+          color: #000;            /* label text black */
+          font-weight: 600;
         }
         .quote-form input,
         .quote-form select,
         .quote-form textarea {
-          background: rgba(255,255,255,0.06);
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.16);
+          background: #fff;       /* white fields */
+          color: #000;            /* black text in fields */
+          border: 1px solid #ccc;
           border-radius: 8px;
           padding: 10px 12px;
           outline: none;
+          font-size: 0.95rem;
         }
         .quote-form input::placeholder,
-        .quote-form textarea::placeholder { color: rgba(255,255,255,0.6); }
+        .quote-form textarea::placeholder { color: #777; }
+
         .actions {
           display: flex;
           gap: 10px;
@@ -515,25 +477,38 @@ const Nav = ({ onNavigate }) => {
         }
         .btn.primary { background: ${RUBY}; color: #fff; border-color: ${RUBY}; }
         .btn.primary:hover { filter: brightness(0.95); }
-        .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.3); }
-        .btn.ghost:hover { border-color: rgba(255,255,255,0.5); }
+        .btn.ghost { background: transparent; color: #000; border: 1px solid #ccc; }
+        .btn.ghost:hover { border-color: #777; }
 
         @media (max-width: 640px) {
           .quote-form .row { grid-template-columns: 1fr; }
+        }
+
+        /* Success alert */
+        .alert {
+          background: #f1fff3;
+          border: 1px solid #cfead5;
+          color: #0f5132;
+          padding: 12px 14px;
+          border-radius: 8px;
+          margin-bottom: 12px;
+          font-weight: 600;
         }
       `}</style>
     </>
   );
 };
 
-// shared styles
+// shared styles (kept for inline-error borders)
 const inputStyle = (hasError) => ({
   borderRadius: 8,
-  border: `1px solid ${hasError ? "#e03131" : "#e5e5e5"}`,
+  border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
   padding: "10px 12px",
   outline: "none",
   width: "100%",
   boxShadow: "none",
+  color: "#000",
+  background: "#fff",
 });
 const errorStyle = {
   color: "#e03131",
