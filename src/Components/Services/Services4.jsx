@@ -1,4 +1,3 @@
-
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services4.json";
 
@@ -16,8 +15,7 @@ const Services4 = () => {
 
   return (
     <div className="services-page" style={{ backgroundColor: "#fff", color: "#000" }}>
-      {/* ✅ Breadcrumb */}
-      <BreadCumb Title="Services" />
+      {/* ✅ Removed BreadCumb */}
 
       {/* Main Section */}
       <div className="sservice-area style-two py-5">
