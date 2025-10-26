@@ -1,3 +1,12 @@
+import Solutions from "./pages/Solutions";
+
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/about" element={<About />} />
+  <Route path="/solutions" element={<Solutions />} /> {/* Add this */}
+  <Route path="/services" element={<Services />} />
+  <Route path="/contact" element={<Contact />} />
+</Routes>
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
