@@ -1,4 +1,3 @@
-// src/components/Nav.jsx
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
@@ -52,11 +51,6 @@ const Nav = ({ onNavigate }) => {
     setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
-  const handleNavigate = () => {
-    if (typeof onNavigate === "function") onNavigate();
-    setDrawerOpen(false);
-  };
-
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
@@ -75,7 +69,7 @@ const Nav = ({ onNavigate }) => {
     };
     document.addEventListener("click", onDocClick, true);
 
-    const onKey = (e) => e.key === "Escape" && (setDrawerOpen(false), setQuoteOpen(false));
+    const onKey = (e) => e.key === "Escape" && setQuoteOpen(false);
     window.addEventListener("keydown", onKey);
 
     return () => {
@@ -119,29 +113,38 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      <nav className="main-nav">
-        {!isMobile && (
-          <ul className="nav-list">
-            <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-            <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-            <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
-            <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-            <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-          </ul>
-        )}
-      </nav>
+      {/* ========== HEADER NAVIGATION ========== */}
+      <header className="site-header">
+        <div className="container header-container">
+          <div className="logo">
+            <Link to="/" onClick={onNavigate}>
+              <img src="/netark-logo.png" alt="Netark Logo" height="36" />
+            </Link>
+          </div>
 
+          <nav className="main-nav">
+            <ul className="nav-list">
+              <li><Link to="/" onClick={onNavigate}>Home</Link></li>
+              <li><Link to="/about" onClick={onNavigate}>About</Link></li>
+              <li><Link to="/solutions" onClick={onNavigate}>Solutions</Link></li>
+              <li><Link to="/services" onClick={onNavigate}>Services</Link></li>
+              <li><Link to="/contact" onClick={onNavigate}>Contact</Link></li>
+              <li>
+                <a href="#quote" className="quote-btn">GET A QUOTE NOW →</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      {/* ========== QUOTE MODAL ========== */}
       {quoteOpen &&
         createPortal(
           <>
             <div className="quote-layer">
               <div className="quote-backdrop" onClick={() => setQuoteOpen(false)} />
               <div className="quote-panel">
-                <button
-                  className="quote-close"
-                  aria-label="Close"
-                  onClick={() => setQuoteOpen(false)}
-                >
+                <button className="quote-close" aria-label="Close" onClick={() => setQuoteOpen(false)}>
                   ×
                 </button>
 
@@ -165,7 +168,6 @@ const Nav = ({ onNavigate }) => {
                         value={form.name}
                         onChange={handleChange}
                         required
-                        style={inputStyle(!!errors.name)}
                       />
                       {errors.name && <small style={errorStyle}>{errors.name}</small>}
                     </div>
@@ -250,9 +252,57 @@ const Nav = ({ onNavigate }) => {
           document.body
         )}
 
+      {/* ===================== STYLES ===================== */}
       <style>{`
-        body.modal-open { overflow: hidden; }
+        /* Header */
+        .site-header {
+          width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 9999;
+          padding: 20px 0;
+          background: transparent;
+        }
+        .header-container {
+          width: 90%;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .main-nav .nav-list {
+          display: flex;
+          align-items: center;
+          list-style: none;
+          gap: 28px;
+          margin: 0;
+          padding: 0;
+        }
+        .main-nav a {
+          text-decoration: none;
+          color: #000;
+          font-weight: 500;
+          font-size: 1rem;
+          transition: color 0.25s ease;
+        }
+        .main-nav a:hover { color: ${RUBY}; }
+        .quote-btn {
+          color: ${RUBY};
+          font-weight: 700;
+          text-transform: uppercase;
+          font-size: 0.95rem;
+          letter-spacing: 0.3px;
+          transition: color 0.25s ease, transform 0.2s ease;
+          position: relative;
+        }
+        .quote-btn:hover {
+          color: #000;
+          transform: translateX(4px);
+        }
 
+        /* Quote Modal */
+        body.modal-open { overflow: hidden; }
         .quote-layer {
           position: fixed;
           inset: 0;
@@ -301,87 +351,33 @@ const Nav = ({ onNavigate }) => {
           font-size: 1.5rem;
           font-weight: 800;
         }
-        .quote-form {
-          display: flex;
-          flex-direction: column;
-          gap: 18px;
-        }
-        .row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 16px;
-        }
+        .quote-form { display: flex; flex-direction: column; gap: 18px; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .row.single { grid-template-columns: 1fr; }
-        .col {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-        label {
-          font-weight: 600;
-          color: #000;
-          font-size: 0.95rem;
-        }
+        .col { display: flex; flex-direction: column; gap: 6px; }
+        label { font-weight: 600; color: #000; font-size: 0.95rem; }
         input, select, textarea {
-          background: #fff;
-          color: #000;
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          padding: 10px 12px;
-          font-size: 0.95rem;
-          width: 100%;
-          box-sizing: border-box;
+          background: #fff; color: #000; border: 1px solid #ccc;
+          border-radius: 8px; padding: 10px 12px; font-size: 0.95rem;
+          width: 100%; box-sizing: border-box;
         }
         input::placeholder, textarea::placeholder { color: #777; }
         textarea { resize: vertical; }
-        .actions {
-          display: flex;
-          justify-content: flex-end;
-          gap: 10px;
-          margin-top: 10px;
-        }
-        .btn {
-          padding: 10px 16px;
-          border-radius: 8px;
-          font-weight: 600;
-          border: 1px solid transparent;
-          cursor: pointer;
-        }
-        .btn.primary {
-          background: ${RUBY};
-          color: #fff;
-          border-color: ${RUBY};
-        }
-        .btn.ghost {
-          background: transparent;
-          color: #000;
-          border-color: #ccc;
-        }
+        .actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+        .btn { padding: 10px 16px; border-radius: 8px; font-weight: 600; border: 1px solid transparent; cursor: pointer; }
+        .btn.primary { background: ${RUBY}; color: #fff; border-color: ${RUBY}; }
+        .btn.ghost { background: transparent; color: #000; border-color: #ccc; }
         .btn.ghost:hover { border-color: #777; }
         .alert {
-          background: #f1fff3;
-          border: 1px solid #cfead5;
-          color: #0f5132;
-          padding: 12px 14px;
-          border-radius: 8px;
-          margin-bottom: 12px;
-          font-weight: 600;
+          background: #f1fff3; border: 1px solid #cfead5;
+          color: #0f5132; padding: 12px 14px;
+          border-radius: 8px; margin-bottom: 12px; font-weight: 600;
         }
-        @media (max-width: 640px) {
-          .row { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
       `}</style>
     </>
   );
 };
-
-const inputStyle = (err) => ({
-  border: `1px solid ${err ? "#e03131" : "#ccc"}`,
-  borderRadius: 8,
-  padding: "10px 12px",
-  color: "#000",
-  background: "#fff",
-});
 
 const errorStyle = {
   color: "#e03131",
