@@ -88,7 +88,7 @@ const Nav = ({ onNavigate }) => {
     };
     if (isMobile && toggleBtn) toggleBtn.addEventListener("click", openDrawer);
 
-    // Open modal from any link that is a "quote" link
+    // Open modal from any existing "Get a quote" link/button in your header/site
     const onDocClick = (e) => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.button !== 0) return;
       const a = e.target.closest("a,button");
@@ -99,8 +99,7 @@ const Nav = ({ onNavigate }) => {
         a.hasAttribute("data-quote") ||
         href.includes("quote") ||
         href === "#quote" ||
-        text.includes("get a quote") ||
-        text.includes("get a quote now");
+        text.includes("get a quote");
       if (isQuoteLink) {
         e.preventDefault();
         setQuoteOpen(true);
@@ -140,16 +139,13 @@ const Nav = ({ onNavigate }) => {
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
 
-    // Handle submission (replace with API call if needed)
     console.log("Quote request:", form);
     setSubmitted(true);
-    // brief success then close
     setTimeout(() => {
       setQuoteOpen(false);
       setSubmitted(false);
     }, 1200);
 
-    // reset fields
     setForm({
       name: "",
       company: "",
@@ -162,7 +158,7 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* HEADER NAV */}
+      {/* HEADER NAV (no new CTA injected) */}
       <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
@@ -171,23 +167,12 @@ const Nav = ({ onNavigate }) => {
             <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
             <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
             <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-
-            {/* >>> Get A Quote NOW CTA in header */}
-            <li className="nav-cta">
-              <a
-                href="#quote"
-                data-quote
-                className="quote-cta"
-                onClick={(e) => { e.preventDefault(); setQuoteOpen(true); }}
-              >
-                Get A Quote NOW
-              </a>
-            </li>
+            {/* (No added button here) */}
           </ul>
         )}
       </nav>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer (no added CTA button) */}
       {isMobile && (
         <>
           <div
@@ -206,20 +191,12 @@ const Nav = ({ onNavigate }) => {
               <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
               <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
             </ul>
-
-            {/* Mobile CTA */}
-            <button
-              data-quote
-              className="drawer-quote-cta"
-              onClick={() => setQuoteOpen(true)}
-            >
-              Get A Quote NOW
-            </button>
+            {/* (No added drawer CTA) */}
           </aside>
         </>
       )}
 
-      {/* Quote Modal (fields mirror Contact1) */}
+      {/* Quote Modal */}
       {quoteOpen && (
         <>
           <div className="quote-overlay" onClick={() => setQuoteOpen(false)} />
@@ -376,19 +353,6 @@ const Nav = ({ onNavigate }) => {
           transition: color .25s ease;
         }
         .main-nav a:hover { color: ${RUBY}; }
-        .nav-cta { margin-left: auto; }
-        .quote-cta {
-          display: inline-block;
-          padding: 10px 14px;
-          border-radius: 10px;
-          background: ${RUBY};
-          color: #fff;
-          font-weight: 800;
-          letter-spacing: .2px;
-          text-transform: uppercase;
-          border: 1px solid ${RUBY};
-        }
-        .quote-cta:hover { filter: brightness(.95); }
 
         @media (max-width: 991px) {
           .main-nav .nav-list { display: none; }
@@ -439,22 +403,18 @@ const Nav = ({ onNavigate }) => {
           }
           .app-drawer-links li:last-child a { border-bottom: 0; }
           .app-drawer-links li a:hover { color: ${RUBY}; }
-
-          .drawer-quote-cta {
-            margin-top: auto;
-            padding: 12px 14px;
-            border-radius: 10px;
-            background: ${RUBY};
-            color: #fff;
-            font-weight: 800;
-            letter-spacing: .2px;
-            text-transform: uppercase;
-            border: 1px solid ${RUBY};
-          }
         }
 
         @media (min-width: 992px) {
           .app-mobile-drawer, .app-mobile-overlay { display: none; }
+        }
+
+        /* Keep your existing nudge for the ORIGINAL header CTA (if present) */
+        header a[href*="quote"],
+        .header a[href*="quote"] {
+          margin-right: 30px !important;
+          position: relative;
+          right: 10px;
         }
 
         /* ===== Body lock when modal open ===== */
@@ -563,7 +523,7 @@ const Nav = ({ onNavigate }) => {
   );
 };
 
-// styles reused
+// shared styles
 const inputStyle = (hasError) => ({
   borderRadius: 8,
   border: `1px solid ${hasError ? "#e03131" : "#e5e5e5"}`,
