@@ -55,29 +55,20 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* Desktop inline nav */}
+      {/* Desktop inline nav (unchanged except Solutions) */}
       <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
             <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
             <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+            <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
+            <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
             <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-
-            {/* Highlighted Services Button */}
-            <li>
-              <Link
-                to="/services"
-                onClick={handleNavigate}
-                className="services-btn"
-              >
-                Services
-              </Link>
-            </li>
           </ul>
         )}
       </nav>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer & overlay */}
       {isMobile && (
         <>
           <div
@@ -92,25 +83,15 @@ const Nav = ({ onNavigate }) => {
             <ul className="app-drawer-links">
               <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
               <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+              <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
+              <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
               <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-
-              {/* Highlighted Services Button (Mobile) */}
-              <li>
-                <Link
-                  to="/services"
-                  onClick={handleNavigate}
-                  className="services-btn"
-                >
-                  Services
-                </Link>
-              </li>
             </ul>
           </aside>
         </>
       )}
 
       <style>{`
-        /* ---------- Desktop ---------- */
         .main-nav .nav-list {
           list-style: none;
           margin: 0;
@@ -128,21 +109,6 @@ const Nav = ({ onNavigate }) => {
         }
         .main-nav a:hover { color: ${RUBY}; }
 
-        /* Services Button Styling */
-        .services-btn {
-          background: ${RUBY};
-          color: #fff !important;
-          padding: 8px 16px;
-          border-radius: 6px;
-          font-weight: 600;
-          transition: background .3s ease;
-        }
-        .services-btn:hover {
-          background: #8e1426;
-          color: #fff !important;
-        }
-
-        /* ---------- Mobile ---------- */
         @media (max-width: 991px) {
           .main-nav .nav-list { display: none; }
 
@@ -194,15 +160,6 @@ const Nav = ({ onNavigate }) => {
           }
           .app-drawer-links li:last-child a { border-bottom: 0; }
           .app-drawer-links li a:hover { color: ${RUBY}; }
-
-          .services-btn {
-            background: ${RUBY};
-            display: inline-block;
-            margin-top: 16px;
-            padding: 10px 18px;
-            border-radius: 8px;
-            text-align: center;
-          }
         }
 
         @media (min-width: 992px) {
