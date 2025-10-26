@@ -3,11 +3,12 @@ import BreadCumb from "../Components/Common/BreadCumb";
 
 const RUBY = "#A1162A";
 
-export default function Solutions() {
-  const solutions = [
+const Solutions = () => {
+  // Original solution content
+  const data = [
     {
       title: "Campus Networking & IT Infrastructure",
-      points: [
+      desc: [
         "LAN/WAN design, switching, routing & structured cabling",
         "Wi-Fi solutions for enterprises, campuses, and offices",
         "Fiber optic solutions for campuses and industries",
@@ -17,7 +18,7 @@ export default function Solutions() {
     },
     {
       title: "Surveillance & Security Systems",
-      points: [
+      desc: [
         "Enterprise-grade IP CCTV & video management",
         "Access control, visitor management & safety integration for offices, factories, and campuses",
         "Fire alarm, intrusion detection & monitoring systems",
@@ -26,7 +27,7 @@ export default function Solutions() {
     },
     {
       title: "Enterprise Systems & Servers",
-      points: [
+      desc: [
         "Certified green servers, storage & networking hardware",
         "Network equipment rentals",
         "Consulting for lifecycle planning & upgrades",
@@ -36,37 +37,41 @@ export default function Solutions() {
   ];
 
   return (
-    <div className="solutions-area py-5" style={{ backgroundColor: "#fff" }}>
+    <div className="solutions-area style-two py-5" style={{ backgroundColor: "#fff" }}>
       {/* Breadcrumb */}
       <BreadCumb Title="Solutions" />
 
       <div className="container">
-        {/* Header Section */}
-        <div className="row align-items-center mb-5 text-center">
+        {/* Section Header */}
+        <div className="row align-items-center mb-5">
           <div className="col-lg-12">
-            <h1
-              style={{
-                color: RUBY,
-                fontWeight: 800,
-                fontSize: "2rem",
-                marginBottom: "12px",
-              }}
-            >
-              Comprehensive IT & Networking Solutions for Modern Enterprises
-            </h1>
-            <p style={{ color: "#555", fontSize: "1rem" }}>
-              <strong style={{ color: RUBY }}>NETARK</strong> — A trusted name in
-              networking, security, and IT infrastructure solutions in India.
-            </p>
+            <div className="section-title text-center">
+              <h2
+                dangerouslySetInnerHTML={{
+                  __html:
+                    'Comprehensive <span style="color:#A1162A">IT & Networking Solutions</span> for Modern Enterprises',
+                }}
+                style={{
+                  fontWeight: 800,
+                  fontSize: "2rem",
+                  marginBottom: "12px",
+                  color: "#0f172a",
+                }}
+              />
+              <p style={{ color: "#555", fontSize: "1rem", maxWidth: "720px", margin: "0 auto" }}>
+                <strong style={{ color: RUBY }}>NETARK</strong> — A trusted name in networking, security,
+                and IT infrastructure solutions in India.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Cards Section */}
+        {/* Cards Grid */}
         <div className="row g-4 justify-content-center">
-          {solutions.map((item, i) => (
+          {data.map((item, i) => (
             <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
               <div
-                className="solution-card text-center d-flex flex-column justify-content-between w-100 rounded-4 p-4"
+                className="single-service-box text-center d-flex flex-column justify-content-between w-100 rounded-4 p-4"
                 style={{
                   backgroundColor: "#fff",
                   border: "1px solid #eee",
@@ -85,7 +90,7 @@ export default function Solutions() {
               >
                 {/* Image */}
                 <div
-                  className="solution-thumb mb-3"
+                  className="service-thumb mb-3"
                   style={{
                     width: "100%",
                     height: "180px",
@@ -109,9 +114,9 @@ export default function Solutions() {
                 </div>
 
                 {/* Content */}
-                <div className="solution-content flex-grow-1 text-start">
+                <div className="service-content flex-grow-1 text-start">
                   <h3
-                    className="solution-title mb-3 fw-bold text-center"
+                    className="service-title mb-3 fw-bold text-center"
                     style={{
                       fontSize: "1.15rem",
                       color: RUBY,
@@ -122,9 +127,8 @@ export default function Solutions() {
                       justifyContent: "center",
                     }}
                   >
-                    {i + 1}. {item.title}
+                    {item.title}
                   </h3>
-
                   <ul
                     style={{
                       listStyleType: "disc",
@@ -135,7 +139,7 @@ export default function Solutions() {
                       lineHeight: "1.7",
                     }}
                   >
-                    {item.points.map((p, idx) => (
+                    {item.desc.map((p, idx) => (
                       <li key={idx} style={{ marginBottom: "4px" }}>
                         {p}
                       </li>
@@ -147,7 +151,7 @@ export default function Solutions() {
           ))}
         </div>
 
-        {/* Decorative Shapes (Optional for animation consistency) */}
+        {/* Decorative Shapes (same as Services4 for consistency) */}
         <div className="service-shape bounce-animate3">
           <img src="/assets/images/service5.png" alt="shape" />
         </div>
@@ -160,4 +164,6 @@ export default function Solutions() {
       </div>
     </div>
   );
-}
+};
+
+export default Solutions;
