@@ -45,23 +45,35 @@ const Nav = ({ onNavigate }) => {
 
     if (isMobile && toggleBtn) toggleBtn.addEventListener("click", openDrawer);
 
-    // Listen for clicks on your EXISTING "Get a Quote" link(s)
-    const quoteLinkSelector =
-      'header a[href*="quote" i], .site-header a[href*="quote" i]';
-    const quoteLinks = Array.from(document.querySelectorAll(quoteLinkSelector));
+    // === GLOBAL EVENT DELEGATION FOR EXISTING QUOTE LINK ===
+    // Works even if the button is outside this component or rendered later.
+    const onDocClick = (e) => {
+      // Respect new-tab behavior
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.button !== 0) return;
 
-    const openQuote = (e) => {
-      // Only intercept left-click without ctrl/cmd (so normal open-in-new-tab still works)
-      if (e.button === 0 && !e.metaKey && !e.ctrlKey) {
+      const a = e.target.closest("a");
+      if (!a) return;
+
+      // Match by attribute, hash, or visible text
+      const href = (a.getAttribute("href") || "").toLowerCase();
+      const text = (a.textContent || "").toLowerCase();
+
+      const isQuoteLink =
+        a.hasAttribute("data-quote") ||
+        href.includes("quote") ||
+        href === "#quote" ||
+        text.includes("get a quote");
+
+      if (isQuoteLink) {
         e.preventDefault();
-        e.stopPropagation();
         setQuoteOpen(true);
       }
     };
 
-    quoteLinks.forEach((a) => a.addEventListener("click", openQuote));
+    // capture phase helps before theme handlers run
+    document.addEventListener("click", onDocClick, true);
 
-    // ESC to close drawer or modal
+    // ESC to close
     const onKey = (e) => {
       if (e.key === "Escape") {
         setDrawerOpen(false);
@@ -74,13 +86,12 @@ const Nav = ({ onNavigate }) => {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKey);
       if (toggleBtn) toggleBtn.removeEventListener("click", openDrawer);
-      quoteLinks.forEach((a) => a.removeEventListener("click", openQuote));
+      document.removeEventListener("click", onDocClick, true);
     };
   }, [isMobile]);
 
   useEffect(() => {
     if (quoteOpen && firstFieldRef.current) {
-      // small delay to ensure element is in DOM
       setTimeout(() => firstFieldRef.current?.focus(), 0);
     }
   }, [quoteOpen]);
@@ -89,7 +100,7 @@ const Nav = ({ onNavigate }) => {
     e.preventDefault();
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries());
-    // TODO: send to your backend / service
+    // TODO: send data to your backend / email service
     console.log("Quote request:", data);
     alert("Thanks! We’ll get back to you shortly.");
     setQuoteOpen(false);
@@ -98,7 +109,7 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* Desktop inline nav (unchanged except Solutions) */}
+      {/* Desktop inline nav */}
       <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
@@ -111,7 +122,7 @@ const Nav = ({ onNavigate }) => {
         )}
       </nav>
 
-      {/* Mobile drawer & overlay */}
+      {/* Mobile drawer */}
       {isMobile && (
         <>
           <div
@@ -134,13 +145,10 @@ const Nav = ({ onNavigate }) => {
         </>
       )}
 
-      {/* ===== Quote Modal (opens when existing "Get a Quote" link is clicked) ===== */}
+      {/* Quote Modal */}
       {quoteOpen && (
         <>
-          <div
-            className="quote-overlay"
-            onClick={() => setQuoteOpen(false)}
-          />
+          <div className="quote-overlay" onClick={() => setQuoteOpen(false)} />
           <div
             className="quote-modal"
             role="dialog"
@@ -202,9 +210,7 @@ const Nav = ({ onNavigate }) => {
               <label>
                 What do you need?
                 <select name="service" defaultValue="">
-                  <option value="" disabled>
-                    Select a service
-                  </option>
+                  <option value="" disabled>Select a service</option>
                   <option>Campus Networking & IT Infrastructure</option>
                   <option>Surveillance & Security Systems</option>
                   <option>Enterprise Systems & Servers</option>
@@ -261,7 +267,7 @@ const Nav = ({ onNavigate }) => {
         .header a[href*="quote"] {
           margin-right: 30px !important;
           position: relative;
-          right: 10px; /* moves left by 10px; tweak if needed */
+          right: 10px; /* tweak this value to move more/less left */
         }
 
         @media (max-width: 991px) {
@@ -276,10 +282,7 @@ const Nav = ({ onNavigate }) => {
             transition: opacity .25s ease, visibility .25s ease;
             z-index: 2147483646;
           }
-          .app-mobile-overlay.show {
-            opacity: 1;
-            visibility: visible;
-          }
+          .app-mobile-overlay.show { opacity: 1; visibility: visible; }
 
           .app-mobile-drawer {
             position: fixed;
@@ -327,7 +330,6 @@ const Nav = ({ onNavigate }) => {
           inset: 0;
           background: rgba(0,0,0,0.6);
           z-index: 2147483646;
-          opacity: 1;
         }
         .quote-modal {
           position: fixed;
