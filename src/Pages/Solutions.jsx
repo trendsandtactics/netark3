@@ -4,7 +4,6 @@ import BreadCumb from "../Components/Common/BreadCumb";
 const RUBY = "#A1162A";
 
 const Solutions = () => {
-  // Original solution content
   const data = [
     {
       title: "Campus Networking & IT Infrastructure",
@@ -37,12 +36,21 @@ const Solutions = () => {
   ];
 
   return (
-    <div className="solutions-area style-two py-5" style={{ backgroundColor: "#fff" }}>
-      {/* Breadcrumb */}
-      <BreadCumb Title="Solutions" />
+    <div
+      className="solutions-area style-two"
+      style={{
+        backgroundColor: "#fff",
+        marginTop: "0",
+        paddingTop: "0",
+      }}
+    >
+      {/* ✅ Breadcrumb (flush to top, no white gap) */}
+      <div style={{ marginTop: "0", paddingTop: "0" }}>
+        <BreadCumb Title="Solutions" />
+      </div>
 
-      <div className="container">
-        {/* Section Header */}
+      <div className="container py-5">
+        {/* Header */}
         <div className="row align-items-center mb-5">
           <div className="col-lg-12">
             <div className="section-title text-center">
@@ -58,15 +66,23 @@ const Solutions = () => {
                   color: "#0f172a",
                 }}
               />
-              <p style={{ color: "#555", fontSize: "1rem", maxWidth: "720px", margin: "0 auto" }}>
-                <strong style={{ color: RUBY }}>NETARK</strong> — A trusted name in networking, security,
-                and IT infrastructure solutions in India.
+              <p
+                style={{
+                  color: "#555",
+                  fontSize: "1rem",
+                  maxWidth: "720px",
+                  margin: "0 auto",
+                }}
+              >
+                <strong style={{ color: RUBY }}>NETARK</strong> — A trusted name
+                in networking, security, and IT infrastructure solutions in
+                India.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Cards Grid */}
+        {/* Cards */}
         <div className="row g-4 justify-content-center">
           {data.map((item, i) => (
             <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
@@ -151,7 +167,7 @@ const Solutions = () => {
           ))}
         </div>
 
-        {/* Decorative Shapes (same as Services4 for consistency) */}
+        {/* Shapes (optional) */}
         <div className="service-shape bounce-animate3">
           <img src="/assets/images/service5.png" alt="shape" />
         </div>
