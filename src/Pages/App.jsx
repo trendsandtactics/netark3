@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
-import Solutions from "@/pages/Solutions"; // ✅ Add this line
+import Solutions from "/pages/Solutions"; // ✅ Add this line
 import Nav from "./components/Nav";
 
 function App() {
