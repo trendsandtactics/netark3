@@ -1,42 +1,12 @@
 [
-  {
-    "title": "Internet Services",
-   
-  },
-  {
-    "title": "Co-Location & Hosting",
-    
-  },
-  {
-    "title": "Connectivity Services",
-   
-  },
-  {
-    "title": "Hosting Services",
-    
-  },
-  {
-    "title": "Cloud Solutions",
-   
-  },
-  {
-    "title": "Information Security",
-   
-  },
-  {
-    "title": "Data Storage & Backup",
-   
-  },
-  {
-    "title": "Managed IT & Facility Services",
-   
-  },
-  {
-    "title": "Unified Communications & Mobility",
-    
-  },
-  {
-    "title": "Open-Source IT Solutions",
-    
-  }
+  { "title": "Internet Services" },
+  { "title": "Co-Location & Hosting" },
+  { "title": "Connectivity Services" },
+  { "title": "Hosting Services" },
+  { "title": "Cloud Solutions" },
+  { "title": "Information Security" },
+  { "title": "Data Storage & Backup" },
+  { "title": "Managed IT & Facility Services" },
+  { "title": "Unified Communications & Mobility" },
+  { "title": "Open-Source IT Solutions" }
 ]
