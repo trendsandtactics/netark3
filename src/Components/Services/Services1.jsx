@@ -1,7 +1,8 @@
+import React from "react";
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services1.json";
 
-// ✅ Import Lucide icons
+// Icons
 import {
   Wifi,
   Server,
@@ -14,22 +15,47 @@ import {
   Code,
 } from "lucide-react";
 
-// ✅ Ruby Red brand color
 const RUBY_RED = "#E0115F";
 
+// Normalize desc into an array of bullet points (handles undefined, string, array)
+const toPoints = (desc) => {
+  if (!desc) return [];
+  if (Array.isArray(desc)) return desc.filter(Boolean).map((s) => String(s).trim());
+  const s = String(desc).replace(/•/g, "·");
+  return s
+    .split("·")
+    .map((t) => t.trim())
+    .filter(Boolean);
+};
+
+const iconFor = (title) => {
+  switch (title) {
+    case "Internet Services":
+      return <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    case "Co-Location & Hosting":
+    case "Hosting Services":
+      return <Server size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    case "Connectivity Services":
+      return <Network size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    case "Cloud Solutions":
+      return <Cloud size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    case "Information Security":
+      return <Shield size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    case "Data Storage & Backup":
+      return <Database size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    case "Managed IT & Facility Services":
+      return <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    case "Unified Communications & Mobility":
+      return <PhoneCall size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    case "Open-Source IT Solutions":
+      return <Code size={50} color={RUBY_RED} strokeWidth={1.6} />;
+    default:
+      return <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />;
+  }
+};
+
 const Services1 = () => {
-  // ✅ Icon map for each service
-  const iconMap = {
-    "Internet Services": <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />,
-    "Co-Location & Hosting": <Server size={50} color={RUBY_RED} strokeWidth={1.6} />,
-    "Connectivity Services": <Network size={50} color={RUBY_RED} strokeWidth={1.6} />,
-    "Cloud Solutions": <Cloud size={50} color={RUBY_RED} strokeWidth={1.6} />,
-    "Information Security": <Shield size={50} color={RUBY_RED} strokeWidth={1.6} />,
-    "Data Storage & Backup": <Database size={50} color={RUBY_RED} strokeWidth={1.6} />,
-    "Managed IT & Facility Services": <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />,
-    "Unified Communications & Mobility": <PhoneCall size={50} color={RUBY_RED} strokeWidth={1.6} />,
-    "Open-Source IT Solutions": <Code size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  };
+  const services = Array.isArray(data) ? data : [];
 
   return (
     <div className="service-area py-5" style={{ background: "#fff" }}>
@@ -48,60 +74,62 @@ const Services1 = () => {
 
         {/* ===== 3×3 GRID ===== */}
         <div className="row g-4 justify-content-center">
-          {data.map((item, i) => (
-            <div key={i} className="col-lg-4 col-md-6 col-sm-12 d-flex">
-              <div
-                className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between border border-light"
-                style={{
-                  transition: "all 0.3s ease",
-                  background: "#fff",
-                  cursor: "default",
-                }}
-              >
-                {/* ICON */}
-                <div
-                  className="service-icon mb-4 d-flex justify-content-center"
-                  style={{ transition: "transform 0.3s ease" }}
-                >
-                  {iconMap[item.title] || (
-                    <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />
-                  )}
-                </div>
+          {services.map((item, i) => {
+            const title = item?.title || "Untitled Service";
+            const points = toPoints(item?.desc); // [] if none
 
-                {/* CONTENT */}
-                <div className="service-content flex-grow-1">
-                  <h3
-                    className="service-title mb-3 fw-semibold"
-                    style={{ color: "#333", transition: "color 0.3s ease" }}
+            return (
+              <div key={i} className="col-lg-4 col-md-6 col-sm-12 d-flex">
+                <div
+                  className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between border border-light"
+                  style={{
+                    transition: "all 0.3s ease",
+                    background: "#fff",
+                    cursor: "default",
+                  }}
+                >
+                  {/* ICON */}
+                  <div
+                    className="service-icon mb-4 d-flex justify-content-center"
+                    style={{ transition: "transform 0.3s ease" }}
                   >
-                    {item.title}
-                  </h3>
-                  <ul className="service-points list-unstyled text-start d-inline-block small">
-                    {item.desc.map((point, index) => (
-                      <li key={index} className="mb-1">
-                        • {point}
-                      </li>
-                    ))}
-                  </ul>
+                    {iconFor(title)}
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="service-content flex-grow-1">
+                    <h3
+                      className="service-title mb-3 fw-semibold"
+                      style={{ color: "#333", transition: "color 0.3s ease" }}
+                    >
+                      {title}
+                    </h3>
+
+                    {/* Render points only if present */}
+                    {points.length > 0 && (
+                      <ul className="service-points list-unstyled text-start d-inline-block small mb-0">
+                        {points.map((point, index) => (
+                          <li key={index} className="mb-1">
+                            • {point}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       {/* ===== Inline CSS for Hover Effects ===== */}
       <style>
         {`
-          .service-single-box {
-            color: #555;
-          }
-
+          .service-single-box { color: #555; }
           .service-single-box .service-points li {
-            color: #777;
-            transition: color 0.3s ease;
+            color: #777; transition: color 0.3s ease;
           }
-
           /* Hover effect: Ruby red background + white text */
           .service-single-box:hover {
             background: ${RUBY_RED};
@@ -109,18 +137,10 @@ const Services1 = () => {
             transform: translateY(-5px);
             box-shadow: 0 6px 20px rgba(224, 17, 95, 0.25);
           }
-
-          .service-single-box:hover .service-title {
-            color: #fff;
-          }
-
-          .service-single-box:hover .service-points li {
-            color: #fff;
-          }
-
+          .service-single-box:hover .service-title { color: #fff; }
+          .service-single-box:hover .service-points li { color: #fff; }
           .service-single-box:hover .service-icon svg {
-            transform: scale(1.1);
-            transition: transform 0.3s ease;
+            transform: scale(1.1); transition: transform 0.3s ease;
           }
         `}
       </style>
