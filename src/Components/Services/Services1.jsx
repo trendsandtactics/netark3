@@ -42,20 +42,18 @@ const Services1 = () => {
           />
         </div>
 
-        {/* 2 Rows × 5 Columns */}
         <div className="services-grid">
           {services.map((item, i) => {
             const title = item?.title || "Untitled Service";
             const Icon = iconMap[title] || Monitor;
-
             return (
               <article key={i} className="service-card group">
                 <div className="icon-wrap">
                   <Icon
                     size={50}
-                    color={RUBY_RED}
                     strokeWidth={1.6}
-                    className="transition-all duration-300 group-hover:stroke-white"
+                    color={RUBY_RED}
+                    className="icon transition-all duration-300"
                   />
                 </div>
                 <h3 className="service-title">{title}</h3>
@@ -103,7 +101,7 @@ const Services1 = () => {
             transition: color 0.3s ease;
           }
 
-          /* Hover Effect */
+          /* Hover Effects */
           .service-card:hover {
             background: ${RUBY_RED};
             color: #fff;
@@ -111,7 +109,15 @@ const Services1 = () => {
             box-shadow: 0 10px 25px rgba(224, 17, 95, 0.25);
           }
 
-          .service-card:hover .service-title { color: #fff; }
+          .service-card:hover .service-title {
+            color: #fff;
+          }
+
+          .service-card:hover .icon {
+            stroke: #fff !important;
+            color: #fff !important;
+            transform: scale(1.1);
+          }
 
           @media (max-width: 1280px) {
             .services-grid { grid-template-columns: repeat(4, 1fr); }
