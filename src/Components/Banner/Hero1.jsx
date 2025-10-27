@@ -3,67 +3,70 @@ import { Link } from "react-router-dom";
 const Hero1 = ({ bgImg }) => {
   return (
     <section
-      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden text-white"
       style={{
         backgroundImage: `url(${bgImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {/* Dark gradient overlay for legibility */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#040b16]/90 via-[#0b1424]/85 to-transparent" />
+      {/* Overlay for smooth gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#050a16]/95 via-[#0a1324]/85 to-[#0a1324]/40"></div>
 
-      {/* Content
-         pt-28/md:pt-36 offsets a typical fixed header (64–80px).
-         Adjust if your header is taller/shorter. */}
-      <div className="relative z-10 container mx-auto px-6 pt-28 md:pt-36 pb-16 text-white">
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-[-0.01em] mb-4">
-            Making Technology
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-6 md:px-12 py-20 md:py-32">
+        <div className="max-w-2xl">
+          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
+            Making Technology <br />
+            <span className="text-sky-400">Work for People &amp; Business</span>
+            <sup className="text-base align-top ml-1">®</sup>
           </h1>
 
-          <h2 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-[-0.01em] mb-6">
-            <span className="text-sky-300">Work for People &amp; Business®</span>
-          </h2>
-
-          <p className="mx-auto max-w-3xl text-base md:text-xl text-gray-200/90 leading-relaxed mb-8">
+          <p className="text-base md:text-lg text-gray-300 mb-8 leading-relaxed">
             Empowering businesses through cutting-edge technology, streamlining processes,
             and driving success with innovative IT infrastructure solutions.
           </p>
 
-          {/* CTAs */}
-          <div className="flex justify-center flex-wrap gap-4 mb-12">
+          {/* Buttons */}
+          <div className="flex flex-wrap gap-4 mb-10">
             <Link
               to="/solutions"
-              className="px-6 py-3 rounded-md bg-transparent border border-white/90 hover:bg-white hover:text-black transition font-semibold"
+              className="px-6 py-3 rounded-md border border-white text-white font-semibold hover:bg-white hover:text-black transition-all duration-300"
             >
               EXPLORE SOLUTIONS
             </Link>
             <Link
               to="/contact"
-              className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 transition font-semibold text-white"
+              className="px-6 py-3 rounded-md bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-semibold transition-all duration-300"
             >
               GET STARTED
             </Link>
           </div>
 
-          {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-10 md:gap-16">
-            <div className="min-w-[120px]">
-              <h3 className="text-3xl md:text-4xl font-bold text-sky-300">20+</h3>
-              <p className="text-sm text-gray-300 mt-1">Years Experience</p>
+          {/* Stats Row */}
+          <div className="flex flex-wrap gap-10 text-center md:text-left">
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold text-sky-400">20+</h3>
+              <p className="text-sm text-gray-400">Years Experience</p>
             </div>
-            <div className="min-w-[120px]">
-              <h3 className="text-3xl md:text-4xl font-bold text-sky-300">500+</h3>
-              <p className="text-sm text-gray-300 mt-1">Projects Completed</p>
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold text-sky-400">500+</h3>
+              <p className="text-sm text-gray-400">Projects Completed</p>
             </div>
-            <div className="min-w-[120px]">
-              <h3 className="text-3xl md:text-4xl font-bold text-sky-300">100+</h3>
-              <p className="text-sm text-gray-300 mt-1">Happy Clients</p>
+            <div>
+              <h3 className="text-2xl md:text-3xl font-bold text-sky-400">100+</h3>
+              <p className="text-sm text-gray-400">Happy Clients</p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Optional Decorative Elements */}
+      <img
+        src="/hex-left.svg"
+        alt="hex pattern"
+        className="absolute top-10 left-10 w-32 md:w-40 opacity-50"
+      />
     </section>
   );
 };
