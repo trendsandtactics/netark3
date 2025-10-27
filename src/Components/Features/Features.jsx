@@ -21,10 +21,10 @@ const FEATURES = [
 
 const Features = () => {
   return (
-    <section className="feature-area overlap py-20 bg-white">
-      <div className="container">
-        {/* ==== FEATURES GRID ==== */}
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 mb-12">
+    <section className="feature-area bg-white relative z-10 py-20 md:py-24 lg:py-28">
+      <div className="container mx-auto px-6 md:px-10">
+        {/* ==== GRID ==== */}
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 mb-14">
           {FEATURES.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -32,8 +32,8 @@ const Features = () => {
                 key={i}
                 className="feature-card group p-10 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300 text-center"
               >
-                {/* Icon */}
-                <div className="icon-wrap mb-4 flex justify-center">
+                {/* ICON */}
+                <div className="icon-wrap mb-5 flex justify-center">
                   <Icon
                     size={56}
                     strokeWidth={1.8}
@@ -42,8 +42,8 @@ const Features = () => {
                   />
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-semibold text-gray-800 transition-all duration-300 group-hover:text-white">
+                {/* TITLE */}
+                <h3 className="text-lg md:text-xl font-semibold text-gray-800 transition-all duration-300 group-hover:text-white leading-snug">
                   {item.title}
                 </h3>
               </div>
@@ -52,10 +52,10 @@ const Features = () => {
         </div>
 
         {/* ==== CTA BUTTON ==== */}
-        <div className="text-center mt-8">
+        <div className="text-center mt-8 md:mt-10">
           <Link
             to="/solutions"
-            className="inline-block px-8 py-3 rounded-lg font-semibold text-white text-base bg-[#E0115F] hover:bg-[#b00d4b] shadow-md transition-all duration-300 hover:scale-105"
+            className="inline-block px-10 py-4 rounded-lg font-semibold text-white text-base md:text-lg bg-[#E0115F] hover:bg-[#b00d4b] shadow-md transition-all duration-300 hover:scale-105"
           >
             Explore Solutions
           </Link>
