@@ -7,23 +7,23 @@ import Services1 from "../Components/Services/Services1";
 const RUBY_RED = "#9B111E";
 
 const Home = () => {
-  // ✅ Full content to display in hero section
+  // ✅ Full hero content
   const heroText = `
     <ul style='list-style:none; padding-left:0; margin:0;'>
-      <li style='margin-bottom:12px; font-size:1.25rem; font-weight:600; color:#fff;'>
+      <li style='margin-bottom:12px; font-size:1.25rem; font-weight:600; color:#000;'>
         • Enterprise Networking & IT Infrastructure Solutions in India
       </li>
-      <li style='margin-bottom:12px; color:#d1d5db; line-height:1.6;'>
-        • At <strong style='color:#fff;'>NETARK Technologies</strong>, we deliver more than just technology — 
+      <li style='margin-bottom:12px; color:#333; line-height:1.6;'>
+        • At <strong style='color:#000;'>NETARK Technologies</strong>, we deliver more than just technology — 
         we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, 
         we specialise in Internet services, networking, data center solutions, server colocation services, 
         hosting services, and data backup services that support mission-critical businesses.
       </li>
-      <li style='margin-bottom:12px; color:#d1d5db; line-height:1.6;'>
+      <li style='margin-bottom:12px; color:#333; line-height:1.6;'>
         • Whether it’s campus networking, cloud solutions, or IT security, our team ensures your business stays 
         connected, protected, and scalable.
       </li>
-      <li style='margin-top:16px; font-weight:600; color:#fff;'>
+      <li style='margin-top:16px; font-weight:600; color:#000;'>
         Partner with NETARK – Your trusted Internet and Data Center Infrastructure experts in India.
       </li>
     </ul>
@@ -31,19 +31,14 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      {/* ===== HERO SECTION ===== */}
+      {/* ===== HERO SECTION (with slideshow) ===== */}
       <Hero1
-        bgImg="/assets/images/hero-bg.png"
         SubTitle="NETARK Technologies"
         Title={`<span style='color:${RUBY_RED};'>Empowering Businesses with Reliable IT Infrastructure</span>`}
         Content={heroText}
         BtnText="EXPLORE SOLUTIONS"
         BtnLink="/about"
-        Image="/assets/images/hero-thumb.png"
       />
-
-      {/* ===== SPACING ===== */}
-      <div style={{ height: "80px" }}></div>
 
       {/* ===== ABOUT SECTION ===== */}
       <About1 />
@@ -60,8 +55,7 @@ const Home = () => {
       {/* ===== GLOBAL RUBY RED STYLING ===== */}
       <style>
         {`
-          span,
-          .section-title span {
+          span, .section-title span {
             color: ${RUBY_RED} !important;
           }
 
@@ -72,17 +66,9 @@ const Home = () => {
             transition: all 0.3s ease;
           }
 
-          .thm-btn:hover,
-          .hero-btn:hover,
-          .main-btn:hover {
+          .thm-btn:hover, .hero-btn:hover, .main-btn:hover {
             background-color: #7b0d16 !important;
             border-color: #7b0d16 !important;
-          }
-
-          .hero-area ul li {
-            list-style: none;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
           }
         `}
       </style>
