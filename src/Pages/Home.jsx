@@ -1,74 +1,80 @@
-import { useEffect, useState } from "react";
-import parse from "html-react-parser";
-import loadBackgroudImages from "../Common/loadBackgroudImages";
-import VideoModal from "../VideoModal/VideoModal";
-import { Link } from "react-router-dom";
+import About1 from "../Components/About/About1";
+import Hero1 from "../Components/Banner/Hero1";
+import Contact1 from "../Components/Contact/Contact1";
+import Features from "../Components/Features/Features";
+import Services1 from "../Components/Services/Services1";
 
-const Hero1 = ({ bgImg, SubTitle, Title, Content, BtnText, BtnLink, Image, VideoText }) => {
-  useEffect(() => {
-    loadBackgroudImages();
-  }, []);
+const RUBY_RED = "#9B111E";
 
-  const [iframeSrc, setIframeSrc] = useState("about:blank");
-  const [toggle, setToggle] = useState(false);
-
-  const handelClick = () => {
-    setIframeSrc("https://www.youtube.com/embed/rRid6GCJtgc");
-    setToggle(true);
-  };
-  const handelClose = () => {
-    setIframeSrc("about:blank");
-    setToggle(false);
-  };
-
+const Home = () => {
   return (
-    <div className="hero-area d-flex align-items-center" data-background={bgImg}>
-      <div className="container">
-        <div className="row hero align-items-center">
-          <div className="col-lg-6">
-            <div className="hero-contant">
-              <h5>{SubTitle}</h5>
-              <h1>{parse(Title)}</h1>
-              <p>{Content}</p>
+    <div className="home-page">
+      {/* ===== HERO SECTION ===== */}
+      <Hero1
+        bgImg="/assets/images/hero-bg.png"
+        SubTitle="NETARK Technologies"
+        Title={`Enterprise Networking & IT Infrastructure <br><span style='color:${RUBY_RED};'>Solutions in India</span>`}
+        Content="At NETARK Technologies, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, we specialise in Internet services, networking, data center solutions, server colocation services, hosting services, and data backup services that support mission-critical businesses."
+        BtnText="EXPLORE MORE"
+        BtnLink="/about"
+        Image="/assets/images/hero-thumb.png"
+      />
 
-              <div className="solutek-btn">
-                <Link to={BtnLink}>
-                  {BtnText}
-                  <div className="solutek-hover-btn hover-bx"></div>
-                  <div className="solutek-hover-btn hover-bx2"></div>
-                  <div className="solutek-hover-btn hover-bx3"></div>
-                  <div className="solutek-hover-btn hover-bx4"></div>
-                </Link>
-              </div>
+     
 
-              {/* Video trigger WITHOUT the play icon */}
-              {VideoText && (
-                <button
-                  type="button"
-                  className="hero-video-icon video-vemo-icon venobox vbox-item"
-                  data-vbtype="youtube"
-                  data-autoplay="true"
-                  onClick={handelClick}
-                  aria-label="Play video"
-                  style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer" }}
-                >
-                  <span>{VideoText}</span>
-                </button>
-              )}
-            </div>
-          </div>
+      {/* ===== SPACING ===== */}
+      <div style={{ height: "80px" }}></div>
 
-          <div className="col-lg-6">
-            <div className="hero-thumb">
-              <img src={Image} alt="hero-thumb" />
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* ===== ABOUT SECTION ===== */}
+      <About1 />
 
-      <VideoModal isTrue={toggle} iframeSrc={iframeSrc} handelClose={handelClose} />
+      {/* ===== SERVICES SECTION ===== */}
+      <Services1 />
+      
+ {/* ===== FEATURES SECTION ===== */}
+      <Features />
+      
+      {/* ===== CONTACT SECTION ===== */}
+      <Contact1 />
+
+      {/* ===== GLOBAL RUBY RED STYLING ===== */}
+      <style>
+        {`
+          /* Accent elements like span highlights */
+          span,
+          .section-title span {
+            color: ${RUBY_RED} !important;
+          }
+
+          /* Theme buttons */
+          .thm-btn {
+            background-color: ${RUBY_RED} !important;
+            border-color: ${RUBY_RED} !important;
+            color: #fff !important;
+            transition: all 0.3s ease;
+          }
+
+          .thm-btn:hover {
+            background-color: #7b0d16 !important;
+            border-color: #7b0d16 !important;
+          }
+
+          /* Optional: Hero button if styled differently */
+          .hero-btn,
+          .main-btn {
+            background-color: ${RUBY_RED} !important;
+            border: none !important;
+            color: #fff !important;
+          }
+
+          .hero-btn:hover,
+          .main-btn:hover {
+            background-color: #7b0d16 !important;
+          }
+        `}
+      </style>
     </div>
   );
 };
 
-export default Hero1;
+export default Home;
