@@ -1,109 +1,93 @@
-import { Link } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import About1 from "../Components/About/About1";
+import Hero1 from "../Components/Banner/Hero1";
+import Contact1 from "../Components/Contact/Contact1";
+import Features from "../Components/Features/Features";
+import Services1 from "../Components/Services/Services1";
 
-const Hero1 = () => {
-  const videoRef = useRef(null);
+const RUBY_RED = "#9B111E";
 
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }, []);
+const Home = () => {
+  // ✅ Full content to display in hero section
+  const heroText = `
+    <ul style='list-style:none; padding-left:0; margin:0;'>
+      <li style='margin-bottom:12px; font-size:1.25rem; font-weight:600; color:#000;'>
+        • Enterprise Networking & IT Infrastructure Solutions in India
+      </li>
+      <li style='margin-bottom:12px; color:#333; line-height:1.6;'>
+        • At <strong style='color:#000;'>NETARK Technologies</strong>, we deliver more than just technology — 
+        we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, 
+        we specialise in Internet services, networking, data center solutions, server colocation services, 
+        hosting services, and data backup services that support mission-critical businesses.
+      </li>
+      <li style='margin-bottom:12px; color:#333; line-height:1.6;'>
+        • Whether it’s campus networking, cloud solutions, or IT security, our team ensures your business stays 
+        connected, protected, and scalable.
+      </li>
+      <li style='margin-top:16px; font-weight:600; color:#000;'>
+        Partner with NETARK – Your trusted Internet and Data Center Infrastructure experts in India.
+      </li>
+    </ul>
+  `;
 
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
-        src="/hero-video.mp4" // 🔹 Replace with your video file in /public
-        autoPlay
-        loop
-        muted
-        playsInline
+    <div className="home-page">
+      {/* ===== HERO SECTION ===== */}
+      <Hero1
+        bgImg="/assets/images/hero-bg.png"
+        SubTitle="NETARK Technologies"
+        Title={`<span style='color:${RUBY_RED};'>Empowering Businesses with Reliable IT Infrastructure</span>`}
+        Content={heroText}
+        BtnText="EXPLORE SOLUTIONS"
+        BtnLink="/about"
+        Image="/assets/images/hero-thumb.png"
       />
 
-      {/* Dark Overlay for contrast */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050a16]/95 via-[#0a1324]/80 to-[#0a1324]/30"></div>
+      {/* ===== SPACING ===== */}
+      <div style={{ height: "80px" }}></div>
 
-      {/* Content Grid */}
-      <div className="relative z-10 container mx-auto px-6 md:px-12 grid md:grid-cols-2 items-center gap-10 h-full">
-        {/* Left Section */}
-        <div className="text-center md:text-left text-white flex flex-col justify-center space-y-6">
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-            Making Technology <br />
-            <span className="text-sky-400">
-              Work for People &amp; Business<sup className="text-base ml-1">®</sup>
-            </span>
-          </h1>
+      {/* ===== ABOUT SECTION ===== */}
+      <About1 />
 
-          <p className="text-gray-300 text-base md:text-lg max-w-lg leading-relaxed">
-            Empowering businesses through cutting-edge technology, streamlining
-            processes, and driving success with innovative IT infrastructure
-            solutions.
-          </p>
+      {/* ===== SERVICES SECTION ===== */}
+      <Services1 />
 
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-            <Link
-              to="/solutions"
-              className="px-6 py-3 border border-white rounded-md text-white hover:bg-white hover:text-black transition font-semibold"
-            >
-              EXPLORE SOLUTIONS
-            </Link>
-            <Link
-              to="/contact"
-              className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-            >
-              GET STARTED
-            </Link>
-          </div>
+      {/* ===== FEATURES SECTION ===== */}
+      <Features />
 
-          {/* Stats */}
-          <div className="flex flex-wrap gap-10 justify-center md:justify-start text-center md:text-left pt-6">
-            <div>
-              <h3 className="text-3xl font-bold text-sky-400">20+</h3>
-              <p className="text-sm text-gray-400">Years Experience</p>
-            </div>
-            <div>
-              <h3 className="text-3xl font-bold text-sky-400">500+</h3>
-              <p className="text-sm text-gray-400">Projects Completed</p>
-            </div>
-            <div>
-              <h3 className="text-3xl font-bold text-sky-400">100+</h3>
-              <p className="text-sm text-gray-400">Happy Clients</p>
-            </div>
-          </div>
-        </div>
+      {/* ===== CONTACT SECTION ===== */}
+      <Contact1 />
 
-        {/* Right Section — New Text Content */}
-        <div className="text-white flex flex-col justify-center space-y-5">
-          <h2 className="text-xl md:text-2xl font-semibold text-sky-400">
-            Enterprise Networking &amp; IT Infrastructure Solutions in India
-          </h2>
+      {/* ===== GLOBAL RUBY RED STYLING ===== */}
+      <style>
+        {`
+          span,
+          .section-title span {
+            color: ${RUBY_RED} !important;
+          }
 
-          <p className="text-gray-200 text-base md:text-lg leading-relaxed">
-            At <span className="font-semibold text-white">NETARK Technologies</span>, we deliver
-            more than just technology — we deliver trust, reliability, and
-            future-ready infrastructure. With over 20 years of experience, we
-            specialise in Internet services, networking, data center solutions,
-            server colocation services, hosting services, and data backup
-            services that support mission-critical businesses.
-          </p>
+          .thm-btn, .hero-btn, .main-btn {
+            background-color: ${RUBY_RED} !important;
+            border-color: ${RUBY_RED} !important;
+            color: #fff !important;
+            transition: all 0.3s ease;
+          }
 
-          <p className="text-gray-200 text-base md:text-lg leading-relaxed">
-            Whether it’s campus networking, cloud solutions, or IT security, our
-            team ensures your business stays connected, protected, and scalable.
-          </p>
+          .thm-btn:hover,
+          .hero-btn:hover,
+          .main-btn:hover {
+            background-color: #7b0d16 !important;
+            border-color: #7b0d16 !important;
+          }
 
-          <p className="text-gray-100 text-base md:text-lg font-semibold leading-relaxed">
-            Partner with NETARK – Your trusted Internet and Data Center
-            Infrastructure experts in India.
-          </p>
-        </div>
-      </div>
-    </section>
+          .hero-area ul li {
+            list-style: none;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+          }
+        `}
+      </style>
+    </div>
   );
 };
 
-export default Hero1;
+export default Home;
