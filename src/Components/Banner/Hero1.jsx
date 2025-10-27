@@ -1,18 +1,18 @@
+// src/Components/Banner/Hero1.jsx
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink }) => {
-  // Put these three files in /public (root) with exact names:
+  // Put these files in /public:
   // public/cam.jpg, public/internet.jpg, public/strategic.jpg
   const bgImages = ["/cam.jpg", "/internet.jpg", "/strategic.jpg"];
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Auto-advance every 5s
+  // Auto-advance backgrounds
   useEffect(() => {
-    const id = setInterval(
-      () => setCurrentIndex((i) => (i + 1) % bgImages.length),
-      5000
-    );
+    const id = setInterval(() => {
+      setCurrentIndex((i) => (i + 1) % bgImages.length);
+    }, 5000); // 5s per slide
     return () => clearInterval(id);
   }, []);
 
@@ -26,14 +26,14 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink }) => {
             idx === currentIndex ? "opacity-100" : "opacity-0"
           }`}
           style={{
-            backgroundImage: `url(${src})`,
+            backgroundImage: ["/cam.jpg", "/internet.jpg", "/strategic.jpg"];
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
       ))}
 
-      {/* Optional overlay (lighten/darken as needed). Set to 0 if you want pure images */}
+      {/* Light overlay so text/buttons remain readable; adjust as needed */}
       <div className="absolute inset-0 bg-black/20" />
 
       {/* Content */}
@@ -45,19 +45,21 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink }) => {
             </p>
           ) : null}
 
+          {/* Title accepts HTML (e.g., colored span) */}
           <h1
-            className="text-4xl md:text-6xl font-extrabold leading-tight mb-4"
+            className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 text-white"
             dangerouslySetInnerHTML={{ __html: Title || "" }}
           />
 
+          {/* Content accepts HTML; your Home.jsx sets black text inline */}
           {Content ? (
             <div
               className="text-base md:text-lg leading-relaxed mb-8"
-              // Your Content string already contains inline colors; they will be respected
               dangerouslySetInnerHTML={{ __html: Content }}
             />
           ) : null}
 
+          {/* CTAs */}
           <div className="flex flex-wrap gap-4">
             {BtnLink ? (
               <Link
@@ -76,19 +78,33 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink }) => {
             </Link>
           </div>
 
-          {/* Stats */}
-          <div className="mt-10 flex flex-wrap gap-10 text-center md:text-left">
-            <div>
-              <h3 className="text-3xl font-bold text-sky-500">20+</h3>
-              <p className="text-sm opacity-80">Years Experience</p>
+          {/* Stats — aligned like your reference */}
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-10 md:gap-16">
+            <div className="flex flex-col items-center">
+              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">
+                20+
+              </div>
+              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">
+                Years Experience
+              </p>
             </div>
-            <div>
-              <h3 className="text-3xl font-bold text-sky-500">500+</h3>
-              <p className="text-sm opacity-80">Projects Completed</p>
+
+            <div className="flex flex-col items-center">
+              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">
+                500+
+              </div>
+              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">
+                Projects Completed
+              </p>
             </div>
-            <div>
-              <h3 className="text-3xl font-bold text-sky-500">100+</h3>
-              <p className="text-sm opacity-80">Happy Clients</p>
+
+            <div className="flex flex-col items-center">
+              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">
+                100+
+              </div>
+              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">
+                Happy Clients
+              </p>
             </div>
           </div>
         </div>
