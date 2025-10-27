@@ -1,41 +1,43 @@
-import { Network, Shield, Server } from "lucide-react";
-import { Link } from "react-router-dom";
-import "../../assets/css/overlap-features.css";
+import { Globe, Cloud, ShieldCheck } from "lucide-react";
 
 const RUBY_RED = "#E0115F";
 
-const FEATURES = [
+const SOLUTIONS = [
   {
-    icon: Network,
-    title: "Campus Networking & IT Infrastructure",
+    icon: Globe,
+    title: "Global IT Infrastructure",
+    desc: "End-to-end connectivity, networking, and infrastructure design.",
   },
   {
-    icon: Shield,
-    title: "Surveillance & Security Systems",
+    icon: Cloud,
+    title: "Cloud & Data Center",
+    desc: "Reliable hosting, co-location, and enterprise-grade cloud solutions.",
   },
   {
-    icon: Server,
-    title: "Enterprise Systems & Servers",
+    icon: ShieldCheck,
+    title: "Cybersecurity & Compliance",
+    desc: "Protecting data integrity and network security with best practices.",
   },
 ];
 
-const Features = () => {
+const Solutions = () => {
   return (
-    <section className="feature-area bg-white relative z-10 py-20 md:py-24 lg:py-28">
+    <section className="py-20 md:py-24 bg-gray-50 relative z-10">
       <div className="container mx-auto px-6 md:px-10">
-        {/* ==== GRID ==== */}
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 mb-14">
-          {FEATURES.map((item, i) => {
+        {/* ===== GRID: 1 Row, 3 Columns ===== */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {SOLUTIONS.map((item, i) => {
             const Icon = item.icon;
             return (
               <div
                 key={i}
-                className="feature-card group p-10 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-xl transition-all duration-300 text-center"
+                className="group bg-white border border-gray-200 rounded-2xl p-8 text-center 
+                           shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
               >
                 {/* ICON */}
-                <div className="icon-wrap mb-5 flex justify-center">
+                <div className="flex justify-center mb-5">
                   <Icon
-                    size={56}
+                    size={52}
                     strokeWidth={1.8}
                     color={RUBY_RED}
                     className="transition-all duration-300 group-hover:stroke-white"
@@ -43,57 +45,37 @@ const Features = () => {
                 </div>
 
                 {/* TITLE */}
-                <h3 className="text-lg md:text-xl font-semibold text-gray-800 transition-all duration-300 group-hover:text-white leading-snug">
+                <h3 className="text-xl font-semibold text-gray-800 mb-3 transition-colors duration-300 group-hover:text-white">
                   {item.title}
                 </h3>
+
+                {/* DESC */}
+                <p className="text-gray-600 text-sm leading-relaxed transition-colors duration-300 group-hover:text-white">
+                  {item.desc}
+                </p>
               </div>
             );
           })}
         </div>
-
-        {/* ==== CTA BUTTON ==== */}
-        <div className="text-center mt-8 md:mt-10">
-          <Link
-            to="/solutions"
-            className="inline-block px-10 py-4 rounded-lg font-semibold text-white text-base md:text-lg bg-[#E0115F] hover:bg-[#b00d4b] shadow-md transition-all duration-300 hover:scale-105"
-          >
-            Explore Solutions
-          </Link>
-        </div>
       </div>
 
-      <style>
-        {`
-          .feature-card {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 16px;
-          }
-
-          .feature-card:hover {
-            background: ${RUBY_RED};
-            color: #fff;
-            transform: translateY(-6px);
-            box-shadow: 0 12px 28px rgba(224,17,95,0.25);
-          }
-
-          .feature-card:hover .icon-wrap svg {
-            stroke: #fff !important;
-          }
-
-          .feature-card:hover h3 {
-            color: #fff !important;
-          }
-
-          @media (max-width: 768px) {
-            .feature-card {
-              padding: 24px;
-            }
-          }
-        `}
-      </style>
+      <style>{`
+        .group:hover {
+          background: ${RUBY_RED};
+          color: #fff;
+          border-color: transparent;
+          box-shadow: 0 12px 25px rgba(224,17,95,0.25);
+        }
+        .group:hover svg {
+          stroke: #fff !important;
+        }
+        .group:hover h3,
+        .group:hover p {
+          color: #fff !important;
+        }
+      `}</style>
     </section>
   );
 };
 
-export default Features;
+export default Solutions;
