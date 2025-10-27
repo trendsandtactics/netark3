@@ -1,4 +1,3 @@
-// src/Components/Services/Services1.jsx
 import React from "react";
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services1.json";
@@ -18,20 +17,19 @@ import {
 const RUBY_RED = "#E0115F";
 
 const iconMap = {
-  "Internet Services": <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Co-Location & Hosting": <Server size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Connectivity Services": <Network size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Hosting Services": <Server size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Cloud Solutions": <Cloud size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Information Security": <Shield size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Data Storage & Backup": <Database size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Managed IT & Facility Services": <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Unified Communications & Mobility": <PhoneCall size={50} color={RUBY_RED} strokeWidth={1.6} />,
-  "Open-Source IT Solutions": <Code size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Internet Services": Wifi,
+  "Co-Location & Hosting": Server,
+  "Connectivity Services": Network,
+  "Hosting Services": Server,
+  "Cloud Solutions": Cloud,
+  "Information Security": Shield,
+  "Data Storage & Backup": Database,
+  "Managed IT & Facility Services": Monitor,
+  "Unified Communications & Mobility": PhoneCall,
+  "Open-Source IT Solutions": Code,
 };
 
 const Services1 = () => {
-  // EXACT 10 items for 2 rows × 5 columns
   const services = (Array.isArray(data) ? data : []).slice(0, 10);
 
   return (
@@ -44,16 +42,21 @@ const Services1 = () => {
           />
         </div>
 
-        {/* EXACT 5 columns × 2 rows on large screens */}
+        {/* 2 Rows × 5 Columns */}
         <div className="services-grid">
           {services.map((item, i) => {
             const title = item?.title || "Untitled Service";
+            const Icon = iconMap[title] || Monitor;
+
             return (
-              <article key={i} className="service-card">
+              <article key={i} className="service-card group">
                 <div className="icon-wrap">
-                  {iconMap[title] || (
-                    <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />
-                  )}
+                  <Icon
+                    size={50}
+                    color={RUBY_RED}
+                    strokeWidth={1.6}
+                    className="transition-all duration-300 group-hover:stroke-white"
+                  />
                 </div>
                 <h3 className="service-title">{title}</h3>
               </article>
@@ -62,20 +65,20 @@ const Services1 = () => {
         </div>
       </div>
 
-      {/* Force 5×2 layout on desktop; responsive fallbacks below */}
       <style>
         {`
           .services-grid {
             display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
+            grid-template-columns: repeat(5, 1fr);
             gap: 24px;
             justify-items: center;
             align-items: stretch;
           }
+
           .service-card {
             width: 100%;
             max-width: 240px;
-            height: 240px;                 /* keeps two neat rows */
+            height: 240px;
             background: #fff;
             border: 1px solid #e5e7eb;
             border-radius: 16px;
@@ -88,29 +91,28 @@ const Services1 = () => {
             text-align: center;
             transition: all 0.3s ease;
           }
+
           .icon-wrap { margin-bottom: 12px; }
+
           .service-title {
             margin: 0;
             font-weight: 600;
             font-size: 1rem;
             color: #333;
             line-height: 1.3;
+            transition: color 0.3s ease;
           }
 
-          /* Hover: ruby red glow */
+          /* Hover Effect */
           .service-card:hover {
             background: ${RUBY_RED};
             color: #fff;
             transform: translateY(-6px);
             box-shadow: 0 10px 25px rgba(224, 17, 95, 0.25);
           }
-          .service-card:hover .service-title { color: #fff; }
-          .service-card:hover svg {
-            transform: scale(1.1);
-            transition: transform 0.3s ease;
-          }
 
-          /* Responsive fallbacks */
+          .service-card:hover .service-title { color: #fff; }
+
           @media (max-width: 1280px) {
             .services-grid { grid-template-columns: repeat(4, 1fr); }
           }
