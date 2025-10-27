@@ -1,77 +1,67 @@
 import { Link } from "react-router-dom";
-import { useRef, useEffect } from "react";
 
-const Hero1 = () => {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    // Auto-play the video if browser allows
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  }, []);
-
+const Hero1 = ({ bgImg = "/4hh.png" }) => {
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
-        src="/hero-video.mp4" // 🔹 Replace with your video file in /public
-        autoPlay
-        loop
-        muted
-        playsInline
-      />
-
-      {/* Dark Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050a16]/95 via-[#0a1324]/85 to-transparent"></div>
+    <section
+      className="relative w-full min-h-screen flex items-center overflow-hidden"
+      style={{
+        backgroundImage: `url(${bgImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Dark overlay for legibility */}
+      <div className="absolute inset-0 bg-black/50" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center md:text-left flex flex-col justify-center items-center md:items-start h-full">
-        {/* Headline */}
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-white mb-4">
-          Making Technology <br />
-          <span className="text-sky-400">
-            Work for People &amp; Business<sup className="text-base ml-1">®</sup>
-          </span>
-        </h1>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-28 md:pt-32 lg:pt-28 pb-12">
+        <div className="max-w-2xl text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-lg">
+            Making Technology
+            <br />
+            <span className="text-[#87CEEB] bg-gradient-to-r from-[#87CEEB] to-[#ADD8E6] bg-clip-text text-transparent">
+              Work for People &amp; Business
+              <sup className="text-white text-[0.6em] align-super ml-0.5">®</sup>
+            </span>
+          </h1>
 
-        {/* Subtext */}
-        <p className="text-gray-300 text-base md:text-lg max-w-xl mb-8 leading-relaxed">
-          Empowering businesses through cutting-edge technology, streamlining processes, 
-          and driving success with innovative IT infrastructure solutions.
-        </p>
+          <p className="mt-5 text-gray-200 text-base md:text-lg max-w-xl leading-relaxed drop-shadow-md">
+            Empowering businesses through cutting-edge technology, streamlining processes,
+            and driving success with innovative IT infrastructure solutions.
+          </p>
 
-        {/* Buttons */}
-        <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-10">
-          <Link
-            to="/solutions"
-            className="px-6 py-3 border border-white rounded-md text-white hover:bg-white hover:text-black transition font-semibold"
-          >
-            EXPLORE SOLUTIONS
-          </Link>
-          <Link
-            to="/contact"
-            className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold"
-          >
-            GET STARTED
-          </Link>
-        </div>
+          {/* CTAs */}
+          <div className="mt-7 flex flex-col sm:flex-row gap-4">
+            <Link to="/solutions" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-6 py-3 border-2 border-white/80 rounded-lg text-white bg-white/10 backdrop-blur-sm font-bold shadow-lg hover:bg-white/20 transition-all">
+                EXPLORE SOLUTIONS
+              </button>
+            </Link>
 
-        {/* Stats */}
-        <div className="flex flex-wrap justify-center md:justify-start gap-10 text-center md:text-left">
-          <div>
-            <h3 className="text-3xl font-bold text-sky-400">20+</h3>
-            <p className="text-sm text-gray-400">Years Experience</p>
+            <Link to="/contact" className="w-full sm:w-auto">
+              <button
+                className="w-full sm:w-auto px-6 py-3 rounded-lg bg-gradient-to-r from-[#045ADF] to-[#2571CA] text-white font-bold shadow-lg hover:opacity-95 transition-all"
+                style={{ boxShadow: "0 4px 16px 0 #0052b433" }}
+              >
+                GET STARTED
+              </button>
+            </Link>
           </div>
-          <div>
-            <h3 className="text-3xl font-bold text-sky-400">500+</h3>
-            <p className="text-sm text-gray-400">Projects Completed</p>
-          </div>
-          <div>
-            <h3 className="text-3xl font-bold text-sky-400">100+</h3>
-            <p className="text-sm text-gray-400">Happy Clients</p>
+
+          {/* Stats */}
+          <div className="mt-10 grid grid-cols-3 gap-6 max-w-sm">
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">20+</div>
+              <div className="text-sm text-gray-300">Years Experience</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">500+</div>
+              <div className="text-sm text-gray-300">Projects Completed</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">100+</div>
+              <div className="text-sm text-gray-300">Happy Clients</div>
+            </div>
           </div>
         </div>
       </div>
