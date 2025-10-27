@@ -1,80 +1,82 @@
-import About1 from "../Components/About/About1";
-import Hero1 from "../Components/Banner/Hero1";
-import Contact1 from "../Components/Contact/Contact1";
-import Features from "../Components/Features/Features";
-import Services1 from "../Components/Services/Services1";
+import { Link } from "react-router-dom";
+import { useRef, useEffect } from "react";
 
-const RUBY_RED = "#9B111E";
+const Hero1 = () => {
+  const videoRef = useRef(null);
 
-const Home = () => {
+  useEffect(() => {
+    // Auto-play the video if browser allows
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
+
   return (
-    <div className="home-page">
-      {/* ===== HERO SECTION ===== */}
-      <Hero1
-        bgImg="/assets/images/hero-bg.png"
-        SubTitle="NETARK Technologies"
-        Title={`Enterprise Networking & IT Infrastructure <br><span style='color:${RUBY_RED};'>Solutions in India</span>`}
-        Content="At NETARK Technologies, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, we specialise in Internet services, networking, data center solutions, server colocation services, hosting services, and data backup services that support mission-critical businesses."
-        BtnText="EXPLORE MORE"
-        BtnLink="/about"
-        Image="/assets/images/hero-thumb.png"
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+      {/* Video Background */}
+      <video
+        ref={videoRef}
+        className="absolute inset-0 w-full h-full object-cover"
+        src="/hero-video.mp4" // 🔹 Replace with your video file in /public
+        autoPlay
+        loop
+        muted
+        playsInline
       />
 
-     
+      {/* Dark Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#050a16]/95 via-[#0a1324]/85 to-transparent"></div>
 
-      {/* ===== SPACING ===== */}
-      <div style={{ height: "80px" }}></div>
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-6 text-center md:text-left flex flex-col justify-center items-center md:items-start h-full">
+        {/* Headline */}
+        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight text-white mb-4">
+          Making Technology <br />
+          <span className="text-sky-400">
+            Work for People &amp; Business<sup className="text-base ml-1">®</sup>
+          </span>
+        </h1>
 
-      {/* ===== ABOUT SECTION ===== */}
-      <About1 />
+        {/* Subtext */}
+        <p className="text-gray-300 text-base md:text-lg max-w-xl mb-8 leading-relaxed">
+          Empowering businesses through cutting-edge technology, streamlining processes, 
+          and driving success with innovative IT infrastructure solutions.
+        </p>
 
-      {/* ===== SERVICES SECTION ===== */}
-      <Services1 />
-      
- {/* ===== FEATURES SECTION ===== */}
-      <Features />
-      
-      {/* ===== CONTACT SECTION ===== */}
-      <Contact1 />
+        {/* Buttons */}
+        <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-10">
+          <Link
+            to="/solutions"
+            className="px-6 py-3 border border-white rounded-md text-white hover:bg-white hover:text-black transition font-semibold"
+          >
+            EXPLORE SOLUTIONS
+          </Link>
+          <Link
+            to="/contact"
+            className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+          >
+            GET STARTED
+          </Link>
+        </div>
 
-      {/* ===== GLOBAL RUBY RED STYLING ===== */}
-      <style>
-        {`
-          /* Accent elements like span highlights */
-          span,
-          .section-title span {
-            color: ${RUBY_RED} !important;
-          }
-
-          /* Theme buttons */
-          .thm-btn {
-            background-color: ${RUBY_RED} !important;
-            border-color: ${RUBY_RED} !important;
-            color: #fff !important;
-            transition: all 0.3s ease;
-          }
-
-          .thm-btn:hover {
-            background-color: #7b0d16 !important;
-            border-color: #7b0d16 !important;
-          }
-
-          /* Optional: Hero button if styled differently */
-          .hero-btn,
-          .main-btn {
-            background-color: ${RUBY_RED} !important;
-            border: none !important;
-            color: #fff !important;
-          }
-
-          .hero-btn:hover,
-          .main-btn:hover {
-            background-color: #7b0d16 !important;
-          }
-        `}
-      </style>
-    </div>
+        {/* Stats */}
+        <div className="flex flex-wrap justify-center md:justify-start gap-10 text-center md:text-left">
+          <div>
+            <h3 className="text-3xl font-bold text-sky-400">20+</h3>
+            <p className="text-sm text-gray-400">Years Experience</p>
+          </div>
+          <div>
+            <h3 className="text-3xl font-bold text-sky-400">500+</h3>
+            <p className="text-sm text-gray-400">Projects Completed</p>
+          </div>
+          <div>
+            <h3 className="text-3xl font-bold text-sky-400">100+</h3>
+            <p className="text-sm text-gray-400">Happy Clients</p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default Home;
+export default Hero1;
