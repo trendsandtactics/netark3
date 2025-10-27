@@ -1,93 +1,106 @@
-import About1 from "../Components/About/About1";
-import Hero1 from "../Components/Banner/Hero1";
-import Contact1 from "../Components/Contact/Contact1";
-import Features from "../Components/Features/Features";
-import Services1 from "../Components/Services/Services1";
+import { Link } from "react-router-dom";
+import { useRef, useEffect } from "react";
 
-const RUBY_RED = "#9B111E";
+const Hero1 = ({ bgImg, SubTitle, Title, Content, BtnText, BtnLink, RightContent }) => {
+  const videoRef = useRef(null);
 
-const Home = () => {
-  // ✅ Full content to display in hero section
-  const heroText = `
-    <ul style='list-style:none; padding-left:0; margin:0;'>
-      <li style='margin-bottom:12px; font-size:1.25rem; font-weight:600; color:#000;'>
-        • Enterprise Networking & IT Infrastructure Solutions in India
-      </li>
-      <li style='margin-bottom:12px; color:#333; line-height:1.6;'>
-        • At <strong style='color:#000;'>NETARK Technologies</strong>, we deliver more than just technology — 
-        we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, 
-        we specialise in Internet services, networking, data center solutions, server colocation services, 
-        hosting services, and data backup services that support mission-critical businesses.
-      </li>
-      <li style='margin-bottom:12px; color:#333; line-height:1.6;'>
-        • Whether it’s campus networking, cloud solutions, or IT security, our team ensures your business stays 
-        connected, protected, and scalable.
-      </li>
-      <li style='margin-top:16px; font-weight:600; color:#000;'>
-        Partner with NETARK – Your trusted Internet and Data Center Infrastructure experts in India.
-      </li>
-    </ul>
-  `;
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
 
   return (
-    <div className="home-page">
-      {/* ===== HERO SECTION ===== */}
-      <Hero1
-        bgImg="/assets/images/hero-bg.png"
-        SubTitle="NETARK Technologies"
-        Title={`<span style='color:${RUBY_RED};'>Empowering Businesses with Reliable IT Infrastructure</span>`}
-        Content={heroText}
-        BtnText="EXPLORE SOLUTIONS"
-        BtnLink="/about"
-        Image="/assets/images/hero-thumb.png"
+    <section className="relative w-full h-screen flex items-center overflow-hidden">
+      {/* Background: prefer video, else image */}
+      {/* If you don't use video, comment video and rely on bgImg */}
+      <video
+        ref={videoRef}
+        className="absolute inset-0 w-full h-full object-cover"
+        src="/hero-video.mp4" /* put your video in /public or replace path */
+        autoPlay
+        loop
+        muted
+        playsInline
       />
+      {!bgImg ? null : (
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${bgImg})` }}
+        />
+      )}
 
-      {/* ===== SPACING ===== */}
-      <div style={{ height: "80px" }}></div>
+      {/* Dark overlay for legibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#050a16]/95 via-[#0a1324]/85 to-transparent" />
 
-      {/* ===== ABOUT SECTION ===== */}
-      <About1 />
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-12 h-full">
+        <div className="grid md:grid-cols-2 gap-10 items-center h-full py-24">
+          {/* LEFT: Hero copy */}
+          <div className="text-white">
+            {SubTitle ? (
+              <p className="text-xs tracking-[2px] uppercase text-sky-300/90 font-semibold mb-2">
+                {SubTitle}
+              </p>
+            ) : null}
 
-      {/* ===== SERVICES SECTION ===== */}
-      <Services1 />
+            <h1
+              className="text-4xl md:text-6xl font-extrabold leading-tight mb-4"
+              dangerouslySetInnerHTML={{ __html: Title || "" }}
+            />
 
-      {/* ===== FEATURES SECTION ===== */}
-      <Features />
+            {Content ? (
+              <div
+                className="text-gray-200/90 text-base md:text-lg leading-relaxed max-w-xl mb-8"
+                dangerouslySetInnerHTML={{ __html: Content }}
+              />
+            ) : null}
 
-      {/* ===== CONTACT SECTION ===== */}
-      <Contact1 />
+            <div className="flex flex-wrap gap-4">
+              {BtnLink ? (
+                <Link
+                  to={BtnLink}
+                  className="px-6 py-3 rounded-md border border-white/90 text-white hover:bg-white hover:text-black transition font-semibold"
+                >
+                  {BtnText || "Learn More"}
+                </Link>
+              ) : null}
 
-      {/* ===== GLOBAL RUBY RED STYLING ===== */}
-      <style>
-        {`
-          span,
-          .section-title span {
-            color: ${RUBY_RED} !important;
-          }
+              <Link
+                to="/contact"
+                className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+              >
+                GET STARTED
+              </Link>
+            </div>
 
-          .thm-btn, .hero-btn, .main-btn {
-            background-color: ${RUBY_RED} !important;
-            border-color: ${RUBY_RED} !important;
-            color: #fff !important;
-            transition: all 0.3s ease;
-          }
+            {/* Stats */}
+            <div className="mt-10 flex flex-wrap gap-10 text-center md:text-left">
+              <div>
+                <h3 className="text-3xl font-bold text-sky-300">20+</h3>
+                <p className="text-sm text-gray-300">Years Experience</p>
+              </div>
+              <div>
+                <h3 className="text-3xl font-bold text-sky-300">500+</h3>
+                <p className="text-sm text-gray-300">Projects Completed</p>
+              </div>
+              <div>
+                <h3 className="text-3xl font-bold text-sky-300">100+</h3>
+                <p className="text-sm text-gray-300">Happy Clients</p>
+              </div>
+            </div>
+          </div>
 
-          .thm-btn:hover,
-          .hero-btn:hover,
-          .main-btn:hover {
-            background-color: #7b0d16 !important;
-            border-color: #7b0d16 !important;
-          }
-
-          .hero-area ul li {
-            list-style: none;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-          }
-        `}
-      </style>
-    </div>
+          {/* RIGHT: optional panel (e.g., your NETARK intro) */}
+          {RightContent ? (
+            <aside className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 md:p-7 text-white">
+              {RightContent}
+            </aside>
+          ) : null}
+        </div>
+      </div>
+    </section>
   );
 };
 
-export default Home;
+export default Hero1;
