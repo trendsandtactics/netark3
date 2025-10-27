@@ -7,7 +7,6 @@ import Services1 from "../Components/Services/Services1";
 const RUBY_RED = "#9B111E";
 
 const Home = () => {
-  // ✅ Full hero content
   const heroText = `
     <ul style='list-style:none; padding-left:0; margin:0;'>
       <li style='margin-bottom:12px; font-size:1.25rem; font-weight:600; color:#000;'>
@@ -31,7 +30,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      {/* ===== HERO SECTION (with slideshow) ===== */}
+      {/* HERO with slideshow */}
       <Hero1
         SubTitle="NETARK Technologies"
         Title={`<span style='color:${RUBY_RED};'>Empowering Businesses with Reliable IT Infrastructure</span>`}
@@ -40,32 +39,22 @@ const Home = () => {
         BtnLink="/about"
       />
 
-      {/* ===== ABOUT SECTION ===== */}
+      {/* Removed spacer that caused the white gap */}
+
       <About1 />
-
-      {/* ===== SERVICES SECTION ===== */}
       <Services1 />
-
-      {/* ===== FEATURES SECTION ===== */}
       <Features />
-
-      {/* ===== CONTACT SECTION ===== */}
       <Contact1 />
 
-      {/* ===== GLOBAL RUBY RED STYLING ===== */}
       <style>
         {`
-          span, .section-title span {
-            color: ${RUBY_RED} !important;
-          }
-
+          span, .section-title span { color: ${RUBY_RED} !important; }
           .thm-btn, .hero-btn, .main-btn {
             background-color: ${RUBY_RED} !important;
             border-color: ${RUBY_RED} !important;
             color: #fff !important;
             transition: all 0.3s ease;
           }
-
           .thm-btn:hover, .hero-btn:hover, .main-btn:hover {
             background-color: #7b0d16 !important;
             border-color: #7b0d16 !important;
