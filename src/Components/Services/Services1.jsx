@@ -16,11 +16,12 @@ import {
 
 const RUBY_RED = "#E0115F";
 
+// optional helper if you ever add desc
 const toPoints = (desc) => {
   if (!desc) return [];
-  if (Array.isArray(desc)) return desc.filter(Boolean).map((s) => String(s).trim());
-  const s = String(desc).replace(/•/g, "·");
-  return s
+  if (Array.isArray(desc)) return desc.filter(Boolean).map(String);
+  return String(desc)
+    .replace(/•/g, "·")
     .split("·")
     .map((t) => t.trim())
     .filter(Boolean);
@@ -43,9 +44,9 @@ const Services1 = () => {
   const services = Array.isArray(data) ? data : [];
 
   return (
-    <div className="service-area py-16 bg-white">
+    <section className="service-area py-16" style={{ background: "#fff" }}>
       <div className="container">
-        {/* ===== Section Header ===== */}
+        {/* Header */}
         <div className="text-center mb-10">
           <SectionTitle
             SubTitle="NETARK TECHNOLOGIES"
@@ -53,95 +54,107 @@ const Services1 = () => {
           />
         </div>
 
-        {/* ===== 2 Rows × 5 Columns ===== */}
-        <div
-          className="grid gap-8 justify-items-center"
-          style={{
-            gridTemplateColumns: "repeat(5, 1fr)", // exactly 5 per row
-          }}
-        >
+        {/* GRID (no Bootstrap row/col here) */}
+        <div className="services-grid">
           {services.map((item, i) => {
             const title = item?.title || "Untitled Service";
             const points = toPoints(item?.desc);
 
             return (
-              <div
-                key={i}
-                className="text-center p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 bg-white hover:-translate-y-2 flex flex-col items-center w-full max-w-[240px] h-[240px]"
-              >
-                {/* ICON */}
-                <div className="mb-4">
+              <article key={i} className="service-card">
+                <div className="icon-wrap">
                   {iconMap[title] || <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />}
                 </div>
 
-                {/* TITLE */}
-                <h3
-                  className="font-semibold text-gray-800 text-base leading-snug"
-                  style={{ transition: "color 0.3s ease" }}
-                >
-                  {title}
-                </h3>
+                <h3 className="service-title">{title}</h3>
 
-                {/* OPTIONAL POINTS */}
                 {points.length > 0 && (
-                  <ul className="list-disc text-left text-sm text-gray-500 mt-2 pl-5">
-                    {points.map((point, index) => (
-                      <li key={index}>{point}</li>
+                  <ul className="service-points">
+                    {points.map((p, idx) => (
+                      <li key={idx}>• {p}</li>
                     ))}
                   </ul>
                 )}
-              </div>
+              </article>
             );
           })}
         </div>
       </div>
 
-      {/* ===== Hover Effect ===== */}
+      {/* Forceful CSS to ensure 5×2 on desktop */}
       <style>
         {`
-          .service-area .grid div:hover {
+          .services-grid {
+            display: grid !important;
+            grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+            gap: 24px !important;
+            justify-items: center !important;
+            align-items: stretch !important;
+          }
+
+          .service-card {
+            width: 100%;
+            max-width: 240px;
+            height: 240px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            transition: all 0.3s ease;
+          }
+
+          .icon-wrap { margin-bottom: 12px; }
+          .service-title {
+            margin: 0 0 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.3;
+          }
+          .service-points {
+            list-style: none;
+            padding-left: 0;
+            margin: 8px 0 0;
+            font-size: 0.875rem;
+            color: #666;
+            text-align: left;
+          }
+
+          /* Hover */
+          .service-card:hover {
             background: ${RUBY_RED};
             color: #fff;
             transform: translateY(-6px);
             box-shadow: 0 10px 25px rgba(224, 17, 95, 0.25);
           }
-
-          .service-area .grid div:hover h3 {
-            color: #fff;
-          }
-
-          .service-area .grid div:hover svg {
+          .service-card:hover .service-title { color: #fff; }
+          .service-card:hover svg {
             transform: scale(1.1);
             transition: transform 0.3s ease;
           }
 
-          /* Responsive: fewer columns on small devices */
+          /* Responsive fallbacks */
           @media (max-width: 1280px) {
-            .service-area .grid {
-              grid-template-columns: repeat(4, 1fr);
-            }
+            .services-grid { grid-template-columns: repeat(4, minmax(0,1fr)) !important; }
           }
-
           @media (max-width: 1024px) {
-            .service-area .grid {
-              grid-template-columns: repeat(3, 1fr);
-            }
+            .services-grid { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
           }
-
           @media (max-width: 768px) {
-            .service-area .grid {
-              grid-template-columns: repeat(2, 1fr);
-            }
+            .services-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
           }
-
           @media (max-width: 480px) {
-            .service-area .grid {
-              grid-template-columns: 1fr;
-            }
+            .services-grid { grid-template-columns: 1fr !important; }
           }
         `}
       </style>
-    </div>
+    </section>
   );
 };
 
