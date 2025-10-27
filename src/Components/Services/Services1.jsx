@@ -1,3 +1,4 @@
+// src/Components/Services/Services1.jsx
 import React from "react";
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services1.json";
@@ -16,17 +17,6 @@ import {
 
 const RUBY_RED = "#E0115F";
 
-// optional helper if you ever add desc
-const toPoints = (desc) => {
-  if (!desc) return [];
-  if (Array.isArray(desc)) return desc.filter(Boolean).map(String);
-  return String(desc)
-    .replace(/•/g, "·")
-    .split("·")
-    .map((t) => t.trim())
-    .filter(Boolean);
-};
-
 const iconMap = {
   "Internet Services": <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />,
   "Co-Location & Hosting": <Server size={50} color={RUBY_RED} strokeWidth={1.6} />,
@@ -41,12 +31,12 @@ const iconMap = {
 };
 
 const Services1 = () => {
-  const services = Array.isArray(data) ? data : [];
+  // EXACT 10 items for 2 rows × 5 columns
+  const services = (Array.isArray(data) ? data : []).slice(0, 10);
 
   return (
-    <section className="service-area py-16" style={{ background: "#fff" }}>
+    <section className="service-area py-16 bg-white">
       <div className="container">
-        {/* Header */}
         <div className="text-center mb-10">
           <SectionTitle
             SubTitle="NETARK TECHNOLOGIES"
@@ -54,48 +44,38 @@ const Services1 = () => {
           />
         </div>
 
-        {/* GRID (no Bootstrap row/col here) */}
+        {/* EXACT 5 columns × 2 rows on large screens */}
         <div className="services-grid">
           {services.map((item, i) => {
             const title = item?.title || "Untitled Service";
-            const points = toPoints(item?.desc);
-
             return (
               <article key={i} className="service-card">
                 <div className="icon-wrap">
-                  {iconMap[title] || <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />}
+                  {iconMap[title] || (
+                    <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />
+                  )}
                 </div>
-
                 <h3 className="service-title">{title}</h3>
-
-                {points.length > 0 && (
-                  <ul className="service-points">
-                    {points.map((p, idx) => (
-                      <li key={idx}>• {p}</li>
-                    ))}
-                  </ul>
-                )}
               </article>
             );
           })}
         </div>
       </div>
 
-      {/* Forceful CSS to ensure 5×2 on desktop */}
+      {/* Force 5×2 layout on desktop; responsive fallbacks below */}
       <style>
         {`
           .services-grid {
-            display: grid !important;
-            grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-            gap: 24px !important;
-            justify-items: center !important;
-            align-items: stretch !important;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 24px;
+            justify-items: center;
+            align-items: stretch;
           }
-
           .service-card {
             width: 100%;
             max-width: 240px;
-            height: 240px;
+            height: 240px;                 /* keeps two neat rows */
             background: #fff;
             border: 1px solid #e5e7eb;
             border-radius: 16px;
@@ -104,29 +84,20 @@ const Services1 = () => {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             text-align: center;
             transition: all 0.3s ease;
           }
-
           .icon-wrap { margin-bottom: 12px; }
           .service-title {
-            margin: 0 0 6px;
+            margin: 0;
             font-weight: 600;
             font-size: 1rem;
             color: #333;
             line-height: 1.3;
           }
-          .service-points {
-            list-style: none;
-            padding-left: 0;
-            margin: 8px 0 0;
-            font-size: 0.875rem;
-            color: #666;
-            text-align: left;
-          }
 
-          /* Hover */
+          /* Hover: ruby red glow */
           .service-card:hover {
             background: ${RUBY_RED};
             color: #fff;
@@ -141,16 +112,16 @@ const Services1 = () => {
 
           /* Responsive fallbacks */
           @media (max-width: 1280px) {
-            .services-grid { grid-template-columns: repeat(4, minmax(0,1fr)) !important; }
+            .services-grid { grid-template-columns: repeat(4, 1fr); }
           }
           @media (max-width: 1024px) {
-            .services-grid { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+            .services-grid { grid-template-columns: repeat(3, 1fr); }
           }
           @media (max-width: 768px) {
-            .services-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
           }
           @media (max-width: 480px) {
-            .services-grid { grid-template-columns: 1fr !important; }
+            .services-grid { grid-template-columns: 1fr; }
           }
         `}
       </style>
