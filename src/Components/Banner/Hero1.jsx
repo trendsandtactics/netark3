@@ -1,74 +1,149 @@
+import ImageCarousel from "./ImageCarousel";
+import { motion } from "framer-motion";
+import GetStartedForm from "./GetStartedForm";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Hero1 = ({ bgImg }) => {
+const HeroSection = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleGetStartedClick = (e) => {
+    e.preventDefault();
+    setIsFormOpen(true);
+  };
+
+  const backgroundImages = [
+    "/lovable-uploads/d2e27d6a-96a8-45f2-8f0b-d1e0e6bcb2f8.png",
+    "/2hh.png",
+    "/4hh.png",
+    "/3hh.png",
+    "/5hh.png",
+  ];
+
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBgIndex((prev) => (prev + 1) % backgroundImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
   return (
-    <section
-      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden text-white"
-      style={{
-        backgroundImage: `url(${bgImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* Overlay for smooth gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050a16]/95 via-[#0a1324]/85 to-[#0a1324]/40"></div>
-
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 md:px-12 py-20 md:py-32">
-        <div className="max-w-2xl">
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
-            Making Technology <br />
-            <span className="text-sky-400">Work for People &amp; Business</span>
-            <sup className="text-base align-top ml-1">®</sup>
-          </h1>
-
-          <p className="text-base md:text-lg text-gray-300 mb-8 leading-relaxed">
-            Empowering businesses through cutting-edge technology, streamlining processes,
-            and driving success with innovative IT infrastructure solutions.
-          </p>
-
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-4 mb-10">
-            <Link
-              to="/solutions"
-              className="px-6 py-3 rounded-md border border-white text-white font-semibold hover:bg-white hover:text-black transition-all duration-300"
+    <>
+      <section className="relative w-full min-h-screen flex flex-col overflow-hidden">
+        {/* Auto-scrolling Background Images */}
+        <div className="absolute inset-0 z-0">
+          {backgroundImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentBgIndex ? "opacity-100" : "opacity-0"
+              }`}
             >
-              EXPLORE SOLUTIONS
-            </Link>
-            <Link
-              to="/contact"
-              className="px-6 py-3 rounded-md bg-[#2563eb] hover:bg-[#1d4ed8] text-white font-semibold transition-all duration-300"
-            >
-              GET STARTED
-            </Link>
-          </div>
-
-          {/* Stats Row */}
-          <div className="flex flex-wrap gap-10 text-center md:text-left">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-sky-400">20+</h3>
-              <p className="text-sm text-gray-400">Years Experience</p>
+              <img
+                src={image}
+                alt={`Technology Background ${index + 1}`}
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-black/50" />
             </div>
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-sky-400">500+</h3>
-              <p className="text-sm text-gray-400">Projects Completed</p>
-            </div>
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-sky-400">100+</h3>
-              <p className="text-sm text-gray-400">Happy Clients</p>
-            </div>
-          </div>
+          ))}
         </div>
-      </div>
 
-      {/* Optional Decorative Elements */}
-      <img
-        src="/hex-left.svg"
-        alt="hex pattern"
-        className="absolute top-10 left-10 w-32 md:w-40 opacity-50"
-      />
-    </section>
+        {/* Main Content */}
+        <div className="relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col lg:flex-row items-center justify-between flex-grow pt-28 md:pt-32 lg:pt-28 pb-10">
+          {/* Left content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col justify-center w-full lg:w-1/2 text-center lg:text-left space-y-5 md:space-y-6 mb-10 lg:mb-0"
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight drop-shadow-lg"
+            >
+              Making Technology <br />
+              <span className="text-[#87CEEB] bg-gradient-to-r from-[#87CEEB] to-[#ADD8E6] bg-clip-text text-transparent">
+                Work for People &amp; Business
+                <sup className="text-white text-[0.6em] align-super ml-0.5">®</sup>
+              </span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-gray-200 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed drop-shadow-md"
+            >
+              Empowering businesses through cutting-edge technology, streamlining
+              processes and driving success with innovative IT infrastructure solutions.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0"
+            >
+              <Link to="/solutions" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto px-6 py-3 border-2 border-white/80 rounded-lg text-white bg-white/10 backdrop-blur-sm font-bold shadow-lg hover:bg-white/20 transition-all">
+                  EXPLORE SOLUTIONS
+                </button>
+              </Link>
+
+              <button
+                onClick={handleGetStartedClick}
+                className="w-full sm:w-auto px-6 py-3 rounded-lg bg-gradient-to-r from-[#045ADF] to-[#2571CA] text-white font-bold shadow-lg hover:opacity-95 transition-all"
+                style={{ boxShadow: "0 4px 16px 0 #0052b433" }}
+              >
+                GET STARTED
+              </button>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="grid grid-cols-3 gap-6 pt-6 max-w-sm mx-auto lg:mx-0"
+            >
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">20+</div>
+                <div className="text-sm text-gray-300">Years Experience</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">500+</div>
+                <div className="text-sm text-gray-300">Projects Completed</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">100+</div>
+                <div className="text-sm text-gray-300">Happy Clients</div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right image */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="w-full lg:w-1/2 flex justify-center items-center"
+          >
+            <div className="w-4/5 sm:w-3/4 md:w-2/3 lg:w-[90%] xl:w-[95%] max-w-[560px]">
+              <ImageCarousel />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Get Started Form Modal */}
+      <GetStartedForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+    </>
   );
 };
 
-export default Hero1;
+export default HeroSection;
