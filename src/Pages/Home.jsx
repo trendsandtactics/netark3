@@ -20,8 +20,7 @@ const Home = () => {
         Image="/assets/images/hero-thumb.png"
       />
 
-      {/* ===== FEATURES SECTION ===== */}
-      <Features />
+     
 
       {/* ===== SPACING ===== */}
       <div style={{ height: "80px" }}></div>
@@ -31,7 +30,10 @@ const Home = () => {
 
       {/* ===== SERVICES SECTION ===== */}
       <Services1 />
-
+      
+ {/* ===== FEATURES SECTION ===== */}
+      <Features />
+      
       {/* ===== CONTACT SECTION ===== */}
       <Contact1 />
 
