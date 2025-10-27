@@ -2,7 +2,6 @@ import React from "react";
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services1.json";
 
-// ✅ Import Lucide icons
 import {
   Wifi,
   Server,
@@ -15,10 +14,8 @@ import {
   Code,
 } from "lucide-react";
 
-// ✅ Brand color
 const RUBY_RED = "#E0115F";
 
-// ✅ Safely handle missing or malformed description
 const toPoints = (desc) => {
   if (!desc) return [];
   if (Array.isArray(desc)) return desc.filter(Boolean).map((s) => String(s).trim());
@@ -29,7 +26,6 @@ const toPoints = (desc) => {
     .filter(Boolean);
 };
 
-// ✅ Icon mapping for each service
 const iconMap = {
   "Internet Services": <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />,
   "Co-Location & Hosting": <Server size={50} color={RUBY_RED} strokeWidth={1.6} />,
@@ -46,95 +42,71 @@ const Services1 = () => {
   const services = Array.isArray(data) ? data : [];
 
   return (
-    <div className="service-area py-5" style={{ background: "#fff" }}>
+    <div className="service-area py-5 bg-white">
       <div className="container">
-        {/* ===== Section Header ===== */}
-        <div className="row align-items-center mb-5">
-          <div className="col-lg-12">
-            <div className="section-title text-center">
-              <SectionTitle
-                SubTitle="NETARK TECHNOLOGIES"
-                Title={`Professional IT Services<br> That Drive <span style='color:${RUBY_RED};'>Success.</span>`}
-              />
-            </div>
-          </div>
+        {/* Section Header */}
+        <div className="text-center mb-5">
+          <SectionTitle
+            SubTitle="NETARK TECHNOLOGIES"
+            Title={`Professional IT Services<br> That Drive <span style='color:${RUBY_RED};'>Success.</span>`}
+          />
         </div>
 
-        {/* ===== Grid Section ===== */}
-        <div className="row g-4 justify-content-center">
+        {/* ===== 5×5 Grid ===== */}
+        <div
+          className="grid gap-6 justify-items-center"
+          style={{
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(200px, 1fr))",
+          }}
+        >
           {services.map((item, i) => {
             const title = item?.title || "Untitled Service";
-            const descPoints = toPoints(item?.desc); // safe fallback
+            const points = toPoints(item?.desc);
 
             return (
-              <div key={i} className="col-lg-4 col-md-6 col-sm-12 d-flex">
-                <div
-                  className="service-single-box w-100 text-center p-4 shadow-sm rounded-4 h-100 d-flex flex-column justify-content-between border border-light"
-                  style={{
-                    transition: "all 0.3s ease",
-                    background: "#fff",
-                    cursor: "default",
-                  }}
+              <div
+                key={i}
+                className="text-center p-5 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 bg-white hover:-translate-y-2 flex flex-col justify-between items-center w-full h-full max-w-[220px]"
+              >
+                {/* ICON */}
+                <div className="mb-4">{iconMap[title] || <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />}</div>
+
+                {/* TITLE */}
+                <h3
+                  className="font-semibold mb-2 text-gray-800 text-base"
+                  style={{ transition: "color 0.3s ease" }}
                 >
-                  {/* ICON */}
-                  <div
-                    className="service-icon mb-4 d-flex justify-content-center"
-                    style={{ transition: "transform 0.3s ease" }}
-                  >
-                    {iconMap[title] || (
-                      <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />
-                    )}
-                  </div>
+                  {title}
+                </h3>
 
-                  {/* TITLE */}
-                  <h3
-                    className="service-title mb-3 fw-semibold"
-                    style={{
-                      color: "#333",
-                      fontSize: "1.2rem",
-                      transition: "color 0.3s ease",
-                    }}
-                  >
-                    {title}
-                  </h3>
-
-                  {/* OPTIONAL POINTS */}
-                  {descPoints.length > 0 && (
-                    <ul className="service-points list-unstyled text-start d-inline-block small mb-0">
-                      {descPoints.map((point, index) => (
-                        <li key={index} className="mb-1">
-                          • {point}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                {/* POINTS (optional) */}
+                {points.length > 0 && (
+                  <ul className="list-disc text-left text-sm text-gray-500 mt-2 pl-5">
+                    {points.map((point, index) => (
+                      <li key={index}>{point}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* ===== Inline Hover Effects ===== */}
+      {/* ===== Hover Style ===== */}
       <style>
         {`
-          .service-single-box { color: #555; }
-          .service-single-box .service-points li {
-            color: #777; transition: color 0.3s ease;
-          }
-
-          /* Hover: ruby red glow */
-          .service-single-box:hover {
+          .service-area .grid div:hover {
             background: ${RUBY_RED};
             color: #fff;
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(224, 17, 95, 0.25);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(224, 17, 95, 0.25);
           }
-
-          .service-single-box:hover .service-title { color: #fff; }
-          .service-single-box:hover .service-points li { color: #fff; }
-
-          .service-single-box:hover .service-icon svg {
+          .service-area .grid div:hover h3 {
+            color: #fff;
+          }
+          .service-area .grid div:hover svg {
             transform: scale(1.1);
             transition: transform 0.3s ease;
           }
