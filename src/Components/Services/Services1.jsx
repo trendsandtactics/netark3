@@ -2,7 +2,7 @@ import React from "react";
 import SectionTitle from "../Common/SectionTitle";
 import data from "../../Data/services1.json";
 
-// Icons
+// ✅ Import Lucide icons
 import {
   Wifi,
   Server,
@@ -15,9 +15,10 @@ import {
   Code,
 } from "lucide-react";
 
+// ✅ Brand color
 const RUBY_RED = "#E0115F";
 
-// Normalize desc into an array of bullet points (handles undefined, string, array)
+// ✅ Safely handle missing or malformed description
 const toPoints = (desc) => {
   if (!desc) return [];
   if (Array.isArray(desc)) return desc.filter(Boolean).map((s) => String(s).trim());
@@ -28,30 +29,17 @@ const toPoints = (desc) => {
     .filter(Boolean);
 };
 
-const iconFor = (title) => {
-  switch (title) {
-    case "Internet Services":
-      return <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    case "Co-Location & Hosting":
-    case "Hosting Services":
-      return <Server size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    case "Connectivity Services":
-      return <Network size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    case "Cloud Solutions":
-      return <Cloud size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    case "Information Security":
-      return <Shield size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    case "Data Storage & Backup":
-      return <Database size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    case "Managed IT & Facility Services":
-      return <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    case "Unified Communications & Mobility":
-      return <PhoneCall size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    case "Open-Source IT Solutions":
-      return <Code size={50} color={RUBY_RED} strokeWidth={1.6} />;
-    default:
-      return <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />;
-  }
+// ✅ Icon mapping for each service
+const iconMap = {
+  "Internet Services": <Wifi size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Co-Location & Hosting": <Server size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Connectivity Services": <Network size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Cloud Solutions": <Cloud size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Information Security": <Shield size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Data Storage & Backup": <Database size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Managed IT & Facility Services": <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Unified Communications & Mobility": <PhoneCall size={50} color={RUBY_RED} strokeWidth={1.6} />,
+  "Open-Source IT Solutions": <Code size={50} color={RUBY_RED} strokeWidth={1.6} />,
 };
 
 const Services1 = () => {
@@ -65,18 +53,18 @@ const Services1 = () => {
           <div className="col-lg-12">
             <div className="section-title text-center">
               <SectionTitle
-                SubTitle="SOLUTEK COMPANY"
-                Title={`How Professional IT Services<br> Can Drive <span style='color:${RUBY_RED};'>Success.</span>`}
+                SubTitle="NETARK TECHNOLOGIES"
+                Title={`Professional IT Services<br> That Drive <span style='color:${RUBY_RED};'>Success.</span>`}
               />
             </div>
           </div>
         </div>
 
-        {/* ===== 3×3 GRID ===== */}
+        {/* ===== Grid Section ===== */}
         <div className="row g-4 justify-content-center">
           {services.map((item, i) => {
             const title = item?.title || "Untitled Service";
-            const points = toPoints(item?.desc); // [] if none
+            const descPoints = toPoints(item?.desc); // safe fallback
 
             return (
               <div key={i} className="col-lg-4 col-md-6 col-sm-12 d-flex">
@@ -93,29 +81,33 @@ const Services1 = () => {
                     className="service-icon mb-4 d-flex justify-content-center"
                     style={{ transition: "transform 0.3s ease" }}
                   >
-                    {iconFor(title)}
-                  </div>
-
-                  {/* CONTENT */}
-                  <div className="service-content flex-grow-1">
-                    <h3
-                      className="service-title mb-3 fw-semibold"
-                      style={{ color: "#333", transition: "color 0.3s ease" }}
-                    >
-                      {title}
-                    </h3>
-
-                    {/* Render points only if present */}
-                    {points.length > 0 && (
-                      <ul className="service-points list-unstyled text-start d-inline-block small mb-0">
-                        {points.map((point, index) => (
-                          <li key={index} className="mb-1">
-                            • {point}
-                          </li>
-                        ))}
-                      </ul>
+                    {iconMap[title] || (
+                      <Monitor size={50} color={RUBY_RED} strokeWidth={1.6} />
                     )}
                   </div>
+
+                  {/* TITLE */}
+                  <h3
+                    className="service-title mb-3 fw-semibold"
+                    style={{
+                      color: "#333",
+                      fontSize: "1.2rem",
+                      transition: "color 0.3s ease",
+                    }}
+                  >
+                    {title}
+                  </h3>
+
+                  {/* OPTIONAL POINTS */}
+                  {descPoints.length > 0 && (
+                    <ul className="service-points list-unstyled text-start d-inline-block small mb-0">
+                      {descPoints.map((point, index) => (
+                        <li key={index} className="mb-1">
+                          • {point}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </div>
             );
@@ -123,24 +115,28 @@ const Services1 = () => {
         </div>
       </div>
 
-      {/* ===== Inline CSS for Hover Effects ===== */}
+      {/* ===== Inline Hover Effects ===== */}
       <style>
         {`
           .service-single-box { color: #555; }
           .service-single-box .service-points li {
             color: #777; transition: color 0.3s ease;
           }
-          /* Hover effect: Ruby red background + white text */
+
+          /* Hover: ruby red glow */
           .service-single-box:hover {
             background: ${RUBY_RED};
             color: #fff;
             transform: translateY(-5px);
             box-shadow: 0 6px 20px rgba(224, 17, 95, 0.25);
           }
+
           .service-single-box:hover .service-title { color: #fff; }
           .service-single-box:hover .service-points li { color: #fff; }
+
           .service-single-box:hover .service-icon svg {
-            transform: scale(1.1); transition: transform 0.3s ease;
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
           }
         `}
       </style>
