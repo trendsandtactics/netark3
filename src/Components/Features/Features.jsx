@@ -1,4 +1,5 @@
 import React from "react";
+import SectionTitle from "../Common/SectionTitle";
 import { Globe, Cloud, ShieldCheck } from "lucide-react";
 
 const RUBY_RED = "#E0115F";
@@ -23,10 +24,17 @@ const SOLUTIONS = [
 
 const Solutions = () => {
   return (
-    // Added mt-24 for larger space from Services section above 👇
     <section className="bg-gray-50 relative z-10 py-16 md:py-20 lg:py-24 mt-24 md:mt-28">
       <div className="container mx-auto px-6 md:px-10 lg:max-w-7xl">
-        {/* Grid layout same style as Services */}
+        {/* Section Heading */}
+        <div className="text-center mb-12">
+          <SectionTitle
+            SubTitle="NETARK TECHNOLOGIES"
+            Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
+          />
+        </div>
+
+        {/* Solutions Grid */}
         <div className="solutions-grid">
           {SOLUTIONS.map((item, i) => {
             const Icon = item.icon;
@@ -95,7 +103,7 @@ const Solutions = () => {
           transition: color 0.3s ease;
         }
 
-        /* Hover → ruby background, text/icon white */
+        /* Hover */
         .service-card:hover {
           background: ${RUBY_RED};
           color: #fff;
@@ -103,22 +111,19 @@ const Solutions = () => {
           box-shadow: 0 10px 25px rgba(224, 17, 95, 0.25);
           border-color: transparent;
         }
-
         .service-card:hover .service-title,
         .service-card:hover .service-desc {
           color: #fff;
         }
-
         .service-card:hover .icon {
           stroke: #fff !important;
           transform: scale(1.08);
         }
 
-        /* Responsive design */
+        /* Responsive */
         @media (max-width: 1024px) {
           .solutions-grid { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 640px) {
           .solutions-grid { grid-template-columns: 1fr; }
         }
