@@ -1,161 +1,173 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Link from "next/link";
 
-export default function HeroShowcase({
-  images: imagesProp = [],
-  intervalMs = 6000,
-  titleTop = "Making Technology",
-  titleBottom = "Work for People & Business",
-  accent = "#3AA0FF",
-  headerOffset = 0, // set this if your navbar is fixed (e.g., 80)
-}) {
-  // fallback (will be overridden by Home.jsx props)
-  const images = useMemo(
-    () => (imagesProp.length ? imagesProp : ["/hero1.jpg", "/hero2.jpg", "/hero3.jpg", "/hero4.jpg"]),
-    [imagesProp]
-  );
+const BRAND_TEAL = "#26B6E0";
 
-  const [idx, setIdx] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [loaded, setLoaded] = useState(() => images.map((_, i) => i === 0));
-  const intervalRef = useRef(null);
-
-  // preload
-  useEffect(() => {
-    images.forEach((src, i) => {
-      const im = new Image();
-      im.src = src;
-      im.onload = () =>
-        setLoaded((prev) => {
-          if (prev[i]) return prev;
-          const next = [...prev];
-          next[i] = true;
-          return next;
-        });
-    });
-  }, [images]);
-
-  // auto-scroll
-  useEffect(() => {
-    if (paused || images.length <= 1) return;
-    intervalRef.current = setInterval(() => {
-      setIdx((p) => (p + 1) % images.length);
-    }, Math.max(2500, intervalMs));
-    return () => clearInterval(intervalRef.current);
-  }, [paused, images.length, intervalMs]);
-
-  const jumpTo = (i) => {
-    setIdx(i);
-    setPaused(true);
-    clearInterval(intervalRef.current);
-    setTimeout(() => setPaused(false), 4000);
-  };
-
-  const heroHeight = headerOffset > 0 ? `calc(100vh - ${headerOffset}px)` : "100vh";
-
+const Hero = () => {
   return (
-    <section
-      className="relative w-full overflow-hidden flex items-center"
-      style={{ height: heroHeight, backgroundColor: "#0b0f1a" }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      {/* slides */}
-      <div className="absolute inset-0 -z-10">
-        {images.map((src, i) => {
-          const visible = i === idx && loaded[i];
-          return (
+    <section className="main-slider main-slider-one">
+      <Swiper
+        className="swiper-container thm-swiper__slider"
+        slidesPerView={1}
+        loop
+        effect="fade"
+        pagination={{
+          el: "#main-slider-pagination",
+          type: "bullets",
+          clickable: true,
+        }}
+        navigation={{
+          nextEl: "#main-slider__swiper-button-next",
+          prevEl: "#main-slider__swiper-button-prev",
+        }}
+        autoplay={{ delay: 7000 }}
+        modules={[Autoplay, Pagination, Navigation, EffectFade]}
+      >
+        <div className="swiper-wrapper">
+          {/* Slide 01 — DRIVING SUSTAINABILITY */}
+          <SwiperSlide className="swiper-slide">
             <div
-              key={`slide-${i}`}
-              className="absolute inset-0 transition-opacity duration-[1200ms] ease-[cubic-bezier(.22,.61,.36,1)] will-change-[opacity]"
-              style={{ opacity: visible ? 1 : 0, transform: "translateZ(0)", backfaceVisibility: "hidden" }}
-              aria-hidden={!visible}
-            >
-              <img
-                src={src}
-                alt={`Slide ${i + 1}`}
-                className="w-full h-full object-cover object-center block select-none pointer-events-none"
-                loading={i === 0 ? "eager" : "lazy"}
-                decoding="async"
-                draggable={false}
-              />
-              {/* overlays for readability */}
-              <div className="absolute inset-0 bg-black/45" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
-            </div>
-          );
-        })}
-      </div>
+              className="image-layer"
+              style={{
+                backgroundImage: "url(/img/slider/sustainability.jpg)",
+              }}
+            ></div>
 
-      {/* content */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
-          <div className="max-w-2xl">
-            <h1 className="font-extrabold text-3xl sm:text-5xl lg:text-6xl leading-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,.35)]">
-              <span className="block">{titleTop}</span>
-              <span className="block" style={{ color: accent }}>
-                {titleBottom}
-                <sup className="text-white/80 text-[0.45em] align-super ml-1">®</sup>
-              </span>
-            </h1>
-
-            <p className="mt-5 text-base sm:text-lg text-white/85 max-w-xl">
-              Empowering businesses through cutting-edge technology, streamlining
-              processes and driving success with innovative IT infrastructure solutions.
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-7 flex flex-col sm:flex-row gap-4">
-              <Link to="/solutions">
-                <button className="px-6 py-3 rounded-xl border border-white/40 text-white font-semibold bg-white/5 hover:bg-white/15 transition-all">
-                  EXPLORE SOLUTIONS
-                </button>
-              </Link>
-              <Link to="/contact">
-                <button
-                  className="px-6 py-3 rounded-xl font-semibold text-white shadow-lg transition-all"
-                  style={{ backgroundColor: "#1E68F3", boxShadow: "0 10px 32px rgba(30,104,243,.35)" }}
-                >
-                  GET STARTED
-                </button>
-              </Link>
+            <div className="big-title">
+              <h2>Driving Sustainability</h2>
             </div>
 
-            {/* stats */}
-            <div className="mt-8 grid grid-cols-3 gap-4 sm:gap-6 max-w-md">
-              {[
-                { value: "20+", top: "Years", bottom: "Experience" },
-                { value: "500+", top: "Projects", bottom: "Completed" },
-                { value: "100+", top: "Happy", bottom: "Clients" },
-              ].map((s) => (
-                <div key={s.value} className="text-center rounded-xl bg-white/8 border border-white/10 backdrop-blur-md py-3 sm:py-4">
-                  <div className="text-xl sm:text-2xl font-extrabold text-white">{s.value}</div>
-                  <div className="text-[11px] sm:text-sm leading-tight text-white/70">
-                    {s.top}
-                    <br />
-                    {s.bottom}
+            <div className="container">
+              <div className="main-slider-one__single padding">
+                <div className="main-slider-one__content">
+                  <h3 style={{ color: BRAND_TEAL }}>
+                    <span>01.</span> Driving Sustainability
+                  </h3>
+                  <h2>
+                    Building a <span style={{ color: BRAND_TEAL }}>balanced</span> <br />
+                    eco system
+                  </h2>
+                  <p>
+                    To reduce carbon footprint and greenhouse gas emissions through products that
+                    create a balanced ecosystem. Effective use of technology for full traceability is
+                    applied in accordance with EU sustainability directives.
+                  </p>
+                  <div className="btn-box">
+                    <Link className="thm-btn" href="/tracking">
+                      <span className="txt">Tracking</span>
+                      <i className="icon-right-arrow"></i>
+                    </Link>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-          <div className="hidden lg:block" />
-        </div>
-      </div>
+          </SwiperSlide>
 
-      {/* dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-        {images.map((_, i) => (
-          <button
-            key={i}
-            aria-label={`Slide ${i + 1}`}
-            onClick={() => jumpTo(i)}
-            className={`h-2.5 w-2.5 rounded-full transition outline-none ${
-              i === idx ? "bg-white" : "bg-white/40 hover:bg-white/70 focus:ring-2 focus:ring-white/60"
-            }`}
-          />
-        ))}
-      </div>
+          {/* Slide 02 — BIODIESEL FEEDSTOCK */}
+          <SwiperSlide className="swiper-slide">
+            <div
+              className="image-layer"
+              style={{
+                backgroundImage: "url(/img/slider/feedstock.jpg)",
+              }}
+            ></div>
+
+            <div className="big-title">
+              <h2>Biodiesel Feedstock</h2>
+            </div>
+
+            <div className="container">
+              <div className="main-slider-one__single padding">
+                <div className="main-slider-one__content">
+                  <h3 style={{ color: BRAND_TEAL }}>
+                    <span>02.</span> Biodiesel Feedstock
+                  </h3>
+                  <h2>
+                    Origination with <br />
+                    <span style={{ color: BRAND_TEAL }}>technology</span> and expertise
+                  </h2>
+                  <p>
+                    Sustainable feedstock origination using advanced technology, skilled manpower,
+                    and our in-house global logistics platform makes Moltech the preferred choice for
+                    generators and oil refineries. Used cooking oil collected and processed finds its
+                    way to bio-refineries for conversion into renewable biofuel.
+                  </p>
+                  <div className="btn-box">
+                    <Link className="thm-btn" href="/tracking">
+                      <span className="txt">Tracking</span>
+                      <i className="icon-right-arrow"></i>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+
+          {/* Slide 03 — TRUST */}
+          <SwiperSlide className="swiper-slide">
+            <div
+              className="image-layer"
+              style={{
+                backgroundImage: "url(/img/slider/trust.jpg)",
+              }}
+            ></div>
+
+            <div className="big-title">
+              <h2>Trust</h2>
+            </div>
+
+            <div className="container">
+              <div className="main-slider-one__single padding">
+                <div className="main-slider-one__content">
+                  <h3 style={{ color: BRAND_TEAL }}>
+                    <span>03.</span> Trust
+                  </h3>
+                  <h2>
+                    Strong <span style={{ color: BRAND_TEAL }}>partnerships</span> <br />
+                    built on integrity
+                  </h2>
+                  <p>
+                    We treat our trading partners as part of our team — with open communication,
+                    transparency, strong work ethics, and strict quality control. These principles make
+                    Moltech one of the most trusted partners in global trade.
+                  </p>
+                  <div className="btn-box">
+                    <Link className="thm-btn" href="/about">
+                      <span className="txt">Learn More</span>
+                      <i className="icon-right-arrow"></i>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        </div>
+
+        {/* Pagination & Nav */}
+        <div className="swiper-pagination" id="main-slider-pagination"></div>
+        <div className="main-slider__nav">
+          <div
+            className="swiper-button-prev"
+            id="main-slider__swiper-button-prev"
+          >
+            <i className="fa fa-angle-left" aria-hidden="true"></i>
+          </div>
+          <div
+            className="swiper-button-next"
+            id="main-slider__swiper-button-next"
+          >
+            <i className="fa fa-angle-right" aria-hidden="true"></i>
+          </div>
+        </div>
+      </Swiper>
     </section>
   );
-}
+};
+
+export default Hero;
