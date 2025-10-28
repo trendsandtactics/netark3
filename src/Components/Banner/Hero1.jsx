@@ -1,102 +1,152 @@
+// src/components/HeroSection.jsx
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import ImageCarousel from "./ImageCarousel";
+import GetStartedForm from "./GetStartedForm";
 
-const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink }) => {
-  // Files must be in /public
-  const slides = ["/cam.jpg", "/internet.jpg", "/strategic.jpg"];
+const HeroSection = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
 
-  const [idx, setIdx] = useState(0);
+  const backgroundImages = [
+    "/lovable-uploads/d2e27d6a-96a8-45f2-8f0b-d1e0e6bcb2f8.png",
+    "/2hh.png",
+    "/4hh.png",
+    "/3hh.png",
+    "/5hh.png",
+  ];
 
   useEffect(() => {
-    // simple pre-load
-    slides.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
+    const interval = setInterval(() => {
+      setCurrentBgIndex(
+        (prevIndex) => (prevIndex + 1) % backgroundImages.length
+      );
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
 
-    const id = setInterval(() => setIdx((i) => (i + 1) % slides.length), 5000);
-    return () => clearInterval(id);
-  }, []); // slides are constant
+  const handleGetStartedClick = (e) => {
+    e.preventDefault();
+    setIsFormOpen(true);
+    setIsOpen(false);
+  };
 
   return (
-    <section className="relative w-full h-screen overflow-hidden flex items-center">
-      {/* Sliding background layers */}
-      {slides.map((src, i) => (
-        <div
-          key={src}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            i === idx ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            backgroundImage: `url(${src})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-      ))}
-
-      {/* Subtle dark overlay for text contrast */}
-      <div className="absolute inset-0 bg-black/25" />
-
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-12 h-full flex items-center">
-        <div className="max-w-3xl">
-          {SubTitle && (
-            <p className="text-xs tracking-[2px] uppercase text-sky-300/90 font-semibold mb-2">
-              {SubTitle}
-            </p>
-          )}
-
-          <h1
-            className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 text-white"
-            dangerouslySetInnerHTML={{ __html: Title || "" }}
-          />
-
-          {Content && (
+    <>
+      <section className="relative w-full min-h-screen flex flex-col overflow-hidden">
+        {/* Background Images */}
+        <div className="absolute inset-0 z-0">
+          {backgroundImages.map((image, index) => (
             <div
-              className="text-base md:text-lg leading-relaxed mb-8"
-              dangerouslySetInnerHTML={{ __html: Content }}
-            />
-          )}
-
-          <div className="flex flex-wrap gap-4">
-            {BtnLink && (
-              <Link
-                to={BtnLink}
-                className="px-6 py-3 rounded-md border border-black/80 text-black hover:bg-black hover:text-white transition font-semibold bg-white/70 backdrop-blur"
-              >
-                {BtnText || "Learn More"}
-              </Link>
-            )}
-            <Link
-              to="/contact"
-              className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentBgIndex ? "opacity-100" : "opacity-0"
+              }`}
             >
-              GET STARTED
-            </Link>
-          </div>
-
-          {/* Stats — horizontal alignment */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-10 md:gap-16">
-            <div className="flex flex-col items-center">
-              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">20+</div>
-              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">Years Experience</p>
+              <img
+                src={image}
+                alt={`Technology Background ${index + 1}`}
+                className="w-full h-full object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-black/50"></div>
             </div>
-
-            <div className="flex flex-col items-center">
-              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">500+</div>
-              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">Projects Completed</p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">100+</div>
-              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">Happy Clients</p>
-            </div>
-          </div>
+          ))}
         </div>
-      </div>
-    </section>
+
+        {/* Main Content */}
+        <div className="relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col lg:flex-row items-center justify-between pt-20 sm:pt-24 md:pt-28 lg:pt-24 pb-8">
+          {/* Left content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col justify-center w-full lg:w-1/2 text-center lg:text-left space-y-6 mb-10 lg:mb-0"
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-3xl md:text-4xl lg:text-4xl font-bold text-white leading-tight drop-shadow-lg"
+            >
+              Enterprise Networking & IT Infrastructure Solutions in India
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-gray-200 text-base md:text-lg max-w-lg mx-auto lg:mx-0 leading-relaxed"
+            >
+              At <span className="font-semibold text-[#87CEEB]">NETARK Technologies</span>, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure.
+              With over <strong>20 years of experience</strong>, we specialise in <strong>Internet services, networking, data center solutions, server colocation, hosting services, and data backup</strong> for mission-critical businesses.
+              <br /><br />
+              Whether it’s <strong>campus networking, cloud solutions, or IT security</strong>, our expert team ensures your business stays connected, protected, and scalable.
+              <br /><br />
+              <span className="font-semibold text-[#87CEEB]">Partner with NETARK</span> – Your trusted Internet and Data Center Infrastructure experts in India.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <Link to="/solutions">
+                <button className="px-6 py-3 border-2 border-white/80 rounded-lg text-white bg-white/10 backdrop-blur-sm font-bold hover:bg-white/20 transition-all hover:scale-105 text-base">
+                  EXPLORE SOLUTIONS
+                </button>
+              </Link>
+
+              <button
+                onClick={handleGetStartedClick}
+                className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#045ADF] to-[#2571CA] text-white font-bold shadow-lg hover:opacity-95 transition-all hover:scale-105 text-base"
+                style={{ boxShadow: "0 4px 16px 0 #0052b433" }}
+              >
+                GET STARTED
+              </button>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="grid grid-cols-3 gap-6 pt-6 max-w-sm mx-auto lg:mx-0"
+            >
+              {[
+                { value: "20+", label: "Years Experience" },
+                { value: "500+", label: "Projects Completed" },
+                { value: "100+", label: "Happy Clients" },
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <div className="text-2xl font-bold text-white">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-gray-300">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Right image */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="w-full lg:w-1/2 flex justify-center items-center"
+          >
+            <div className="w-4/5 sm:w-3/4 md:w-2/3 lg:w-[90%] xl:w-[95%] max-w-lg">
+              <ImageCarousel />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <GetStartedForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+    </>
   );
 };
 
-export default Hero1;
+export default HeroSection;
