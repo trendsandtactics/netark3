@@ -15,25 +15,23 @@ import {
 
 const RUBY_RED = "#E0115F";
 
-/* Static image paths (ensure these are in public/assets/images/) */
 const SERVICES = [
   { title: "Internet Services", icon: Wifi, image: "/assets/images/InternetServices.jpg" },
   { title: "Co-Location & Hosting", icon: Server, image: "/assets/images/Colocationhosting.png" },
   { title: "Connectivity Services", icon: Network, image: "/assets/images/Connectivityservices.webp" },
-  { title: "Hosting Services", icon: Server, image: "/assets/images/Hostingservices.avif" },
   { title: "Cloud Solutions", icon: Cloud, image: "/assets/images/Cloudsolutions.jpg" },
   { title: "Information Security", icon: Shield, image: "/assets/images/Informationsecurityy.jpg" },
   { title: "Data Storage & Backup", icon: Database, image: "/assets/images/Datastorage.png" },
-  { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT .png" },
+  { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT .png" }, // filename space note
   { title: "Unified Communications & Mobility", icon: PhoneCall, image: "/assets/images/Unifiedcommunications.jpg" },
   { title: "Open-Source IT Solutions", icon: Code, image: "/assets/images/07.jpg" },
+  { title: "Hosting Services", icon: Server, image: "/assets/images/Hostingservices.avif" },
 ];
 
 const Services1 = () => {
   return (
     <section className="service-area py-20 md:py-24 bg-white mb-28 md:mb-32">
       <div className="container">
-        {/* Section Heading */}
         <div className="text-center mb-12">
           <SectionTitle
             SubTitle="NETARK TECHNOLOGIES"
@@ -41,32 +39,25 @@ const Services1 = () => {
           />
         </div>
 
-        {/* Services Grid */}
         <div className="services-grid mb-16">
           {SERVICES.map(({ title, icon: Icon, image }, i) => (
             <article key={i} className="service-card">
-              {/* Image */}
-              <div className="image-wrap">
-                <img src={image} alt={title} className="service-image" />
+              {/* Image + Icon Badge (overlap) */}
+              <div className="media">
+                <img src={image} alt={title} className="cover" />
+                <span className="badge">
+                  <Icon size={18} strokeWidth={2} color="#fff" />
+                </span>
               </div>
 
-              {/* Icon + Title */}
-              <div className="content-wrap">
-                <div className="icon-title">
-                  <Icon
-                    size={24}
-                    strokeWidth={1.6}
-                    color={RUBY_RED}
-                    className="icon"
-                  />
-                  <h3 className="service-title">{title}</h3>
-                </div>
+              {/* Title */}
+              <div className="content">
+                <h3 className="title">{title}</h3>
               </div>
             </article>
           ))}
         </div>
 
-        {/* CTA Button */}
         <div className="text-center">
           <Link
             to="/services"
@@ -80,87 +71,77 @@ const Services1 = () => {
       </div>
 
       <style>{`
-        /* === GRID (matches screenshot density) === */
-        .services-grid {
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 32px 28px; /* row x column */
-          justify-items: center;
-          align-items: stretch;
+        /* GRID — sample image = 4 columns */
+        .services-grid{
+          display:grid;
+          grid-template-columns:repeat(4,1fr);
+          gap:28px; /* balanced spacing like sample */
+          justify-items:center;
         }
 
-        /* === CARD SIZE === */
-        .service-card {
-          width: 100%;
-          max-width: 300px;          /* was 260px */
-          background: #fff;
-          border: 1px solid #e5e7eb;
-          border-radius: 18px;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-          overflow: hidden;
-          transition: all 0.3s ease;
+        /* CARD */
+        .service-card{
+          width:100%;
+          max-width:300px;               /* card width like sample */
+          background:#fff;
+          border:1px solid #eceff3;
+          border-radius:16px;
+          box-shadow:0 6px 18px rgba(0,0,0,0.06);
+          overflow:hidden;
+          transition:transform .25s ease, box-shadow .25s ease;
+        }
+        .service-card:hover{
+          transform:translateY(-2px);
+          box-shadow:0 10px 24px rgba(0,0,0,0.08);
         }
 
-        /* === IMAGE SIZE === */
-        .image-wrap {
-          width: 100%;
-          height: 150px;             /* default height */
-          overflow: hidden;
+        /* MEDIA (image + badge) */
+        .media{
+          position:relative;
+          width:100%;
+          height:160px;                  /* exact image height */
+          overflow:hidden;
+          background:#f3f5f9;
         }
-        @media (min-width: 1280px) {
-          .image-wrap { height: 170px; }  /* big screens -> little taller */
+        .cover{
+          width:100%; height:100%;
+          object-fit:cover;
+          transition:transform .5s ease;
+        }
+        .service-card:hover .cover{ transform:scale(1.04); }
+
+        .badge{
+          position:absolute;
+          left:14px; bottom:14px;        /* bottom-left overlap */
+          width:40px; height:40px;
+          display:flex; align-items:center; justify-content:center;
+          background:${RUBY_RED};
+          border-radius:999px;
+          box-shadow:0 4px 10px rgba(224,17,95,.3);
         }
 
-        .service-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.6s ease;
-        }
-        .service-card:hover .service-image {
-          transform: scale(1.04);
-        }
-
-        /* === CONTENT / TITLE SIZE === */
-        .content-wrap {
-          padding: 16px 18px 20px;   /* slightly tighter */
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          text-align: left;
-        }
-        .icon-title {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-        .service-title {
-          font-weight: 700;
-          font-size: 0.95rem;        /* was 0.85rem */
-          color: #111;
-          line-height: 1.35;
-          letter-spacing: 0.2px;
+        /* CONTENT */
+        .content{ padding:14px 16px 18px; }
+        .title{
+          font-size:15px;                /* EXACT 15px */
+          line-height:1.35;
+          font-weight:700;
+          color:#0f172a;
+          letter-spacing:.2px;
         }
 
-        /* === RESPONSIVE === */
-        @media (max-width: 1280px) {
-          .services-grid { grid-template-columns: repeat(4, 1fr); gap: 28px 24px; }
+        /* RESPONSIVE */
+        @media (max-width:1280px){
+          .services-grid{ grid-template-columns:repeat(3,1fr); }
         }
-        @media (max-width: 1024px) {
-          .services-grid { grid-template-columns: repeat(3, 1fr); gap: 26px 22px; }
-          .service-card { max-width: 280px; }
-          .image-wrap { height: 150px; }
-          .service-title { font-size: 0.92rem; }
+        @media (max-width:900px){
+          .services-grid{ grid-template-columns:repeat(2,1fr); }
+          .service-card{ max-width:100%; }
+          .media{ height:150px; }
         }
-        @media (max-width: 768px) {
-          .services-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
-          .service-card { max-width: 100%; }
-          .image-wrap { height: 140px; }
-        }
-        @media (max-width: 480px) {
-          .services-grid { grid-template-columns: 1fr; gap: 20px; }
-          .image-wrap { height: 150px; }
-          .service-title { font-size: 1rem; } /* single column, little bigger for readability */
+        @media (max-width:520px){
+          .services-grid{ grid-template-columns:1fr; }
+          .media{ height:150px; }
         }
       `}</style>
     </section>
