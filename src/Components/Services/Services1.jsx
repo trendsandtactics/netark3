@@ -127,7 +127,6 @@ const Services1 = () => {
 
         .service-card:hover .icon {
           stroke: #fff !important;
-          color: #fff !important;
           transform: scale(1.1);
         }
 
