@@ -10,7 +10,18 @@
     ],
     "image": "/assets/images/InternetServices.jpg"
   },
-  
+  {
+    "title": "Co-Location & Hosting",
+    "desc": [
+      "Flexible colocation services (per U, cabinets, private cages)",
+      "Direct cross-connects to carriers & cloud providers",
+      "Certified data center hosting with 24/7 monitoring",
+      "VPS and application hosting solutions",
+      "Managed firewall & server support",
+      "Remote hands & round-the-clock physical security"
+    ],
+   "image": "/assets/images/Colocationhosting.png"
+  },
   {
     "title": "Connectivity Services",
     "desc": [
@@ -20,7 +31,15 @@
     ],
      "image": "/assets/images/Connectivityservices.webp"
   },
-  
+  {
+    "title": "Hosting Services",
+    "desc": [
+      "Redundant, high-availability hosting for your mission-critical systems",
+      "Flexible solutions: rack, cabinet, and private cage options",
+      "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring"
+    ],
+     "image": "/assets/images/Hostingservices.avif"
+  },
   {
     "title": "Cloud Solutions",
     "desc": [
@@ -75,24 +94,3 @@
      "image": "/assets/images/07.jpg"
   }
 ]
-{
-    "title": "Co-Location & Hosting",
-    "desc": [
-      "Flexible colocation services (per U, cabinets, private cages)",
-      "Direct cross-connects to carriers & cloud providers",
-      "Certified data center hosting with 24/7 monitoring",
-      "VPS and application hosting solutions",
-      "Managed firewall & server support",
-      "Remote hands & round-the-clock physical security"
-    ],
-   "image": "/assets/images/Colocationhosting.png"
-  },
-{
-    "title": "Hosting Services",
-    "desc": [
-      "Redundant, high-availability hosting for your mission-critical systems",
-      "Flexible solutions: rack, cabinet, and private cage options",
-      "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring"
-    ],
-     "image": "/assets/images/Hostingservices.avif"
-  },
