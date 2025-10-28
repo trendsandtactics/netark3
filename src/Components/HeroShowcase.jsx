@@ -1,4 +1,3 @@
-// src/Components/HeroShowcase.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -26,7 +25,7 @@ export default function HeroShowcase() {
       className="position-relative"
       style={{ width: "100%", height: "100vh", overflow: "hidden" }}
     >
-      {/* SLIDER (background only) */}
+      {/* SLIDER (background images) */}
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         autoplay={{ delay: 4500, disableOnInteraction: false }}
@@ -43,27 +42,25 @@ export default function HeroShowcase() {
               style={{
                 height: "100vh",
                 width: "100%",
-                backgroundImage: `url(${s.img})`,
+                backgroundImage: `
+                  linear-gradient(
+                    180deg,
+                    rgba(0, 0, 0, 0.45) 0%,
+                    rgba(0, 0, 0, 0.55) 50%,
+                    rgba(0, 0, 0, 0.75) 100%
+                  ),
+                  url(${s.img})
+                `,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
               }}
             />
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Global dark overlay */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.65) 100%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* FIXED CONTENT (does not move with slides) */}
+      {/* CONTENT — fixed, not moving with slides */}
       <div
         className="container"
         style={{
@@ -71,7 +68,8 @@ export default function HeroShowcase() {
           inset: 0,
           display: "flex",
           alignItems: "center",
-          pointerEvents: "none", // block clicks except inside card
+          zIndex: 3,
+          pointerEvents: "none",
         }}
       >
         <div className="row">
@@ -81,8 +79,8 @@ export default function HeroShowcase() {
               style={{
                 background: "rgba(13,16,28,0.65)",
                 border: "1px solid rgba(255,255,255,0.12)",
-                backdropFilter: "blur(4px)",
-                pointerEvents: "auto", // enable CTA click
+                backdropFilter: "blur(5px)",
+                pointerEvents: "auto",
               }}
             >
               <h1 className="text-white fw-bold mb-3">
@@ -90,22 +88,23 @@ export default function HeroShowcase() {
               </h1>
 
               <p className="text-white-50 mb-3">
-                At <strong className="text-white">NETARK Technologies</strong>, we
-                deliver more than just technology — we deliver trust, reliability, and
-                future-ready infrastructure. With over 20 years of experience, we
-                specialise in Internet services, networking, data center solutions,
-                server colocation services, hosting services, and data backup services
-                that support mission-critical businesses.
+                At <strong className="text-white">NETARK Technologies</strong>, we deliver more
+                than just technology — we deliver trust, reliability, and
+                future-ready infrastructure. With over 20 years of experience,
+                we specialise in Internet services, networking, data center
+                solutions, server colocation services, hosting services, and
+                data backup services that support mission-critical businesses.
               </p>
 
               <p className="text-white-50 mb-3">
-                Whether it’s campus networking, cloud solutions, or IT security, our team
-                ensures your business stays connected, protected, and scalable.
+                Whether it’s campus networking, cloud solutions, or IT security,
+                our team ensures your business stays connected, protected, and
+                scalable.
               </p>
 
               <p className="text-white mb-4 fw-semibold">
-                Partner with NETARK – Your trusted Internet and Data Center Infrastructure
-                experts in India.
+                Partner with NETARK – Your trusted Internet and Data Center
+                Infrastructure experts in India.
               </p>
 
               <Link
