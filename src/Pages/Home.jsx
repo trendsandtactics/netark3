@@ -31,7 +31,7 @@ const Home = () => {
       />
 
       {/* ===== ABOUT ===== */}
-      <section >
+      <section className="section-wrap">
         <About1 />
       </section>
 
@@ -40,6 +40,7 @@ const Home = () => {
         <Services1 />
       </section>
 
+      <br></br>
       {/* ===== FEATURES ===== */}
       <section >
         <Features />
