@@ -21,8 +21,11 @@ export default function HeroShowcase() {
   if (!mounted) return null;
 
   return (
-    <div className="position-relative" style={{ width: "100%", height: "100vh", overflow: "hidden" }}>
-      {/* Background slider with softer gradient */}
+    <div
+      className="position-relative"
+      style={{ width: "100%", height: "100vh", overflow: "hidden" }}
+    >
+      {/* Background slider */}
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         autoplay={{ delay: 4500, disableOnInteraction: false }}
@@ -44,7 +47,7 @@ export default function HeroShowcase() {
                     180deg,
                     rgba(0,0,0,0.15) 0%,
                     rgba(0,0,0,0.35) 45%,
-                    rgba(0,0,0,0.60) 100%
+                    rgba(0,0,0,0.6) 100%
                   ),
                   url(${s.img})
                 `,
@@ -57,84 +60,77 @@ export default function HeroShowcase() {
         ))}
       </Swiper>
 
-      {/* Fixed content — LEFT CORNER BOX */}
+      {/* Small info box – bottom left */}
       <div
-        className="container"
         style={{
           position: "absolute",
-          inset: 0,
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          paddingTop: "10vh", // push from very top a bit
+          left: "4%",
+          bottom: "6%",
           zIndex: 3,
+          maxWidth: "480px",
+          background:
+            "linear-gradient(180deg, rgba(20,25,40,0.7) 0%, rgba(15,18,30,0.8) 100%)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          borderRadius: "16px",
+          padding: "24px 28px",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+          backdropFilter: "blur(6px)",
         }}
       >
-        <div
-          className="rounded-4"
+        <h2
+          className="fw-bold mb-3"
           style={{
-            // Glassy/brand-friendly box like your sample (left corner)
-            width: "min(90vw, 640px)",
-            background:
-              "linear-gradient(180deg, rgba(24,34,54,0.70) 0%, rgba(14,21,36,0.70) 100%)",
-            border: "1px solid rgba(255,255,255,0.12)",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
-            backdropFilter: "blur(6px)",
-            padding: "24px",
+            color: "#E2E2E2",
+            fontSize: "clamp(22px, 3.2vw, 38px)",
+            lineHeight: 1.2,
           }}
         >
-          <h1
-            className="fw-bold mb-3"
-            style={{
-              color: "#E2E2E2",
-              fontSize: "clamp(26px, 4vw, 46px)",
-              lineHeight: 1.15,
-            }}
-          >
-            <span style={{ color: "#9B111E" }}>Enterprise Networking</span> &amp; IT
-            Infrastructure Solutions in India
-          </h1>
+          <span style={{ color: "#9B111E" }}>Enterprise Networking</span> &amp; IT
+          Infrastructure Solutions in India
+        </h2>
 
-          <p
-            className="mb-3"
-            style={{ color: "#BEBEBE", fontSize: "clamp(14px, 1.3vw, 17px)", lineHeight: 1.6 }}
-          >
-            At <strong style={{ color: "#9B111E" }}>NETARK Technologies</strong>, we deliver more than
-            just technology — we deliver <strong style={{ color: "#9B111E" }}>trust</strong>, reliability,
-            and future-ready infrastructure. With over 20 years of experience, we specialise in Internet
-            services, networking, data center solutions, server colocation, hosting, and data backup
-            services that support mission-critical businesses.
-          </p>
+        <p
+          className="mb-3"
+          style={{
+            color: "#BEBEBE",
+            fontSize: "clamp(13px, 1.2vw, 16px)",
+            lineHeight: 1.55,
+          }}
+        >
+          At <strong style={{ color: "#9B111E" }}>NETARK Technologies</strong>, we
+          deliver more than just technology — we deliver{" "}
+          <strong style={{ color: "#9B111E" }}>trust</strong>, reliability, and
+          future-ready infrastructure. With over 20 years of experience, we
+          specialise in Internet services, networking, data centers, server
+          colocation, hosting, and backup services that support
+          mission-critical businesses.
+        </p>
 
-          <p
-            className="mb-3"
-            style={{ color: "#BEBEBE", fontSize: "clamp(14px, 1.3vw, 17px)", lineHeight: 1.6 }}
-          >
-            Whether it’s <strong style={{ color: "#9B111E" }}>campus networking</strong>,{" "}
-            <strong style={{ color: "#9B111E" }}>cloud solutions</strong>, or{" "}
-            <strong style={{ color: "#9B111E" }}>IT security</strong>, our team ensures your business
-            stays connected, protected, and scalable.
-          </p>
+        <p
+          style={{
+            color: "#BEBEBE",
+            fontSize: "clamp(13px, 1.2vw, 16px)",
+            lineHeight: 1.55,
+            marginBottom: "20px",
+          }}
+        >
+          Partner with <span style={{ color: "#9B111E" }}>NETARK</span> – Your trusted
+          Internet and Data Center Infrastructure experts in India.
+        </p>
 
-          <p className="fw-semibold mb-4" style={{ color: "#D0D0D0", fontSize: "clamp(14px, 1.3vw, 17px)" }}>
-            Partner with <span style={{ color: "#9B111E" }}>NETARK</span> – Your trusted Internet and
-            Data Center Infrastructure experts in India.
-          </p>
-
-          <Link
-            to="/contact"
-            className="btn btn-lg px-4"
-            style={{
-              backgroundColor: "#9B111E",
-              color: "#fff",
-              borderColor: "#9B111E",
-              borderRadius: "999px",
-              fontWeight: 600,
-            }}
-          >
-            Talk to an Expert
-          </Link>
-        </div>
+        <Link
+          to="/contact"
+          className="btn btn-sm px-4 py-2"
+          style={{
+            backgroundColor: "#9B111E",
+            color: "#fff",
+            borderRadius: "999px",
+            fontWeight: 600,
+            fontSize: "15px",
+          }}
+        >
+          Talk to an Expert
+        </Link>
       </div>
     </div>
   );
