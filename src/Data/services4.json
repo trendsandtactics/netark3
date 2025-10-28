@@ -1,4 +1,3 @@
-
 [
   {
     "title": "Internet Services",
@@ -11,34 +10,13 @@
     "image": "/assets/images/InternetServices.jpg"
   },
   {
-    "title": "Co-Location & Hosting",
-    "desc": [
-      "Flexible colocation services (per U, cabinets, private cages)",
-      "Direct cross-connects to carriers & cloud providers",
-      "Certified data center hosting with 24/7 monitoring",
-      "VPS and application hosting solutions",
-      "Managed firewall & server support",
-      "Remote hands & round-the-clock physical security"
-    ],
-   "image": "/assets/images/Colocationhosting.png"
-  },
-  {
     "title": "Connectivity Services",
     "desc": [
       "Managed point-to-point and point-to-multipoint connectivity",
       "VPN and secure enterprise connections",
       "Long-distance fiber network management"
     ],
-     "image": "/assets/images/Connectivityservices.webp"
-  },
-  {
-    "title": "Hosting Services",
-    "desc": [
-      "Redundant, high-availability hosting for your mission-critical systems",
-      "Flexible solutions: rack, cabinet, and private cage options",
-      "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring"
-    ],
-     "image": "/assets/images/Hostingservices.avif"
+    "image": "/assets/images/Connectivityservices.webp"
   },
   {
     "title": "Cloud Solutions",
@@ -47,7 +25,7 @@
       "Cloud migration, backup & disaster recovery",
       "Managed cloud operations & cost optimization"
     ],
-     "image": "/assets/images/Cloudsolutions.jpg"
+    "image": "/assets/images/Cloudsolutions.jpg"
   },
   {
     "title": "Information Security",
@@ -56,7 +34,7 @@
       "Firewalls, antivirus, DLP & secure access solutions",
       "Real-time monitoring and traffic analysis and reporting"
     ],
-     "image": "/assets/images/Informationsecurityy.jpg"
+    "image": "/assets/images/Informationsecurityy.jpg"
   },
   {
     "title": "Data Storage & Backup",
@@ -64,7 +42,7 @@
       "SAN, NAS & online backup solutions",
       "Business continuity & disaster recovery planning"
     ],
-     "image": "/assets/images/Datastorage.png"
+    "image": "/assets/images/Datastorage.png"
   },
   {
     "title": "Managed IT & Facility Services",
@@ -73,7 +51,7 @@
       "IT helpdesk & asset management",
       "Proactive monitoring & maintenance"
     ],
-     "image": "/assets/images/ManagedIT .png"
+    "image": "/assets/images/ManagedIT .png"
   },
   {
     "title": "Unified Communications & Mobility",
@@ -91,6 +69,27 @@
       "Messaging, collaboration & monitoring tools",
       "Thin clients & terminal server deployments"
     ],
-     "image": "/assets/images/07.jpg"
+    "image": "/assets/images/07.jpg"
+  },
+  {
+    "title": "Co-Location & Hosting",
+    "desc": [
+      "Flexible colocation services (per U, cabinets, private cages)",
+      "Direct cross-connects to carriers & cloud providers",
+      "Certified data center hosting with 24/7 monitoring",
+      "VPS and application hosting solutions",
+      "Managed firewall & server support",
+      "Remote hands & round-the-clock physical security"
+    ],
+    "image": "/assets/images/Colocationhosting.png"
+  },
+  {
+    "title": "Hosting Services",
+    "desc": [
+      "Redundant, high-availability hosting for your mission-critical systems",
+      "Flexible solutions: rack, cabinet, and private cage options",
+      "Guaranteed high uptime SLA, backed by 24/7 proactive monitoring"
+    ],
+    "image": "/assets/images/Hostingservices.avif"
   }
 ]
