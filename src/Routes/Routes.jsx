@@ -1,4 +1,6 @@
-import { createBrowserRouter } from "react-router-dom";
+// src/Routes/Routes.jsx (or wherever this file lives)
+import React from "react";
+import { createBrowserRouter, ScrollRestoration } from "react-router-dom";
 
 // Layouts
 import Main from "../Layout/Main";
@@ -23,7 +25,23 @@ import Blog from "../Pages/Blog";
 import BlogSidebar from "../Pages/BlogSidebar";
 import BlogDetails from "../Pages/BlogDetails";
 import Contact from "../Pages/Contact";
-import Solutions from "../Pages/Solutions"; // ✅ added new route
+import Solutions from "../Pages/Solutions";
+
+// --- Optional: belt-and-suspenders to kill browser auto-restore
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
+
+/** A tiny wrapper that enforces scroll-to-top for each layout */
+const withScroll = (LayoutComponent) => (
+  <>
+    {/* React Router v6 data router scroll manager */}
+    <ScrollRestoration
+      getKey={(location) => location.pathname} // scroll to top on every path change
+    />
+    <LayoutComponent />
+  </>
+);
 
 // Simple 404 fallback
 function NotFound() {
@@ -51,7 +69,7 @@ function NotFound() {
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: withScroll(Main), // 👈 wrap Main with ScrollRestoration
     children: [
       { path: "/", element: <Home /> },
       { path: "/about", element: <About /> },
@@ -68,17 +86,17 @@ export const router = createBrowserRouter([
       { path: "/blog-sidebar", element: <BlogSidebar /> },
       { path: "/blog/blog-details", element: <BlogDetails /> },
       { path: "/contact", element: <Contact /> },
-      { path: "/solutions", element: <Solutions /> } // ✅ new route
+      { path: "/solutions", element: <Solutions /> },
     ],
   },
   {
     path: "/home2",
-    element: <Layout2 />,
+    element: withScroll(Layout2), // 👈 wrap Layout2
     children: [{ index: true, element: <Home2 /> }],
   },
   {
     path: "/home3",
-    element: <Layout3 />,
+    element: withScroll(Layout3), // 👈 wrap Layout3
     children: [{ index: true, element: <Home3 /> }],
   },
   {
