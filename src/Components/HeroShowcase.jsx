@@ -60,28 +60,28 @@ export default function HeroShowcase() {
         ))}
       </Swiper>
 
-      {/* Info box – bottom left */}
+      {/* Wider Info Box – bottom left */}
       <div
         style={{
           position: "absolute",
-          left: "4%",
+          left: "5%",
           bottom: "6%",
           zIndex: 3,
-          maxWidth: "480px",
+          maxWidth: "700px", // ⬅ increased width
           background:
-            "linear-gradient(180deg, rgba(20,25,40,0.70) 0%, rgba(15,18,30,0.80) 100%)",
-          border: "1px solid rgba(255,255,255,0.10)",
-          borderRadius: "16px",
-          padding: "24px 28px",
-          boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-          backdropFilter: "blur(6px)",
+            "linear-gradient(180deg, rgba(20,25,40,0.75) 0%, rgba(15,18,30,0.85) 100%)",
+          border: "1px solid rgba(255,255,255,0.1)",
+          borderRadius: "18px",
+          padding: "36px 40px", // ⬅ more spacious padding
+          boxShadow: "0 12px 32px rgba(0,0,0,0.5)",
+          backdropFilter: "blur(8px)",
         }}
       >
         <h2
-          className="fw-bold mb-3"
+          className="fw-bold mb-4"
           style={{
             color: "#ffffff",
-            fontSize: "clamp(px, 3.2vw, 38px)",
+            fontSize: "clamp(26px, 3.8vw, 48px)",
             lineHeight: 1.2,
           }}
         >
@@ -92,8 +92,8 @@ export default function HeroShowcase() {
           className="mb-3"
           style={{
             color: "#ffffff",
-            fontSize: "clamp(13px, 1.2vw, 16px)",
-            lineHeight: 1.55,
+            fontSize: "clamp(14px, 1.3vw, 18px)",
+            lineHeight: 1.6,
           }}
         >
           At{" "}
@@ -109,8 +109,8 @@ export default function HeroShowcase() {
           className="mb-4"
           style={{
             color: "#ffffff",
-            fontSize: "clamp(13px, 1.2vw, 16px)",
-            lineHeight: 1.55,
+            fontSize: "clamp(14px, 1.3vw, 18px)",
+            lineHeight: 1.6,
           }}
         >
           Partner with{" "}
@@ -120,13 +120,13 @@ export default function HeroShowcase() {
 
         <Link
           to="/contact"
-          className="btn btn-sm px-4 py-2"
+          className="btn btn-lg px-5 py-2"
           style={{
             backgroundColor: "#9B111E",
             color: "#fff",
             borderRadius: "999px",
             fontWeight: 600,
-            fontSize: "15px",
+            fontSize: "16px",
           }}
         >
           Talk to an Expert
