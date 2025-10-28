@@ -26,7 +26,7 @@ const Solutions = () => {
           />
         </div>
         <br></br> 
-
+        <br></br> 
         {/* Solutions Grid */}
         <div className="solutions-grid">
           {SOLUTIONS.map((item, i) => {
