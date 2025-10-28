@@ -22,7 +22,8 @@
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "sort-by": "^1.2.0",
-    "lucide-react": "^0.441.0"
+    "lucide-react": "^0.441.0",
+    "swiper": "^11.1.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
