@@ -47,7 +47,7 @@ export default function HeroShowcase() {
                     180deg,
                     rgba(0,0,0,0.15) 0%,
                     rgba(0,0,0,0.35) 45%,
-                    rgba(0,0,0,0.6) 100%
+                    rgba(0,0,0,0.60) 100%
                   ),
                   url(${s.img})
                 `,
@@ -60,7 +60,7 @@ export default function HeroShowcase() {
         ))}
       </Swiper>
 
-      {/* Small info box – bottom left */}
+      {/* Info box – bottom left */}
       <div
         style={{
           position: "absolute",
@@ -69,8 +69,8 @@ export default function HeroShowcase() {
           zIndex: 3,
           maxWidth: "480px",
           background:
-            "linear-gradient(180deg, rgba(20,25,40,0.7) 0%, rgba(15,18,30,0.8) 100%)",
-          border: "1px solid rgba(255,255,255,0.1)",
+            "linear-gradient(180deg, rgba(20,25,40,0.70) 0%, rgba(15,18,30,0.80) 100%)",
+          border: "1px solid rgba(255,255,255,0.10)",
           borderRadius: "16px",
           padding: "24px 28px",
           boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
@@ -80,27 +80,25 @@ export default function HeroShowcase() {
         <h2
           className="fw-bold mb-3"
           style={{
-            color: "#E2E2E2",
+            color: "#ffffff",
             fontSize: "clamp(22px, 3.2vw, 38px)",
             lineHeight: 1.2,
           }}
         >
-           <h2>
-           Enterprise Networking &amp; IT
-          Infrastructure Solutions in India
+          Enterprise Networking &amp; IT Infrastructure Solutions in India
         </h2>
 
         <p
           className="mb-3"
           style={{
-            color: "#BEBEBE",
+            color: "#ffffff",
             fontSize: "clamp(13px, 1.2vw, 16px)",
             lineHeight: 1.55,
           }}
         >
-          At <strong style={{ color: "#9B111E" }}>NETARK Technologies</strong>, we
-          deliver more than just technology — we deliver{" "}
-         trust, reliability, and
+          At{" "}
+          <strong style={{ color: "#9B111E" }}>NETARK Technologies</strong>, we
+          deliver more than just technology — we deliver trust, reliability, and
           future-ready infrastructure. With over 20 years of experience, we
           specialise in Internet services, networking, data centers, server
           colocation, hosting, and backup services that support
@@ -108,15 +106,16 @@ export default function HeroShowcase() {
         </p>
 
         <p
+          className="mb-4"
           style={{
-            color: "#BEBEBE",
+            color: "#ffffff",
             fontSize: "clamp(13px, 1.2vw, 16px)",
             lineHeight: 1.55,
-            marginBottom: "20px",
           }}
         >
-          Partner with <span style={{ color: "#9B111E" }}>NETARK</span> – Your trusted
-          Internet and Data Center Infrastructure experts in India.
+          Partner with{" "}
+          <span style={{ color: "#9B111E" }}>NETARK Technologies</span> – Your
+          trusted Internet and Data Center Infrastructure experts in India.
         </p>
 
         <Link
