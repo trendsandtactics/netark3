@@ -1,22 +1,27 @@
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-/** 
- * @param {Object} props
- * @param {string=} props.SubTitle
- * @param {string=} props.Title
- * @param {string=} props.Content
- * @param {string=} props.BtnText
- * @param {string=} props.BtnLink
- * @param {string[]=} props.slides
+/**
+ * Only strings allowed in innerHTML. Everything else coerced to safe string.
  */
-const DEFAULT_SLIDES = ["/cam.jpg", "/internet.jpg", "/strategic.jpg"]; // keep in /public
+const toHTMLString = (val, fallback = "") =>
+  typeof val === "string" ? val : (val == null ? fallback : String(val));
+
+const DEFAULT_SLIDES = ["/cam.jpg", "/internet.jpg", "/strategic.jpg"]; // in /public
 
 const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }) => {
-  const slides = useMemo(
-    () => (Array.isArray(slideProp) && slideProp.length ? slideProp : DEFAULT_SLIDES),
-    [slideProp]
-  );
+  // ✅ Coerce props to strings so parser/innerHTML never crashes
+  const safeTitle = toHTMLString(Title, "");
+  const safeContent = toHTMLString(Content, "");
+  const safeSubTitle = toHTMLString(SubTitle, "");
+  const safeBtnText = toHTMLString(BtnText, "Learn More");
+  const safeBtnLink = typeof BtnLink === "string" ? BtnLink : "";
+
+  // ✅ Ensure slides is an array of strings
+  const slides = useMemo(() => {
+    const arr = Array.isArray(slideProp) && slideProp.length ? slideProp : DEFAULT_SLIDES;
+    return arr.filter((s) => typeof s === "string" && s.trim().length > 0);
+  }, [slideProp]);
 
   const [idx, setIdx] = useState(0);
   const timer = useRef(null);
@@ -27,15 +32,11 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
       const img = new Image();
       img.src = src;
     });
-
     // Autoplay
     timer.current = window.setInterval(() => {
       setIdx((i) => (i + 1) % slides.length);
     }, 5000);
-
-    return () => {
-      if (timer.current) window.clearInterval(timer.current);
-    };
+    return () => timer.current && window.clearInterval(timer.current);
   }, [slides]);
 
   return (
@@ -43,7 +44,7 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
       {/* Slides */}
       {slides.map((src, i) => (
         <div
-          key={src}
+          key={`${src}-${i}`}
           className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity,transform] ${
             i === idx ? "opacity-100 scale-100" : "opacity-0 scale-105"
           }`}
@@ -55,37 +56,39 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
         />
       ))}
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Overlay: black text readable → lighten overlay */}
+      <div className="absolute inset-0 bg-white/30" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-12 h-full flex items-center">
-        <div className="max-w-3xl text-white">
-          {SubTitle ? (
-            <p className="text-xs tracking-[2px] uppercase text-sky-300/90 font-semibold mb-3">{SubTitle}</p>
-          ) : null}
+        <div className="max-w-3xl text-black">
+          {safeSubTitle && (
+            <p className="text-xs tracking-[2px] uppercase text-black/70 font-semibold mb-3">
+              {safeSubTitle}
+            </p>
+          )}
 
           <h1
             className="text-4xl md:text-6xl font-extrabold leading-tight mb-4"
-            dangerouslySetInnerHTML={{ __html: Title || "" }}
+            dangerouslySetInnerHTML={{ __html: safeTitle }}
           />
 
-          {Content ? (
+          {safeContent && (
             <div
-              className="text-base md:text-lg leading-relaxed mb-8 text-white/90"
-              dangerouslySetInnerHTML={{ __html: Content }}
+              className="text-base md:text-lg leading-relaxed mb-8 text-black/80"
+              dangerouslySetInnerHTML={{ __html: safeContent }}
             />
-          ) : null}
+          )}
 
           <div className="flex flex-wrap gap-4">
-            {BtnLink ? (
+            {safeBtnLink && (
               <Link
-                to={BtnLink}
-                className="px-6 py-3 rounded-md border border-white/80 text-white hover:bg-white/10 transition font-semibold backdrop-blur-sm"
+                to={safeBtnLink}
+                className="px-6 py-3 rounded-md border border-black/70 text-black hover:bg-black/10 transition font-semibold backdrop-blur-sm"
               >
-                {BtnText || "Learn More"}
+                {safeBtnText}
               </Link>
-            ) : null}
+            )}
             <Link
               to="/contact"
               className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold"
@@ -112,8 +115,8 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
         </div>
       </div>
 
-      {/* Optional bottom gradient fade */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+      {/* Soft fade bottom */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/30 to-transparent" />
     </section>
   );
 };
