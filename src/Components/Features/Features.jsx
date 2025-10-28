@@ -2,7 +2,8 @@ import React from "react";
 import SectionTitle from "../Common/SectionTitle";
 import { Globe, Cloud, ShieldCheck } from "lucide-react";
 
-const RUBY_RED = "#E0115F";
+// Use a deeper ruby red
+const RUBY_RED = "#9b111e";
 
 const SOLUTIONS = [
   { icon: Globe, title: "Global IT Infrastructure" },
@@ -23,8 +24,6 @@ const Solutions = () => {
             Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
           />
         </div>
-        <br></br>
-        <br></br>
 
         {/* Solutions Grid */}
         <div className="solutions-grid">
@@ -92,7 +91,7 @@ const Solutions = () => {
           background: ${RUBY_RED};
           color: #fff;
           transform: translateY(-6px);
-          box-shadow: 0 10px 25px rgba(224,17,95,0.25);
+          box-shadow: 0 10px 25px rgba(155,17,30,0.25);
           border-color: transparent;
         }
         .service-card:hover .service-title { color: #fff; }
