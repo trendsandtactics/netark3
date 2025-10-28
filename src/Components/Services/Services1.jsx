@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SectionTitle from "../Common/SectionTitle";
-import data from "../../Data/services1.json";
 import {
   Wifi,
   Server,
@@ -14,24 +13,34 @@ import {
   Code,
 } from "lucide-react";
 
+// ✅ Import images directly (from /assets/images)
+import InternetImg from "@/assets/images/InternetServices.jpg";
+import ColocationImg from "@/assets/images/Colocationhosting.png";
+import ConnectivityImg from "@/assets/images/Connectivityservices.webp";
+import HostingImg from "@/assets/images/Hostingservices.avif";
+import CloudImg from "@/assets/images/Cloudsolutions.jpg";
+import InfoSecurityImg from "@/assets/images/Informationsecurityy.jpg";
+import DataStorageImg from "@/assets/images/Datastorage.png";
+import ManagedITImg from "@/assets/images/ManagedIT.png";
+import UnifiedCommImg from "@/assets/images/Unifiedcommunications.jpg";
+import OpenSourceImg from "@/assets/images/07.jpg";
+
 const RUBY_RED = "#E0115F";
 
-const iconMap = {
-  "Internet Services": Wifi,
-  "Co-Location & Hosting": Server,
-  "Connectivity Services": Network,
-  "Hosting Services": Server,
-  "Cloud Solutions": Cloud,
-  "Information Security": Shield,
-  "Data Storage & Backup": Database,
-  "Managed IT & Facility Services": Monitor,
-  "Unified Communications & Mobility": PhoneCall,
-  "Open-Source IT Solutions": Code,
-};
+const SERVICES = [
+  { title: "Internet Services", icon: Wifi, image: InternetImg },
+  { title: "Co-Location & Hosting", icon: Server, image: ColocationImg },
+  { title: "Connectivity Services", icon: Network, image: ConnectivityImg },
+  { title: "Hosting Services", icon: Server, image: HostingImg },
+  { title: "Cloud Solutions", icon: Cloud, image: CloudImg },
+  { title: "Information Security", icon: Shield, image: InfoSecurityImg },
+  { title: "Data Storage & Backup", icon: Database, image: DataStorageImg },
+  { title: "Managed IT & Facility Services", icon: Monitor, image: ManagedITImg },
+  { title: "Unified Communications & Mobility", icon: PhoneCall, image: UnifiedCommImg },
+  { title: "Open-Source IT Solutions", icon: Code, image: OpenSourceImg },
+];
 
 const Services1 = () => {
-  const services = Array.isArray(data) ? data.slice(0, 10) : [];
-
   return (
     <section className="service-area py-16 bg-white mb-24 md:mb-28">
       <div className="container">
@@ -43,20 +52,17 @@ const Services1 = () => {
           />
         </div>
 
-        {/* Services Grid (2 Rows, 5 per row) */}
+        {/* Services Grid */}
         <div className="services-grid mb-12">
-          {services.map((item, i) => {
-            const title = item?.title || "Untitled Service";
-            const Icon = iconMap[title] || Monitor;
-            const image = item?.image;
-
+          {SERVICES.map((item, i) => {
+            const Icon = item.icon;
             return (
               <article key={i} className="service-card">
                 {/* Image */}
                 <div className="image-wrap">
                   <img
-                    src={image}
-                    alt={title}
+                    src={item.image}
+                    alt={item.title}
                     className="service-image"
                   />
                 </div>
@@ -70,7 +76,7 @@ const Services1 = () => {
                       color={RUBY_RED}
                       className="icon"
                     />
-                    <h3 className="service-title">{title}</h3>
+                    <h3 className="service-title">{item.title}</h3>
                   </div>
                 </div>
               </article>
@@ -142,7 +148,6 @@ const Services1 = () => {
           color: #111;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 1280px) {
           .services-grid { grid-template-columns: repeat(4, 1fr); }
         }
