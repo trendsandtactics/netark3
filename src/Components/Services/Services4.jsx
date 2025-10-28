@@ -1,124 +1,93 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import SectionTitle from "../Common/SectionTitle";
-import data from "../../Data/services4.json";
+import data from "../../Data/services4.json"; // 👉 ensure this file exists
+import {
+  Wifi, Server, Network, Cloud, Shield, Database, Monitor, PhoneCall, Code,
+} from "lucide-react";
 
-const RUBY = "#A1162A";
+const RUBY_RED = "#E0115F";
+
+const iconMap = {
+  "Internet Services": Wifi,
+  "Co-Location & Hosting": Server,
+  "Connectivity Services": Network,
+  "Hosting Services": Server,
+  "Cloud Solutions": Cloud,
+  "Information Security": Shield,
+  "Data Storage & Backup": Database,
+  "Managed IT & Facility Services": Monitor,
+  "Unified Communications & Mobility": PhoneCall,
+  "Open-Source IT Solutions": Code,
+};
 
 const Services4 = () => {
-  const toPoints = (desc) => {
-    if (Array.isArray(desc)) return desc.map((d) => String(d).trim()).filter(Boolean);
-    const s = String(desc ?? "").replace(/•/g, "·");
-    return s
-      .split("·")
-      .map((t) => t.trim())
-      .filter(Boolean);
-  };
+  const services = (Array.isArray(data) ? data : []).slice(0, 10);
 
   return (
-    <div className="sservice-area style-two py-5">
+    <section className="service-area py-16 bg-white">
       <div className="container">
-        <div className="row align-items-center mb-5">
-          <div className="col-lg-12">
-            <div className="section-title text-center">
-              <SectionTitle
-                SubTitle="NETARK COMPANY"
-                Title="Choose <span>Netark</span> for reliable IT service, connectivity, and managed infrastructure across India"
-              />
-            </div>
-          </div>
+        <div className="text-center mb-10">
+          <SectionTitle
+            SubTitle="NETARK TECHNOLOGIES"
+            Title={`Our Core Services<br> Built for <span style='color:${RUBY_RED};'>Scale & Security</span>`}
+          />
         </div>
 
-        <div className="row g-4 justify-content-center">
-          {data.map((item, i) => {
-            const points = toPoints(item.desc);
+        <div className="services-grid mb-12">
+          {services.map((item, i) => {
+            const title = item?.title || "Untitled Service";
+            const Icon = iconMap[title] || Monitor;
             return (
-              <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
-                <div
-                  className="single-service-box text-center d-flex flex-column justify-content-between w-100 rounded-4 p-4"
-                  style={{
-                    backgroundColor: "#fff",
-                    border: "1px solid #eee",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.border = `2px solid ${RUBY}`;
-                    e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.1)";
-                    e.currentTarget.style.transform = "translateY(-6px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.border = "1px solid #eee";
-                    e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.transform = "translateY(0)";
-                  }}
-                >
-                  <div
-                    className="service-thumb mb-3"
-                    style={{
-                      width: "100%",
-                      height: "180px",
-                      overflow: "hidden",
-                      borderRadius: "12px",
-                      backgroundColor: "#f7f7f7",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                  </div>
-
-                  <div className="service-content flex-grow-1 text-start">
-                    <h3
-                      className="service-title mb-3 fw-bold text-center"
-                      style={{
-                        fontSize: "1.15rem",
-                        color: RUBY,
-                        lineHeight: "1.4",
-                        minHeight: "3rem",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-                    <ul
-                      style={{
-                        listStyleType: "disc",
-                        paddingLeft: "1.2rem",
-                        marginBottom: 0,
-                        color: "#555",
-                        fontSize: "0.95rem",
-                        lineHeight: "1.7",
-                      }}
-                    >
-                      {points.map((p, idx) => (
-                        <li key={idx} style={{ marginBottom: "4px" }}>
-                          {p}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+              <article key={i} className="service-card group">
+                <div className="icon-wrap">
+                  <Icon size={50} strokeWidth={1.6} color={RUBY_RED} className="icon transition-all duration-300" />
                 </div>
-              </div>
+                <h3 className="service-title">{title}</h3>
+              </article>
             );
           })}
         </div>
 
-        <div className="service-shape bounce-animate3">
-          <img src="/assets/images/service5.png" alt="service5" />
-        </div>
-        <div className="service-shape2">
-          <img src="/assets/images/service7.png" alt="service7" />
-        </div>
-        <div className="service-shape3 bounce-animate4">
-          <img src="/assets/images/service8.png" alt="service8" />
+        {/* CTA only at bottom */}
+        <div className="text-center">
+          <Link
+            to="/services"
+            className="inline-block px-8 py-3 rounded-full text-white font-semibold
+                       bg-[#E0115F] hover:bg-[#c30f52] transition-all duration-300
+                       shadow-md hover:shadow-lg hover:-translate-y-1"
+          >
+            Explore All Services
+          </Link>
         </div>
       </div>
-    </div>
+
+      <style>{`
+        .services-grid {
+          display: grid; grid-template-columns: repeat(5, 1fr);
+          gap: 24px; justify-items: center; align-items: stretch;
+        }
+        .service-card {
+          width: 100%; max-width: 240px; height: 240px; background: #fff;
+          border: 1px solid #e5e7eb; border-radius: 16px;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.06); padding: 24px;
+          display: flex; flex-direction: column; align-items: center; justify-content: center;
+          text-align: center; transition: all 0.3s ease;
+        }
+        .icon-wrap { margin-bottom: 12px; }
+        .service-title { margin: 0; font-weight: 600; font-size: 1rem; color: #333; line-height: 1.3; transition: color 0.3s ease; }
+        .service-card:hover {
+          background: ${RUBY_RED}; color: #fff; transform: translateY(-6px);
+          box-shadow: 0 10px 25px rgba(224, 17, 95, 0.25);
+        }
+        .service-card:hover .service-title { color: #fff; }
+        .service-card:hover .icon { stroke: #fff !important; transform: scale(1.1); }
+        @media (max-width:1280px){ .services-grid{ grid-template-columns: repeat(4,1fr);} }
+        @media (max-width:1024px){ .services-grid{ grid-template-columns: repeat(3,1fr);} }
+        @media (max-width:768px){ .services-grid{ grid-template-columns: repeat(2,1fr);} }
+        @media (max-width:480px){ .services-grid{ grid-template-columns: 1fr;} }
+      `}</style>
+    </section>
   );
 };
 
