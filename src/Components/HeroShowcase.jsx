@@ -8,9 +8,9 @@ export default function HeroShowcase({
   titleTop = "Making Technology",
   titleBottom = "Work for People & Business",
   accent = "#3AA0FF",
-  headerOffset = 0, // e.g., 70 if you have a fixed header
+  headerOffset = 0, // height of fixed navbar if any
 }) {
-  // Fallback images
+  // ✅ fallback images
   const images = useMemo(
     () =>
       imagesProp.length
@@ -19,18 +19,16 @@ export default function HeroShowcase({
     [imagesProp]
   );
 
-  // Slider state
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
   const [loaded, setLoaded] = useState(() => images.map((_, i) => i === 0));
-  const pauseTimer = useRef(null);
+  const intervalRef = useRef(null);
 
-  // Preload once
+  // ✅ preload all images once
   useEffect(() => {
     images.forEach((src, i) => {
       const im = new Image();
       im.src = src;
-      im.decode?.().catch(() => null);
       im.onload = () =>
         setLoaded((prev) => {
           if (prev[i]) return prev;
@@ -39,64 +37,59 @@ export default function HeroShowcase({
           return next;
         });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [images.join("|")]);
+  }, [images]);
 
-  // Auto rotate
+  // ✅ auto-scroll interval
   useEffect(() => {
     if (paused || images.length <= 1) return;
-    const t = setInterval(
-      () => setIdx((p) => (p + 1) % images.length),
-      Math.max(2500, intervalMs)
-    );
-    return () => clearInterval(t);
-  }, [images.length, intervalMs, paused]);
+    intervalRef.current = setInterval(() => {
+      setIdx((prev) => (prev + 1) % images.length);
+    }, intervalMs);
+    return () => clearInterval(intervalRef.current);
+  }, [paused, images.length, intervalMs]);
 
-  // Manual jump + temporary pause
   const jumpTo = (i) => {
     setIdx(i);
     setPaused(true);
-    clearTimeout(pauseTimer.current);
-    pauseTimer.current = setTimeout(() => setPaused(false), 4000);
+    clearInterval(intervalRef.current);
+    setTimeout(() => setPaused(false), 4000);
   };
 
-  // Compute height string with optional header offset
   const heroHeight =
-    typeof headerOffset === "number" && headerOffset > 0
-      ? `calc(100vh - ${headerOffset}px)`
-      : "100vh";
+    headerOffset > 0 ? `calc(100vh - ${headerOffset}px)` : "100vh";
 
   return (
     <section
       className="relative w-full overflow-hidden flex items-center"
+      style={{
+        height: heroHeight,
+        backgroundColor: "#0b0f1a",
+        contain: "paint layout",
+      }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      style={{ backgroundColor: "#0b0f1a", height: heroHeight }}
     >
-      {/* === Background slides (stacked) === */}
+      {/* === SLIDES === */}
       <div className="absolute inset-0 -z-10">
         {images.map((src, i) => {
           const visible = i === idx && loaded[i];
           return (
             <div
-              key={`${src}-${i}`}
-              className="absolute inset-0 transition-opacity duration-[1100ms] ease-[cubic-bezier(.22,.61,.36,1)] will-change-[opacity]"
+              key={`slide-${i}`}
+              className="absolute inset-0 transition-opacity duration-[1200ms] ease-[cubic-bezier(.22,.61,.36,1)] will-change-[opacity]"
               style={{
                 opacity: visible ? 1 : 0,
                 transform: "translateZ(0)",
-                backfaceVisibility: "hidden",
               }}
-              aria-hidden={!visible}
             >
               <img
                 src={src}
-                alt={`Hero background ${i + 1}`}
-                className="w-full h-full object-cover object-center block select-none pointer-events-none"
-                loading={i === 0 ? "eager" : "lazy"}
-                decoding="async"
+                alt={`Slide ${i}`}
+                className="w-full h-full object-cover object-center block"
                 draggable={false}
+                loading={i === 0 ? "eager" : "lazy"}
               />
-              {/* Readability overlays */}
+              {/* Gradient overlays for contrast */}
               <div className="absolute inset-0 bg-black/45" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </div>
@@ -104,17 +97,11 @@ export default function HeroShowcase({
         })}
       </div>
 
-      {/* === Decorative hexagons (top-left) === */}
-      <HexDecor
-        className="absolute left-6 sm:left-8 top-6 sm:top-8 z-10 opacity-70"
-        accent={accent}
-      />
-
-      {/* === Content (overlay, centered vertically) === */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-12">
+      {/* === CONTENT (center-left) === */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div className="max-w-2xl">
-            <h1 className="leading-tight font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white drop-shadow-[0_2px_12px_rgba(0,0,0,.35)]">
+            <h1 className="font-extrabold text-3xl sm:text-5xl lg:text-6xl leading-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,.35)]">
               <span className="block">{titleTop}</span>
               <span className="block" style={{ color: accent }}>
                 {titleBottom}
@@ -126,20 +113,19 @@ export default function HeroShowcase({
 
             <p className="mt-5 text-base sm:text-lg text-white/85 max-w-xl">
               Empowering businesses through cutting-edge technology, streamlining
-              processes and driving success with innovative IT infrastructure
-              solutions.
+              processes and driving success with innovative IT infrastructure solutions.
             </p>
 
-            {/* CTAs */}
+            {/* === CTA Buttons === */}
             <div className="mt-7 flex flex-col sm:flex-row gap-4">
-              <Link to="/solutions" className="inline-block">
+              <Link to="/solutions">
                 <button className="px-6 py-3 rounded-xl border border-white/40 text-white font-semibold bg-white/5 hover:bg-white/15 transition-all">
                   EXPLORE SOLUTIONS
                 </button>
               </Link>
-              <Link to="/contact" className="inline-block">
+              <Link to="/contact">
                 <button
-                  className="px-6 py-3 rounded-xl font-semibold text-white transition-all shadow-lg"
+                  className="px-6 py-3 rounded-xl font-semibold text-white shadow-lg transition-all"
                   style={{
                     backgroundColor: "#1E68F3",
                     boxShadow: "0 10px 32px rgba(30,104,243,.35)",
@@ -150,7 +136,7 @@ export default function HeroShowcase({
               </Link>
             </div>
 
-            {/* Stats */}
+            {/* === Stats === */}
             <div className="mt-8 grid grid-cols-3 gap-4 sm:gap-6 max-w-md">
               {[
                 { value: "20+", top: "Years", bottom: "Experience" },
@@ -173,21 +159,21 @@ export default function HeroShowcase({
               ))}
             </div>
           </div>
-
-          {/* Right side kept empty to show more background like the reference */}
           <div className="hidden lg:block" />
         </div>
       </div>
 
-      {/* === Dots === */}
+      {/* === SLIDE DOTS === */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
         {images.map((_, i) => (
           <button
             key={i}
             aria-label={`Slide ${i + 1}`}
             onClick={() => jumpTo(i)}
-            className={`h-2.5 w-2.5 rounded-full transition outline-none focus:ring-2 focus:ring-white/60 ${
-              i === idx ? "bg-white" : "bg-white/40 hover:bg-white/70"
+            className={`h-2.5 w-2.5 rounded-full transition outline-none ${
+              i === idx
+                ? "bg-white"
+                : "bg-white/40 hover:bg-white/70 focus:ring-2 focus:ring-white/60"
             }`}
           />
         ))}
@@ -196,7 +182,7 @@ export default function HeroShowcase({
   );
 }
 
-/** Small inline SVG hex pattern */
+/* === Hexagon overlay === */
 function HexDecor({ className = "", accent = "#3AA0FF" }) {
   return (
     <svg
