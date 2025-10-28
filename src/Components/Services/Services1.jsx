@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SectionTitle from "../Common/SectionTitle";
 import {
   Wifi,
@@ -32,7 +32,7 @@ const Services1 = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="service-area py-20 md:py-24 bg-white mb-28 md:mb-40">
+    <section className="service-area py-20 md:py-24 bg-white mb-56 md:mb-64">
       <div className="container">
         <div className="text-center mb-12">
           <SectionTitle
@@ -41,7 +41,7 @@ const Services1 = () => {
           />
         </div>
 
-        <div className="services-grid mb-28">
+        <div className="services-grid">
           {SERVICES.map(({ title, icon: Icon, image }, i) => (
             <article
               key={i}
@@ -83,7 +83,7 @@ const Services1 = () => {
           transition: transform .25s ease, box-shadow .25s ease;
         }
         .service-card:hover {
-          transform: translateY(-2px);
+          transform: translateY(-3px);
           box-shadow: 0 10px 24px rgba(0,0,0,0.08);
         }
 
