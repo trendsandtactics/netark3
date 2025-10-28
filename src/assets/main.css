@@ -1121,17 +1121,26 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
 }
 
 /*=====================================
-<-- 02.start solutek hero Area Css -->
-=======================================*/
+<-- 02. Solutek Hero Area (updated) -->
+======================================*/
 
 .hero-area {
+  /* remove side gaps */
+  margin: 0 !important;
+
+  /* keep your visual settings */
   height: 890px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  margin: 0px 50px 0;
+
+  /* optional: if header is fixed and overlaps,
+     you can add top padding equal to header height.
+     Otherwise leave at 0 for flush-to-top. */
+  /* padding-top: 0; */
 }
 
+/* Headline chip */
 .hero-contant h5 {
   font-size: 16px;
   color: #9B111E;
@@ -1142,13 +1151,11 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   border: 2px solid #40465d;
   display: inline-block;
   padding: 6px 28px;
-  margin: 0;
+  margin: 0 0 20px 0;
   position: relative;
   z-index: 1;
-  margin-bottom: 20px;
   line-height: 25px;
 }
-
 .hero-contant h5::before {
   position: absolute;
   content: "";
@@ -1160,6 +1167,7 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   top: 14px;
 }
 
+/* Title / copy */
 .hero-contant h1 {
   font-size: 55px;
   line-height: 70px;
@@ -1168,7 +1176,6 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   font-family: "Poppins";
   margin: 0;
 }
-
 .hero-contant p {
   opacity: 0.702;
   font-size: 19px;
@@ -1181,18 +1188,12 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   padding: 13px 0 43px;
 }
 
-.hero-area .solutek-hover-btn {
-  background-color: #ffff;
-}
+/* Buttons */
+.hero-area .solutek-hover-btn { background-color: #fff; }
+.solutek-btn a:hover { color: #9B111E; }
 
-.solutek-btn a:hover {
-  color: #9B111E;
-}
-
-.hero-video-icon {
-  display: inline-block;
-}
-
+/* Video */
+.hero-video-icon { display: inline-block; }
 .hero-video-icon span i {
   display: inline-block;
   background: #9B111E;
@@ -1208,7 +1209,6 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   margin-left: 39px;
   z-index: 1;
 }
-
 .hero-video-icon span i:after {
   position: absolute;
   content: "";
@@ -1220,7 +1220,6 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   border: 2px solid #40465d;
   z-index: -1;
 }
-
 .hero-video-icon span span {
   display: inline-block;
   opacity: 0.702;
@@ -1233,35 +1232,35 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   margin-left: 32px;
 }
 
+/* Right image */
 .hero-thumb {
   text-align: right;
   margin-top: 118px;
   position: relative;
   z-index: 1;
 }
-
 .hero-thumb::before {
   position: absolute;
   content: "";
   height: 100%;
   width: 100%;
-  background: url(/assets/images/hero-shape.png);
-  background-repeat: no-repeat;
+  background: url(/assets/images/hero-shape.png) no-repeat center;
   z-index: -1;
   right: -10%;
   top: -25%;
-  animation-name: rotateme;
-  animation-duration: 15s;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  background-position: center;
+  animation: rotateme 15s linear infinite;
 }
 
-/*=====================================
-<--  end solutek hero Area Css -->
-=======================================*/
+/* Responsive tweaks */
+@media (max-width: 1199px) {
+  .hero-contant h1 { font-size: 44px; line-height: 58px; }
+  .hero-contant p { width: 100%; }
+}
+@media (max-width: 767px) {
+  .hero-area { height: 680px; }
+  .hero-contant h1 { font-size: 36px; line-height: 46px; }
+}
+
 
 
 
