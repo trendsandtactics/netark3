@@ -757,10 +757,10 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
     padding-top: 0;
   }
   .main-page-area3 .cs_main_header {
-    padding: 0px 90px 0px 140px;
+    padding: 0 90px 0 140px;
   }
   .main-page-area3 .cs_top_header {
-    padding: 0px 124px 0px 170px;
+    padding: 0 124px 0 170px;
   }  
   .cs_main_header {
     padding-top: 12px;
@@ -1082,7 +1082,7 @@ a,i, cite, em, var, address, dfn,ol,li,ul{
   opacity: 1;
 }
 .main-page-area{
-  padding: 30px 0 0;
+  padding: 0;
 }
 @media (max-width: 767px) {
   .cs_site_header.cs_style_1 .cs_top_header {
