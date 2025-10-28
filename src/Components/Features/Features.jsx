@@ -12,8 +12,11 @@ const SOLUTIONS = [
 
 const Solutions = () => {
   return (
-    <section className="bg-gray-50 relative z-10 py-24 md:py-32 lg:py-36 mt-64 md:mt-72 mb-40 md:mb-52">
+    <section className="bg-gray-50 relative z-10 mt-72 md:mt-80 lg:mt-96 py-28 md:py-36 lg:py-40 mb-40 md:mb-52">
       <div className="container mx-auto px-6 md:px-10 lg:max-w-7xl">
+        {/* White Space Before Content */}
+        <div className="h-20 md:h-28"></div>
+
         {/* Section Heading */}
         <div className="text-center mb-14">
           <SectionTitle
@@ -36,7 +39,7 @@ const Solutions = () => {
                   />
                 </div>
 
-                <h3 className="service-title text-lg lg:text-xl">
+                <h3 className="service-title text-base md:text-lg lg:text-xl">
                   {item.title}
                 </h3>
               </article>
