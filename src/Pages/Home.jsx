@@ -54,11 +54,11 @@ const Home = () => {
       {/* ===== PAGE STYLES ===== */}
       <style>{`
         /* spacing between blocks (instead of <br/>) */
-        .section-wrap { padding-top: 64px; padding-bottom: 64px; }
+        .section-wrap { padding-top: 64px; padding-bottom: 0px; }
         @media (min-width: 992px) {
-          .section-wrap { padding-top: 88px; padding-bottom: 88px; }
+          .section-wrap { padding-top: 88px; padding-bottom: 0px; }
         }
-        .section-wrap--last { padding-bottom: 90px; }
+        .section-wrap--last { padding-bottom: 50px; }
 
         /* brand tint */
         .section-title span { color: ${RUBY_RED} !important; }
