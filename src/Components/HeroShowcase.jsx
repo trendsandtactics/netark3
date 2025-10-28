@@ -25,7 +25,7 @@ export default function HeroShowcase() {
       className="position-relative"
       style={{ width: "100%", height: "100vh", overflow: "hidden" }}
     >
-      {/* SLIDER (background images) */}
+      {/* SLIDER (with gradient overlay inside each slide) */}
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         autoplay={{ delay: 4500, disableOnInteraction: false }}
@@ -46,8 +46,8 @@ export default function HeroShowcase() {
                   linear-gradient(
                     180deg,
                     rgba(0, 0, 0, 0.45) 0%,
-                    rgba(0, 0, 0, 0.55) 50%,
-                    rgba(0, 0, 0, 0.75) 100%
+                    rgba(0, 0, 0, 0.65) 50%,
+                    rgba(0, 0, 0, 0.8) 100%
                   ),
                   url(${s.img})
                 `,
@@ -60,7 +60,7 @@ export default function HeroShowcase() {
         ))}
       </Swiper>
 
-      {/* CONTENT — fixed, not moving with slides */}
+      {/* CONTENT — directly over hero image */}
       <div
         className="container"
         style={{
@@ -69,57 +69,40 @@ export default function HeroShowcase() {
           display: "flex",
           alignItems: "center",
           zIndex: 3,
-          pointerEvents: "none",
         }}
       >
         <div className="row">
-          <div className="col-lg-7 col-md-10">
-            <div
-              className="p-4 p-md-5 rounded-4"
+          <div className="col-lg-8 col-md-10">
+            <h1 className="text-white fw-bold mb-3">
+              Enterprise Networking &amp; IT Infrastructure Solutions in India
+            </h1>
+
+            <p className="text-white-50 mb-3">
+              At <strong className="text-white">NETARK Technologies</strong>, we deliver more than just technology — we deliver trust,
+              reliability, and future-ready infrastructure. With over 20 years of experience, we specialise in Internet services, networking,
+              data center solutions, server colocation services, hosting services, and data backup services that support mission-critical businesses.
+            </p>
+
+            <p className="text-white-50 mb-3">
+              Whether it’s campus networking, cloud solutions, or IT security, our team ensures your business stays connected, protected, and scalable.
+            </p>
+
+            <p className="text-white mb-4 fw-semibold">
+              Partner with NETARK – Your trusted Internet and Data Center Infrastructure experts in India.
+            </p>
+
+            <Link
+              to="/contact"
+              className="btn btn-lg px-4"
               style={{
-                background: "rgba(13,16,28,0.65)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                backdropFilter: "blur(5px)",
-                pointerEvents: "auto",
+                backgroundColor: "#9B111E",
+                color: "#fff",
+                borderColor: "#9B111E",
+                borderRadius: "999px",
               }}
             >
-              <h1 className="text-white fw-bold mb-3">
-                Enterprise Networking &amp; IT Infrastructure Solutions in India
-              </h1>
-
-              <p className="text-white-50 mb-3">
-                At <strong className="text-white">NETARK Technologies</strong>, we deliver more
-                than just technology — we deliver trust, reliability, and
-                future-ready infrastructure. With over 20 years of experience,
-                we specialise in Internet services, networking, data center
-                solutions, server colocation services, hosting services, and
-                data backup services that support mission-critical businesses.
-              </p>
-
-              <p className="text-white-50 mb-3">
-                Whether it’s campus networking, cloud solutions, or IT security,
-                our team ensures your business stays connected, protected, and
-                scalable.
-              </p>
-
-              <p className="text-white mb-4 fw-semibold">
-                Partner with NETARK – Your trusted Internet and Data Center
-                Infrastructure experts in India.
-              </p>
-
-              <Link
-                to="/contact"
-                className="btn btn-lg px-4"
-                style={{
-                  backgroundColor: "#9B111E",
-                  color: "#fff",
-                  borderColor: "#9B111E",
-                  borderRadius: "999px",
-                }}
-              >
-                Talk to an Expert
-              </Link>
-            </div>
+              Talk to an Expert
+            </Link>
           </div>
         </div>
       </div>
