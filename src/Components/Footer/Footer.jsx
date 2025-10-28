@@ -10,19 +10,6 @@ const Footer = () => {
       "At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
   };
 
-  // 🔹 All 9 services for the footer
-  const ServicesList = [
-    { name: "Internet Services", link: "/service/internet" },
-    { name: "Co-Location & Hosting", link: "/service/hosting" },
-    { name: "Connectivity Solutions", link: "/service/connectivity" },
-    { name: "Cloud Solutions", link: "/service/cloud" },
-    { name: "Cybersecurity & Info Security", link: "/service/cybersecurity" },
-    { name: "Enterprise Networking", link: "/service/networking" },
-    { name: "Surveillance & Access Control", link: "/service/surveillance" },
-    { name: "Data Center Solutions", link: "/service/datacenter" },
-    { name: "Open Source IT Solutions", link: "/service/opensource" },
-  ];
-
   return (
     <footer
       className="footer-area text-white position-relative"
@@ -61,7 +48,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* ====== MIDDLE: OUR SERVICES (9 ITEMS) ====== */}
+          {/* ====== MIDDLE: OFFICE ADDRESS ====== */}
           <div className="col-lg-4 col-md-6 text-center text-md-start">
             <h5
               className="fw-semibold mb-3"
@@ -71,34 +58,35 @@ const Footer = () => {
                 letterSpacing: "0.5px",
               }}
             >
-              Our Services
+              Office Address
             </h5>
-            <div className="d-flex justify-content-between flex-wrap">
-              <ul
-                className="list-unstyled mb-0"
-                style={{ color: "#ccc", lineHeight: "1.9", width: "48%" }}
+            <address
+              style={{
+                color: "#ccc",
+                fontSize: "0.95rem",
+                lineHeight: "1.8",
+                fontStyle: "normal",
+                maxWidth: "340px",
+                margin: "0 auto 0 0",
+              }}
+            >
+              <strong>NETARK Technologies India Pvt. Ltd.</strong>
+              <br />
+              Third Floor, Thachil Complex,
+              <br />
+              No. 10 Raja Annamalai Road,
+              <br />
+              Saibaba Colony, Coimbatore – 641 011
+              <br />
+              <br />
+              <strong>Phone:</strong> 0422-4280009&nbsp;&nbsp;|&nbsp;&nbsp;
+              <a
+                href="tel:+919500644411"
+                style={{ color: RUBY, textDecoration: "none" }}
               >
-                {ServicesList.slice(0, 5).map((item, i) => (
-                  <li key={i}>
-                    <Link to={item.link} className="footer-link">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <ul
-                className="list-unstyled mb-0"
-                style={{ color: "#ccc", lineHeight: "1.9", width: "48%" }}
-              >
-                {ServicesList.slice(5).map((item, i) => (
-                  <li key={i}>
-                    <Link to={item.link} className="footer-link">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                +91 95006 44411
+              </a>
+            </address>
           </div>
 
           {/* ====== RIGHT: QUICK LINKS ====== */}
