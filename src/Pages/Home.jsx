@@ -28,14 +28,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <Hero1
-        SubTitle="NETARK Technologies"
-        Title={`<span style='color:${RUBY_RED};'>Empowering Businesses with Reliable IT Infrastructure</span>`}
-        Content={heroText}
-        BtnText="EXPLORE SOLUTIONS"
-        BtnLink="/about"
-      />
-
+      <Hero1 />
       <About1 />
       <Services1 />
       <Features />
