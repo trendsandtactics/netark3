@@ -29,7 +29,6 @@ const Solutions = () => {
         {/* Section Heading */}
         <div className="text-center mb-12">
           <SectionTitle
-            SubTitle="NETARK TECHNOLOGIES"
             Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
           />
         </div>
