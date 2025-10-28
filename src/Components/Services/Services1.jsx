@@ -41,8 +41,13 @@ const Services1 = () => {
               <div className="media">
                 <img src={image} alt={title} className="cover" />
                 <span className="badge">
-                  {/* icon stays RUBY_RED always */}
-                  <Icon size={18} strokeWidth={2} color={RUBY_RED} className="badge-icon" />
+                  {/* 🔒 lock to ruby via inline style + class */}
+                  <Icon
+                    size={18}
+                    strokeWidth={2}
+                    className="badge-icon"
+                    style={{ stroke: RUBY_RED, color: RUBY_RED }}
+                  />
                 </span>
               </div>
               <div className="content">
@@ -82,65 +87,36 @@ const Services1 = () => {
         .service-card:hover .title { color: #fff; }
 
         /* MEDIA */
-        .media {
-          position: relative;
-          width: 100%;
-          height: 160px;
-          overflow: hidden;
-          background: #f3f5f9;
-        }
-        .cover {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform .5s ease;
-        }
+        .media { position: relative; width: 100%; height: 160px; overflow: hidden; background: #f3f5f9; }
+        .cover { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
         .service-card:hover .cover { transform: scale(1.05); opacity: 0.9; }
 
         /* BADGE */
         .badge {
           position: absolute;
-          left: 14px;
-          bottom: 14px;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #fff;               /* stays white */
-          border: 2px solid ${RUBY_RED};  /* crisp ring */
+          left: 14px; bottom: 14px;
+          width: 40px; height: 40px;
+          display: flex; align-items: center; justify-content: center;
+          background: #fff;                 /* stays white */
+          border: 2px solid ${RUBY_RED};    /* ruby ring */
           border-radius: 999px;
           box-shadow: 0 4px 10px rgba(0,0,0,.08);
           transition: transform .2s ease;
         }
         .service-card:hover .badge { transform: scale(1.05); }
-        /* keep icon ruby even on hover */
-        .badge .badge-icon { stroke: ${RUBY_RED}; }
+
+        /* 🔒 KEEP ICON RUBY ALWAYS (wins over any global .icon rule) */
+        .badge .badge-icon { stroke: ${RUBY_RED} !important; color: ${RUBY_RED} !important; }
+        .service-card:hover .badge .badge-icon { stroke: ${RUBY_RED} !important; color: ${RUBY_RED} !important; }
 
         /* CONTENT */
         .content { padding: 14px 16px 18px; text-align: left; }
-        .title {
-          font-size: 15px;
-          line-height: 1.35;
-          font-weight: 700;
-          color: #0f172a; /* default black */
-          letter-spacing: 0.2px;
-          transition: color 0.3s ease;
-        }
+        .title { font-size: 15px; line-height: 1.35; font-weight: 700; color: #0f172a; letter-spacing: .2px; transition: color .3s ease; }
 
         /* RESPONSIVE */
-        @media (max-width:1280px) {
-          .services-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width:900px) {
-          .services-grid { grid-template-columns: repeat(2, 1fr); }
-          .service-card { max-width: 100%; }
-          .media { height: 150px; }
-        }
-        @media (max-width:520px) {
-          .services-grid { grid-template-columns: 1fr; }
-          .media { height: 150px; }
-        }
+        @media (max-width:1280px){ .services-grid { grid-template-columns: repeat(3,1fr); } }
+        @media (max-width:900px){ .services-grid { grid-template-columns: repeat(2,1fr); } .service-card { max-width: 100%; } .media { height: 150px; } }
+        @media (max-width:520px){ .services-grid { grid-template-columns: 1fr; } .media { height: 150px; } }
       `}</style>
     </section>
   );
