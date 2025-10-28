@@ -1,17 +1,18 @@
-// src/components/HeroSection.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ImageCarousel from "./ImageCarousel"; // ensure file name/casing matches
+import ImageCarousel from "./ImageCarousel";
 
 const HeroSection = () => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
 
+  // 👇 Updated background carousel images
   const backgroundImages = [
-    "/lovable-uploads/d2e27d6a-96a8-45f2-8f0b-d1e0e6bcb2f8.png",
-    "/2hh.png",
-    "/4hh.png",
-    "/3hh.png",
-    "/5hh.png",
+    "/internet.jpg",
+    "/security.png",
+    "/strategic.jpg",
+    "/world.jpg",
+    "/cctv.jpg",
+    "/enterprise.jpg",
   ];
 
   useEffect(() => {
@@ -23,13 +24,13 @@ const HeroSection = () => {
 
   return (
     <>
-      <section className="relative w-full min-h-screen flex flex-col overflow-hidden">
-        {/* Background Images */}
+      <section className="relative w-full min-h-[92vh] md:min-h-screen flex flex-col overflow-hidden">
+        {/* Background Rotator */}
         <div className="absolute inset-0 z-0">
           {backgroundImages.map((image, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
+              className={`absolute inset-0 transition-opacity duration-[1200ms] ease-out ${
                 index === currentBgIndex ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -38,47 +39,54 @@ const HeroSection = () => {
                 alt={`Technology Background ${index + 1}`}
                 className="w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-black/50"></div>
+              <div className="absolute inset-0 bg-black/55" />
             </div>
           ))}
         </div>
 
-        {/* Main Content */}
-        <div className="relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col lg:flex-row items-center justify-between pt-20 sm:pt-24 md:pt-28 lg:pt-24 pb-8">
-          {/* Left content */}
-          <div className="flex flex-col justify-center w-full lg:w-1/2 text-center lg:text-left space-y-6 mb-10 lg:mb-0 anim-fade-left delay-0">
-            <h2 className="text-3xl md:text-4xl lg:text-4xl font-bold text-white leading-tight drop-shadow-lg anim-fade-up delay-2">
-              Enterprise Networking & IT Infrastructure Solutions in India
-            </h2>
+        {/* Decorative Glow */}
+        <div className="absolute -top-40 -left-40 w-[40rem] h-[40rem] bg-[#2571CA] opacity-20 blur-3xl rounded-full" />
+        <div className="absolute -bottom-40 -right-40 w-[40rem] h-[40rem] bg-[#E0115F] opacity-20 blur-3xl rounded-full" />
 
-            <p className="text-gray-200 text-base md:text-lg max-w-lg mx-auto lg:mx-0 leading-relaxed anim-fade-up delay-4">
-              At <span className="font-semibold text-[#87CEEB]">NETARK Technologies</span>, we deliver more than just technology — we deliver trust, reliability, and future-ready infrastructure.
-              With over <strong>20 years of experience</strong>, we specialise in <strong>Internet services, networking, data center solutions, server colocation, hosting services, and data backup</strong> for mission-critical businesses.
-              <br /><br />
-              Whether it’s <strong>campus networking, cloud solutions, or IT security</strong>, our expert team ensures your business stays connected, protected, and scalable.
-              <br /><br />
-              <span className="font-semibold text-[#87CEEB]">Partner with NETARK</span> – Your trusted Internet and Data Center Infrastructure experts in India.
+        {/* Content */}
+        <div className="relative z-30 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col lg:flex-row items-center justify-between gap-10 pt-24 sm:pt-28 md:pt-32 pb-10">
+          {/* Left Text Content */}
+          <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-white drop-shadow-[0_6px_24px_rgba(0,0,0,0.45)]">
+              Enterprise Networking & IT Infrastructure Solutions in India
+            </h1>
+
+            <p className="text-gray-200/95 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              At <span className="font-semibold text-[#87CEEB]">NETARK Technologies</span>, we deliver more than
+              just technology — we deliver trust, reliability, and future-ready infrastructure. With over{" "}
+              <strong>20 years of experience</strong>, we specialise in{" "}
+              <strong>
+                Internet services, networking, data center solutions, server colocation, hosting services, and data backup
+              </strong>{" "}
+              for mission-critical businesses. Whether it’s{" "}
+              <strong>campus networking, cloud solutions, or IT security</strong>, our expert team ensures your
+              business stays connected, protected, and scalable.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start anim-fade-up delay-6">
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Link to="/solutions">
                 <button className="px-6 py-3 border-2 border-white/80 rounded-lg text-white bg-white/10 backdrop-blur-sm font-bold hover:bg-white/20 transition-all hover:scale-105 text-base">
                   EXPLORE SOLUTIONS
                 </button>
               </Link>
-
-              <Link to="/contact" className="w-full sm:w-auto">
+              <Link to="/contact">
                 <button
                   className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#045ADF] to-[#2571CA] text-white font-bold shadow-lg hover:opacity-95 transition-all hover:scale-105 text-base"
                   style={{ boxShadow: "0 4px 16px 0 #0052b433" }}
                 >
-                  GET STARTED
+                  GET A QUOTE NOW
                 </button>
               </Link>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-6 max-w-sm mx-auto lg:mx-0 anim-fade-up delay-8">
+            <div className="grid grid-cols-3 gap-6 pt-6 max-w-sm mx-auto lg:mx-0">
               {[
                 { value: "20+", label: "Years Experience" },
                 { value: "500+", label: "Projects Completed" },
@@ -92,49 +100,14 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right image */}
-          <div className="w-full lg:w-1/2 flex justify-center items-center anim-fade-right delay-3">
-            <div className="w-4/5 sm:w-3/4 md:w-2/3 lg:w-[90%] xl:w-[95%] max-w-lg">
-              <ImageCarousel />
+          {/* Right Image Carousel */}
+          <div className="w-full lg:w-1/2 flex justify-center items-center">
+            <div className="w-[92%] sm:w-[80%] md:w-[70%] lg:w-[90%] xl:w-[95%] max-w-xl rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md p-2 shadow-[0_12px_48px_rgba(0,0,0,0.35)]">
+              <ImageCarousel images={backgroundImages} />
             </div>
           </div>
         </div>
       </section>
-
-      {/* Lightweight CSS animations (no framer-motion) */}
-      <style>{`
-        .anim-fade-up {
-          opacity: 0;
-          animation: fade-up 0.8s ease forwards;
-        }
-        .anim-fade-left {
-          opacity: 0;
-          animation: fade-left 0.8s ease forwards;
-        }
-        .anim-fade-right {
-          opacity: 0;
-          animation: fade-right 0.8s ease forwards;
-        }
-        .delay-0  { animation-delay: 0s; }
-        .delay-2  { animation-delay: .2s; }
-        .delay-3  { animation-delay: .3s; }
-        .delay-4  { animation-delay: .4s; }
-        .delay-6  { animation-delay: .6s; }
-        .delay-8  { animation-delay: .8s; }
-
-        @keyframes fade-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fade-left {
-          from { opacity: 0; transform: translateX(-30px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes fade-right {
-          from { opacity: 0; transform: translateX(30px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-      `}</style>
     </>
   );
 };
