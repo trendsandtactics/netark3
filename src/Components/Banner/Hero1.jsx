@@ -1,52 +1,31 @@
-
 import { Link } from "react-router-dom";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-/** 
- * @param {Object} props
- * @param {string=} props.SubTitle
- * @param {string=} props.Title
- * @param {string=} props.Content
- * @param {string=} props.BtnText
- * @param {string=} props.BtnLink
- * @param {string[]=} props.slides
- */
-const DEFAULT_SLIDES = ["/cam.jpg", "/internet.jpg", "/strategic.jpg"]; // keep in /public
-
-const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }) => {
-  const slides = useMemo(
-    () => (Array.isArray(slideProp) && slideProp.length ? slideProp : DEFAULT_SLIDES),
-    [slideProp]
-  );
+const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink }) => {
+  // Files must be in /public
+  const slides = ["/cam.jpg", "/internet.jpg", "/strategic.jpg"];
 
   const [idx, setIdx] = useState(0);
-  const timer = useRef(null);
 
   useEffect(() => {
-    // Preload
+    // simple pre-load
     slides.forEach((src) => {
       const img = new Image();
       img.src = src;
     });
 
-    // Autoplay
-    timer.current = window.setInterval(() => {
-      setIdx((i) => (i + 1) % slides.length);
-    }, 5000);
-
-    return () => {
-      if (timer.current) window.clearInterval(timer.current);
-    };
-  }, [slides]);
+    const id = setInterval(() => setIdx((i) => (i + 1) % slides.length), 5000);
+    return () => clearInterval(id);
+  }, []); // slides are constant
 
   return (
-    <section className="relative w-full h-[100svh] overflow-hidden flex items-center bg-transparent">
-      {/* Slides */}
+    <section className="relative w-full h-screen overflow-hidden flex items-center">
+      {/* Sliding background layers */}
       {slides.map((src, i) => (
         <div
           key={src}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity,transform] ${
-            i === idx ? "opacity-100 scale-100" : "opacity-0 scale-105"
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            i === idx ? "opacity-100" : "opacity-0"
           }`}
           style={{
             backgroundImage: `url(${src})`,
@@ -56,37 +35,39 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
         />
       ))}
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40" />
+      {/* Subtle dark overlay for text contrast */}
+      <div className="absolute inset-0 bg-black/25" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-12 h-full flex items-center">
-        <div className="max-w-3xl text-white">
-          {SubTitle ? (
-            <p className="text-xs tracking-[2px] uppercase text-sky-300/90 font-semibold mb-3">{SubTitle}</p>
-          ) : null}
+        <div className="max-w-3xl">
+          {SubTitle && (
+            <p className="text-xs tracking-[2px] uppercase text-sky-300/90 font-semibold mb-2">
+              {SubTitle}
+            </p>
+          )}
 
           <h1
-            className="text-4xl md:text-6xl font-extrabold leading-tight mb-4"
+            className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 text-white"
             dangerouslySetInnerHTML={{ __html: Title || "" }}
           />
 
-          {Content ? (
+          {Content && (
             <div
-              className="text-base md:text-lg leading-relaxed mb-8 text-white/90"
+              className="text-base md:text-lg leading-relaxed mb-8"
               dangerouslySetInnerHTML={{ __html: Content }}
             />
-          ) : null}
+          )}
 
           <div className="flex flex-wrap gap-4">
-            {BtnLink ? (
+            {BtnLink && (
               <Link
                 to={BtnLink}
-                className="px-6 py-3 rounded-md border border-white/80 text-white hover:bg-white/10 transition font-semibold backdrop-blur-sm"
+                className="px-6 py-3 rounded-md border border-black/80 text-black hover:bg-black hover:text-white transition font-semibold bg-white/70 backdrop-blur"
               >
                 {BtnText || "Learn More"}
               </Link>
-            ) : null}
+            )}
             <Link
               to="/contact"
               className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold"
@@ -95,26 +76,25 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
             </Link>
           </div>
 
-          {/* Stats */}
+          {/* Stats — horizontal alignment */}
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-10 md:gap-16">
             <div className="flex flex-col items-center">
-              <div className="bg-sky-400/90 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">20+</div>
-              <p className="bg-sky-400/90 text-black text-sm font-semibold px-3 py-1 rounded-sm">Years Experience</p>
+              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">20+</div>
+              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">Years Experience</p>
             </div>
+
             <div className="flex flex-col items-center">
-              <div className="bg-sky-400/90 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">500+</div>
-              <p className="bg-sky-400/90 text-black text-sm font-semibold px-3 py-1 rounded-sm">Projects Completed</p>
+              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">500+</div>
+              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">Projects Completed</p>
             </div>
+
             <div className="flex flex-col items-center">
-              <div className="bg-sky-400/90 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">100+</div>
-              <p className="bg-sky-400/90 text-black text-sm font-semibold px-3 py-1 rounded-sm">Happy Clients</p>
+              <div className="bg-sky-400 text-black font-extrabold text-4xl px-5 py-2 rounded-md mb-1">100+</div>
+              <p className="bg-sky-400 text-black text-sm font-semibold px-3 py-1 rounded-sm">Happy Clients</p>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Optional bottom gradient fade */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
     </section>
   );
 };
