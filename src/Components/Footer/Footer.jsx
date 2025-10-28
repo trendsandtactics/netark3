@@ -20,7 +20,7 @@ const Footer = () => {
       }}
     >
       <div className="container">
-        <div className="row gy-5">
+        <div className="row gy-5 align-items-start">
           {/* ====== LEFT: LOGO + DESCRIPTION ====== */}
           <div className="col-lg-4 col-md-6 text-center text-md-start">
             <div className="footer-logo mb-3">
@@ -48,8 +48,8 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* ====== MIDDLE: QUICK LINKS ====== */}
-          <div className="col-lg-4 col-md-6 text-center text-md-start">
+          {/* ====== CENTER: QUICK LINKS ====== */}
+          <div className="col-lg-4 col-md-6 text-center">
             <h5
               className="fw-semibold mb-3"
               style={{
@@ -61,8 +61,13 @@ const Footer = () => {
               Quick Links
             </h5>
             <ul
-              className="list-unstyled mb-0"
-              style={{ color: "#ccc", lineHeight: "1.9" }}
+              className="list-unstyled mb-0 d-inline-block text-start"
+              style={{
+                color: "#ccc",
+                lineHeight: "1.9",
+                margin: "0 auto",
+                textAlign: "left",
+              }}
             >
               <li>
                 <Link to="/" className="footer-link">
