@@ -1,57 +1,61 @@
-// src/Pages/Home.jsx
 import React from "react";
 
-// Sections
+// sections
+import HeroShowcase from "../Components/HeroShowcase";
 import About1 from "../Components/About/About1";
-import HeroShowcase from "../Components/HeroShowcase"; // ✅ use the new hero
-import Contact1 from "../Components/Contact/Contact1";
-import Features from "../Components/Features/Features";
 import Services1 from "../Components/Services/Services1";
+import Features from "../Components/Features/Features";
+import Contact1 from "../Components/Contact/Contact1";
 
 const RUBY_RED = "#9B111E";
 
 const Home = () => {
   return (
     <div className="home-page">
-      
-      {/* ===== HERO ===== */}
-      <section className="section-wrap">
-      <HeroShowcase />
-           </section>
-      
-      {/* ===== ABOUT ===== */}
+      {/* HERO — no padding wrapper */}
+      <HeroShowcase
+        images={[
+          "/hero1.jpg",
+          "/hero2.jpg",
+          "/hero3.jpg",
+          "/hero4.jpg",
+        ]}
+        intervalMs={5000}
+        accent="#3AA0FF"
+        headerOffset={80}  // change to your fixed navbar height; 0 if no fixed header
+      />
+
+      {/* ABOUT */}
       <section className="section-wrap">
         <About1 />
       </section>
 
-      {/* ===== SERVICES ===== */}
+      {/* SERVICES */}
       <section className="section-wrap">
         <Services1 />
       </section>
 
-      {/* ===== FEATURES ===== */}
+      {/* FEATURES */}
       <section className="section-wrap">
         <Features />
       </section>
 
-      {/* ===== CONTACT ===== */}
+      {/* CONTACT */}
       <section className="section-wrap section-wrap--last">
         <Contact1 />
       </section>
 
-      {/* ===== PAGE STYLES ===== */}
+      {/* page styles */}
       <style>{`
-        /* spacing between blocks (instead of <br/>) */
+        .home-page { overflow-x: hidden; }
         .section-wrap { padding-top: 64px; padding-bottom: 64px; }
         @media (min-width: 992px) {
           .section-wrap { padding-top: 88px; padding-bottom: 88px; }
         }
         .section-wrap--last { padding-bottom: 110px; }
 
-        /* brand tint */
         .section-title span { color: ${RUBY_RED} !important; }
 
-        /* buttons */
         .thm-btn, .hero-btn, .main-btn {
           background-color: ${RUBY_RED} !important;
           border-color: ${RUBY_RED} !important;
@@ -62,19 +66,6 @@ const Home = () => {
           background-color: #7b0d16 !important;
           border-color: #7b0d16 !important;
         }
-
-        /* (Optional) If any hero list text is used elsewhere, keep it readable on light bg */
-        .hero-list {
-          list-style: none;
-          padding-left: 0;
-          margin: 0;
-          color: #111;
-          line-height: 1.6;
-          font-size: 1.05rem;
-        }
-        .hero-list li { margin-bottom: 12px; }
-        .hero-list strong { color: #000; }
-        .hero-list .mt-2 { margin-top: 16px; }
       `}</style>
     </div>
   );
