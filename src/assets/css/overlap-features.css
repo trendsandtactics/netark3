@@ -1,114 +1,145 @@
-/* ==========================================================
-   overlap-features.css
-   Existing component styles + global layout fixes
-   ========================================================== */
-
-/* Your existing feature styles (keep whatever you already had) */
-.overlap-section {
+/* ===== Overlap section (with mobile-safe tweak) ===== */
+.feature-area.overlap {
   position: relative;
-  padding: 60px 0;
+  z-index: 5;
+  margin-top: -90px;
+  padding-top: 24px;
+  padding-bottom: 60px;
+  background: transparent;
 }
-
-.overlap-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  padding: 24px;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.overlap-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
-}
-
-.overlap-card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-top: 12px;
-  color: #0f172a;
-}
-
-.overlap-card p {
-  font-size: 0.95rem;
-  color: #555;
-  margin-top: 8px;
-  line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-  .overlap-section {
-    padding: 40px 0;
+@media (max-width: 767px) {
+  .feature-area.overlap {
+    margin-top: -40px; /* reduce negative overlap on small screens */
+    padding-top: 32px;
   }
 }
 
-/* ==========================================================
-   🔧 GLOBAL FIX: Remove White Blank Space Around Header/Hero
-   ========================================================== */
-
-html,
-body,
-#root {
-  margin: 0 !important;
-  padding: 0 !important;
+/* ===== One row, 3 equal columns ===== */
+.features-row-nowrap {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 1×3 layout */
+  gap: 30px;
+  align-items: stretch;      /* equal heights */
+  justify-items: center;     /* center cards when they have max-width */
 }
 
-body {
-  padding-top: 0 !important;
-  background-color: #000; /* Prevent white flash behind transparent header */
+/* Tablets: 2 columns */
+@media (max-width: 991px) {
+  .features-row-nowrap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+/* Mobile: 1 column */
+@media (max-width: 576px) {
+  .features-row-nowrap {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Header and Nav normalization */
-header,
-nav,
-.cs_site_header,
-.main-nav {
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0;
-  background-color: #0b0c10 !important; /* Solid navy/black header */
-}
-
-/* Ensure the hero section touches the header (no gap) */
-main > section:first-child,
-.hero-area,
-.page-hero,
-.about-banner {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Remove stray white lines from image inline gaps */
-.hero-area img,
-.page-hero img,
-.about-banner img {
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-/* Remove top rounded corners that can show white body bg */
-.page-hero,
-.about-banner,
-.hero-frame {
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-}
-
-/* Optional: fix fullwidth hero alignment */
-.hero-area,
-.page-hero {
+/* ===== Card ===== */
+.feature-card.large {
   width: 100%;
-  overflow: hidden;
+  max-width: 400px;
+  border-radius: 20px;
+  background-color: #ffffff; /* ✅ Always white background */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+  padding: 40px 32px;
+  text-align: center;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  background-blend-mode: overlay;
+  color: #000000; /* ✅ text inside card always black */
+}
+.features-row-nowrap > .feature-card.large {
+  height: 100%;
 }
 
-/* Optional: if you use sticky header, this helps */
-body.has-sticky-header main {
-  padding-top: var(--header-h, 0px);
+/* Hover + focus visible */
+.feature-card.large:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  border-color: rgba(0, 0, 0, 0.12);
+  background-color: #ffffff; /* ✅ still white on hover */
+}
+.feature-card.large:focus-within {
+  outline: 2px solid #E0115F; /* Ruby red focus ring */
+  outline-offset: 3px;
 }
 
-/* ==========================================================
-   ✅ END OF GLOBAL FIX
-   ========================================================== */
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card.large {
+    transition: none;
+  }
+  .feature-card.large:hover {
+    transform: none;
+  }
+}
+
+/* ===== Icon halo ===== */
+.icon-wrap {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 18px auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background: rgba(224, 17, 95, 0.1); /* subtle ruby halo */
+}
+.icon-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(224, 17, 95, 0.25);
+  pointer-events: none;
+}
+.icon-wrap img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+/* ===== Title ===== */
+.feature-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #000000; /* ✅ black */
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+
+/* ===== Bullet list ===== */
+.feature-list {
+  text-align: left;
+  margin: 14px auto 0;
+  padding-left: 20px;
+  max-width: 90%;
+  line-height: 1.6;
+  color: #000000; /* ✅ black text */
+  font-size: 0.98rem;
+}
+.feature-list li {
+  margin-bottom: 6px;
+}
+.feature-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== Dark mode (keeps white) ===== */
+@media (prefers-color-scheme: dark) {
+  .feature-card.large {
+    background-color: #ffffff !important; /* ✅ force white even in dark mode */
+    color: #000000 !important;
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+  .feature-title { color: #000000 !important; }
+  .feature-list { color: #000000 !important; }
+}
