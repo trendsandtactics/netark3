@@ -16,7 +16,7 @@ const SERVICES = [
   { title: "Cloud Solutions", icon: Cloud, image: "/assets/images/Cloudsolutions.jpg" },
   { title: "Information Security", icon: Shield, image: "/assets/images/Informationsecurityy.jpg" },
   { title: "Data Storage & Backup", icon: Database, image: "/assets/images/Datastorage.png" },
-  { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT .png" }, /* ensure filename: no spaces */
+  { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT.png" }, /* ensure filename: no spaces */
   { title: "Unified Communications & Mobility", icon: PhoneCall, image: "/assets/images/Unifiedcommunications.jpg" },
   { title: "Open-Source IT Solutions", icon: Code, image: "/assets/images/07.jpg" },
 ];
