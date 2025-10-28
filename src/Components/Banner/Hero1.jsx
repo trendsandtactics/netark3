@@ -1,13 +1,9 @@
-// src/components/HeroSection.jsx
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ImageCarousel from "./ImageCarousel";
-import GetStartedForm from "./GetStartedForm";
 
 const HeroSection = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
 
   const backgroundImages = [
@@ -26,12 +22,6 @@ const HeroSection = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, [backgroundImages.length]);
-
-  const handleGetStartedClick = (e) => {
-    e.preventDefault();
-    setIsFormOpen(true);
-    setIsOpen(false);
-  };
 
   return (
     <>
@@ -99,13 +89,14 @@ const HeroSection = () => {
                 </button>
               </Link>
 
-              <button
-                onClick={handleGetStartedClick}
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#045ADF] to-[#2571CA] text-white font-bold shadow-lg hover:opacity-95 transition-all hover:scale-105 text-base"
-                style={{ boxShadow: "0 4px 16px 0 #0052b433" }}
-              >
-                GET STARTED
-              </button>
+              <Link to="/contact" className="w-full sm:w-auto">
+                <button
+                  className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#045ADF] to-[#2571CA] text-white font-bold shadow-lg hover:opacity-95 transition-all hover:scale-105 text-base"
+                  style={{ boxShadow: "0 4px 16px 0 #0052b433" }}
+                >
+                  GET STARTED
+                </button>
+              </Link>
             </motion.div>
 
             {/* Stats */}
@@ -143,8 +134,6 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </section>
-
-      <GetStartedForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
     </>
   );
 };
