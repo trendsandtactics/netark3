@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
@@ -10,6 +11,14 @@ const About1 = ({
   BtnUrl = "/about",
   BtnText = "Learn More",
 }) => {
+  // 👇 Add this effect to scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // change to "auto" for instant scroll
+    });
+  }, []);
+
   return (
     <div className="about-area">
       <div className="container">
@@ -34,7 +43,12 @@ const About1 = ({
             </div>
 
             <div className="solutek-btn">
-              <Link to={BtnUrl}>
+              <Link
+                to={BtnUrl}
+                onClick={() =>
+                  window.scrollTo({ top: 0, behavior: "smooth" })
+                } // ensures scroll when clicking button
+              >
                 {BtnText}
                 <div className="solutek-hover-btn hover-bx"></div>
                 <div className="solutek-hover-btn hover-bx2"></div>
