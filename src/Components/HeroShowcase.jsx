@@ -60,27 +60,28 @@ export default function HeroShowcase() {
         ))}
       </Swiper>
 
-      {/* Wider Info Box – bottom left */}
+      {/* Info box – bottom left */}
       <div
         style={{
           position: "absolute",
-          left: "5%",
+          left: "4%",
           bottom: "6%",
           zIndex: 3,
-          maxWidth: "700px", // ⬅ increased width
+          maxWidth: "700px",
           background:
-            "linear-gradient(180deg, rgba(20,25,40,0.75) 0%, rgba(15,18,30,0.85) 100%)",
-          border: "1px solid rgba(255,255,255,0.1)",
-          borderRadius: "18px",
-          padding: "36px 40px", // ⬅ more spacious padding
-          boxShadow: "0 12px 32px rgba(0,0,0,0.5)",
-          backdropFilter: "blur(8px)",
+            "linear-gradient(180deg, rgba(20,25,40,0.70) 0%, rgba(15,18,30,0.80) 100%)",
+          border: "1px solid rgba(255,255,255,0.10)",
+          borderRadius: "16px",
+          padding: "36px 40px",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+          backdropFilter: "blur(6px)",
         }}
       >
+        {/* Title */}
         <h2
           className="fw-bold mb-4"
           style={{
-            color: "#ffffff",
+            color: "#FFFFFF",
             fontSize: "clamp(26px, 3.8vw, 48px)",
             lineHeight: 1.2,
           }}
@@ -88,10 +89,11 @@ export default function HeroShowcase() {
           Enterprise Networking &amp; IT Infrastructure Solutions in India
         </h2>
 
+        {/* Body Paragraph 1 */}
         <p
           className="mb-3"
           style={{
-            color: "#ffffff",
+            color: "#CCCCCC",
             fontSize: "clamp(14px, 1.3vw, 18px)",
             lineHeight: 1.6,
           }}
@@ -105,10 +107,11 @@ export default function HeroShowcase() {
           mission-critical businesses.
         </p>
 
+        {/* Body Paragraph 2 */}
         <p
           className="mb-4"
           style={{
-            color: "#ffffff",
+            color: "#CCCCCC",
             fontSize: "clamp(14px, 1.3vw, 18px)",
             lineHeight: 1.6,
           }}
@@ -118,6 +121,7 @@ export default function HeroShowcase() {
           trusted Internet and Data Center Infrastructure experts in India.
         </p>
 
+        {/* CTA Button */}
         <Link
           to="/contact"
           className="btn btn-lg px-5 py-2"
