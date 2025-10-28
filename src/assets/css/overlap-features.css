@@ -112,3 +112,65 @@ body.has-sticky-header main {
 /* ==========================================================
    ✅ END OF GLOBAL FIX
    ========================================================== */
+
+
+/* ==========================================================
+   🚫 HARD OVERRIDE: Nuke any white bg from header wrappers
+   ========================================================== */
+
+:root { --header-bg: #0b0c10; }
+
+html, body, #root {
+  background: #000; /* optional */
+}
+
+/* Cover all common theme wrappers that may set white bg */
+header,
+.cs_site_header,
+.header_style_2,
+.cs_sticky_header,
+.cs_site_header_full_width,
+.cs_main_header,
+.cs_main_header_in,
+.container-fluid {
+  background: var(--header-bg) !important;
+  background-color: var(--header-bg) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Some themes paint via pseudo elements */
+header::before, header::after,
+.cs_site_header::before, .cs_site_header::after,
+.cs_main_header::before, .cs_main_header::after,
+.cs_main_header_in::before, .cs_main_header_in::after,
+.container-fluid::before, .container-fluid::after {
+  content: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+/* Nav area visuals */
+.main-nav,
+.cs_nav { background: transparent !important; }
+
+.main-nav a,
+.cs_nav a {
+  color: #fff !important;
+}
+.main-nav a:hover,
+.cs_nav a:hover {
+  color: #E0115F !important;
+}
+
+/* Make absolutely sure first content block starts flush */
+main > section:first-child,
+.hero-area,
+.page-hero,
+.about-banner {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
