@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 const HeroSection = () => {
   const backgroundImages = useMemo(
     () => [
-      "/internet.jpg",
-      "/security.png",
-      "/strategic.jpg",
-      "/world.jpg",
-      "/cctv.jpg",
-      "/enterprise.jpg",
+      "/1.png",
+      "/2.png",
+      "/3.png",
+      "/4.png",
     ],
     []
   );
