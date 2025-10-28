@@ -15,11 +15,10 @@ export default function HeroShowcase({
       imagesProp.length
         ? imagesProp
         : [
-            "/hero-1.jpg",
-            "/hero-2.jpg",
-            "/hero-3.jpg",
-            "/hero-4.jpg",
-            "/hero-5.jpg",
+            "/1.png",
+            "/2.png",
+            "/3.png",
+            "/4.png",
           ],
     [imagesProp]
   );
