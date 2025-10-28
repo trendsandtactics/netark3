@@ -1,37 +1,37 @@
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-type Hero1Props = {
-  SubTitle?: string;
-  Title?: string;
-  Content?: string;
-  BtnText?: string;
-  BtnLink?: string;
-  slides?: string[]; // optional: pass custom images; default fallback below
-};
+/** 
+ * @param {Object} props
+ * @param {string=} props.SubTitle
+ * @param {string=} props.Title
+ * @param {string=} props.Content
+ * @param {string=} props.BtnText
+ * @param {string=} props.BtnLink
+ * @param {string[]=} props.slides
+ */
+const DEFAULT_SLIDES = ["/cam.jpg", "/internet.jpg", "/strategic.jpg"]; // keep in /public
 
-const DEFAULT_SLIDES = ["/cam.jpg", "/internet.jpg", "/strategic.jpg"]; // keep these in /public
-
-const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }: Hero1Props) => {
-  // slides stable ref (avoid re-renders)
-  const slides = useMemo(() => (Array.isArray(slideProp) && slideProp.length ? slideProp : DEFAULT_SLIDES), [slideProp]);
+const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }) => {
+  const slides = useMemo(
+    () => (Array.isArray(slideProp) && slideProp.length ? slideProp : DEFAULT_SLIDES),
+    [slideProp]
+  );
 
   const [idx, setIdx] = useState(0);
-  const timer = useRef<number | null>(null);
+  const timer = useRef(null);
 
-  // Preload + autoplay
   useEffect(() => {
+    // Preload
     slides.forEach((src) => {
       const img = new Image();
       img.src = src;
     });
 
-    const start = () => {
-      timer.current = window.setInterval(() => {
-        setIdx((i) => (i + 1) % slides.length);
-      }, 5000);
-    };
-    start();
+    // Autoplay
+    timer.current = window.setInterval(() => {
+      setIdx((i) => (i + 1) % slides.length);
+    }, 5000);
 
     return () => {
       if (timer.current) window.clearInterval(timer.current);
@@ -44,8 +44,9 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
       {slides.map((src, i) => (
         <div
           key={src}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity,transform] 
-                      ${i === idx ? "opacity-100 scale-100" : "opacity-0 scale-105"}`}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-out will-change-[opacity,transform] ${
+            i === idx ? "opacity-100 scale-100" : "opacity-0 scale-105"
+          }`}
           style={{
             backgroundImage: `url(${src})`,
             backgroundSize: "cover",
@@ -54,40 +55,37 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
         />
       ))}
 
-      {/* Dark overlay for contrast (no white) */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black/40" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 md:px-10 lg:px-12 h-full flex items-center">
         <div className="max-w-3xl text-white">
-          {!!SubTitle && (
-            <p className="text-xs tracking-[2px] uppercase text-sky-300/90 font-semibold mb-3">
-              {SubTitle}
-            </p>
-          )}
+          {SubTitle ? (
+            <p className="text-xs tracking-[2px] uppercase text-sky-300/90 font-semibold mb-3">{SubTitle}</p>
+          ) : null}
 
           <h1
             className="text-4xl md:text-6xl font-extrabold leading-tight mb-4"
             dangerouslySetInnerHTML={{ __html: Title || "" }}
           />
 
-          {!!Content && (
+          {Content ? (
             <div
               className="text-base md:text-lg leading-relaxed mb-8 text-white/90"
               dangerouslySetInnerHTML={{ __html: Content }}
             />
-          )}
+          ) : null}
 
-          {/* CTA buttons — no white background */}
           <div className="flex flex-wrap gap-4">
-            {BtnLink && (
+            {BtnLink ? (
               <Link
                 to={BtnLink}
                 className="px-6 py-3 rounded-md border border-white/80 text-white hover:bg-white/10 transition font-semibold backdrop-blur-sm"
               >
                 {BtnText || "Learn More"}
               </Link>
-            )}
+            ) : null}
             <Link
               to="/contact"
               className="px-6 py-3 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-semibold"
@@ -114,7 +112,7 @@ const Hero1 = ({ SubTitle, Title, Content, BtnText, BtnLink, slides: slideProp }
         </div>
       </div>
 
-      {/* Optional bottom gradient fade (looks premium, hides hard edges) */}
+      {/* Optional bottom gradient fade */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
     </section>
   );
