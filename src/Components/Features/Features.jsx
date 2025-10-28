@@ -5,28 +5,16 @@ import { Globe, Cloud, ShieldCheck } from "lucide-react";
 const RUBY_RED = "#E0115F";
 
 const SOLUTIONS = [
-  {
-    icon: Globe,
-    title: "Global IT Infrastructure",
-    desc: "End-to-end connectivity, networking, and infrastructure design.",
-  },
-  {
-    icon: Cloud,
-    title: "Cloud & Data Center",
-    desc: "Reliable hosting, co-location, and enterprise-grade cloud solutions.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Cybersecurity & Compliance",
-    desc: "Protecting data integrity and network security with best practices.",
-  },
+  { icon: Globe, title: "Global IT Infrastructure" },
+  { icon: Cloud, title: "Cloud & Data Center" },
+  { icon: ShieldCheck, title: "Cybersecurity & Compliance" },
 ];
 
 const Solutions = () => {
   return (
     <section className="bg-gray-50 relative z-10 py-16 md:py-20 lg:py-24 mt-24 md:mt-28">
       <div className="container mx-auto px-6 md:px-10 lg:max-w-7xl">
-        {/* Section Heading (Subtitle removed) */}
+        {/* Section Heading */}
         <div className="text-center mb-12">
           <SectionTitle
             Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
@@ -49,7 +37,6 @@ const Solutions = () => {
                 </div>
 
                 <h3 className="service-title text-lg lg:text-xl">{item.title}</h3>
-                <p className="service-desc">{item.desc}</p>
               </article>
             );
           })}
@@ -70,7 +57,7 @@ const Solutions = () => {
         .service-card {
           width: 100%;
           max-width: 320px;
-          min-height: 260px;
+          min-height: 220px;
           background: #fff;
           border: 1px solid #e5e7eb;
           border-radius: 16px;
@@ -87,18 +74,10 @@ const Solutions = () => {
         .icon-wrap { margin-bottom: 14px; }
 
         .service-title {
-          margin: 0 0 8px 0;
+          margin: 0;
           font-weight: 700;
           color: #333;
           line-height: 1.3;
-          transition: color 0.3s ease;
-        }
-
-        .service-desc {
-          margin: 0;
-          color: #4b5563;
-          font-size: 0.95rem;
-          line-height: 1.5;
           transition: color 0.3s ease;
         }
 
@@ -110,8 +89,7 @@ const Solutions = () => {
           box-shadow: 0 10px 25px rgba(224, 17, 95, 0.25);
           border-color: transparent;
         }
-        .service-card:hover .service-title,
-        .service-card:hover .service-desc {
+        .service-card:hover .service-title {
           color: #fff;
         }
         .service-card:hover .icon {
