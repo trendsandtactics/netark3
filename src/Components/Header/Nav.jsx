@@ -245,4 +245,281 @@ const Nav = ({ onNavigate }) => {
                         value={form.phone}
                         onChange={handleChange}
                         required
-                        style=
+                        style={inputStyle(!!errors.phone)}
+                      />
+                      {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
+                    </label>
+                  </div>
+
+                  <label>
+                    Service Interested In
+                    <select
+                      name="service"
+                      value={form.service}
+                      onChange={handleChange}
+                      style={inputStyle(false)}
+                    >
+                      <option value="">Select a service</option>
+                      {services.map((s) => (
+                        <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </label>
+
+                  <label>
+                    Your Message / Requirements*
+                    <textarea
+                      name="message"
+                      placeholder="Briefly describe your requirements…"
+                      rows={4}
+                      value={form.message}
+                      onChange={handleChange}
+                      required
+                      style={inputStyle(!!errors.message)}
+                    />
+                    {errors.message && <small style={errorStyle}>{errors.message}</small>}
+                  </label>
+
+                  <div className="actions">
+                    <button type="button" className="btn ghost" onClick={() => setQuoteOpen(false)}>
+                      Cancel
+                    </button>
+                    <button className="btn primary" type="submit">
+                      Submit Request
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </>,
+          document.body
+        )
+      }
+
+      <style>{`
+        .main-nav .nav-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          gap: 24px;
+          align-items: center;
+        }
+        .main-nav a {
+          text-decoration: none;
+          color: #fff;
+          font-weight: 500;
+          font-size: 1rem;
+          transition: color .25s ease;
+        }
+        .main-nav a:hover { color: ${RUBY}; }
+
+        @media (max-width: 991px) {
+          .main-nav .nav-list { display: none; }
+
+          .app-mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .25s ease, visibility .25s ease;
+            z-index: 2147483646;
+          }
+          .app-mobile-overlay.show { opacity: 1; visibility: visible; }
+
+          .app-mobile-drawer {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100vh;
+            background: #0e0f2c;
+            color: #fff;
+            transition: right .25s ease;
+            padding: 70px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(255,255,255,0.08);
+            z-index: 2147483647;
+            gap: 12px;
+          }
+          .app-mobile-drawer.open { right: 0; }
+
+          .app-drawer-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+          }
+          .app-drawer-links li a {
+            display: block;
+            padding: 14px 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+          }
+          .app-drawer-links li:last-child a { border-bottom: 0; }
+          .app-drawer-links li a:hover { color: ${RUBY}; }
+        }
+
+        @media (min-width: 992px) {
+          .app-mobile-drawer, .app-mobile-overlay { display: none; }
+        }
+
+        /* ===== Body lock when modal open ===== */
+        body.modal-open { overflow: hidden; }
+
+        /* ======== PORTAL MODAL LAYOUT ======== */
+        .quote-layer {
+          position: fixed;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)) 16px;
+          z-index: 2147483647;
+        }
+        .quote-backdrop {
+          position: absolute;
+          inset: 0;
+          background: rgba(0,0,0,0.5);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+        }
+
+        /* ===== Navy gradient modal ===== */
+        .quote-panel {
+          position: relative;
+          width: min(720px, 96vw);
+          max-height: min(88vh, 820px);
+          background: linear-gradient(135deg, #0e0f2c 0%, #1a1f3f 100%);
+          color: #fff;
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 14px;
+          box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+          padding: 28px;
+          overflow: auto;
+          box-sizing: border-box;
+          animation: modal-in 160ms ease-out both;
+        }
+        @keyframes modal-in {
+          from { transform: translateY(8px) scale(0.98); opacity: 0; }
+          to   { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .quote-close {
+          position: absolute;
+          top: 10px;
+          right: 14px;
+          background: transparent;
+          border: 0;
+          font-size: 22px;
+          color: #fff;
+          cursor: pointer;
+        }
+        .quote-panel h3 {
+          margin: 0 0 18px 0;
+          color: ${RUBY};
+          font-size: 1.6rem;
+          font-weight: 700;
+        }
+
+        .quote-form {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .quote-form .row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .quote-form label {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          font-size: 0.95rem;
+          color: #fff;
+          font-weight: 600;
+        }
+        .quote-form input,
+        .quote-form select,
+        .quote-form textarea {
+          background: rgba(255,255,255,0.08);
+          color: #fff;
+          border: 1px solid rgba(255,255,255,0.25);
+          border-radius: 8px;
+          padding: 10px 12px;
+          outline: none;
+          font-size: 0.95rem;
+        }
+        .quote-form input::placeholder,
+        .quote-form textarea::placeholder { color: #bbb; }
+
+        .actions {
+          display: flex;
+          gap: 10px;
+          justify-content: flex-end;
+          margin-top: 6px;
+        }
+        .btn {
+          padding: 10px 14px;
+          border-radius: 8px;
+          border: 1px solid transparent;
+          cursor: pointer;
+          font-weight: 600;
+        }
+        .btn.primary {
+          background: ${RUBY};
+          color: #fff;
+          border-color: ${RUBY};
+          box-shadow: 0 0 12px rgba(161,22,42,0.4);
+        }
+        .btn.primary:hover { filter: brightness(1.05); }
+        .btn.ghost {
+          background: transparent;
+          color: #fff;
+          border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn.ghost:hover { background: rgba(255,255,255,0.1); }
+
+        @media (max-width: 640px) {
+          .quote-form .row { grid-template-columns: 1fr; }
+        }
+
+        /* Success alert on dark */
+        .alert {
+          background: rgba(141, 247, 177, 0.08);
+          border: 1px solid rgba(141, 247, 177, 0.35);
+          color: #b9ffd1;
+          padding: 12px 14px;
+          border-radius: 8px;
+          margin-bottom: 12px;
+          font-weight: 600;
+        }
+      `}</style>
+    </>
+  );
+};
+
+// Dark-theme input style (border turns red on error)
+const inputStyle = (hasError) => ({
+  borderRadius: 8,
+  border: `1px solid ${hasError ? "#e03131" : "rgba(255,255,255,0.25)"}`,
+  padding: "10px 12px",
+  outline: "none",
+  width: "100%",
+  color: "#fff",
+  background: "rgba(255,255,255,0.08)",
+  boxShadow: "none",
+});
+const errorStyle = {
+  color: "#ffb3b3",
+  fontSize: 12,
+  marginTop: 4,
+  display: "inline-block",
+};
+
+export default Nav;
