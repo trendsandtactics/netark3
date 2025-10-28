@@ -7,7 +7,6 @@ import Services1 from "../Components/Services/Services1";
 const RUBY_RED = "#9B111E";
 
 const Home = () => {
-  // ❗️Removed inline black colors; keep markup simple & theme-controlled
   const heroText = `
     <ul class="hero-list">
       <li><strong>Enterprise Networking & IT Infrastructure Solutions in India</strong></li>
@@ -29,15 +28,12 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      {/* HERO with slideshow */}
       <Hero1
         SubTitle="NETARK Technologies"
         Title={`<span style='color:${RUBY_RED};'>Empowering Businesses with Reliable IT Infrastructure</span>`}
         Content={heroText}
         BtnText="EXPLORE SOLUTIONS"
         BtnLink="/about"
-        // Optional: pass your own images (ensure these exist in /public)
-        // slides={["/cam.jpg", "/internet.jpg", "/strategic.jpg"]}
       />
 
       <About1 />
@@ -46,7 +42,6 @@ const Home = () => {
       <Contact1 />
 
       <style>{`
-        /* Keep brand ruby on spans in section titles, but avoid forcing dark colors inside hero content */
         .section-title span { color: ${RUBY_RED} !important; }
 
         .thm-btn, .hero-btn, .main-btn {
@@ -60,17 +55,17 @@ const Home = () => {
           border-color: #7b0d16 !important;
         }
 
-        /* Hero content styling (white-friendly) */
+        /* Hero content black theme */
         .hero-list {
           list-style: none;
           padding-left: 0;
           margin: 0;
-          color: rgba(255,255,255,0.92); /* readable on dark overlay */
+          color: #111;           /* black text */
           line-height: 1.6;
           font-size: 1.05rem;
         }
         .hero-list li { margin-bottom: 12px; }
-        .hero-list strong { color: #fff; }
+        .hero-list strong { color: #000; }
         .hero-list .mt-2 { margin-top: 16px; }
       `}</style>
     </div>
