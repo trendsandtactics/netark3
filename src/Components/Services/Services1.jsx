@@ -32,7 +32,7 @@ const Services1 = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="service-area py-20 md:py-24 bg-white mb-56 md:mb-64">
+    <section className="service-area py-20 md:py-24 bg-white mb-64 md:mb-72">
       <div className="container">
         <div className="text-center mb-12">
           <SectionTitle
