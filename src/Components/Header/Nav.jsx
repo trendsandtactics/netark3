@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import GetStartedForm from "./GetStartedForm";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isFormOpen, setIsFormOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -19,10 +18,9 @@ const Navbar = () => {
   const isActivePath = (path) =>
     location.pathname === path || location.pathname.startsWith(`${path}/`);
 
-  const handleGetStartedClick = (e) => {
-    e.preventDefault();
-    setIsFormOpen(true);
-    setIsOpen(false); // Close mobile menu if open
+  const handleGetStartedClick = () => {
+    setIsOpen(false);
+    navigate("/contact");
   };
 
   return (
@@ -59,7 +57,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* CTA Buttons - Desktop */}
+            {/* CTA Button - Desktop */}
             <div className="hidden lg:flex items-center space-x-3">
               <button
                 onClick={handleGetStartedClick}
@@ -113,9 +111,6 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-
-      {/* Get Started Form Modal */}
-      <GetStartedForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
     </>
   );
 };
