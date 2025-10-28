@@ -30,7 +30,7 @@ const iconMap = {
 };
 
 const Services1 = () => {
-  const services = (Array.isArray(data) ? data : []).slice(0, 10);
+  const services = Array.isArray(data) ? data.slice(0, 10) : [];
 
   return (
     <section className="service-area py-16 bg-white mb-24 md:mb-28">
@@ -43,16 +43,16 @@ const Services1 = () => {
           />
         </div>
 
-        {/* Services Grid */}
+        {/* Services Grid (2 Rows, 5 per row) */}
         <div className="services-grid mb-12">
           {services.map((item, i) => {
             const title = item?.title || "Untitled Service";
             const Icon = iconMap[title] || Monitor;
-            const image = item?.image || "/placeholder.jpg";
+            const image = item?.image;
 
             return (
               <article key={i} className="service-card">
-                {/* Image Section */}
+                {/* Image */}
                 <div className="image-wrap">
                   <img
                     src={image}
@@ -61,14 +61,14 @@ const Services1 = () => {
                   />
                 </div>
 
-                {/* Content Section */}
+                {/* Icon + Title */}
                 <div className="content-wrap">
                   <div className="icon-title">
                     <Icon
-                      size={32}
+                      size={28}
                       strokeWidth={1.6}
                       color={RUBY_RED}
-                      className="icon mr-3"
+                      className="icon"
                     />
                     <h3 className="service-title">{title}</h3>
                   </div>
@@ -94,15 +94,15 @@ const Services1 = () => {
       <style>{`
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 32px;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 28px;
           justify-items: center;
           align-items: stretch;
         }
 
         .service-card {
           width: 100%;
-          max-width: 380px;
+          max-width: 260px;
           background: #fff;
           border: 1px solid #e5e7eb;
           border-radius: 16px;
@@ -113,7 +113,7 @@ const Services1 = () => {
 
         .image-wrap {
           width: 100%;
-          height: 180px;
+          height: 160px;
           overflow: hidden;
         }
 
@@ -121,15 +121,10 @@ const Services1 = () => {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.5s ease;
-        }
-
-        .service-card:hover .service-image {
-          transform: scale(1.05);
         }
 
         .content-wrap {
-          padding: 16px 20px 24px;
+          padding: 16px 18px 22px;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -143,14 +138,21 @@ const Services1 = () => {
 
         .service-title {
           font-weight: 600;
-          font-size: 1rem;
+          font-size: 0.95rem;
           color: #111;
         }
 
+        /* Responsive adjustments */
+        @media (max-width: 1280px) {
+          .services-grid { grid-template-columns: repeat(4, 1fr); }
+        }
         @media (max-width: 1024px) {
+          .services-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
           .services-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        @media (max-width: 640px) {
+        @media (max-width: 480px) {
           .services-grid { grid-template-columns: 1fr; }
         }
       `}</style>
