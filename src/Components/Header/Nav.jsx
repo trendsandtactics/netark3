@@ -1,10 +1,9 @@
 // src/components/Nav.jsx
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const RUBY = "#A1162A";
-const GREY = "#CCCCCC";
 
 const services = [
   "Internet Services",
@@ -18,15 +17,6 @@ const services = [
 
 const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 const phoneOk = (v) => /^[0-9+()\-\s]{7,20}$/.test(v);
-
-// Scroll to top on every route change
-function ScrollRestorer() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [pathname]);
-  return null;
-}
 
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
@@ -65,9 +55,7 @@ const Nav = ({ onNavigate }) => {
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
-    // close mobile drawer & scroll to top
     setDrawerOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -124,7 +112,7 @@ const Nav = ({ onNavigate }) => {
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
 
-    console.log("Quote request:", form); // replace with API
+    console.log("Quote request:", form); // swap with API call
     setSubmitted(true);
     setTimeout(() => {
       setQuoteOpen(false);
@@ -143,9 +131,6 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* Scroll-to-top watcher */}
-      <ScrollRestorer />
-
       {/* HEADER NAV */}
       <nav className="main-nav">
         {!isMobile && (
@@ -312,9 +297,6 @@ const Nav = ({ onNavigate }) => {
       }
 
       <style>{`
-        /* Remove iOS/Android white tap highlight */
-        .main-nav a, .app-drawer-links a, .btn { -webkit-tap-highlight-color: transparent; }
-
         .main-nav .nav-list {
           list-style: none;
           margin: 0;
@@ -325,13 +307,12 @@ const Nav = ({ onNavigate }) => {
         }
         .main-nav a {
           text-decoration: none;
-          color: ${GREY};
+          color: #fff;
           font-weight: 500;
           font-size: 1rem;
-          transition: color .25s ease, opacity .25s ease;
-          opacity: 0.95;
+          transition: color .25s ease;
         }
-        .main-nav a:hover, .main-nav a:focus-visible { color: ${RUBY}; opacity: 1; }
+        .main-nav a:hover { color: ${RUBY}; }
 
         @media (max-width: 991px) {
           .main-nav .nav-list { display: none; }
@@ -354,7 +335,7 @@ const Nav = ({ onNavigate }) => {
             width: 280px;
             height: 100vh;
             background: #0e0f2c;
-            color: ${GREY};
+            color: #fff;
             transition: right .25s ease;
             padding: 70px 18px 18px;
             display: flex;
@@ -376,14 +357,12 @@ const Nav = ({ onNavigate }) => {
             display: block;
             padding: 14px 6px;
             border-bottom: 1px solid rgba(255,255,255,0.08);
-            color: ${GREY};
+            color: #fff;
             text-decoration: none;
             font-weight: 500;
-            transition: color .2s ease;
           }
           .app-drawer-links li:last-child a { border-bottom: 0; }
-          .app-drawer-links li a:hover,
-          .app-drawer-links li a:focus-visible { color: ${RUBY}; }
+          .app-drawer-links li a:hover { color: ${RUBY}; }
         }
 
         @media (min-width: 992px) {
@@ -501,7 +480,7 @@ const Nav = ({ onNavigate }) => {
         .btn.primary:hover { filter: brightness(1.05); }
         .btn.ghost {
           background: transparent;
-          color: ${GREY};
+          color: #fff;
           border: 1px solid rgba(255,255,255,0.3);
         }
         .btn.ghost:hover { background: rgba(255,255,255,0.1); }
@@ -510,6 +489,7 @@ const Nav = ({ onNavigate }) => {
           .quote-form .row { grid-template-columns: 1fr; }
         }
 
+        /* Success alert on dark */
         .alert {
           background: rgba(141, 247, 177, 0.08);
           border: 1px solid rgba(141, 247, 177, 0.35);
