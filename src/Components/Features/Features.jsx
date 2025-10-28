@@ -17,7 +17,7 @@ const Solutions = () => {
       <div className="container mx-auto px-6 md:px-10 lg:max-w-7xl">
         {/* White Space Before Content */}
         <div className="h-20 md:h-28"></div>
-
+<br></br>
         {/* Section Heading */}
         <div className="text-center mb-14">
           <SectionTitle
