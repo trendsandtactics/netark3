@@ -7,23 +7,22 @@ import Services1 from "../Components/Services/Services1";
 const RUBY_RED = "#9B111E";
 
 const Home = () => {
+  // ❗️Removed inline black colors; keep markup simple & theme-controlled
   const heroText = `
-    <ul style='list-style:none; padding-left:0; margin:0;'>
-      <li style='margin-bottom:12px; font-size:1.25rem; font-weight:600; color:#000;'>
-        • Enterprise Networking & IT Infrastructure Solutions in India
+    <ul class="hero-list">
+      <li><strong>Enterprise Networking & IT Infrastructure Solutions in India</strong></li>
+      <li>
+        At <strong>NETARK Technologies</strong>, we deliver more than just technology —
+        we deliver trust, reliability, and future-ready infrastructure. With 20+ years of experience,
+        we specialise in Internet services, networking, data center solutions, server colocation,
+        hosting, and data backup for mission-critical businesses.
       </li>
-      <li style='margin-bottom:12px; color:#333; line-height:1.6;'>
-        • At <strong style='color:#000;'>NETARK Technologies</strong>, we deliver more than just technology — 
-        we deliver trust, reliability, and future-ready infrastructure. With over 20 years of experience, 
-        we specialise in Internet services, networking, data center solutions, server colocation services, 
-        hosting services, and data backup services that support mission-critical businesses.
-      </li>
-      <li style='margin-bottom:12px; color:#333; line-height:1.6;'>
-        • Whether it’s campus networking, cloud solutions, or IT security, our team ensures your business stays 
+      <li>
+        Whether it’s campus networking, cloud solutions, or IT security, our team keeps your business
         connected, protected, and scalable.
       </li>
-      <li style='margin-top:16px; font-weight:600; color:#000;'>
-        Partner with NETARK – Your trusted Internet and Data Center Infrastructure experts in India.
+      <li class="mt-2">
+        Partner with NETARK – Your trusted Internet & Data Center Infrastructure experts in India.
       </li>
     </ul>
   `;
@@ -37,30 +36,43 @@ const Home = () => {
         Content={heroText}
         BtnText="EXPLORE SOLUTIONS"
         BtnLink="/about"
+        // Optional: pass your own images (ensure these exist in /public)
+        // slides={["/cam.jpg", "/internet.jpg", "/strategic.jpg"]}
       />
-
-      {/* Removed spacer that caused the white gap */}
 
       <About1 />
       <Services1 />
       <Features />
       <Contact1 />
 
-      <style>
-        {`
-          span, .section-title span { color: ${RUBY_RED} !important; }
-          .thm-btn, .hero-btn, .main-btn {
-            background-color: ${RUBY_RED} !important;
-            border-color: ${RUBY_RED} !important;
-            color: #fff !important;
-            transition: all 0.3s ease;
-          }
-          .thm-btn:hover, .hero-btn:hover, .main-btn:hover {
-            background-color: #7b0d16 !important;
-            border-color: #7b0d16 !important;
-          }
-        `}
-      </style>
+      <style>{`
+        /* Keep brand ruby on spans in section titles, but avoid forcing dark colors inside hero content */
+        .section-title span { color: ${RUBY_RED} !important; }
+
+        .thm-btn, .hero-btn, .main-btn {
+          background-color: ${RUBY_RED} !important;
+          border-color: ${RUBY_RED} !important;
+          color: #fff !important;
+          transition: all 0.3s ease;
+        }
+        .thm-btn:hover, .hero-btn:hover, .main-btn:hover {
+          background-color: #7b0d16 !important;
+          border-color: #7b0d16 !important;
+        }
+
+        /* Hero content styling (white-friendly) */
+        .hero-list {
+          list-style: none;
+          padding-left: 0;
+          margin: 0;
+          color: rgba(255,255,255,0.92); /* readable on dark overlay */
+          line-height: 1.6;
+          font-size: 1.05rem;
+        }
+        .hero-list li { margin-bottom: 12px; }
+        .hero-list strong { color: #fff; }
+        .hero-list .mt-2 { margin-top: 16px; }
+      `}</style>
     </div>
   );
 };
