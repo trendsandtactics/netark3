@@ -48,17 +48,31 @@ const Services1 = () => {
           {services.map((item, i) => {
             const title = item?.title || "Untitled Service";
             const Icon = iconMap[title] || Monitor;
+            const image = item?.image || "/placeholder.jpg";
+
             return (
-              <article key={i} className="service-card group">
-                <div className="icon-wrap">
-                  <Icon
-                    size={50}
-                    strokeWidth={1.6}
-                    color={RUBY_RED}
-                    className="icon transition-all duration-300"
+              <article key={i} className="service-card">
+                {/* Image Section */}
+                <div className="image-wrap">
+                  <img
+                    src={image}
+                    alt={title}
+                    className="service-image"
                   />
                 </div>
-                <h3 className="service-title">{title}</h3>
+
+                {/* Content Section */}
+                <div className="content-wrap">
+                  <div className="icon-title">
+                    <Icon
+                      size={32}
+                      strokeWidth={1.6}
+                      color={RUBY_RED}
+                      className="icon mr-3"
+                    />
+                    <h3 className="service-title">{title}</h3>
+                  </div>
+                </div>
               </article>
             );
           })}
@@ -80,66 +94,63 @@ const Services1 = () => {
       <style>{`
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 24px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 32px;
           justify-items: center;
           align-items: stretch;
         }
 
         .service-card {
           width: 100%;
-          max-width: 240px;
-          height: 240px;
+          max-width: 380px;
           background: #fff;
           border: 1px solid #e5e7eb;
           border-radius: 16px;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-          padding: 24px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+          overflow: hidden;
           transition: all 0.3s ease;
         }
 
-        .icon-wrap { margin-bottom: 12px; }
+        .image-wrap {
+          width: 100%;
+          height: 180px;
+          overflow: hidden;
+        }
+
+        .service-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+        }
+
+        .service-card:hover .service-image {
+          transform: scale(1.05);
+        }
+
+        .content-wrap {
+          padding: 16px 20px 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .icon-title {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
 
         .service-title {
-          margin: 0;
           font-weight: 600;
           font-size: 1rem;
-          color: #333;
-          line-height: 1.3;
-          transition: color 0.3s ease;
+          color: #111;
         }
 
-        .service-card:hover {
-          background: ${RUBY_RED};
-          color: #fff;
-          transform: translateY(-6px);
-          box-shadow: 0 10px 25px rgba(224, 17, 95, 0.25);
-        }
-
-        .service-card:hover .service-title {
-          color: #fff;
-        }
-
-        .service-card:hover .icon {
-          stroke: #fff !important;
-          transform: scale(1.1);
-        }
-
-        @media (max-width: 1280px) {
-          .services-grid { grid-template-columns: repeat(4, 1fr); }
-        }
         @media (max-width: 1024px) {
-          .services-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 768px) {
           .services-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        @media (max-width: 480px) {
+        @media (max-width: 640px) {
           .services-grid { grid-template-columns: 1fr; }
         }
       `}</style>
