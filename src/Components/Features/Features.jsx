@@ -1,8 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import SectionTitle from "../Common/SectionTitle";
 import { Globe, Cloud, ShieldCheck } from "lucide-react";
 
-// Use a deeper ruby red
 const RUBY_RED = "#9b111e";
 
 const SOLUTIONS = [
@@ -24,14 +24,20 @@ const Solutions = () => {
             Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
           />
         </div>
-          <br></br>
-        <br></br>
+
+        <br />
+        <br />
+
         {/* Solutions Grid */}
         <div className="solutions-grid">
           {SOLUTIONS.map((item, i) => {
             const Icon = item.icon;
             return (
-              <article key={i} className="service-card group">
+              <Link
+                key={i}
+                to="/solutions"
+                className="service-card group no-underline"
+              >
                 <div className="icon-wrap">
                   <Icon
                     size={56}
@@ -44,7 +50,7 @@ const Solutions = () => {
                 <h3 className="service-title text-base md:text-lg lg:text-xl">
                   {item.title}
                 </h3>
-              </article>
+              </Link>
             );
           })}
         </div>
@@ -76,6 +82,7 @@ const Solutions = () => {
           justify-content: center;
           text-align: center;
           transition: all 0.3s ease;
+          cursor: pointer;
         }
 
         .icon-wrap { margin-bottom: 14px; }
