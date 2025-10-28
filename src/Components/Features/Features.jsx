@@ -1,4 +1,3 @@
-
 import React from "react";
 import SectionTitle from "../Common/SectionTitle";
 import { Globe, Cloud, ShieldCheck } from "lucide-react";
@@ -27,10 +26,9 @@ const Solutions = () => {
   return (
     <section className="bg-gray-50 relative z-10 py-16 md:py-20 lg:py-24 mt-24 md:mt-28">
       <div className="container mx-auto px-6 md:px-10 lg:max-w-7xl">
-        {/* Section Heading */}
+        {/* Section Heading (Subtitle removed) */}
         <div className="text-center mb-12">
           <SectionTitle
-            SubTitle="NETARK TECHNOLOGIES"
             Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
           />
         </div>
