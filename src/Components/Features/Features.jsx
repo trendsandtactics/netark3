@@ -12,14 +12,16 @@ const SOLUTIONS = [
 
 const Solutions = () => {
   return (
-    <section className="bg-gray-50 relative z-10 py-16 md:py-20 lg:py-24 mt-44 md:mt-56">
+    <section className="bg-gray-50 relative z-10 py-24 md:py-32 lg:py-36 mt-52 md:mt-60 mb-40 md:mb-52">
       <div className="container mx-auto px-6 md:px-10 lg:max-w-7xl">
-        <div className="text-center mb-12">
+        {/* Section Heading */}
+        <div className="text-center mb-14">
           <SectionTitle
             Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
           />
         </div>
 
+        {/* Solutions Grid */}
         <div className="solutions-grid">
           {SOLUTIONS.map((item, i) => {
             const Icon = item.icon;
@@ -42,14 +44,16 @@ const Solutions = () => {
       </div>
 
       <style>{`
+        /* GRID */
         .solutions-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
+          gap: 28px;
           justify-items: center;
           align-items: stretch;
         }
 
+        /* CARD */
         .service-card {
           width: 100%;
           max-width: 320px;
@@ -76,6 +80,7 @@ const Solutions = () => {
           transition: color 0.3s ease;
         }
 
+        /* HOVER EFFECT */
         .service-card:hover {
           background: ${RUBY_RED};
           color: #fff;
@@ -89,6 +94,7 @@ const Solutions = () => {
           transform: scale(1.08);
         }
 
+        /* RESPONSIVE */
         @media (max-width:1024px) {
           .solutions-grid { grid-template-columns: repeat(2, 1fr); }
         }
