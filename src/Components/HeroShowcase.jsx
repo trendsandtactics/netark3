@@ -85,7 +85,8 @@ export default function HeroShowcase() {
             lineHeight: 1.2,
           }}
         >
-          <span style={{ color: "#9B111E" }}>Enterprise Networking</span> &amp; IT
+           <h2>
+           Enterprise Networking &amp; IT
           Infrastructure Solutions in India
         </h2>
 
@@ -99,7 +100,7 @@ export default function HeroShowcase() {
         >
           At <strong style={{ color: "#9B111E" }}>NETARK Technologies</strong>, we
           deliver more than just technology — we deliver{" "}
-          <strong style={{ color: "#9B111E" }}>trust</strong>, reliability, and
+         trust, reliability, and
           future-ready infrastructure. With over 20 years of experience, we
           specialise in Internet services, networking, data centers, server
           colocation, hosting, and backup services that support
