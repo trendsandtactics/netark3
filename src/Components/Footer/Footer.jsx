@@ -10,6 +10,9 @@ const Footer = () => {
       "At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
   };
 
+  // Scroll to top on footer link click
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
     <footer
       className="footer-area text-white position-relative"
@@ -70,22 +73,27 @@ const Footer = () => {
               }}
             >
               <li>
-                <Link to="/" className="footer-link">
+                <Link to="/" className="footer-link" onClick={scrollTop}>
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="footer-link">
+                <Link to="/about" className="footer-link" onClick={scrollTop}>
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="footer-link">
-                  All Services
+                <Link to="/services" className="footer-link" onClick={scrollTop}>
+                  Services
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="footer-link">
+                <Link to="/solutions" className="footer-link" onClick={scrollTop}>
+                  Solutions
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="footer-link" onClick={scrollTop}>
                   Contact
                 </Link>
               </li>
