@@ -13,23 +13,12 @@ const RUBY_RED = "#9B111E";
 const Home = () => {
   return (
     <div className="home-page">
+      
       {/* ===== HERO ===== */}
-      <HeroShowcase
-        // 🔽 Add as many images as you want under /public
-        images={[
-          "/banners/data-center-1.jpg",
-          "/banners/data-center-2.jpg",
-          "/banners/networking-1.jpg",
-          "/banners/networking-2.jpg",
-          "/banners/security-1.jpg",
-          "/banners/cloud-1.jpg",
-        ]}
-        intervalMs={6000}
-        titleTop="Making Technology"
-        titleBottom="Work for People & Business"
-        accent="#3AA0FF"
-      />
-
+      <section className="section-wrap">
+      <HeroShowcase />
+           </section>
+      
       {/* ===== ABOUT ===== */}
       <section className="section-wrap">
         <About1 />
