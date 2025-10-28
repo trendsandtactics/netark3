@@ -17,10 +17,12 @@ const Home = () => {
       <HeroShowcase
         // 🔽 Add as many images as you want under /public
         images={[
-          "/1.png",
-          "/2.png",
-          "/3.png",
-          "/4.png",
+          "/banners/data-center-1.jpg",
+          "/banners/data-center-2.jpg",
+          "/banners/networking-1.jpg",
+          "/banners/networking-2.jpg",
+          "/banners/security-1.jpg",
+          "/banners/cloud-1.jpg",
         ]}
         intervalMs={6000}
         titleTop="Making Technology"
