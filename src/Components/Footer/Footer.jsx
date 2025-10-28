@@ -48,8 +48,47 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* ====== MIDDLE: OFFICE ADDRESS ====== */}
+          {/* ====== MIDDLE: QUICK LINKS ====== */}
           <div className="col-lg-4 col-md-6 text-center text-md-start">
+            <h5
+              className="fw-semibold mb-3"
+              style={{
+                color: RUBY,
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Quick Links
+            </h5>
+            <ul
+              className="list-unstyled mb-0"
+              style={{ color: "#ccc", lineHeight: "1.9" }}
+            >
+              <li>
+                <Link to="/" className="footer-link">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="footer-link">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/services" className="footer-link">
+                  All Services
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="footer-link">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* ====== RIGHT: OFFICE ADDRESS ====== */}
+          <div className="col-lg-4 col-md-12 text-center text-md-start">
             <h5
               className="fw-semibold mb-3"
               style={{
@@ -87,45 +126,6 @@ const Footer = () => {
                 +91 95006 44411
               </a>
             </address>
-          </div>
-
-          {/* ====== RIGHT: QUICK LINKS ====== */}
-          <div className="col-lg-4 col-md-12 text-center text-md-start">
-            <h5
-              className="fw-semibold mb-3"
-              style={{
-                color: RUBY,
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
-            >
-              Quick Links
-            </h5>
-            <ul
-              className="list-unstyled mb-0"
-              style={{ color: "#ccc", lineHeight: "1.9" }}
-            >
-              <li>
-                <Link to="/" className="footer-link">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="footer-link">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/services" className="footer-link">
-                  All Services
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="footer-link">
-                  Contact
-                </Link>
-              </li>
-            </ul>
           </div>
         </div>
 
