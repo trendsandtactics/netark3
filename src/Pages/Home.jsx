@@ -31,22 +31,22 @@ const Home = () => {
       />
 
       {/* ===== ABOUT ===== */}
-      <section className="section-wrap">
+      <section >
         <About1 />
       </section>
 
       {/* ===== SERVICES ===== */}
-      <section className="section-wrap">
+      <section >
         <Services1 />
       </section>
 
       {/* ===== FEATURES ===== */}
-      <section className="section-wrap">
+      <section >
         <Features />
       </section>
 
       {/* ===== CONTACT ===== */}
-      <section className="section-wrap section-wrap--last">
+      <section >
         <Contact1 />
       </section>
 
