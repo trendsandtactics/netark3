@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const RUBY = "#9b111e";
+  const navigate = useNavigate();
 
   const LogoContent = {
     img1: "/assets/images/footer-logo.png",
@@ -10,8 +11,14 @@ const Footer = () => {
       "At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
   };
 
-  // Scroll to top on footer link click
-  const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  // ✅ correct scroll + navigate handler
+  const handleNav = (path) => {
+    navigate(path);
+    // wait for route render, then scroll to top
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <footer
@@ -24,21 +31,14 @@ const Footer = () => {
     >
       <div className="container">
         <div className="row gy-5 align-items-start">
-          {/* ====== LEFT: LOGO + DESCRIPTION ====== */}
+          {/* ====== LEFT ====== */}
           <div className="col-lg-4 col-md-6 text-center text-md-start">
-            <div className="footer-logo mb-3">
-              <img
-                src={LogoContent.img1}
-                alt="NETARK Technologies Logo"
-                style={{
-                  width: "180px",
-                  height: "auto",
-                  marginBottom: "10px",
-                }}
-              />
-            </div>
+            <img
+              src={LogoContent.img1}
+              alt="NETARK Technologies Logo"
+              style={{ width: "180px", marginBottom: "10px" }}
+            />
             <p
-              className="footer-text"
               style={{
                 color: "#ccc",
                 fontSize: "0.95rem",
@@ -55,48 +55,27 @@ const Footer = () => {
           <div className="col-lg-4 col-md-6 text-center">
             <h5
               className="fw-semibold mb-3"
-              style={{
-                color: RUBY,
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
+              style={{ color: RUBY, textTransform: "uppercase" }}
             >
               Quick Links
             </h5>
-            <ul
-              className="list-unstyled mb-0 d-inline-block text-start"
-              style={{
-                color: "#ccc",
-                lineHeight: "1.9",
-                margin: "0 auto",
-                textAlign: "left",
-              }}
-            >
-              <li>
-                <Link to="/" className="footer-link" onClick={scrollTop}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="footer-link" onClick={scrollTop}>
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/services" className="footer-link" onClick={scrollTop}>
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link to="/solutions" className="footer-link" onClick={scrollTop}>
-                  Solutions
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="footer-link" onClick={scrollTop}>
-                  Contact
-                </Link>
-              </li>
+            <ul className="list-unstyled mb-0 d-inline-block text-start">
+              {[
+                { name: "Home", path: "/" },
+                { name: "About Us", path: "/about" },
+                { name: "Services", path: "/services" },
+                { name: "Solutions", path: "/solutions" },
+                { name: "Contact", path: "/contact" },
+              ].map((item) => (
+                <li key={item.path}>
+                  <button
+                    onClick={() => handleNav(item.path)}
+                    className="footer-link-btn"
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -104,11 +83,7 @@ const Footer = () => {
           <div className="col-lg-4 col-md-12 text-center text-md-start">
             <h5
               className="fw-semibold mb-3"
-              style={{
-                color: RUBY,
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
+              style={{ color: RUBY, textTransform: "uppercase" }}
             >
               Office Address
             </h5>
@@ -118,8 +93,6 @@ const Footer = () => {
                 fontSize: "0.95rem",
                 lineHeight: "1.8",
                 fontStyle: "normal",
-                maxWidth: "340px",
-                margin: "0 auto 0 0",
               }}
             >
               <strong>NETARK Technologies India Pvt. Ltd.</strong>
@@ -131,7 +104,7 @@ const Footer = () => {
               Saibaba Colony, Coimbatore – 641 011
               <br />
               <br />
-              <strong>Phone:</strong> 0422-4280009&nbsp;&nbsp;|&nbsp;&nbsp;
+              <strong>Phone:</strong> 0422-4280009  |  
               <a
                 href="tel:+919500644411"
                 style={{ color: RUBY, textDecoration: "none" }}
@@ -142,12 +115,9 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* ====== COPYRIGHT ====== */}
         <div
           className="footer-bottom text-center mt-5 pt-3"
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.1)",
-          }}
+          style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
         >
           <p style={{ color: "#aaa", fontSize: "0.9rem", margin: 0 }}>
             © {new Date().getFullYear()}{" "}
@@ -159,16 +129,20 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* ====== INLINE HOVER STYLES ====== */}
+      {/* ====== INLINE STYLES ====== */}
       <style>{`
-        .footer-link {
-          color: #ccc;
-          text-decoration: none;
-          transition: color 0.3s ease, padding-left 0.3s ease;
+        .footer-link-btn {
+          background:none;
+          border:none;
+          color:#ccc;
+          text-align:left;
+          padding:4px 0;
+          cursor:pointer;
+          transition:color .3s ease,padding-left .3s ease;
         }
-        .footer-link:hover {
-          color: ${RUBY};
-          padding-left: 4px;
+        .footer-link-btn:hover{
+          color:${RUBY};
+          padding-left:4px;
         }
       `}</style>
     </footer>
