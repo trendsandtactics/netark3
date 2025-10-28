@@ -12,7 +12,7 @@ const SOLUTIONS = [
 
 const Solutions = () => {
   return (
-    <section className="bg-gray-50 relative z-10 py-24 md:py-32 lg:py-36 mt-52 md:mt-60 mb-40 md:mb-52">
+    <section className="bg-gray-50 relative z-10 py-24 md:py-32 lg:py-36 mt-64 md:mt-72 mb-40 md:mb-52">
       <div className="container mx-auto px-6 md:px-10 lg:max-w-7xl">
         {/* Section Heading */}
         <div className="text-center mb-14">
@@ -36,7 +36,9 @@ const Solutions = () => {
                   />
                 </div>
 
-                <h3 className="service-title text-lg lg:text-xl">{item.title}</h3>
+                <h3 className="service-title text-lg lg:text-xl">
+                  {item.title}
+                </h3>
               </article>
             );
           })}
