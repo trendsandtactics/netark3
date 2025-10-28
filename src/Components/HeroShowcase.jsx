@@ -7,10 +7,11 @@ export default function HeroShowcase({
   titleTop = "Making Technology",
   titleBottom = "Work for People & Business",
   accent = "#3AA0FF",
-  headerOffset = 0, // set your fixed header height here
+  headerOffset = 0, // set this if your navbar is fixed (e.g., 80)
 }) {
+  // fallback (will be overridden by Home.jsx props)
   const images = useMemo(
-    () => (imagesProp.length ? imagesProp : ["/1.png", "/2.png", "/3.png", "/4.png"]),
+    () => (imagesProp.length ? imagesProp : ["/hero1.jpg", "/hero2.jpg", "/hero3.jpg", "/hero4.jpg"]),
     [imagesProp]
   );
 
@@ -19,29 +20,27 @@ export default function HeroShowcase({
   const [loaded, setLoaded] = useState(() => images.map((_, i) => i === 0));
   const intervalRef = useRef(null);
 
-  // Preload
+  // preload
   useEffect(() => {
     images.forEach((src, i) => {
       const im = new Image();
       im.src = src;
-      im.onload = () => {
+      im.onload = () =>
         setLoaded((prev) => {
           if (prev[i]) return prev;
           const next = [...prev];
           next[i] = true;
           return next;
         });
-      };
     });
   }, [images]);
 
-  // Auto-scroll
+  // auto-scroll
   useEffect(() => {
     if (paused || images.length <= 1) return;
-    intervalRef.current = setInterval(
-      () => setIdx((p) => (p + 1) % images.length),
-      Math.max(2500, intervalMs)
-    );
+    intervalRef.current = setInterval(() => {
+      setIdx((p) => (p + 1) % images.length);
+    }, Math.max(2500, intervalMs));
     return () => clearInterval(intervalRef.current);
   }, [paused, images.length, intervalMs]);
 
@@ -56,12 +55,12 @@ export default function HeroShowcase({
 
   return (
     <section
-      className="hero-showcase relative w-full overflow-hidden flex items-center"
+      className="relative w-full overflow-hidden flex items-center"
       style={{ height: heroHeight, backgroundColor: "#0b0f1a" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Slides */}
+      {/* slides */}
       <div className="absolute inset-0 -z-10">
         {images.map((src, i) => {
           const visible = i === idx && loaded[i];
@@ -69,7 +68,7 @@ export default function HeroShowcase({
             <div
               key={`slide-${i}`}
               className="absolute inset-0 transition-opacity duration-[1200ms] ease-[cubic-bezier(.22,.61,.36,1)] will-change-[opacity]"
-              style={{ opacity: visible ? 1 : 0, transform: "translateZ(0)" }}
+              style={{ opacity: visible ? 1 : 0, transform: "translateZ(0)", backfaceVisibility: "hidden" }}
               aria-hidden={!visible}
             >
               <img
@@ -80,6 +79,7 @@ export default function HeroShowcase({
                 decoding="async"
                 draggable={false}
               />
+              {/* overlays for readability */}
               <div className="absolute inset-0 bg-black/45" />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </div>
@@ -87,7 +87,7 @@ export default function HeroShowcase({
         })}
       </div>
 
-      {/* Content */}
+      {/* content */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div className="max-w-2xl">
@@ -104,6 +104,7 @@ export default function HeroShowcase({
               processes and driving success with innovative IT infrastructure solutions.
             </p>
 
+            {/* CTAs */}
             <div className="mt-7 flex flex-col sm:flex-row gap-4">
               <Link to="/solutions">
                 <button className="px-6 py-3 rounded-xl border border-white/40 text-white font-semibold bg-white/5 hover:bg-white/15 transition-all">
@@ -120,6 +121,7 @@ export default function HeroShowcase({
               </Link>
             </div>
 
+            {/* stats */}
             <div className="mt-8 grid grid-cols-3 gap-4 sm:gap-6 max-w-md">
               {[
                 { value: "20+", top: "Years", bottom: "Experience" },
@@ -129,7 +131,9 @@ export default function HeroShowcase({
                 <div key={s.value} className="text-center rounded-xl bg-white/8 border border-white/10 backdrop-blur-md py-3 sm:py-4">
                   <div className="text-xl sm:text-2xl font-extrabold text-white">{s.value}</div>
                   <div className="text-[11px] sm:text-sm leading-tight text-white/70">
-                    {s.top}<br />{s.bottom}
+                    {s.top}
+                    <br />
+                    {s.bottom}
                   </div>
                 </div>
               ))}
@@ -139,7 +143,7 @@ export default function HeroShowcase({
         </div>
       </div>
 
-      {/* Dots */}
+      {/* dots */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
         {images.map((_, i) => (
           <button
