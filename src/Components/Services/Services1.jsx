@@ -80,11 +80,19 @@ const Services1 = () => {
           border-radius: 16px;
           box-shadow: 0 6px 18px rgba(0,0,0,0.06);
           overflow: hidden;
-          transition: transform .25s ease, box-shadow .25s ease;
+          transition: all 0.3s ease;
         }
+
+        /* === HOVER EFFECT === */
         .service-card:hover {
+          background: ${RUBY_RED};
           transform: translateY(-3px);
           box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+          border-color: transparent;
+        }
+
+        .service-card:hover .title {
+          color: #fff; /* ✅ white text on hover */
         }
 
         /* MEDIA */
@@ -95,14 +103,17 @@ const Services1 = () => {
           overflow: hidden;
           background: #f3f5f9;
         }
+
         .cover {
           width: 100%;
           height: 100%;
           object-fit: cover;
           transition: transform .5s ease;
         }
+
         .service-card:hover .cover {
-          transform: scale(1.04);
+          transform: scale(1.05);
+          opacity: 0.9; /* subtle dim */
         }
 
         .badge {
@@ -114,21 +125,29 @@ const Services1 = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: ${RUBY_RED};
+          background: #fff;
           border-radius: 999px;
-          box-shadow: 0 4px 10px rgba(224,17,95,.3);
+          box-shadow: 0 4px 10px rgba(0,0,0,.2);
+        }
+
+        .service-card:hover .badge {
+          background: #fff;
+          transform: scale(1.05);
         }
 
         /* CONTENT */
         .content {
           padding: 14px 16px 18px;
+          text-align: left;
         }
+
         .title {
           font-size: 15px;
           line-height: 1.35;
           font-weight: 700;
-          color: #0f172a;
+          color: #0f172a; /* default black */
           letter-spacing: 0.2px;
+          transition: color 0.3s ease;
         }
 
         /* RESPONSIVE */
