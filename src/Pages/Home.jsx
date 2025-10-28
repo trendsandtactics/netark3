@@ -58,7 +58,7 @@ const Home = () => {
         @media (min-width: 992px) {
           .section-wrap { padding-top: 88px; padding-bottom: 88px; }
         }
-        .section-wrap--last { padding-bottom: 110px; }
+        .section-wrap--last { padding-bottom: 90px; }
 
         /* brand tint */
         .section-title span { color: ${RUBY_RED} !important; }
