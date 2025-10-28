@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SectionTitle from "../Common/SectionTitle";
 import {
   Wifi,
@@ -22,15 +22,17 @@ const SERVICES = [
   { title: "Cloud Solutions", icon: Cloud, image: "/assets/images/Cloudsolutions.jpg" },
   { title: "Information Security", icon: Shield, image: "/assets/images/Informationsecurityy.jpg" },
   { title: "Data Storage & Backup", icon: Database, image: "/assets/images/Datastorage.png" },
-  { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT .png" }, // filename space note
+  { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT .png" },
   { title: "Unified Communications & Mobility", icon: PhoneCall, image: "/assets/images/Unifiedcommunications.jpg" },
   { title: "Open-Source IT Solutions", icon: Code, image: "/assets/images/07.jpg" },
   { title: "Hosting Services", icon: Server, image: "/assets/images/Hostingservices.avif" },
 ];
 
 const Services1 = () => {
+  const navigate = useNavigate();
+
   return (
-    <section className="service-area py-20 md:py-24 bg-white mb-28 md:mb-32">
+    <section className="service-area py-20 md:py-24 bg-white mb-28 md:mb-40">
       <div className="container">
         <div className="text-center mb-12">
           <SectionTitle
@@ -39,109 +41,108 @@ const Services1 = () => {
           />
         </div>
 
-        <div className="services-grid mb-16">
+        <div className="services-grid mb-28">
           {SERVICES.map(({ title, icon: Icon, image }, i) => (
-            <article key={i} className="service-card">
-              {/* Image + Icon Badge (overlap) */}
+            <article
+              key={i}
+              className="service-card cursor-pointer"
+              onClick={() => navigate("/services")}
+            >
               <div className="media">
                 <img src={image} alt={title} className="cover" />
                 <span className="badge">
                   <Icon size={18} strokeWidth={2} color="#fff" />
                 </span>
               </div>
-
-              {/* Title */}
               <div className="content">
                 <h3 className="title">{title}</h3>
               </div>
             </article>
           ))}
         </div>
-
-        <div className="text-center">
-          <Link
-            to="/services"
-            className="inline-block px-10 py-3 rounded-full text-white font-semibold 
-                       bg-[#E0115F] hover:bg-[#c30f52] transition-all duration-300 
-                       shadow-md hover:shadow-lg hover:-translate-y-1"
-          >
-            Explore All Services
-          </Link>
-        </div>
       </div>
 
       <style>{`
-        /* GRID — sample image = 4 columns */
-        .services-grid{
-          display:grid;
-          grid-template-columns:repeat(4,1fr);
-          gap:28px; /* balanced spacing like sample */
-          justify-items:center;
+        /* GRID */
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 28px;
+          justify-items: center;
         }
 
         /* CARD */
-        .service-card{
-          width:100%;
-          max-width:300px;               /* card width like sample */
-          background:#fff;
-          border:1px solid #eceff3;
-          border-radius:16px;
-          box-shadow:0 6px 18px rgba(0,0,0,0.06);
-          overflow:hidden;
-          transition:transform .25s ease, box-shadow .25s ease;
+        .service-card {
+          width: 100%;
+          max-width: 300px;
+          background: #fff;
+          border: 1px solid #eceff3;
+          border-radius: 16px;
+          box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+          overflow: hidden;
+          transition: transform .25s ease, box-shadow .25s ease;
         }
-        .service-card:hover{
-          transform:translateY(-2px);
-          box-shadow:0 10px 24px rgba(0,0,0,0.08);
+        .service-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 24px rgba(0,0,0,0.08);
         }
 
-        /* MEDIA (image + badge) */
-        .media{
-          position:relative;
-          width:100%;
-          height:160px;                  /* exact image height */
-          overflow:hidden;
-          background:#f3f5f9;
+        /* MEDIA */
+        .media {
+          position: relative;
+          width: 100%;
+          height: 160px;
+          overflow: hidden;
+          background: #f3f5f9;
         }
-        .cover{
-          width:100%; height:100%;
-          object-fit:cover;
-          transition:transform .5s ease;
+        .cover {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform .5s ease;
         }
-        .service-card:hover .cover{ transform:scale(1.04); }
+        .service-card:hover .cover {
+          transform: scale(1.04);
+        }
 
-        .badge{
-          position:absolute;
-          left:14px; bottom:14px;        /* bottom-left overlap */
-          width:40px; height:40px;
-          display:flex; align-items:center; justify-content:center;
-          background:${RUBY_RED};
-          border-radius:999px;
-          box-shadow:0 4px 10px rgba(224,17,95,.3);
+        .badge {
+          position: absolute;
+          left: 14px;
+          bottom: 14px;
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: ${RUBY_RED};
+          border-radius: 999px;
+          box-shadow: 0 4px 10px rgba(224,17,95,.3);
         }
 
         /* CONTENT */
-        .content{ padding:14px 16px 18px; }
-        .title{
-          font-size:15px;                /* EXACT 15px */
-          line-height:1.35;
-          font-weight:700;
-          color:#0f172a;
-          letter-spacing:.2px;
+        .content {
+          padding: 14px 16px 18px;
+        }
+        .title {
+          font-size: 15px;
+          line-height: 1.35;
+          font-weight: 700;
+          color: #0f172a;
+          letter-spacing: 0.2px;
         }
 
         /* RESPONSIVE */
-        @media (max-width:1280px){
-          .services-grid{ grid-template-columns:repeat(3,1fr); }
+        @media (max-width:1280px) {
+          .services-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        @media (max-width:900px){
-          .services-grid{ grid-template-columns:repeat(2,1fr); }
-          .service-card{ max-width:100%; }
-          .media{ height:150px; }
+        @media (max-width:900px) {
+          .services-grid { grid-template-columns: repeat(2, 1fr); }
+          .service-card { max-width: 100%; }
+          .media { height: 150px; }
         }
-        @media (max-width:520px){
-          .services-grid{ grid-template-columns:1fr; }
-          .media{ height:150px; }
+        @media (max-width:520px) {
+          .services-grid { grid-template-columns: 1fr; }
+          .media { height: 150px; }
         }
       `}</style>
     </section>
