@@ -23,6 +23,8 @@ const Solutions = () => {
             Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
           />
         </div>
+        <br></br>
+        <br></br>
 
         {/* Solutions Grid */}
         <div className="solutions-grid">
