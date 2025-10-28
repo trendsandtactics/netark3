@@ -1,17 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import SectionTitle from "../Common/SectionTitle";
-import {
-  Wifi,
-  Server,
-  Network,
-  Cloud,
-  Shield,
-  Database,
-  Monitor,
-  PhoneCall,
-  Code,
-} from "lucide-react";
+import { Wifi, Server, Network, Cloud, Shield, Database, Monitor, PhoneCall, Code } from "lucide-react";
 
 const RUBY_RED = "#E0115F";
 
@@ -51,7 +41,8 @@ const Services1 = () => {
               <div className="media">
                 <img src={image} alt={title} className="cover" />
                 <span className="badge">
-                  <Icon size={18} strokeWidth={2} color="#fff" />
+                  {/* icon stays RUBY_RED always */}
+                  <Icon size={18} strokeWidth={2} color={RUBY_RED} className="badge-icon" />
                 </span>
               </div>
               <div className="content">
@@ -82,18 +73,13 @@ const Services1 = () => {
           overflow: hidden;
           transition: all 0.3s ease;
         }
-
-        /* === HOVER EFFECT === */
         .service-card:hover {
           background: ${RUBY_RED};
           transform: translateY(-3px);
           box-shadow: 0 10px 24px rgba(0,0,0,0.08);
           border-color: transparent;
         }
-
-        .service-card:hover .title {
-          color: #fff; /* ✅ white text on hover */
-        }
+        .service-card:hover .title { color: #fff; }
 
         /* MEDIA */
         .media {
@@ -103,19 +89,15 @@ const Services1 = () => {
           overflow: hidden;
           background: #f3f5f9;
         }
-
         .cover {
           width: 100%;
           height: 100%;
           object-fit: cover;
           transition: transform .5s ease;
         }
+        .service-card:hover .cover { transform: scale(1.05); opacity: 0.9; }
 
-        .service-card:hover .cover {
-          transform: scale(1.05);
-          opacity: 0.9; /* subtle dim */
-        }
-
+        /* BADGE */
         .badge {
           position: absolute;
           left: 14px;
@@ -125,22 +107,18 @@ const Services1 = () => {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: #fff;
+          background: #fff;               /* stays white */
+          border: 2px solid ${RUBY_RED};  /* crisp ring */
           border-radius: 999px;
-          box-shadow: 0 4px 10px rgba(0,0,0,.2);
+          box-shadow: 0 4px 10px rgba(0,0,0,.08);
+          transition: transform .2s ease;
         }
-
-        .service-card:hover .badge {
-          background: #fff;
-          transform: scale(1.05);
-        }
+        .service-card:hover .badge { transform: scale(1.05); }
+        /* keep icon ruby even on hover */
+        .badge .badge-icon { stroke: ${RUBY_RED}; }
 
         /* CONTENT */
-        .content {
-          padding: 14px 16px 18px;
-          text-align: left;
-        }
-
+        .content { padding: 14px 16px 18px; text-align: left; }
         .title {
           font-size: 15px;
           line-height: 1.35;
