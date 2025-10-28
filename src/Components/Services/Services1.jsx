@@ -24,7 +24,7 @@ const SERVICES = [
   { title: "Cloud Solutions", icon: Cloud, image: "/assets/images/Cloudsolutions.jpg" },
   { title: "Information Security", icon: Shield, image: "/assets/images/Informationsecurityy.jpg" },
   { title: "Data Storage & Backup", icon: Database, image: "/assets/images/Datastorage.png" },
-  { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT.png" },
+  { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT .png" },
   { title: "Unified Communications & Mobility", icon: PhoneCall, image: "/assets/images/Unifiedcommunications.jpg" },
   { title: "Open-Source IT Solutions", icon: Code, image: "/assets/images/07.jpg" },
 ];
@@ -80,19 +80,19 @@ const Services1 = () => {
       </div>
 
       <style>{`
-        /* === GRID === */
+        /* === GRID (matches screenshot density) === */
         .services-grid {
           display: grid;
           grid-template-columns: repeat(5, 1fr);
-          gap: 36px 32px; /* horizontal + vertical spacing */
+          gap: 32px 28px; /* row x column */
           justify-items: center;
           align-items: stretch;
         }
 
-        /* === CARD === */
+        /* === CARD SIZE === */
         .service-card {
           width: 100%;
-          max-width: 260px;
+          max-width: 300px;          /* was 260px */
           background: #fff;
           border: 1px solid #e5e7eb;
           border-radius: 18px;
@@ -101,11 +101,14 @@ const Services1 = () => {
           transition: all 0.3s ease;
         }
 
-        /* === IMAGE === */
+        /* === IMAGE SIZE === */
         .image-wrap {
           width: 100%;
-          height: 170px;
+          height: 150px;             /* default height */
           overflow: hidden;
+        }
+        @media (min-width: 1280px) {
+          .image-wrap { height: 170px; }  /* big screens -> little taller */
         }
 
         .service-image {
@@ -114,29 +117,26 @@ const Services1 = () => {
           object-fit: cover;
           transition: transform 0.6s ease;
         }
-
         .service-card:hover .service-image {
           transform: scale(1.04);
         }
 
-        /* === CONTENT === */
+        /* === CONTENT / TITLE SIZE === */
         .content-wrap {
-          padding: 18px 20px 22px;
+          padding: 16px 18px 20px;   /* slightly tighter */
           display: flex;
           flex-direction: column;
           justify-content: center;
           text-align: left;
         }
-
         .icon-title {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
         }
-
         .service-title {
-          font-weight: 600;
-          font-size: 0.85rem;
+          font-weight: 700;
+          font-size: 0.95rem;        /* was 0.85rem */
           color: #111;
           line-height: 1.35;
           letter-spacing: 0.2px;
@@ -144,16 +144,23 @@ const Services1 = () => {
 
         /* === RESPONSIVE === */
         @media (max-width: 1280px) {
-          .services-grid { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+          .services-grid { grid-template-columns: repeat(4, 1fr); gap: 28px 24px; }
         }
         @media (max-width: 1024px) {
-          .services-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+          .services-grid { grid-template-columns: repeat(3, 1fr); gap: 26px 22px; }
+          .service-card { max-width: 280px; }
+          .image-wrap { height: 150px; }
+          .service-title { font-size: 0.92rem; }
         }
         @media (max-width: 768px) {
-          .services-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+          .services-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+          .service-card { max-width: 100%; }
+          .image-wrap { height: 140px; }
         }
         @media (max-width: 480px) {
           .services-grid { grid-template-columns: 1fr; gap: 20px; }
+          .image-wrap { height: 150px; }
+          .service-title { font-size: 1rem; } /* single column, little bigger for readability */
         }
       `}</style>
     </section>
