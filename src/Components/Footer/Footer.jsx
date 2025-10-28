@@ -9,20 +9,7 @@ const Footer = () => {
     Content:
       "At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
   };
-
-  // 🔹 All 9 services for the footer
-  const ServicesList = [
-    { name: "Internet Services", link: "/service/internet" },
-    { name: "Co-Location & Hosting", link: "/service/hosting" },
-    { name: "Connectivity Solutions", link: "/service/connectivity" },
-    { name: "Cloud Solutions", link: "/service/cloud" },
-    { name: "Cybersecurity & Info Security", link: "/service/cybersecurity" },
-    { name: "Enterprise Networking", link: "/service/networking" },
-    { name: "Surveillance & Access Control", link: "/service/surveillance" },
-    { name: "Data Center Solutions", link: "/service/datacenter" },
-    { name: "Open Source IT Solutions", link: "/service/opensource" },
-  ];
-
+  
   return (
     <footer
       className="footer-area text-white position-relative"
