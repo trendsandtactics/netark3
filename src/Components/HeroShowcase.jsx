@@ -81,7 +81,7 @@ export default function HeroShowcase() {
           className="fw-bold mb-3"
           style={{
             color: "#ffffff",
-            fontSize: "clamp(22px, 3.2vw, 38px)",
+            fontSize: "clamp(px, 3.2vw, 38px)",
             lineHeight: 1.2,
           }}
         >
