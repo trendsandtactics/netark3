@@ -8,7 +8,7 @@ const Footer = () => {
   const LogoContent = {
     img1: "/assets/images/footer-logo.png",
     Content:
-      "At NETARK Technologies, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
+      "At NETARK, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
   };
 
   // ✅ correct scroll + navigate handler
@@ -122,7 +122,7 @@ const Footer = () => {
           <p style={{ color: "#aaa", fontSize: "0.9rem", margin: 0 }}>
             © {new Date().getFullYear()}{" "}
             <span style={{ color: RUBY, fontWeight: 600 }}>
-              NETARK Technologies
+              NETARK Technologies India Pvt. Ltd.
             </span>
             . All Rights Reserved.
           </p>
