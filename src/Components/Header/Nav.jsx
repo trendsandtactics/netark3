@@ -5,18 +5,28 @@ const RUBY = "#A1162A";
 
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
-    setDrawerOpen(false);
   };
 
+  // Detect screen size
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  // Detect scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) setScrolled(true);
+      else setScrolled(false);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const links = [
@@ -27,9 +37,23 @@ const Nav = ({ onNavigate }) => {
     { path: "/contact", label: "Contact" },
   ];
 
+  // if not home page → always Ruby
+  const isHome = location.pathname === "/" || location.pathname === "/home";
+  const linkColor = isHome && !scrolled ? "#fff" : RUBY; // white first, ruby after scroll or non-home
+
   return (
     <>
-      <nav className="main-nav">
+      <nav
+        className={`main-nav ${isHome ? "absolute" : "sticky"}`}
+        style={{
+          position: isHome ? "absolute" : "sticky",
+          top: 0,
+          width: "100%",
+          zIndex: 1000,
+          background: "transparent",
+          transition: "color 0.3s ease",
+        }}
+      >
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -38,6 +62,9 @@ const Nav = ({ onNavigate }) => {
                   to={path}
                   onClick={handleNavigate}
                   className={location.pathname === path ? "active" : ""}
+                  style={{
+                    color: linkColor,
+                  }}
                 >
                   {label}
                 </Link>
@@ -48,14 +75,6 @@ const Nav = ({ onNavigate }) => {
       </nav>
 
       <style>{`
-        /* ===== Transparent Navbar with Ruby Text ===== */
-        .main-nav {
-          position: sticky;
-          top: 0;
-          background: transparent;
-          z-index: 1000;
-        }
-
         .nav-list {
           list-style: none;
           margin: 0;
@@ -66,7 +85,6 @@ const Nav = ({ onNavigate }) => {
         }
 
         .nav-list a {
-          color: ${RUBY};
           font-weight: 600;
           font-size: 1rem;
           text-decoration: none;
@@ -74,12 +92,12 @@ const Nav = ({ onNavigate }) => {
           padding: 6px 0;
           background: none !important;
           outline: none !important;
-          transition: none !important; /* ✅ disables hover transition */
+          transition: color 0.3s ease;
         }
 
-        /* ✅ Removed hover effect — color stays static */
+        /* No hover color change */
         .nav-list a:hover {
-          color: ${RUBY};
+          color: inherit;
         }
 
         /* Active underline effect */
@@ -92,11 +110,6 @@ const Nav = ({ onNavigate }) => {
           height: 2px;
           background: #fff;
           border-radius: 1px;
-        }
-
-        .nav-list a:focus-visible {
-          outline: none;
-          background: none;
         }
 
         @media (max-width: 991px) {
