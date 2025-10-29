@@ -83,7 +83,7 @@ const Footer = () => {
           <div className="col-lg-4 col-md-12 text-center text-md-start">
             <h5
               className="fw-semibold mb-3"
-              style={{ color: RUBY, textTransform: "uppercase" }}
+              style={{ color:#fff, textTransform: "uppercase" }}
             >
               Office Address
             </h5>
@@ -107,7 +107,7 @@ const Footer = () => {
               <strong>Phone:</strong> 0422-4280009  |  
               <a
                 href="tel:+919500644411"
-                style={{ color: RUBY, textDecoration: "none" }}
+                style={{ color:#fff, textDecoration: "none" }}
               >
                 +91 95006 44411
               </a>
@@ -121,7 +121,7 @@ const Footer = () => {
         >
           <p style={{ color: "#aaa", fontSize: "0.9rem", margin: 0 }}>
             © {new Date().getFullYear()}{" "}
-            <span style={{ color: RUBY, fontWeight: 600 }}>
+            <span style={{ color:#fff, fontWeight: 600 }}>
               NETARK Technologies India Pvt. Ltd.
             </span>
             . All Rights Reserved.
@@ -141,7 +141,7 @@ const Footer = () => {
           transition:color .3s ease,padding-left .3s ease;
         }
         .footer-link-btn:hover{
-          color:${RUBY};
+          color:#fff";
           padding-left:4px;
         }
       `}</style>
