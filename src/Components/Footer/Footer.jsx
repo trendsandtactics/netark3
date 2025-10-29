@@ -54,7 +54,7 @@ const Footer = () => {
           <div className="col-lg-4 col-md-6 text-center">
             <h5
               className="fw-semibold mb-3"
-              style={{ color: RUBY, textTransform: "uppercase" }}
+              style={{ color: "#fff", textTransform: "uppercase" }}
             >
               Quick Links
             </h5>
