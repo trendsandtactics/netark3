@@ -1,3 +1,4 @@
+// src/Components/Contact/Contact1.jsx
 import { useEffect, useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
 import loadBackgroudImages from "../Common/loadBackgroudImages";
@@ -16,10 +17,9 @@ const Contact1 = () => {
     email: "",
     phone: "",
     service: "",
-    solution: "",
     message: "",
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const services = [
@@ -32,15 +32,8 @@ const Contact1 = () => {
     "Others",
   ];
 
-  // ✅ Final solutions list (as requested)
-  const solutions = [
-    "Campus Networking & IT Infrastructure",
-    "Surveillance & Security Systems",
-    "Enterprise Systems & Servers",
-  ];
-
   const validate = () => {
-    const e: Record<string, string> = {};
+    const e = {};
     if (!form.name.trim()) e.name = "Full Name is required.";
     if (!form.email.trim()) e.email = "Email Address is required.";
     if (!form.phone.trim()) e.phone = "Phone Number is required.";
@@ -52,28 +45,19 @@ const Contact1 = () => {
     return e;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((p) => ({ ...p, [name]: value }));
-    setErrors((p) => ({ ...p, [name]: undefined as any }));
+    setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const eobj = validate();
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
     setSubmitted(true);
-    // TODO: integrate API call here
-    setForm({
-      name: "",
-      company: "",
-      email: "",
-      phone: "",
-      service: "",
-      solution: "",
-      message: "",
-    });
+    setForm({ name: "", company: "", email: "", phone: "", service: "", message: "" });
   };
 
   return (
@@ -96,7 +80,7 @@ const Contact1 = () => {
               style={{
                 fontSize: "1rem",
                 lineHeight: "1.8",
-                color: "#111",        // 🔒 text black
+                color: "#333",
                 marginBottom: 20,
               }}
             >
@@ -130,7 +114,7 @@ const Contact1 = () => {
               </h5>
               <p
                 className="mb-3"
-                style={{ color: "#111", lineHeight: "1.7", fontSize: "0.95rem" }}
+                style={{ color: "#444", lineHeight: "1.7", fontSize: "0.95rem" }}
               >
                 <strong>NETARK Technologies India Pvt. Ltd.</strong>
                 <br />
@@ -151,12 +135,12 @@ const Contact1 = () => {
               >
                 Phone
               </h5>
-              <p style={{ color: "#111", marginBottom: 0 }}>
+              <p style={{ color: "#444", marginBottom: 0 }}>
                 0422-4280009 &nbsp;|&nbsp; +91 95006 44411
               </p>
             </div>
 
-            {/* Map */}
+            {/* Map - Clean View Only */}
             <div
               className="map-box shadow-sm rounded-3 overflow-hidden"
               style={{ border: `3px solid ${RUBY}`, height: 300, borderRadius: 10 }}
@@ -183,9 +167,9 @@ const Contact1 = () => {
                 border: "1px solid #eee",
                 padding: 24,
                 borderRadius: 10,
-                color: "#111", // 🔒 ensure black inside form
               }}
             >
+              {/* ===== New Title Above Form ===== */}
               <h4
                 style={{
                   fontWeight: 800,
@@ -223,7 +207,11 @@ const Contact1 = () => {
               <form onSubmit={handleSubmit} noValidate>
                 <div className="row g-2">
                   <div className="col-12">
-                    <label className="form-label" htmlFor="name" style={labelStyle}>
+                    <label
+                      className="form-label"
+                      htmlFor="name"
+                      style={{ fontWeight: 600 }}
+                    >
                       Full Name*
                     </label>
                     <input
@@ -241,7 +229,11 @@ const Contact1 = () => {
                   </div>
 
                   <div className="col-12">
-                    <label className="form-label" htmlFor="company" style={labelStyle}>
+                    <label
+                      className="form-label"
+                      htmlFor="company"
+                      style={{ fontWeight: 600 }}
+                    >
                       Company / Organization
                     </label>
                     <input
@@ -257,7 +249,11 @@ const Contact1 = () => {
                   </div>
 
                   <div className="col-md-6">
-                    <label className="form-label" htmlFor="email" style={labelStyle}>
+                    <label
+                      className="form-label"
+                      htmlFor="email"
+                      style={{ fontWeight: 600 }}
+                    >
                       Email Address*
                     </label>
                     <input
@@ -275,7 +271,11 @@ const Contact1 = () => {
                   </div>
 
                   <div className="col-md-6">
-                    <label className="form-label" htmlFor="phone" style={labelStyle}>
+                    <label
+                      className="form-label"
+                      htmlFor="phone"
+                      style={{ fontWeight: 600 }}
+                    >
                       Phone Number*
                     </label>
                     <input
@@ -292,8 +292,12 @@ const Contact1 = () => {
                     {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                   </div>
 
-                  <div className="col-md-6">
-                    <label className="form-label" htmlFor="service" style={labelStyle}>
+                  <div className="col-12">
+                    <label
+                      className="form-label"
+                      htmlFor="service"
+                      style={{ fontWeight: 600 }}
+                    >
                       Service Interested In
                     </label>
                     <select
@@ -313,29 +317,12 @@ const Contact1 = () => {
                     </select>
                   </div>
 
-                  <div className="col-md-6">
-                    <label className="form-label" htmlFor="solution" style={labelStyle}>
-                      Solution
-                    </label>
-                    <select
-                      id="solution"
-                      name="solution"
-                      value={form.solution}
-                      onChange={handleChange}
-                      className="form-select"
-                      style={inputStyle()}
-                    >
-                      <option value="">Select a solution</option>
-                      {solutions.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
                   <div className="col-12">
-                    <label className="form-label" htmlFor="message" style={labelStyle}>
+                    <label
+                      className="form-label"
+                      htmlFor="message"
+                      style={{ fontWeight: 600 }}
+                    >
                       Your Message / Requirements*
                     </label>
                     <textarea
@@ -382,17 +369,15 @@ const Contact1 = () => {
 };
 
 // helpers
-const labelStyle = { fontWeight: 600, color: "#111" };
-const inputStyle = (hasError?: boolean) => ({
+const inputStyle = (hasError) => ({
   borderRadius: 8,
   border: `1px solid ${hasError ? "#e03131" : "#e5e5e5"}`,
   padding: "10px 12px",
   outline: "none",
   width: "100%",
   boxShadow: "none",
-  color: "#111",          // 🔒 input text black
 });
-const errorStyle: React.CSSProperties = {
+const errorStyle = {
   color: "#e03131",
   fontSize: 12,
   marginTop: 4,
