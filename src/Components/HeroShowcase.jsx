@@ -1,5 +1,5 @@
 // src/Components/HeroShowcase.jsx
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination, FreeMode } from "swiper/modules";
 
@@ -10,15 +10,14 @@ import "swiper/css/free-mode";
 
 const RUBY = "#9B111E";
 
-const slides = [
+const BASE_SLIDES = [
   { id: 1, img: "/1.png" },
   { id: 2, img: "/2.png" },
   { id: 3, img: "/3.png" },
   { id: 4, img: "/4.png" },
 ];
 
-/** Your 8 companies */
-const logos = [
+const BASE_LOGOS = [
   { id: "acer", img: "/0001.png" },
   { id: "acronis", img: "/002.png" },
   { id: "dahua", img: "/003.png" },
@@ -29,48 +28,42 @@ const logos = [
   { id: "avaya", img: "/008.png" },
 ];
 
-/** Triplicate for seamless continuous scroll even with 8 logos */
-const logoRail = [...logos, ...logos, ...logos];
-
 export default function HeroShowcase() {
-  const [mounted, setMounted] = useState(false);
-
-  // Popup state (same vibe as header's quick message)
+  // Keep hook order identical across all renders
+  const [shouldInit, setShouldInit] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState({});
-  const messageRef = useRef(null);
+  const msgRef = useRef(null);
   const closeBtnRef = useRef(null);
 
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  // Client-only flag (no early returns)
+  useEffect(() => {
+    setShouldInit(true);
+  }, []);
 
-  // Lock body scroll when popup open
+  // Body scroll lock when popup is open
   useEffect(() => {
     const prev = document.body.style.overflow;
-    document.body.style.overflow = showPopup ? "hidden" : prev || "";
-    return () => (document.body.style.overflow = prev);
+    if (showPopup) document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev || "";
+    };
   }, [showPopup]);
 
-  // Focus + ESC to close
+  // Focus & ESC close
   useEffect(() => {
-    if (showPopup) {
-      const t = setTimeout(() => {
-        (messageRef.current || closeBtnRef.current)?.focus?.();
-      }, 50);
-      const onKey = (e) => e.key === "Escape" && setShowPopup(false);
-      window.addEventListener("keydown", onKey);
-      return () => {
-        clearTimeout(t);
-        window.removeEventListener("keydown", onKey);
-      };
-    }
+    if (!showPopup) return;
+    const t = setTimeout(() => (msgRef.current || closeBtnRef.current)?.focus?.(), 50);
+    const onKey = (e) => e.key === "Escape" && setShowPopup(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("keydown", onKey);
+    };
   }, [showPopup]);
+
+  const logoRail = useMemo(() => [...BASE_LOGOS, ...BASE_LOGOS, ...BASE_LOGOS], []);
 
   const validate = () => {
     const e = {};
@@ -85,13 +78,13 @@ export default function HeroShowcase() {
     return e;
   };
 
-  const handleChange = (e) => {
+  const onChange = (e) => {
     const { name, value } = e.target;
     setForm((p) => ({ ...p, [name]: value }));
     setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
-  const handleSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const eobj = validate();
     setErrors(eobj);
@@ -103,42 +96,47 @@ export default function HeroShowcase() {
 
   return (
     <div className="position-relative" style={{ width: "100%", height: "100vh", overflow: "hidden" }}>
-      {/* ===== Background slider ===== */}
-      <Swiper
-        modules={[Autoplay, Navigation, Pagination]}
-        autoplay={{ delay: 4500, disableOnInteraction: false }}
-        loop
-        navigation
-        pagination={{ clickable: true }}
-        speed={800}
-        slidesPerView={1}
-        style={{ width: "100%", height: "100%" }}
-      >
-        {slides.map((s) => (
-          <SwiperSlide key={s.id}>
-            <div
-              style={{
-                height: "100vh",
-                width: "100%",
-                backgroundImage: `
-                  linear-gradient(
-                    180deg,
-                    rgba(0,0,0,0.15) 0%,
-                    rgba(0,0,0,0.35) 45%,
-                    rgba(0,0,0,0.60) 100%
-                  ),
-                  url(${s.img})
-                `,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* Background slider (rendered only on client to avoid SSR mismatches) */}
+      {shouldInit ? (
+        <Swiper
+          modules={[Autoplay, Navigation, Pagination]}
+          autoplay={{ delay: 4500, disableOnInteraction: false }}
+          loop
+          navigation
+          pagination={{ clickable: true }}
+          speed={800}
+          slidesPerView={1}
+          style={{ width: "100%", height: "100%" }}
+        >
+          {BASE_SLIDES.map((s) => (
+            <SwiperSlide key={s.id}>
+              <div
+                style={{
+                  height: "100vh",
+                  width: "100%",
+                  backgroundImage: `
+                    linear-gradient(
+                      180deg,
+                      rgba(0,0,0,0.15) 0%,
+                      rgba(0,0,0,0.35) 45%,
+                      rgba(0,0,0,0.60) 100%
+                    ),
+                    url(${s.img})
+                  `,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : (
+        // skeleton to keep DOM shape stable on first paint
+        <div style={{ width: "100%", height: "100%", background: "#111" }} />
+      )}
 
-      {/* ===== Info box – bottom left ===== */}
+      {/* Info box – bottom left */}
       <div
         style={{
           position: "absolute",
@@ -193,7 +191,6 @@ export default function HeroShowcase() {
           Data Center Infrastructure experts in India.
         </p>
 
-        {/* CTA opens popup (no navigation) */}
         <button
           onClick={() => setShowPopup(true)}
           className="btn btn-lg px-5 py-2"
@@ -210,7 +207,7 @@ export default function HeroShowcase() {
         </button>
       </div>
 
-      {/* ===== Trusted by Industry Leaders – bottom center ===== */}
+      {/* Trusted by Industry Leaders – bottom center */}
       <div
         style={{
           position: "absolute",
@@ -221,7 +218,6 @@ export default function HeroShowcase() {
           padding: "18px 0 6px",
         }}
       >
-        {/* Title */}
         <div
           style={{
             textAlign: "center",
@@ -238,14 +234,13 @@ export default function HeroShowcase() {
               width: 76,
               height: 3,
               margin: "6px auto 0",
-              background: RUBY, // ruby underline
+              background: RUBY,
               borderRadius: 999,
               opacity: 0.95,
             }}
           />
         </div>
 
-        {/* Logo rail */}
         <div
           style={{
             margin: "0 auto",
@@ -257,52 +252,56 @@ export default function HeroShowcase() {
             backdropFilter: "blur(4px)",
           }}
         >
-          <Swiper
-            modules={[Autoplay, FreeMode]}
-            loop
-            freeMode={{ enabled: true, momentum: false }}
-            autoplay={{ delay: 1, disableOnInteraction: false, pauseOnMouseEnter: false }}
-            speed={4000}               /* smooth continuous scroll */
-            slidesPerView={7}
-            spaceBetween={16}
-            allowTouchMove={false}
-            breakpoints={{
-              0:   { slidesPerView: 3, spaceBetween: 12 },
-              480: { slidesPerView: 4, spaceBetween: 14 },
-              768: { slidesPerView: 5, spaceBetween: 16 },
-              1024:{ slidesPerView: 7, spaceBetween: 18 },
-            }}
-          >
-            {logoRail.map((l, idx) => (
-              <SwiperSlide key={`${l.id}-${idx}`} style={{ display: "flex", justifyContent: "center" }}>
-                <div
-                  style={{
-                    width: 140,
-                    maxWidth: "20vw",
-                    height: 56,
-                    background: "#ffffff",
-                    borderRadius: 10,
-                    border: "1px solid #E5E7EB",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                  }}
-                >
-                  <img
-                    src={l.img}
-                    alt={l.id}
-                    style={{ maxWidth: "90%", maxHeight: "70%", objectFit: "contain" }}
-                    loading="lazy"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {shouldInit ? (
+            <Swiper
+              modules={[Autoplay, FreeMode]}
+              loop
+              freeMode={{ enabled: true, momentum: false }}
+              autoplay={{ delay: 1, disableOnInteraction: false, pauseOnMouseEnter: false }}
+              speed={4000}
+              slidesPerView={7}
+              spaceBetween={16}
+              allowTouchMove={false}
+              breakpoints={{
+                0: { slidesPerView: 3, spaceBetween: 12 },
+                480: { slidesPerView: 4, spaceBetween: 14 },
+                768: { slidesPerView: 5, spaceBetween: 16 },
+                1024: { slidesPerView: 7, spaceBetween: 18 },
+              }}
+            >
+              {logoRail.map((l, i) => (
+                <SwiperSlide key={`${l.id}-${i}`} style={{ display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      width: 140,
+                      maxWidth: "20vw",
+                      height: 56,
+                      background: "#ffffff",
+                      borderRadius: 10,
+                      border: "1px solid #E5E7EB",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                    }}
+                  >
+                    <img
+                      src={l.img}
+                      alt={l.id}
+                      style={{ maxWidth: "90%", maxHeight: "70%", objectFit: "contain" }}
+                      loading="lazy"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <div style={{ height: 80 }} />
+          )}
         </div>
       </div>
 
-      {/* ===== Popup Message Box ===== */}
+      {/* Popup */}
       {showPopup && (
         <div
           onClick={() => setShowPopup(false)}
@@ -351,7 +350,7 @@ export default function HeroShowcase() {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} noValidate style={{ padding: 20, color: "#000" }}>
+            <form onSubmit={onSubmit} noValidate style={{ padding: 20, color: "#000" }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label style={{ fontWeight: 600, color: "#000" }}>Full Name*</label>
@@ -359,7 +358,7 @@ export default function HeroShowcase() {
                     name="name"
                     type="text"
                     value={form.name}
-                    onChange={handleChange}
+                    onChange={onChange}
                     placeholder="Your full name"
                     style={inputStyle(errors.name)}
                   />
@@ -372,7 +371,7 @@ export default function HeroShowcase() {
                     name="email"
                     type="email"
                     value={form.email}
-                    onChange={handleChange}
+                    onChange={onChange}
                     placeholder="you@company.com"
                     style={inputStyle(errors.email)}
                   />
@@ -385,7 +384,7 @@ export default function HeroShowcase() {
                     name="phone"
                     type="tel"
                     value={form.phone}
-                    onChange={handleChange}
+                    onChange={onChange}
                     placeholder="+91 9XXXXXXXXX"
                     style={inputStyle(errors.phone)}
                   />
@@ -397,9 +396,9 @@ export default function HeroShowcase() {
                   <textarea
                     name="message"
                     rows={4}
-                    ref={messageRef}
+                    ref={msgRef}
                     value={form.message}
-                    onChange={handleChange}
+                    onChange={onChange}
                     placeholder="Briefly describe your requirements…"
                     style={inputStyle(errors.message)}
                   />
@@ -446,7 +445,6 @@ export default function HeroShowcase() {
   );
 }
 
-/* helpers */
 const inputStyle = (hasError) => ({
   width: "100%",
   padding: "10px 12px",
@@ -456,6 +454,7 @@ const inputStyle = (hasError) => ({
   outline: "none",
   background: "#fff",
 });
+
 const errorStyle = {
   color: "#e03131",
   fontSize: 12,
