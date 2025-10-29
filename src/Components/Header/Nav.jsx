@@ -1,4 +1,3 @@
-// src/Components/Nav.jsx
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -6,18 +5,19 @@ const RUBY = "#A1162A";
 
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const location = useLocation();
-  const isHome = location.pathname === "/" || location.pathname === "/home";
-
-  useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth <= 991);
-    window.addEventListener("resize", onResize, { passive: true });
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
+    setDrawerOpen(false);
   };
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 991);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   const links = [
     { path: "/", label: "Home" },
@@ -29,56 +29,37 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      <nav className={`main-nav ${isHome ? "main-nav--hero" : "main-nav--page"}`}>
-        <div className="nav-inner">
-          {!isMobile && (
-            <ul className="nav-list">
-              {links.map(({ path, label }) => (
-                <li key={path}>
-                  <Link
-                    to={path}
-                    onClick={handleNavigate}
-                    className={location.pathname === path ? "active" : ""}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+      <nav className="main-nav">
+        {!isMobile && (
+          <ul className="nav-list">
+            {links.map(({ path, label }) => (
+              <li key={path}>
+                <Link
+                  to={path}
+                  onClick={handleNavigate}
+                  className={location.pathname === path ? "active" : ""}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </nav>
 
       <style>{`
-        /* ===== Layout modes ===== */
+        /* ===== Transparent Navbar with Ruby Text ===== */
         .main-nav {
-          z-index: 1000;
-          background: transparent;
-        }
-        /* On hero (home) — overlay the hero without pushing layout */
-        .main-nav.main-nav--hero {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-        }
-        /* On inner pages — keep it sticky at the top */
-        .main-nav.main-nav--page {
           position: sticky;
           top: 0;
-        }
-
-        /* Centered container so nav stays in one place, no shifting */
-        .nav-inner {
-          max-width: 1200px;      /* adjust if your site uses a different container width */
-          margin: 0 auto;
-          padding: 18px 30px;     /* consistent padding in both modes */
+          background: transparent;
+          z-index: 1000;
         }
 
         .nav-list {
           list-style: none;
           margin: 0;
-          padding: 0;             /* padding handled by .nav-inner */
+          padding: 18px 30px;
           display: flex;
           align-items: center;
           gap: 30px;
@@ -93,13 +74,15 @@ const Nav = ({ onNavigate }) => {
           padding: 6px 0;
           background: none !important;
           outline: none !important;
-          transition: none !important; /* no hover animation */
+          transition: none !important; /* ✅ disables hover transition */
         }
 
-        /* No hover color change */
-        .nav-list a:hover { color: ${RUBY}; }
+        /* ✅ Removed hover effect — color stays static */
+        .nav-list a:hover {
+          color: ${RUBY};
+        }
 
-        /* Active underline (thin, centered under text) */
+        /* Active underline effect */
         .nav-list a.active::after {
           content: "";
           position: absolute;
@@ -107,7 +90,7 @@ const Nav = ({ onNavigate }) => {
           right: 0;
           bottom: -3px;
           height: 2px;
-          background: #ffffff;    /* white line as you asked earlier */
+          background: #fff;
           border-radius: 1px;
         }
 
