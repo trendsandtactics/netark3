@@ -6,7 +6,7 @@ const RUBY = "#A1162A";
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const location = useLocation(); // detect active page
+  const location = useLocation();
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
@@ -73,6 +73,8 @@ const Nav = ({ onNavigate }) => {
           position: relative;
           padding: 6px 0;
           transition: color 0.25s ease;
+          background: none !important;     /* ✅ removes any browser bg */
+          outline: none !important;        /* ✅ no blue or grey focus box */
         }
 
         .nav-list a:hover {
@@ -89,6 +91,11 @@ const Nav = ({ onNavigate }) => {
           height: 2px;
           background: #fff;
           border-radius: 1px;
+        }
+
+        .nav-list a:focus-visible {
+          outline: none;
+          background: none;
         }
 
         @media (max-width: 991px) {
