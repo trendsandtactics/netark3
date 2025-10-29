@@ -11,10 +11,9 @@ const Footer = () => {
       "At NETARK, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
   };
 
-  // ✅ correct scroll + navigate handler
+  // ✅ scroll + navigate handler
   const handleNav = (path) => {
     navigate(path);
-    // wait for route render, then scroll to top
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }, 100);
@@ -31,7 +30,7 @@ const Footer = () => {
     >
       <div className="container">
         <div className="row gy-5 align-items-start">
-          {/* ====== LEFT ====== */}
+          {/* ===== LEFT ===== */}
           <div className="col-lg-4 col-md-6 text-center text-md-start">
             <img
               src={LogoContent.img1}
@@ -51,7 +50,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* ====== CENTER: QUICK LINKS ====== */}
+          {/* ===== CENTER: QUICK LINKS ===== */}
           <div className="col-lg-4 col-md-6 text-center">
             <h5
               className="fw-semibold mb-3"
@@ -79,11 +78,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* ====== RIGHT: OFFICE ADDRESS ====== */}
+          {/* ===== RIGHT: OFFICE ADDRESS ===== */}
           <div className="col-lg-4 col-md-12 text-center text-md-start">
             <h5
               className="fw-semibold mb-3"
-              style={{ color:#fff, textTransform: "uppercase" }}
+              style={{ color: "#fff", textTransform: "uppercase" }}
             >
               Office Address
             </h5>
@@ -104,10 +103,10 @@ const Footer = () => {
               Saibaba Colony, Coimbatore – 641 011
               <br />
               <br />
-              <strong>Phone:</strong> 0422-4280009  |  
+              <strong>Phone:</strong> 0422-4280009  |{" "}
               <a
                 href="tel:+919500644411"
-                style={{ color:#fff, textDecoration: "none" }}
+                style={{ color: "#fff", textDecoration: "none" }}
               >
                 +91 95006 44411
               </a>
@@ -115,13 +114,14 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* ===== FOOTER BOTTOM ===== */}
         <div
           className="footer-bottom text-center mt-5 pt-3"
           style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
         >
           <p style={{ color: "#aaa", fontSize: "0.9rem", margin: 0 }}>
             © {new Date().getFullYear()}{" "}
-            <span style={{ color:#fff, fontWeight: 600 }}>
+            <span style={{ color: "#fff", fontWeight: 600 }}>
               NETARK Technologies India Pvt. Ltd.
             </span>
             . All Rights Reserved.
@@ -129,20 +129,20 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* ====== INLINE STYLES ====== */}
+      {/* ===== INLINE STYLES ===== */}
       <style>{`
         .footer-link-btn {
-          background:none;
-          border:none;
-          color:#ccc;
-          text-align:left;
-          padding:4px 0;
-          cursor:pointer;
-          transition:color .3s ease,padding-left .3s ease;
+          background: none;
+          border: none;
+          color: #ccc;
+          text-align: left;
+          padding: 4px 0;
+          cursor: pointer;
+          transition: color 0.3s ease, padding-left 0.3s ease;
         }
-        .footer-link-btn:hover{
-          color:#fff";
-          padding-left:4px;
+        .footer-link-btn:hover {
+          color: #fff;
+          padding-left: 4px;
         }
       `}</style>
     </footer>
