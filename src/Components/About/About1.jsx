@@ -19,7 +19,6 @@ const About1 = ({
             <div className="about-thumb">
               <img src={MainImg} alt="about-thumb" />
               <div className="about-shape">
-                <img src="" alt="about1" />
               </div>
               <h4 className="about-title">{ImgTitle}</h4>
             </div>
