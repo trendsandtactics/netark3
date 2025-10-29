@@ -20,9 +20,9 @@ const logos = [
   { id: "acer", img: "/0001.png" },
   { id: "acronis", img: "/002.png" },
   { id: "dahua", img: "/003.png" },
-  { id: "ahuja", img: "//004.png" },
-  { id: "apc", img: "//005.png" },
-  { id: "apw", img: "//006.png" },
+  { id: "ahuja", img: "/004.png" },
+  { id: "apc", img: "/005.png" },
+  { id: "apw", img: "/006.png" },
   { id: "aruba", img: "//007.png" },
   { id: "avaya", img: "/008.png" },
   // add more as needed…
