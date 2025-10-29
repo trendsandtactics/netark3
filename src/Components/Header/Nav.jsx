@@ -12,14 +12,12 @@ const Nav = ({ onNavigate }) => {
     if (typeof onNavigate === "function") onNavigate();
   };
 
-  // Detect screen size
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Detect scroll position
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) setScrolled(true);
@@ -37,7 +35,7 @@ const Nav = ({ onNavigate }) => {
     { path: "/contact", label: "Contact" },
   ];
 
-  const linkColor = scrolled ? RUBY : "#fff"; // white → ruby when scroll
+  const linkColor = scrolled ? RUBY : "#fff"; // white initially → ruby on scroll
 
   return (
     <>
@@ -91,6 +89,10 @@ const Nav = ({ onNavigate }) => {
           position: relative;
           padding: 6px 0;
           transition: color 0.3s ease;
+          background: transparent !important;   /* ✅ No background ever */
+          outline: none !important;              /* ✅ No focus highlight */
+          box-shadow: none !important;           /* ✅ No glow or white box */
+          display: inline-block;
         }
 
         .nav-list a.active::after {
