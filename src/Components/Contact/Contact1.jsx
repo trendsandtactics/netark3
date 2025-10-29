@@ -49,14 +49,11 @@ const Contact1 = () => {
     "Others",
   ];
 
+  // ✅ New Solutions List
   const solutions = [
-    "Enterprise Networking",
-    "IT Infrastructure",
-    "Cybersecurity",
-    "Cloud Migration",
-    "Data Center Management",
-    "IoT Integration",
-    "Custom Software",
+    "Campus Networking & IT Infrastructure",
+    "Surveillance & Security Systems",
+    "Enterprise Systems & Servers",
   ];
 
   const validate = () => {
@@ -317,23 +314,6 @@ const Contact1 = () => {
           </div>
         </div>
       )}
-
-      {/* ===================== Regular Contact Section (unchanged) ===================== */}
-      <div className="container">
-        <div className="row align-items-start g-4">
-          <div className="col-lg-6 col-md-7">
-            <div className="section-title text-left mb-3">
-              <SectionTitle
-                SubTitle="LET’S CONNECT"
-                Title={`Partner with <span style='color:${RUBY};'>NETARK Technologies</span>`}
-              />
-            </div>
-            <p style={{ fontSize: "1rem", lineHeight: "1.8", color: "#333", marginBottom: 20 }}>
-              At NETARK Technologies, we believe the best solutions start with a conversation.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
