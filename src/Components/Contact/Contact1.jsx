@@ -17,6 +17,7 @@ const Contact1 = () => {
     email: "",
     phone: "",
     service: "",
+    solution: "", // ✅ added
     message: "",
   });
   const [errors, setErrors] = useState({});
@@ -30,6 +31,13 @@ const Contact1 = () => {
     "Information Security",
     "Managed IT",
     "Others",
+  ];
+
+  // ✅ Solution options
+  const solutions = [
+    "Campus Networking & IT Infrastructure",
+    "Surveillance & Security Systems",
+    "Enterprise Systems & Servers",
   ];
 
   const validate = () => {
@@ -57,7 +65,15 @@ const Contact1 = () => {
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
     setSubmitted(true);
-    setForm({ name: "", company: "", email: "", phone: "", service: "", message: "" });
+    setForm({
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      service: "",
+      solution: "", // ✅ reset
+      message: "",
+    });
   };
 
   return (
@@ -292,7 +308,7 @@ const Contact1 = () => {
                     {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                   </div>
 
-                  <div className="col-12">
+                  <div className="col-md-6">
                     <label
                       className="form-label"
                       htmlFor="service"
@@ -310,6 +326,32 @@ const Contact1 = () => {
                     >
                       <option value="">Select a service</option>
                       {services.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* ✅ Solution dropdown */}
+                  <div className="col-md-6">
+                    <label
+                      className="form-label"
+                      htmlFor="solution"
+                      style={{ fontWeight: 600 }}
+                    >
+                      Solution
+                    </label>
+                    <select
+                      id="solution"
+                      name="solution"
+                      value={form.solution}
+                      onChange={handleChange}
+                      className="form-select"
+                      style={inputStyle()}
+                    >
+                      <option value="">Select a solution</option>
+                      {solutions.map((s) => (
                         <option key={s} value={s}>
                           {s}
                         </option>
