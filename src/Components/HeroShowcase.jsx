@@ -1,6 +1,5 @@
 // src/Components/HeroShowcase.jsx
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination, FreeMode } from "swiper/modules";
 
@@ -18,25 +17,89 @@ const slides = [
   { id: 4, img: "/4.png" },
 ];
 
-/** 8 companies */
+/** Your 8 companies */
 const logos = [
-  { id: "acer",   img: "/0001.png" },
-  { id: "acronis",img: "/002.png" },
-  { id: "dahua",  img: "/003.png" },
-  { id: "ahuja",  img: "/004.png" },
-  { id: "apc",    img: "/005.png" },
-  { id: "apw",    img: "/006.png" },
-  { id: "aruba",  img: "/007.png" },
-  { id: "avaya",  img: "/008.png" },
+  { id: "acer", img: "/0001.png" },
+  { id: "acronis", img: "/002.png" },
+  { id: "dahua", img: "/003.png" },
+  { id: "ahuja", img: "/004.png" },
+  { id: "apc", img: "/005.png" },
+  { id: "apw", img: "/006.png" },
+  { id: "aruba", img: "/007.png" },
+  { id: "avaya", img: "/008.png" },
 ];
 
-/** ✅ Triplicate for seamless rail even with 8 logos */
+/** Triplicate for seamless continuous scroll even with 8 logos */
 const logoRail = [...logos, ...logos, ...logos];
 
 export default function HeroShowcase() {
   const [mounted, setMounted] = useState(false);
+
+  // Popup state (same vibe as header's quick message)
+  const [showPopup, setShowPopup] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState({});
+  const messageRef = useRef(null);
+  const closeBtnRef = useRef(null);
+
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
+
+  // Lock body scroll when popup open
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = showPopup ? "hidden" : prev || "";
+    return () => (document.body.style.overflow = prev);
+  }, [showPopup]);
+
+  // Focus + ESC to close
+  useEffect(() => {
+    if (showPopup) {
+      const t = setTimeout(() => {
+        (messageRef.current || closeBtnRef.current)?.focus?.();
+      }, 50);
+      const onKey = (e) => e.key === "Escape" && setShowPopup(false);
+      window.addEventListener("keydown", onKey);
+      return () => {
+        clearTimeout(t);
+        window.removeEventListener("keydown", onKey);
+      };
+    }
+  }, [showPopup]);
+
+  const validate = () => {
+    const e = {};
+    if (!form.name.trim()) e.name = "Full Name is required.";
+    if (!form.email.trim()) e.email = "Email Address is required.";
+    if (!form.phone.trim()) e.phone = "Phone Number is required.";
+    if (!form.message.trim()) e.message = "Please share your requirements.";
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      e.email = "Enter a valid email address.";
+    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
+      e.phone = "Enter a valid phone number.";
+    return e;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((p) => ({ ...p, [name]: value }));
+    setErrors((p) => ({ ...p, [name]: undefined }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const eobj = validate();
+    setErrors(eobj);
+    if (Object.keys(eobj).length) return;
+    alert("✅ Message Sent Successfully!");
+    setShowPopup(false);
+    setForm({ name: "", email: "", phone: "", message: "" });
+  };
 
   return (
     <div className="position-relative" style={{ width: "100%", height: "100vh", overflow: "hidden" }}>
@@ -130,8 +193,9 @@ export default function HeroShowcase() {
           Data Center Infrastructure experts in India.
         </p>
 
-        <Link
-          to="/contact"
+        {/* CTA opens popup (no navigation) */}
+        <button
+          onClick={() => setShowPopup(true)}
           className="btn btn-lg px-5 py-2"
           style={{
             backgroundColor: RUBY,
@@ -139,10 +203,11 @@ export default function HeroShowcase() {
             borderRadius: "999px",
             fontWeight: 600,
             fontSize: "16px",
+            border: "none",
           }}
         >
           Talk to an Expert
-        </Link>
+        </button>
       </div>
 
       {/* ===== Trusted by Industry Leaders – bottom center ===== */}
@@ -173,7 +238,7 @@ export default function HeroShowcase() {
               width: 76,
               height: 3,
               margin: "6px auto 0",
-              background: RUBY,   // 🔴 ruby underline
+              background: RUBY, // ruby underline
               borderRadius: 999,
               opacity: 0.95,
             }}
@@ -197,8 +262,8 @@ export default function HeroShowcase() {
             loop
             freeMode={{ enabled: true, momentum: false }}
             autoplay={{ delay: 1, disableOnInteraction: false, pauseOnMouseEnter: false }}
-            speed={4000}                 /* smooth continuous scroll */
-            slidesPerView={7}            /* keep < logos.length to force motion */
+            speed={4000}               /* smooth continuous scroll */
+            slidesPerView={7}
             spaceBetween={16}
             allowTouchMove={false}
             breakpoints={{
@@ -236,6 +301,164 @@ export default function HeroShowcase() {
           </Swiper>
         </div>
       </div>
+
+      {/* ===== Popup Message Box ===== */}
+      {showPopup && (
+        <div
+          onClick={() => setShowPopup(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 12,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            style={{
+              background: "#fff",
+              color: "#000",
+              width: "min(700px, 95vw)",
+              borderRadius: 12,
+              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
+              border: "1px solid #eee",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                padding: "16px 18px",
+                borderBottom: `3px solid ${RUBY}`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <h4 style={{ margin: 0, color: RUBY, fontWeight: 800 }}>Quick Message</h4>
+              <button
+                ref={closeBtnRef}
+                onClick={() => setShowPopup(false)}
+                style={{ border: "none", background: "transparent", fontSize: 22, color: "#000", cursor: "pointer" }}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} noValidate style={{ padding: 20, color: "#000" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Full Name*</label>
+                  <input
+                    name="name"
+                    type="text"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Your full name"
+                    style={inputStyle(errors.name)}
+                  />
+                  {errors.name && <small style={errorStyle}>{errors.name}</small>}
+                </div>
+
+                <div>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Email*</label>
+                  <input
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="you@company.com"
+                    style={inputStyle(errors.email)}
+                  />
+                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
+                </div>
+
+                <div>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Phone*</label>
+                  <input
+                    name="phone"
+                    type="tel"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="+91 9XXXXXXXXX"
+                    style={inputStyle(errors.phone)}
+                  />
+                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
+                </div>
+
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Your Message*</label>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    ref={messageRef}
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Briefly describe your requirements…"
+                    style={inputStyle(errors.message)}
+                  />
+                  {errors.message && <small style={errorStyle}>{errors.message}</small>}
+                </div>
+
+                <div style={{ gridColumn: "1 / -1", display: "flex", justifyContent: "flex-end", gap: 10 }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowPopup(false)}
+                    style={{
+                      background: "#f5f5f5",
+                      border: "1px solid #ddd",
+                      color: "#000",
+                      borderRadius: 8,
+                      padding: "10px 16px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      background: RUBY,
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: 8,
+                      padding: "10px 18px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Send Message
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+/* helpers */
+const inputStyle = (hasError) => ({
+  width: "100%",
+  padding: "10px 12px",
+  borderRadius: 8,
+  border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
+  color: "#000",
+  outline: "none",
+  background: "#fff",
+});
+const errorStyle = {
+  color: "#e03131",
+  fontSize: 12,
+  marginTop: 4,
+  display: "inline-block",
+};
