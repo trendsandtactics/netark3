@@ -17,15 +17,14 @@ const slides = [
 
 /** ✅ Add your partner/vendor logos here */
 const logos = [
-  { id: "acer", img: "/logos/acer.png" },
-  { id: "acronis", img: "/logos/acronis.png" },
-  { id: "dahua", img: "/logos/dahua.png" },
-  { id: "ahuja", img: "/logos/ahuja.png" },
-  { id: "apc", img: "/logos/apc.png" },
-  { id: "apw", img: "/logos/apw.png" },
-  { id: "aruba", img: "/logos/aruba.png" },
-  { id: "avaya", img: "/logos/avaya.png" },
-  { id: "aws", img: "/logos/aws.png" },
+  { id: "acer", img: "/0001.png" },
+  { id: "acronis", img: "/002.png" },
+  { id: "dahua", img: "/003.png" },
+  { id: "ahuja", img: "//004.png" },
+  { id: "apc", img: "//005.png" },
+  { id: "apw", img: "//006.png" },
+  { id: "aruba", img: "//007.png" },
+  { id: "avaya", img: "/008.png" },
   // add more as needed…
 ];
 
