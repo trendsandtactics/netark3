@@ -86,7 +86,7 @@ export default function HeroShowcase() {
             lineHeight: 1.2,
           }}
         >
-          Enterprise Networking &amp; IT Infrastructure Solutions in India
+          Enterprise Networking &amp; IT Infrastructure Solutions
         </h2>
 
         {/* Body Paragraph 1 */}
@@ -99,7 +99,7 @@ export default function HeroShowcase() {
           }}
         >
           At{" "}
-          <strong style={{ color: "#9B111E" }}>NETARK Technologies</strong>, we
+          <strong style={{ color: "#9B111E" }}>NETARK</strong>, we
           deliver more than just technology — we deliver trust, reliability, and
           future-ready infrastructure. With over 20 years of experience, we
           specialise in Internet services, networking, data centers, server
@@ -117,7 +117,7 @@ export default function HeroShowcase() {
           }}
         >
           Partner with{" "}
-          <span style={{ color: "#9B111E" }}>NETARK Technologies</span> – Your
+          <span style={{ color: "#9B111E" }}>NETARK</span> – Your
           trusted Internet and Data Center Infrastructure experts in India.
         </p>
 
