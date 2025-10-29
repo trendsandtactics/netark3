@@ -1,4 +1,3 @@
-// src/Components/Contact/Contact1.jsx
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SectionTitle from "../Common/SectionTitle";
@@ -8,7 +7,6 @@ const RUBY = "#9b111e";
 
 const Contact1 = () => {
   useEffect(() => { loadBackgroudImages(); }, []);
-
   const location = useLocation();
 
   // --- Form State ---
@@ -27,18 +25,17 @@ const Contact1 = () => {
   const [openModal, setOpenModal] = useState(false);
   const messageRef = useRef(null);
 
-  // Auto-open modal if navigated from "Get A Quote NOW"
+  // Auto-open modal if navigated from Header CTA
   useEffect(() => {
-    if (location.state && location.state.openMessage) {
+    if (location.state?.openMessage) {
       setOpenModal(true);
-      // optional: clear state from history to avoid reopening on back/forward
-      // history.replaceState({}, document.title);
+      // Optional: clear state to avoid reopening on back/forward
+      // window.history.replaceState({}, document.title);
     }
   }, [location.state]);
 
   useEffect(() => {
     if (openModal && messageRef.current) {
-      // Focus the message box when modal opens
       setTimeout(() => messageRef.current?.focus(), 50);
     }
   }, [openModal]);
@@ -78,13 +75,13 @@ const Contact1 = () => {
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
     setSubmitted(true);
-    setOpenModal(false); // close modal on successful submit
+    setOpenModal(false); // close modal on success
     setForm({ name: "", company: "", email: "", phone: "", service: "", message: "" });
   };
 
   return (
     <div className="contact-area" style={{ backgroundColor: "#fff", padding: "80px 0", color: "#111" }}>
-      {/* ===================== Modal (Message Popup) ===================== */}
+      {/* ===================== Popup Modal ===================== */}
       {openModal && (
         <div
           className="contact-modal"
@@ -112,39 +109,53 @@ const Contact1 = () => {
           >
             <div style={{ padding: 18, borderBottom: `3px solid ${RUBY}`, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <h4 style={{ margin: 0, color: RUBY, fontWeight: 800, textTransform: "uppercase" }}>Quick Message</h4>
-              <button onClick={() => setOpenModal(false)} aria-label="Close"
-                style={{ border: "none", background: "transparent", fontSize: 22, cursor: "pointer", lineHeight: 1 }}>
+              <button
+                onClick={() => setOpenModal(false)}
+                aria-label="Close"
+                style={{ border: "none", background: "transparent", fontSize: 22, cursor: "pointer", lineHeight: 1 }}
+              >
                 ×
               </button>
             </div>
 
             <form onSubmit={handleSubmit} noValidate style={{ padding: 18 }}>
-              <div className="row g-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label className="form-label" htmlFor="name" style={{ fontWeight: 600 }}>Full Name*</label>
-                  <input id="name" name="name" type="text" value={form.name} onChange={handleChange}
-                    className="form-control" placeholder="Your full name" required style={inputStyle(errors.name)} />
+                  <input
+                    id="name" name="name" type="text" value={form.name} onChange={handleChange}
+                    className="form-control" placeholder="Your full name" required
+                    style={inputStyle(errors.name)}
+                  />
                   {errors.name && <small style={errorStyle}>{errors.name}</small>}
                 </div>
 
                 <div>
                   <label className="form-label" htmlFor="email" style={{ fontWeight: 600 }}>Email*</label>
-                  <input id="email" name="email" type="email" value={form.email} onChange={handleChange}
-                    className="form-control" placeholder="you@company.com" required style={inputStyle(errors.email)} />
+                  <input
+                    id="email" name="email" type="email" value={form.email} onChange={handleChange}
+                    className="form-control" placeholder="you@company.com" required
+                    style={inputStyle(errors.email)}
+                  />
                   {errors.email && <small style={errorStyle}>{errors.email}</small>}
                 </div>
 
                 <div>
                   <label className="form-label" htmlFor="phone" style={{ fontWeight: 600 }}>Phone*</label>
-                  <input id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange}
-                    className="form-control" placeholder="+91 9XXXXXXXXX" required style={inputStyle(errors.phone)} />
+                  <input
+                    id="phone" name="phone" type="tel" value={form.phone} onChange={handleChange}
+                    className="form-control" placeholder="+91 9XXXXXXXXX" required
+                    style={inputStyle(errors.phone)}
+                  />
                   {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                 </div>
 
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label className="form-label" htmlFor="service" style={{ fontWeight: 600 }}>Service</label>
-                  <select id="service" name="service" value={form.service} onChange={handleChange}
-                    className="form-select" style={inputStyle()}>
+                  <select
+                    id="service" name="service" value={form.service} onChange={handleChange}
+                    className="form-select" style={inputStyle()}
+                  >
                     <option value="">Select a service</option>
                     {["Internet Services","Data Center Hosting","Cloud Solutions","Connectivity","Information Security","Managed IT","Others"].map(s => (
                       <option key={s} value={s}>{s}</option>
@@ -157,27 +168,27 @@ const Contact1 = () => {
                     Your Message / Requirements*
                   </label>
                   <textarea
-                    id="message-modal"
-                    name="message"
-                    rows={5}
+                    id="message-modal" name="message" rows={5}
                     ref={messageRef}
-                    value={form.message}
-                    onChange={handleChange}
-                    className="form-control"
-                    placeholder="Briefly describe your requirements…"
-                    required
-                    style={inputStyle(errors.message)}
+                    value={form.message} onChange={handleChange}
+                    className="form-control" placeholder="Briefly describe your requirements…"
+                    required style={inputStyle(errors.message)}
                   />
                   {errors.message && <small style={errorStyle}>{errors.message}</small>}
                 </div>
 
                 <div style={{ gridColumn: "1 / -1", display: "flex", gap: 10, justifyContent: "flex-end" }}>
-                  <button type="button" onClick={() => setOpenModal(false)} className="btn btn-light"
-                    style={{ padding: "10px 14px", borderRadius: 8, border: "1px solid #ddd", fontWeight: 600 }}>
+                  <button
+                    type="button" onClick={() => setOpenModal(false)}
+                    className="btn btn-light"
+                    style={{ padding: "10px 14px", borderRadius: 8, border: "1px solid #ddd", fontWeight: 600 }}
+                  >
                     Cancel
                   </button>
-                  <button type="submit" className="thm-btn"
-                    style={{ background: RUBY, color: "#fff", border: "none", padding: "10px 16px", borderRadius: 8, fontWeight: 700 }}>
+                  <button
+                    type="submit" className="thm-btn"
+                    style={{ background: RUBY, color: "#fff", border: "none", padding: "10px 16px", borderRadius: 8, fontWeight: 700 }}
+                  >
                     Send Message
                   </button>
                 </div>
@@ -229,7 +240,7 @@ const Contact1 = () => {
             </div>
           </div>
 
-          {/* RIGHT: Main Form (still available on page) */}
+          {/* RIGHT */}
           <div className="col-lg-6 col-md-5">
             <div className="contact-form shadow-sm rounded-3"
               style={{ background: "#fff", border: "1px solid #eee", padding: 24, borderRadius: 10 }}>
@@ -299,10 +310,9 @@ const Contact1 = () => {
                       Send Message
                     </button>
 
-                    {/* Optional: a link to open the popup manually */}
+                    {/* Optional quick open for testing */}
                     <button type="button" onClick={() => setOpenModal(true)}
-                      style={{ marginLeft: 10, background: "#fff", border: `1px solid ${RUBY}`,
-                        color: RUBY, padding: "10px 14px", borderRadius: 8, fontWeight: 700 }}>
+                      style={{ marginLeft: 10, background: "#fff", border: `1px solid ${RUBY}`, color: RUBY, padding: "10px 14px", borderRadius: 8, fontWeight: 700 }}>
                       Open Message Popup
                     </button>
                   </div>
