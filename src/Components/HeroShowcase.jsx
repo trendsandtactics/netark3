@@ -1,12 +1,12 @@
-// src/Components/HeroShowcase.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination, FreeMode } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/free-mode";
 
 const slides = [
   { id: 1, img: "/1.png" },
@@ -15,17 +15,28 @@ const slides = [
   { id: 4, img: "/4.png" },
 ];
 
+/** ✅ Add your partner/vendor logos here */
+const logos = [
+  { id: "acer", img: "/logos/acer.png" },
+  { id: "acronis", img: "/logos/acronis.png" },
+  { id: "dahua", img: "/logos/dahua.png" },
+  { id: "ahuja", img: "/logos/ahuja.png" },
+  { id: "apc", img: "/logos/apc.png" },
+  { id: "apw", img: "/logos/apw.png" },
+  { id: "aruba", img: "/logos/aruba.png" },
+  { id: "avaya", img: "/logos/avaya.png" },
+  { id: "aws", img: "/logos/aws.png" },
+  // add more as needed…
+];
+
 export default function HeroShowcase() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
   return (
-    <div
-      className="position-relative"
-      style={{ width: "100%", height: "100vh", overflow: "hidden" }}
-    >
-      {/* Background slider */}
+    <div className="position-relative" style={{ width: "100%", height: "100vh", overflow: "hidden" }}>
+      {/* ===== Background slider ===== */}
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         autoplay={{ delay: 4500, disableOnInteraction: false }}
@@ -60,12 +71,12 @@ export default function HeroShowcase() {
         ))}
       </Swiper>
 
-      {/* Info box – bottom left */}
+      {/* ===== Info box – bottom left ===== */}
       <div
         style={{
           position: "absolute",
           left: "4%",
-          bottom: "6%",
+          bottom: "16%",
           zIndex: 3,
           maxWidth: "700px",
           background:
@@ -77,7 +88,6 @@ export default function HeroShowcase() {
           backdropFilter: "blur(6px)",
         }}
       >
-        {/* Title */}
         <h2
           className="fw-bold mb-4"
           style={{
@@ -89,7 +99,6 @@ export default function HeroShowcase() {
           Enterprise Networking &amp; IT Infrastructure Solutions
         </h2>
 
-        {/* Body Paragraph 1 */}
         <p
           className="mb-3"
           style={{
@@ -98,16 +107,13 @@ export default function HeroShowcase() {
             lineHeight: 1.6,
           }}
         >
-          At{" "}
-          <strong style={{ color: "#9B111E" }}>NETARK</strong>, we
-          deliver more than just technology — we deliver trust, reliability, and
-          future-ready infrastructure. With over 20 years of experience, we
-          specialise in Internet services, networking, data centers, server
-          colocation, hosting, and backup services that support
+          At <strong style={{ color: "#9B111E" }}>NETARK</strong>, we deliver more than just
+          technology — we deliver trust, reliability, and future-ready infrastructure.
+          With over 20 years of experience, we specialise in Internet services, networking,
+          data centers, server colocation, hosting, and backup services that support
           mission-critical businesses.
         </p>
 
-        {/* Body Paragraph 2 */}
         <p
           className="mb-4"
           style={{
@@ -116,12 +122,10 @@ export default function HeroShowcase() {
             lineHeight: 1.6,
           }}
         >
-          Partner with{" "}
-          <span style={{ color: "#9B111E" }}>NETARK</span> – Your
-          trusted Internet and Data Center Infrastructure experts in India.
+          Partner with <span style={{ color: "#9B111E" }}>NETARK</span> – Your trusted Internet and
+          Data Center Infrastructure experts in India.
         </p>
 
-        {/* CTA Button */}
         <Link
           to="/contact"
           className="btn btn-lg px-5 py-2"
@@ -135,6 +139,99 @@ export default function HeroShowcase() {
         >
           Talk to an Expert
         </Link>
+      </div>
+
+      {/* ===== Trusted by Industry Leaders – bottom center ===== */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 24,
+          zIndex: 3,
+          padding: "18px 0 6px",
+        }}
+      >
+        {/* Title */}
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: 12,
+            color: "#EAEAEA",
+            fontWeight: 600,
+            fontSize: "14px",
+            letterSpacing: ".2px",
+            textTransform: "none",
+          }}
+        >
+          Trusted by Industry Leaders
+          <div
+            style={{
+              width: 76,
+              height: 3,
+              margin: "6px auto 0",
+              background: "#3B82F6", // blue underline
+              borderRadius: 999,
+              opacity: 0.9,
+            }}
+          />
+        </div>
+
+        {/* Logo rail with translucent backdrop */}
+        <div
+          style={{
+            margin: "0 auto",
+            width: "min(1200px, 92vw)",
+            background: "rgba(0,0,0,0.35)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 14,
+            padding: "10px 12px",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <Swiper
+            modules={[Autoplay, FreeMode]}
+            loop
+            freeMode={{ enabled: true, momentum: false }}
+            autoplay={{ delay: 1, disableOnInteraction: false, pauseOnMouseEnter: false }}
+            speed={4000}                 /* smooth continuous scroll */
+            slidesPerView={8}
+            spaceBetween={16}
+            allowTouchMove={false}
+            breakpoints={{
+              0:   { slidesPerView: 3, spaceBetween: 12 },
+              480: { slidesPerView: 4, spaceBetween: 14 },
+              768: { slidesPerView: 6, spaceBetween: 16 },
+              1024:{ slidesPerView: 8, spaceBetween: 18 },
+            }}
+          >
+            {logos.map((l) => (
+              <SwiperSlide key={l.id} style={{ display: "flex", justifyContent: "center" }}>
+                <div
+                  style={{
+                    width: 140,
+                    maxWidth: "20vw",
+                    height: 56,
+                    background: "#ffffff",
+                    borderRadius: 10,
+                    border: "1px solid #E5E7EB",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  }}
+                >
+                  <img
+                    src={l.img}
+                    alt={l.id}
+                    style={{ maxWidth: "90%", maxHeight: "70%", objectFit: "contain" }}
+                    loading="lazy"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </div>
   );
