@@ -1,4 +1,3 @@
-// src/components/Nav.jsx
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
@@ -24,7 +23,6 @@ const Nav = ({ onNavigate }) => {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const firstFieldRef = useRef(null);
 
-  // form state
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -62,7 +60,6 @@ const Nav = ({ onNavigate }) => {
     const onResize = () => setIsMobile(window.innerWidth <= 991);
     window.addEventListener("resize", onResize);
 
-    // Open modal from any "Get a quote" link/button
     const onDocClick = (e) => {
       if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.button !== 0) return;
       const a = e.target.closest("a,button");
@@ -96,7 +93,6 @@ const Nav = ({ onNavigate }) => {
     };
   }, []);
 
-  // Focus & body lock
   useEffect(() => {
     if (quoteOpen) {
       document.body.classList.add("modal-open");
@@ -111,14 +107,12 @@ const Nav = ({ onNavigate }) => {
     const eobj = validate();
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
-
-    console.log("Quote request:", form); // swap with API call
+    console.log("Quote request:", form);
     setSubmitted(true);
     setTimeout(() => {
       setQuoteOpen(false);
       setSubmitted(false);
     }, 1200);
-
     setForm({
       name: "",
       company: "",
@@ -131,395 +125,102 @@ const Nav = ({ onNavigate }) => {
 
   return (
     <>
-      {/* HEADER NAV */}
+      {/* NAVIGATION BAR */}
       <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
             <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-            <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
+            <li><Link to="/about" onClick={handleNavigate}>About Us</Link></li>
             <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
             <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
+            <li><Link to="/support" onClick={handleNavigate}>Support</Link></li>
             <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
+            <li><a href="#quote" className="btn-green">Raise a Ticket</a></li>
+            <li><a href="#careers" className="btn-gold">Careers</a></li>
+            <li><a href="#quote" className="btn-blue">Get Started</a></li>
           </ul>
         )}
       </nav>
 
-      {/* MOBILE DRAWER */}
-      {isMobile && (
-        <>
-          <div
-            className={`app-mobile-overlay ${drawerOpen ? "show" : ""}`}
-            onClick={() => setDrawerOpen(false)}
-          />
-          <aside
-            className={`app-mobile-drawer ${drawerOpen ? "open" : ""}`}
-            role="dialog"
-            aria-modal="true"
-          >
-            <ul className="app-drawer-links">
-              <li><Link to="/" onClick={handleNavigate}>Home</Link></li>
-              <li><Link to="/about" onClick={handleNavigate}>About</Link></li>
-              <li><Link to="/solutions" onClick={handleNavigate}>Solutions</Link></li>
-              <li><Link to="/services" onClick={handleNavigate}>Services</Link></li>
-              <li><Link to="/contact" onClick={handleNavigate}>Contact</Link></li>
-            </ul>
-          </aside>
-        </>
-      )}
-
-      {/* QUOTE MODAL */}
-      {quoteOpen &&
-        createPortal(
-          <>
-            <div className="quote-layer" role="dialog" aria-modal="true" aria-labelledby="quoteTitle">
-              <div className="quote-backdrop" onClick={() => setQuoteOpen(false)} />
-
-              <div className="quote-panel" role="document">
-                <button
-                  className="quote-close"
-                  aria-label="Close"
-                  onClick={() => setQuoteOpen(false)}
-                >
-                  ×
-                </button>
-
-                <h3 id="quoteTitle">Get a Quote</h3>
-
-                {submitted && (
-                  <div className="alert" role="alert">
-                    Thank you for contacting <strong>NETARK</strong>. Our team will reach out shortly.
-                  </div>
-                )}
-
-                <form className="quote-form" onSubmit={onSubmitQuote} noValidate>
-                  <div className="row">
-                    <label>
-                      Full Name*
-                      <input
-                        ref={firstFieldRef}
-                        type="text"
-                        name="name"
-                        placeholder="Your full name"
-                        value={form.name}
-                        onChange={handleChange}
-                        required
-                        style={inputStyle(!!errors.name)}
-                      />
-                      {errors.name && <small style={errorStyle}>{errors.name}</small>}
-                    </label>
-
-                    <label>
-                      Company / Organization
-                      <input
-                        type="text"
-                        name="company"
-                        placeholder="Company name (optional)"
-                        value={form.company}
-                        onChange={handleChange}
-                        style={inputStyle(false)}
-                      />
-                    </label>
-                  </div>
-
-                  <div className="row">
-                    <label>
-                      Email Address*
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="you@company.com"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                        style={inputStyle(!!errors.email)}
-                      />
-                      {errors.email && <small style={errorStyle}>{errors.email}</small>}
-                    </label>
-
-                    <label>
-                      Phone Number*
-                      <input
-                        type="tel"
-                        name="phone"
-                        placeholder="+91 9XXXXXXXXX"
-                        value={form.phone}
-                        onChange={handleChange}
-                        required
-                        style={inputStyle(!!errors.phone)}
-                      />
-                      {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
-                    </label>
-                  </div>
-
-                  <label>
-                    Service Interested In
-                    <select
-                      name="service"
-                      value={form.service}
-                      onChange={handleChange}
-                      style={inputStyle(false)}
-                    >
-                      <option value="">Select a service</option>
-                      {services.map((s) => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                  </label>
-
-                  <label>
-                    Your Message / Requirements*
-                    <textarea
-                      name="message"
-                      placeholder="Briefly describe your requirements…"
-                      rows={4}
-                      value={form.message}
-                      onChange={handleChange}
-                      required
-                      style={inputStyle(!!errors.message)}
-                    />
-                    {errors.message && <small style={errorStyle}>{errors.message}</small>}
-                  </label>
-
-                  <div className="actions">
-                    <button type="button" className="btn ghost" onClick={() => setQuoteOpen(false)}>
-                      Cancel
-                    </button>
-                    <button className="btn primary" type="submit">
-                      Submit Request
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </>,
-          document.body
-        )
-      }
-
+      {/* ===== STYLE SECTION ===== */}
       <style>{`
+        /* ==== NAV WRAPPER ==== */
+        .main-nav {
+          position: sticky;
+          top: 0;
+          background: #fff;
+          border-bottom: 1px solid rgba(0,0,0,0.06);
+          box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+          z-index: 1000;
+        }
+
         .main-nav .nav-list {
           list-style: none;
           margin: 0;
-          padding: 0;
+          padding: 10px 40px;
           display: flex;
-          gap: 24px;
           align-items: center;
+          gap: 26px;
         }
+
         .main-nav a {
           text-decoration: none;
-          color: #fff;
-          font-weight: 500;
-          font-size: 1rem;
-          transition: color .25s ease;
-        }
-        .main-nav a:hover { color: ${RUBY}; }
-
-        @media (max-width: 991px) {
-          .main-nav .nav-list { display: none; }
-
-          .app-mobile-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.45);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity .25s ease, visibility .25s ease;
-            z-index: 2147483646;
-          }
-          .app-mobile-overlay.show { opacity: 1; visibility: visible; }
-
-          .app-mobile-drawer {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100vh;
-            background: #0e0f2c;
-            color: #fff;
-            transition: right .25s ease;
-            padding: 70px 18px 18px;
-            display: flex;
-            flex-direction: column;
-            border-left: 1px solid rgba(255,255,255,0.08);
-            z-index: 2147483647;
-            gap: 12px;
-          }
-          .app-mobile-drawer.open { right: 0; }
-
-          .app-drawer-links {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-          }
-          .app-drawer-links li a {
-            display: block;
-            padding: 14px 6px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-          }
-          .app-drawer-links li:last-child a { border-bottom: 0; }
-          .app-drawer-links li a:hover { color: ${RUBY}; }
+          color: #1a1f36;
+          font-weight: 600;
+          font-size: 0.97rem;
+          padding: 10px 16px;
+          border-radius: 10px;
+          transition: all 0.25s ease;
         }
 
-        @media (min-width: 992px) {
-          .app-mobile-drawer, .app-mobile-overlay { display: none; }
+        .main-nav a:hover {
+          color: #0b58ff;
+          background: rgba(11,88,255,0.1);
         }
 
-        /* ===== Body lock when modal open ===== */
-        body.modal-open { overflow: hidden; }
-
-        /* ======== PORTAL MODAL LAYOUT ======== */
-        .quote-layer {
-          position: fixed;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom)) 16px;
-          z-index: 2147483647;
-        }
-        .quote-backdrop {
-          position: absolute;
-          inset: 0;
-          background: rgba(0,0,0,0.5);
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
-        }
-
-        /* ===== Navy gradient modal ===== */
-        .quote-panel {
-          position: relative;
-          width: min(720px, 96vw);
-          max-height: min(88vh, 820px);
-          background: linear-gradient(135deg, #0e0f2c 0%, #1a1f3f 100%);
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 14px;
-          box-shadow: 0 24px 80px rgba(0,0,0,0.7);
-          padding: 28px;
-          overflow: auto;
-          box-sizing: border-box;
-          animation: modal-in 160ms ease-out both;
-        }
-        @keyframes modal-in {
-          from { transform: translateY(8px) scale(0.98); opacity: 0; }
-          to   { transform: translateY(0) scale(1); opacity: 1; }
-        }
-        .quote-close {
-          position: absolute;
-          top: 10px;
-          right: 14px;
-          background: transparent;
-          border: 0;
-          font-size: 22px;
-          color: #fff;
-          cursor: pointer;
-        }
-        .quote-panel h3 {
-          margin: 0 0 18px 0;
-          color: ${RUBY};
-          font-size: 1.6rem;
+        .main-nav li:first-child a {
+          background: rgba(11,88,255,0.1);
+          color: #0b58ff;
           font-weight: 700;
         }
 
-        .quote-form {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-        .quote-form .row {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
-        .quote-form label {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-          font-size: 0.95rem;
-          color: #fff;
-          font-weight: 600;
-        }
-        .quote-form input,
-        .quote-form select,
-        .quote-form textarea {
-          background: rgba(255,255,255,0.08);
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.25);
+        /* ===== BUTTONS RIGHT SIDE ===== */
+        .btn-green {
+          background: #16a34a;
+          color: #fff !important;
+          padding: 10px 18px;
           border-radius: 8px;
-          padding: 10px 12px;
-          outline: none;
-          font-size: 0.95rem;
-        }
-        .quote-form input::placeholder,
-        .quote-form textarea::placeholder { color: #bbb; }
-
-        .actions {
-          display: flex;
-          gap: 10px;
-          justify-content: flex-end;
-          margin-top: 6px;
-        }
-        .btn {
-          padding: 10px 14px;
-          border-radius: 8px;
-          border: 1px solid transparent;
-          cursor: pointer;
           font-weight: 600;
+          box-shadow: 0 2px 4px rgba(22,163,74,0.3);
         }
-        .btn.primary {
-          background: ${RUBY};
-          color: #fff;
-          border-color: ${RUBY};
-          box-shadow: 0 0 12px rgba(161,22,42,0.4);
-        }
-        .btn.primary:hover { filter: brightness(1.05); }
-        .btn.ghost {
-          background: transparent;
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.3);
-        }
-        .btn.ghost:hover { background: rgba(255,255,255,0.1); }
+        .btn-green:hover { filter: brightness(1.08); }
 
-        @media (max-width: 640px) {
-          .quote-form .row { grid-template-columns: 1fr; }
-        }
-
-        /* Success alert on dark */
-        .alert {
-          background: rgba(141, 247, 177, 0.08);
-          border: 1px solid rgba(141, 247, 177, 0.35);
-          color: #b9ffd1;
-          padding: 12px 14px;
+        .btn-gold {
+          background: #d39b2f;
+          color: #fff !important;
+          padding: 10px 18px;
           border-radius: 8px;
-          margin-bottom: 12px;
           font-weight: 600;
+          box-shadow: 0 2px 4px rgba(211,155,47,0.3);
+        }
+        .btn-gold:hover { filter: brightness(1.08); }
+
+        .btn-blue {
+          background: linear-gradient(90deg, #0072ff 0%, #00c6ff 100%);
+          color: #fff !important;
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-weight: 600;
+          box-shadow: 0 2px 6px rgba(0,114,255,0.35);
+        }
+        .btn-blue:hover { filter: brightness(1.1); }
+
+        @media (max-width: 991px) {
+          .main-nav .nav-list { display: none; }
         }
       `}</style>
     </>
   );
-};
-
-// Dark-theme input style (border turns red on error)
-const inputStyle = (hasError) => ({
-  borderRadius: 8,
-  border: `1px solid ${hasError ? "#e03131" : "rgba(255,255,255,0.25)"}`,
-  padding: "10px 12px",
-  outline: "none",
-  width: "100%",
-  color: "#fff",
-  background: "rgba(255,255,255,0.08)",
-  boxShadow: "none",
-});
-const errorStyle = {
-  color: "#ffb3b3",
-  fontSize: 12,
-  marginTop: 4,
-  display: "inline-block",
 };
 
 export default Nav;
