@@ -1,5 +1,6 @@
+// src/Components/HeaderStyle2.jsx
 import { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Nav from "./Nav";
 
 const RUBY = "#9b111e";
@@ -8,6 +9,7 @@ export default function HeaderStyle2({ variant }) {
   const [mobileToggle, setMobileToggle] = useState(false);
   const [isSticky, setIsSticky] = useState("");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
+
   const [showPopup, setShowPopup] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -18,22 +20,48 @@ export default function HeaderStyle2({ variant }) {
     message: "",
   });
   const [errors, setErrors] = useState({});
+
   const messageRef = useRef(null);
+  const closeBtnRef = useRef(null);
   const location = useLocation();
 
+  /* ---------- Sticky header ---------- */
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollPos = window.scrollY;
-      if (currentScrollPos > prevScrollPos) setIsSticky("cs-gescout_sticky");
-      else if (currentScrollPos !== 0)
-        setIsSticky("cs-gescout_show cs-gescout_sticky");
+      const curr = window.scrollY;
+      if (curr > prevScrollPos) setIsSticky("cs-gescout_sticky");
+      else if (curr !== 0) setIsSticky("cs-gescout_show cs-gescout_sticky");
       else setIsSticky("");
-      setPrevScrollPos(currentScrollPos);
+      setPrevScrollPos(curr);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
 
+  /* ---------- Lock body scroll when menu OR popup is open ---------- */
+  useEffect(() => {
+    const lock = mobileToggle || showPopup;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = lock ? "hidden" : prev || "";
+    return () => (document.body.style.overflow = prev);
+  }, [mobileToggle, showPopup]);
+
+  /* ---------- Focus management & ESC to close popup ---------- */
+  useEffect(() => {
+    if (showPopup) {
+      const t = setTimeout(() => {
+        (messageRef.current || closeBtnRef.current)?.focus?.();
+      }, 60);
+      const onKey = (e) => e.key === "Escape" && setShowPopup(false);
+      window.addEventListener("keydown", onKey);
+      return () => {
+        clearTimeout(t);
+        window.removeEventListener("keydown", onKey);
+      };
+    }
+  }, [showPopup]);
+
+  /* ---------- Form data ---------- */
   const services = [
     "Internet Services",
     "Data Center Hosting",
@@ -86,12 +114,6 @@ export default function HeaderStyle2({ variant }) {
     });
   };
 
-  useEffect(() => {
-    if (showPopup && messageRef.current) {
-      setTimeout(() => messageRef.current.focus(), 100);
-    }
-  }, [showPopup]);
-
   return (
     <>
       <header
@@ -102,8 +124,9 @@ export default function HeaderStyle2({ variant }) {
         <div className="cs_main_header">
           <div className="container-fluid">
             <div className="cs_main_header_in">
+              {/* Left: Logo */}
               <div className="cs_main_header_left">
-                <a href="/" className="cs_site_branding">
+                <Link to="/" className="cs_site_branding" onClick={() => setMobileToggle(false)}>
                   <img
                     src={
                       location.pathname === "/" || location.pathname === "/home"
@@ -112,35 +135,38 @@ export default function HeaderStyle2({ variant }) {
                     }
                     alt="Logo"
                   />
-                </a>
+                </Link>
               </div>
 
+              {/* Center: Nav + burger */}
               <div className="cs_main_header_center">
                 <div className="cs_nav cs_primary_font fw-medium">
-                  <span
+                  <button
                     className={
                       mobileToggle
                         ? "cs-munu_toggle cs_teggle_active"
                         : "cs-munu_toggle"
                     }
-                    onClick={() => setMobileToggle(!mobileToggle)}
+                    aria-label="Toggle navigation"
+                    aria-expanded={mobileToggle}
+                    onClick={() => setMobileToggle((v) => !v)}
                   >
                     <span></span>
-                  </span>
-                  <Nav setMobileToggle={setMobileToggle} />
+                  </button>
+                  <Nav onNavigate={() => setMobileToggle(false)} open={mobileToggle} />
                 </div>
               </div>
 
+              {/* Right: CTA */}
               <div className="cs_main_header_right">
                 <div className="header-btn">
-                  {/* ✅ Ruby Red Button (no hover) */}
                   <button
                     onClick={() => setShowPopup(true)}
                     style={{
                       backgroundColor: RUBY,
                       border: "none",
                       color: "#fff",
-                      fontWeight: 600,
+                      fontWeight: 700,
                       cursor: "pointer",
                       padding: "10px 18px",
                       borderRadius: "8px",
@@ -155,7 +181,7 @@ export default function HeaderStyle2({ variant }) {
         </div>
       </header>
 
-      {/* ✅ Popup Form */}
+      {/* Popup */}
       {showPopup && (
         <div
           className="popup-overlay"
@@ -168,11 +194,14 @@ export default function HeaderStyle2({ variant }) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            padding: 12,
           }}
         >
           <div
             className="popup-card"
             onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
             style={{
               background: "#fff",
               color: "#000",
@@ -196,6 +225,7 @@ export default function HeaderStyle2({ variant }) {
                 Quick Message
               </h4>
               <button
+                ref={closeBtnRef}
                 onClick={() => setShowPopup(false)}
                 style={{
                   border: "none",
@@ -204,16 +234,13 @@ export default function HeaderStyle2({ variant }) {
                   color: "#000",
                   cursor: "pointer",
                 }}
+                aria-label="Close"
               >
                 ×
               </button>
             </div>
 
-            <form
-              onSubmit={handleSubmit}
-              noValidate
-              style={{ padding: 20, color: "#000" }}
-            >
+            <form onSubmit={handleSubmit} noValidate style={{ padding: 20, color: "#000" }}>
               <div
                 style={{
                   display: "grid",
@@ -246,9 +273,7 @@ export default function HeaderStyle2({ variant }) {
                     placeholder="you@company.com"
                     style={inputStyle(errors.email)}
                   />
-                  {errors.email && (
-                    <small style={errorStyle}>{errors.email}</small>
-                  )}
+                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
                 </div>
 
                 <div>
@@ -261,15 +286,11 @@ export default function HeaderStyle2({ variant }) {
                     placeholder="+91 9XXXXXXXXX"
                     style={inputStyle(errors.phone)}
                   />
-                  {errors.phone && (
-                    <small style={errorStyle}>{errors.phone}</small>
-                  )}
+                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>
-                    Service
-                  </label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Service</label>
                   <select
                     name="service"
                     value={form.service}
@@ -278,15 +299,15 @@ export default function HeaderStyle2({ variant }) {
                   >
                     <option value="">Select a service</option>
                     {services.map((s) => (
-                      <option key={s}>{s}</option>
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>
-                    Solution
-                  </label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Solution</label>
                   <select
                     name="solution"
                     value={form.solution}
@@ -295,7 +316,9 @@ export default function HeaderStyle2({ variant }) {
                   >
                     <option value="">Select a solution</option>
                     {solutions.map((s) => (
-                      <option key={s}>{s}</option>
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -313,9 +336,7 @@ export default function HeaderStyle2({ variant }) {
                     placeholder="Briefly describe your requirements…"
                     style={inputStyle(errors.message)}
                   />
-                  {errors.message && (
-                    <small style={errorStyle}>{errors.message}</small>
-                  )}
+                  {errors.message && <small style={errorStyle}>{errors.message}</small>}
                 </div>
 
                 <div
@@ -365,7 +386,7 @@ export default function HeaderStyle2({ variant }) {
   );
 }
 
-// Helper Styles
+/* helpers */
 const inputStyle = (hasError) => ({
   width: "100%",
   padding: "10px 12px",
@@ -373,6 +394,7 @@ const inputStyle = (hasError) => ({
   border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
   color: "#000",
   outline: "none",
+  background: "#fff",
 });
 const errorStyle = {
   color: "#e03131",
