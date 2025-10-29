@@ -1,18 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import SectionTitle from "../Common/SectionTitle";
-import loadBackgroudImages from "../Common/loadBackgroudImages";
+import Nav from "./Nav";
 
 const RUBY = "#9b111e";
 
-const Contact1 = () => {
-  useEffect(() => { loadBackgroudImages(); }, []);
-  const location = useLocation();
-
-  // --- Form State ---
+export default function HeaderStyle2({ variant }) {
+  const [mobileToggle, setMobileToggle] = useState(false);
+  const [isSticky, setIsSticky] = useState("");
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
   const [form, setForm] = useState({
     name: "",
-    company: "",
     email: "",
     phone: "",
     service: "",
@@ -20,24 +18,25 @@ const Contact1 = () => {
     message: "",
   });
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-
-  // --- Modal State ---
-  const [openModal, setOpenModal] = useState(false);
   const messageRef = useRef(null);
 
-  // Auto-open modal if navigated from Header CTA
-  useEffect(() => {
-    if (location.state?.openMessage) {
-      setOpenModal(true);
-    }
-  }, [location.state]);
+  const location = useLocation();
 
   useEffect(() => {
-    if (openModal && messageRef.current) {
-      setTimeout(() => messageRef.current?.focus(), 100);
-    }
-  }, [openModal]);
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      if (currentScrollPos > prevScrollPos) {
+        setIsSticky("cs-gescout_sticky");
+      } else if (currentScrollPos !== 0) {
+        setIsSticky("cs-gescout_show cs-gescout_sticky");
+      } else {
+        setIsSticky("");
+      }
+      setPrevScrollPos(currentScrollPos);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
 
   const services = [
     "Internet Services",
@@ -49,7 +48,6 @@ const Contact1 = () => {
     "Others",
   ];
 
-  // ✅ New Solutions List
   const solutions = [
     "Campus Networking & IT Infrastructure",
     "Surveillance & Security Systems",
@@ -80,11 +78,10 @@ const Contact1 = () => {
     const eobj = validate();
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
-    setSubmitted(true);
-    setOpenModal(false);
+    alert("✅ Message Sent Successfully!");
+    setShowPopup(false);
     setForm({
       name: "",
-      company: "",
       email: "",
       phone: "",
       service: "",
@@ -93,217 +90,261 @@ const Contact1 = () => {
     });
   };
 
+  useEffect(() => {
+    if (showPopup && messageRef.current) {
+      setTimeout(() => messageRef.current.focus(), 100);
+    }
+  }, [showPopup]);
+
   return (
-    <div className="contact-area" style={{ backgroundColor: "#fff", padding: "80px 0", color: "#111" }}>
-      {/* ===================== Popup Modal ===================== */}
-      {openModal && (
+    <>
+      <header
+        className={`cs_site_header header_style_2 cs_style_1 ${variant || ""} cs_sticky_header cs_site_header_full_width ${
+          mobileToggle ? "cs_mobile_toggle_active" : ""
+        } ${isSticky}`}
+      >
+        <div className="cs_main_header">
+          <div className="container-fluid">
+            <div className="cs_main_header_in">
+              <div className="cs_main_header_left">
+                <a href="/" className="cs_site_branding">
+                  <img
+                    src={
+                      location.pathname === "/" || location.pathname === "/home"
+                        ? "/assets/images/logo.png"
+                        : "/assets/images/footer-logo.png"
+                    }
+                    alt="Logo"
+                  />
+                </a>
+              </div>
+
+              <div className="cs_main_header_center">
+                <div className="cs_nav cs_primary_font fw-medium">
+                  <span
+                    className={
+                      mobileToggle
+                        ? "cs-munu_toggle cs_teggle_active"
+                        : "cs-munu_toggle"
+                    }
+                    onClick={() => setMobileToggle(!mobileToggle)}
+                  >
+                    <span></span>
+                  </span>
+                  <Nav setMobileToggle={setMobileToggle} />
+                </div>
+              </div>
+
+              <div className="cs_main_header_right">
+                <div className="header-btn">
+                  {/* ✅ Popup Trigger (no navigation) */}
+                  <button
+                    onClick={() => setShowPopup(true)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#fff",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Get A Quote NOW <i className="bi bi-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ✅ Popup Form */}
+      {showPopup && (
         <div
-          className="contact-modal"
-          role="dialog"
-          aria-modal="true"
+          className="popup-overlay"
+          onClick={() => setShowPopup(false)}
           style={{
             position: "fixed",
             inset: 0,
-            zIndex: 1000,
             background: "rgba(0,0,0,0.5)",
+            zIndex: 2000,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            padding: 16,
           }}
-          onClick={() => setOpenModal(false)}
         >
           <div
-            className="modal-card"
+            className="popup-card"
+            onClick={(e) => e.stopPropagation()}
             style={{
               background: "#fff",
               color: "#000",
               width: "min(700px, 95vw)",
               borderRadius: 12,
-              boxShadow: "0 20px 60px rgba(0,0,0,.25)",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
               border: "1px solid #eee",
               overflow: "hidden",
             }}
-            onClick={(e) => e.stopPropagation()}
           >
             <div
               style={{
-                padding: 18,
+                padding: "16px 18px",
                 borderBottom: `3px solid ${RUBY}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
               }}
             >
-              <h4 style={{ margin: 0, color: RUBY, fontWeight: 800, textTransform: "uppercase" }}>
+              <h4 style={{ margin: 0, color: RUBY, fontWeight: 800 }}>
                 Quick Message
               </h4>
               <button
-                onClick={() => setOpenModal(false)}
-                aria-label="Close"
+                onClick={() => setShowPopup(false)}
                 style={{
                   border: "none",
                   background: "transparent",
                   fontSize: 22,
-                  cursor: "pointer",
-                  lineHeight: 1,
                   color: "#000",
+                  cursor: "pointer",
                 }}
               >
                 ×
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} noValidate style={{ padding: 18, color: "#000" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                {/* Name */}
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              style={{ padding: 20, color: "#000" }}
+            >
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: 12,
+                }}
+              >
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label className="form-label" htmlFor="name" style={{ fontWeight: 600, color: "#000" }}>
-                    Full Name*
-                  </label>
+                  <label style={{ fontWeight: 600 }}>Full Name*</label>
                   <input
-                    id="name"
                     name="name"
                     type="text"
                     value={form.name}
                     onChange={handleChange}
-                    className="form-control"
                     placeholder="Your full name"
-                    required
                     style={inputStyle(errors.name)}
                   />
                   {errors.name && <small style={errorStyle}>{errors.name}</small>}
                 </div>
 
-                {/* Email */}
                 <div>
-                  <label className="form-label" htmlFor="email" style={{ fontWeight: 600, color: "#000" }}>
-                    Email*
-                  </label>
+                  <label style={{ fontWeight: 600 }}>Email*</label>
                   <input
-                    id="email"
                     name="email"
                     type="email"
                     value={form.email}
                     onChange={handleChange}
-                    className="form-control"
                     placeholder="you@company.com"
-                    required
                     style={inputStyle(errors.email)}
                   />
-                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
+                  {errors.email && (
+                    <small style={errorStyle}>{errors.email}</small>
+                  )}
                 </div>
 
-                {/* Phone */}
                 <div>
-                  <label className="form-label" htmlFor="phone" style={{ fontWeight: 600, color: "#000" }}>
-                    Phone*
-                  </label>
+                  <label style={{ fontWeight: 600 }}>Phone*</label>
                   <input
-                    id="phone"
                     name="phone"
                     type="tel"
                     value={form.phone}
                     onChange={handleChange}
-                    className="form-control"
                     placeholder="+91 9XXXXXXXXX"
-                    required
                     style={inputStyle(errors.phone)}
                   />
-                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
+                  {errors.phone && (
+                    <small style={errorStyle}>{errors.phone}</small>
+                  )}
                 </div>
 
-                {/* Service */}
                 <div>
-                  <label className="form-label" htmlFor="service" style={{ fontWeight: 600, color: "#000" }}>
-                    Service
-                  </label>
+                  <label style={{ fontWeight: 600 }}>Service</label>
                   <select
-                    id="service"
                     name="service"
                     value={form.service}
                     onChange={handleChange}
-                    className="form-select"
                     style={inputStyle()}
                   >
                     <option value="">Select a service</option>
                     {services.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
+                      <option key={s}>{s}</option>
                     ))}
                   </select>
                 </div>
 
-                {/* ✅ Solution Dropdown */}
                 <div>
-                  <label className="form-label" htmlFor="solution" style={{ fontWeight: 600, color: "#000" }}>
-                    Solution
-                  </label>
+                  <label style={{ fontWeight: 600 }}>Solution</label>
                   <select
-                    id="solution"
                     name="solution"
                     value={form.solution}
                     onChange={handleChange}
-                    className="form-select"
                     style={inputStyle()}
                   >
                     <option value="">Select a solution</option>
                     {solutions.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
+                      <option key={s}>{s}</option>
                     ))}
                   </select>
                 </div>
 
-                {/* Message */}
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label className="form-label" htmlFor="message-modal" style={{ fontWeight: 600, color: "#000" }}>
-                    Your Message / Requirements*
-                  </label>
+                  <label style={{ fontWeight: 600 }}>Your Message*</label>
                   <textarea
-                    id="message-modal"
                     name="message"
-                    rows={5}
+                    rows={4}
                     ref={messageRef}
                     value={form.message}
                     onChange={handleChange}
-                    className="form-control"
                     placeholder="Briefly describe your requirements…"
-                    required
                     style={inputStyle(errors.message)}
                   />
-                  {errors.message && <small style={errorStyle}>{errors.message}</small>}
+                  {errors.message && (
+                    <small style={errorStyle}>{errors.message}</small>
+                  )}
                 </div>
 
-                {/* Buttons */}
-                <div style={{ gridColumn: "1 / -1", display: "flex", gap: 10, justifyContent: "flex-end" }}>
+                <div
+                  style={{
+                    gridColumn: "1 / -1",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    gap: 10,
+                  }}
+                >
                   <button
                     type="button"
-                    onClick={() => setOpenModal(false)}
-                    className="btn btn-light"
+                    onClick={() => setShowPopup(false)}
                     style={{
-                      padding: "10px 14px",
-                      borderRadius: 8,
+                      background: "#f5f5f5",
                       border: "1px solid #ddd",
-                      fontWeight: 600,
                       color: "#000",
-                      background: "#f8f8f8",
+                      borderRadius: 8,
+                      padding: "10px 16px",
+                      fontWeight: 600,
+                      cursor: "pointer",
                     }}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="thm-btn"
                     style={{
                       background: RUBY,
                       color: "#fff",
                       border: "none",
-                      padding: "10px 16px",
                       borderRadius: 8,
+                      padding: "10px 18px",
                       fontWeight: 700,
+                      cursor: "pointer",
                     }}
                   >
                     Send Message
@@ -314,19 +355,18 @@ const Contact1 = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
-};
+}
 
-// Helpers
+// Helper Styles
 const inputStyle = (hasError) => ({
-  borderRadius: 8,
-  border: `1px solid ${hasError ? "#e03131" : "#e5e5e5"}`,
-  padding: "10px 12px",
-  outline: "none",
   width: "100%",
-  boxShadow: "none",
+  padding: "10px 12px",
+  borderRadius: 8,
+  border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
   color: "#000",
+  outline: "none",
 });
 const errorStyle = {
   color: "#e03131",
@@ -334,5 +374,3 @@ const errorStyle = {
   marginTop: 4,
   display: "inline-block",
 };
-
-export default Contact1;
