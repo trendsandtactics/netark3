@@ -1,19 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import SectionTitle from "../Common/SectionTitle";
-import {
-  Wifi,
-  Server,
-  Network,
-  Cloud,
-  Shield,
-  Database,
-  Monitor,
-  PhoneCall,
-  Code,
-} from "lucide-react";
+import { Wifi, Server, Network, Cloud, Shield, Database, Monitor, PhoneCall, Code } from "lucide-react";
 
-const RUBY_RED = "#9b111e"; // updated ruby red tone
+const RUBY_RED = "#9b111e";
 
 const SERVICES = [
   { title: "Internet Services", icon: Wifi, image: "/assets/images/InternetServices.jpg" },
@@ -40,8 +30,9 @@ const Services1 = () => {
             Title={`Professional IT Services<br> That Drive <span style='color:${RUBY_RED};'>Success.</span>`}
           />
         </div>
-        <br></br> 
-        <br></br> 
+
+        <br />
+        <br />
 
         <div className="services-grid">
           {SERVICES.map(({ title, icon: Icon, image }, i) => (
@@ -66,6 +57,13 @@ const Services1 = () => {
               </div>
             </article>
           ))}
+        </div>
+
+        {/* ===== Bottom CTA ===== */}
+        <div className="cta-wrap">
+          <button className="cta-btn" onClick={() => navigate("/services")}>
+            Explore All Services
+          </button>
         </div>
       </div>
 
@@ -138,10 +136,6 @@ const Services1 = () => {
           stroke: ${RUBY_RED} !important;
           color: ${RUBY_RED} !important;
         }
-        .service-card:hover .badge .badge-icon {
-          stroke: ${RUBY_RED} !important;
-          color: ${RUBY_RED} !important;
-        }
 
         /* CONTENT */
         .content {
@@ -156,6 +150,25 @@ const Services1 = () => {
           letter-spacing: .2px;
           transition: color .3s ease;
         }
+
+        /* CTA */
+        .cta-wrap {
+          display: flex;
+          justify-content: center;
+          margin-top: 36px;
+        }
+        .cta-btn {
+          background: ${RUBY_RED};
+          color: #fff;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 10px;
+          font-weight: 800;
+          letter-spacing: 0.3px;
+          cursor: pointer;
+          box-shadow: 0 10px 24px rgba(155, 17, 30, 0.25);
+        }
+        /* no hover color change (as requested style across header/nav) */
 
         /* RESPONSIVE */
         @media (max-width:1280px) {
