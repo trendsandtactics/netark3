@@ -17,26 +17,25 @@ const Solutions = () => {
       <div className="container mx-auto px-6 md:px-10 lg:max-w-7xl">
         {/* White Space Before Content */}
         <div className="h-20 md:h-28"></div>
-   <br></br>
-   <br></br>     
+        <br />
+        <br />
+
         {/* Section Heading */}
         <div className="text-center mb-14">
           <SectionTitle
             Title={`Comprehensive IT & Networking Solutions<br> for <span style='color:${RUBY_RED};'>Modern Enterprises</span>`}
           />
         </div>
-        <br></br> 
-        <br></br> 
+
+        <br />
+        <br />
+
         {/* Solutions Grid */}
         <div className="solutions-grid">
           {SOLUTIONS.map((item, i) => {
             const Icon = item.icon;
             return (
-              <Link
-                key={i}
-                to="/solutions"
-                className="service-card group no-underline"
-              >
+              <Link key={i} to="/solutions" className="service-card group no-underline">
                 <div className="icon-wrap">
                   <Icon
                     size={56}
@@ -45,13 +44,19 @@ const Solutions = () => {
                     className="icon transition-all duration-300"
                   />
                 </div>
-
                 <h3 className="service-title text-base md:text-lg lg:text-xl">
                   {item.title}
                 </h3>
               </Link>
             );
           })}
+        </div>
+
+        {/* ===== Bottom CTA (services page style) ===== */}
+        <div className="cta-wrap">
+          <Link to="/solutions" className="cta-btn">
+            Explore All Solutions
+          </Link>
         </div>
       </div>
 
@@ -93,7 +98,7 @@ const Solutions = () => {
           transition: color 0.3s ease;
         }
 
-        /* HOVER EFFECT */
+        /* HOVER EFFECT (keep like services page) */
         .service-card:hover {
           background: ${RUBY_RED};
           color: #fff;
@@ -106,6 +111,26 @@ const Solutions = () => {
           stroke: #fff !important;
           transform: scale(1.08);
         }
+
+        /* CTA */
+        .cta-wrap {
+          display: flex;
+          justify-content: center;
+          margin-top: 36px;
+        }
+        .cta-btn {
+          background: ${RUBY_RED};
+          color: #fff;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 10px;
+          font-weight: 800;
+          letter-spacing: 0.3px;
+          box-shadow: 0 10px 24px rgba(155, 17, 30, 0.25);
+          text-decoration: none;
+          display: inline-block;
+        }
+        /* no hover color change — matches your header/nav preference */
 
         /* RESPONSIVE */
         @media (max-width:1024px) {
