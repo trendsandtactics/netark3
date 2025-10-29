@@ -37,23 +37,11 @@ const Nav = ({ onNavigate }) => {
     { path: "/contact", label: "Contact" },
   ];
 
-  // if not home page → always Ruby
-  const isHome = location.pathname === "/" || location.pathname === "/home";
-  const linkColor = isHome && !scrolled ? "#fff" : RUBY; // white first, ruby after scroll or non-home
+  const linkColor = scrolled ? RUBY : "#fff"; // white → ruby when scroll
 
   return (
     <>
-      <nav
-        className={`main-nav ${isHome ? "absolute" : "sticky"}`}
-        style={{
-          position: isHome ? "absolute" : "sticky",
-          top: 0,
-          width: "100%",
-          zIndex: 1000,
-          background: "transparent",
-          transition: "color 0.3s ease",
-        }}
-      >
+      <nav className="main-nav">
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -62,9 +50,7 @@ const Nav = ({ onNavigate }) => {
                   to={path}
                   onClick={handleNavigate}
                   className={location.pathname === path ? "active" : ""}
-                  style={{
-                    color: linkColor,
-                  }}
+                  style={{ color: linkColor }}
                 >
                   {label}
                 </Link>
@@ -75,13 +61,27 @@ const Nav = ({ onNavigate }) => {
       </nav>
 
       <style>{`
+        /* ===== Centered Transparent Navbar ===== */
+        .main-nav {
+          width: 100%;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: transparent;
+          transition: all 0.3s ease;
+        }
+
         .nav-list {
           list-style: none;
           margin: 0;
-          padding: 18px 30px;
+          padding: 20px 30px;
           display: flex;
           align-items: center;
-          gap: 30px;
+          justify-content: center;
+          gap: 40px;
         }
 
         .nav-list a {
@@ -90,17 +90,9 @@ const Nav = ({ onNavigate }) => {
           text-decoration: none;
           position: relative;
           padding: 6px 0;
-          background: none !important;
-          outline: none !important;
           transition: color 0.3s ease;
         }
 
-        /* No hover color change */
-        .nav-list a:hover {
-          color: inherit;
-        }
-
-        /* Active underline effect */
         .nav-list a.active::after {
           content: "";
           position: absolute;
@@ -108,12 +100,18 @@ const Nav = ({ onNavigate }) => {
           right: 0;
           bottom: -3px;
           height: 2px;
-          background: #fff;
+          background: ${RUBY};
           border-radius: 1px;
         }
 
+        .nav-list a:hover {
+          color: ${RUBY};
+        }
+
         @media (max-width: 991px) {
-          .nav-list { display: none; }
+          .nav-list {
+            display: none;
+          }
         }
       `}</style>
     </>
