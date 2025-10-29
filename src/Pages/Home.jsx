@@ -1,95 +1,109 @@
-// src/Pages/Home.jsx
-import React from "react";
+// src/Components/HeroShowcase.jsx
+import React, { useEffect, useState } from "react";
 
-// Sections
-import About1 from "../Components/About/About1";
-import HeroShowcase from "../Components/HeroShowcase"; // ✅ use the new hero
-import Contact1 from "../Components/Contact/Contact1";
-import Features from "../Components/Features/Features";
-import Services1 from "../Components/Services/Services1";
+const HeroShowcase = ({ images = [], intervalMs = 6000, titleTop, titleBottom, accent }) => {
+  const [index, setIndex] = useState(0);
 
-const RUBY_RED = "#9B111E";
+  useEffect(() => {
+    if (images.length > 1) {
+      const timer = setInterval(() => {
+        setIndex((prev) => (prev + 1) % images.length);
+      }, intervalMs);
+      return () => clearInterval(timer);
+    }
+  }, [images.length, intervalMs]);
 
-const Home = () => {
   return (
-    <div className="home-page">
-      {/* ===== HERO ===== */}
-      <HeroShowcase
-        // 🔽 Add as many images as you want under /public
-        images={[
-          "/banners/data-center-1.jpg",
-          "/banners/data-center-2.jpg",
-          "/banners/networking-1.jpg",
-          "/banners/networking-2.jpg",
-          "/banners/security-1.jpg",
-          "/banners/cloud-1.jpg",
-        ]}
-        intervalMs={6000}
-        titleTop="Making Technology"
-        titleBottom="Work for People & Business"
-        accent="#3AA0FF"
-      />
+    <section className="hero-showcase">
+      <div
+        className="hero-bg"
+        style={{
+          backgroundImage: `url(${images[index]})`,
+        }}
+      ></div>
 
-      {/* ===== ABOUT ===== */}
-      <section className="section-wrap">
-        <About1 />
-      </section>
+      {/* Gray gradient overlay */}
+      <div className="hero-overlay"></div>
 
-      {/* ===== SERVICES ===== */}
-      <section >
-        <Services1 />
-      </section>
+      {/* Text content */}
+      <div className="hero-content">
+        <h1>
+          <span>{titleTop}</span>
+          <br />
+          <strong style={{ color: accent }}>{titleBottom}</strong>
+        </h1>
+      </div>
 
-      <br></br>
-      {/* ===== FEATURES ===== */}
-      <section >
-        <Features />
-      </section>
-
-      {/* ===== CONTACT ===== */}
-      <section >
-        <Contact1 />
-      </section>
-
-      {/* ===== PAGE STYLES ===== */}
       <style>{`
-        /* spacing between blocks (instead of <br/>) */
-        .section-wrap { padding-top: 64px; padding-bottom: 0px; }
-        @media (min-width: 992px) {
-          .section-wrap { padding-top: 88px; padding-bottom: 0px; }
-        }
-        .section-wrap--last { padding-bottom: 50px; }
-
-        /* brand tint */
-        .section-title span { color: ${RUBY_RED} !important; }
-
-        /* buttons */
-        .thm-btn, .hero-btn, .main-btn {
-          background-color: ${RUBY_RED} !important;
-          border-color: ${RUBY_RED} !important;
-          color: #fff !important;
-          transition: all .3s ease;
-        }
-        .thm-btn:hover, .hero-btn:hover, .main-btn:hover {
-          background-color: #7b0d16 !important;
-          border-color: #7b0d16 !important;
+        .hero-showcase {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        /* (Optional) If any hero list text is used elsewhere, keep it readable on light bg */
-        .hero-list {
-          list-style: none;
-          padding-left: 0;
-          margin: 0;
-          color: #111;
-          line-height: 1.6;
-          font-size: 1.05rem;
+        .hero-bg {
+          position: absolute;
+          top: 0; left: 0;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          transition: background-image 1s ease-in-out;
+          z-index: 1;
         }
-        .hero-list li { margin-bottom: 12px; }
-        .hero-list strong { color: #000; }
-        .hero-list .mt-2 { margin-top: 16px; }
+
+        /* Gray-to-transparent overlay (behind text, above image) */
+        .hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to bottom,
+            rgba(80, 80, 80, 0.6) 0%,
+            rgba(60, 60, 60, 0.4) 30%,
+            rgba(40, 40, 40, 0.2) 70%,
+            rgba(30, 30, 30, 0.0) 100%
+          );
+          z-index: 2;
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 3;
+          text-align: center;
+          color: #fff;
+          padding: 0 20px;
+        }
+
+        .hero-content h1 {
+          font-size: 2rem;
+          line-height: 1.3;
+          font-weight: 600;
+        }
+
+        .hero-content h1 span {
+          display: block;
+          font-weight: 400;
+          color: #f0f0f0;
+        }
+
+        @media (min-width: 768px) {
+          .hero-content h1 {
+            font-size: 3rem;
+          }
+        }
+        @media (min-width: 1200px) {
+          .hero-content h1 {
+            font-size: 3.5rem;
+          }
+        }
       `}</style>
-    </div>
+    </section>
   );
 };
 
-export default Home;
+export default HeroShowcase;
