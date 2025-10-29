@@ -72,11 +72,12 @@ const Nav = ({ onNavigate }) => {
           text-decoration: none;
           position: relative;
           padding: 6px 0;
-          transition: color 0.25s ease;
-          background: none !important;     /* ✅ removes any browser bg */
-          outline: none !important;        /* ✅ no blue or grey focus box */
+          background: none !important;
+          outline: none !important;
+          transition: none !important; /* ✅ disables hover transition */
         }
 
+        /* ✅ Removed hover effect — color stays static */
         .nav-list a:hover {
           color: ${RUBY};
         }
