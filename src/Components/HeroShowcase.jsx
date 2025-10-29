@@ -1,3 +1,4 @@
+// src/Components/HeroShowcase.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +9,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/free-mode";
 
+const RUBY = "#9B111E";
+
 const slides = [
   { id: 1, img: "/1.png" },
   { id: 2, img: "/2.png" },
@@ -15,18 +18,20 @@ const slides = [
   { id: 4, img: "/4.png" },
 ];
 
-/** ✅ Add your partner/vendor logos here */
+/** 8 companies */
 const logos = [
-  { id: "acer", img: "/0001.png" },
-  { id: "acronis", img: "/002.png" },
-  { id: "dahua", img: "/003.png" },
-  { id: "ahuja", img: "/004.png" },
-  { id: "apc", img: "/005.png" },
-  { id: "apw", img: "/006.png" },
-  { id: "aruba", img: "//007.png" },
-  { id: "avaya", img: "/008.png" },
-  // add more as needed…
+  { id: "acer",   img: "/0001.png" },
+  { id: "acronis",img: "/002.png" },
+  { id: "dahua",  img: "/003.png" },
+  { id: "ahuja",  img: "/004.png" },
+  { id: "apc",    img: "/005.png" },
+  { id: "apw",    img: "/006.png" },
+  { id: "aruba",  img: "/007.png" },
+  { id: "avaya",  img: "/008.png" },
 ];
+
+/** ✅ Triplicate for seamless rail even with 8 logos */
+const logoRail = [...logos, ...logos, ...logos];
 
 export default function HeroShowcase() {
   const [mounted, setMounted] = useState(false);
@@ -106,7 +111,7 @@ export default function HeroShowcase() {
             lineHeight: 1.6,
           }}
         >
-          At <strong style={{ color: "#9B111E" }}>NETARK</strong>, we deliver more than just
+          At <strong style={{ color: RUBY }}>NETARK</strong>, we deliver more than just
           technology — we deliver trust, reliability, and future-ready infrastructure.
           With over 20 years of experience, we specialise in Internet services, networking,
           data centers, server colocation, hosting, and backup services that support
@@ -121,7 +126,7 @@ export default function HeroShowcase() {
             lineHeight: 1.6,
           }}
         >
-          Partner with <span style={{ color: "#9B111E" }}>NETARK</span> – Your trusted Internet and
+          Partner with <span style={{ color: RUBY }}>NETARK</span> – Your trusted Internet and
           Data Center Infrastructure experts in India.
         </p>
 
@@ -129,7 +134,7 @@ export default function HeroShowcase() {
           to="/contact"
           className="btn btn-lg px-5 py-2"
           style={{
-            backgroundColor: "#9B111E",
+            backgroundColor: RUBY,
             color: "#fff",
             borderRadius: "999px",
             fontWeight: 600,
@@ -160,7 +165,6 @@ export default function HeroShowcase() {
             fontWeight: 600,
             fontSize: "14px",
             letterSpacing: ".2px",
-            textTransform: "none",
           }}
         >
           Trusted by Industry Leaders
@@ -169,14 +173,14 @@ export default function HeroShowcase() {
               width: 76,
               height: 3,
               margin: "6px auto 0",
-              background: "#3B82F6", // blue underline
+              background: RUBY,   // 🔴 ruby underline
               borderRadius: 999,
-              opacity: 0.9,
+              opacity: 0.95,
             }}
           />
         </div>
 
-        {/* Logo rail with translucent backdrop */}
+        {/* Logo rail */}
         <div
           style={{
             margin: "0 auto",
@@ -194,18 +198,18 @@ export default function HeroShowcase() {
             freeMode={{ enabled: true, momentum: false }}
             autoplay={{ delay: 1, disableOnInteraction: false, pauseOnMouseEnter: false }}
             speed={4000}                 /* smooth continuous scroll */
-            slidesPerView={8}
+            slidesPerView={7}            /* keep < logos.length to force motion */
             spaceBetween={16}
             allowTouchMove={false}
             breakpoints={{
               0:   { slidesPerView: 3, spaceBetween: 12 },
               480: { slidesPerView: 4, spaceBetween: 14 },
-              768: { slidesPerView: 6, spaceBetween: 16 },
-              1024:{ slidesPerView: 8, spaceBetween: 18 },
+              768: { slidesPerView: 5, spaceBetween: 16 },
+              1024:{ slidesPerView: 7, spaceBetween: 18 },
             }}
           >
-            {logos.map((l) => (
-              <SwiperSlide key={l.id} style={{ display: "flex", justifyContent: "center" }}>
+            {logoRail.map((l, idx) => (
+              <SwiperSlide key={`${l.id}-${idx}`} style={{ display: "flex", justifyContent: "center" }}>
                 <div
                   style={{
                     width: 140,
