@@ -40,35 +40,28 @@ export default function HeroShowcase() {
   const msgRef = useRef(null);
   const closeBtnRef = useRef(null);
 
-  // mount only on client (avoid SSR mismatch)
+  // mount only on client
   useEffect(() => setShouldInit(true), []);
-
-  // responsive flag
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Body scroll lock when popup is open
+  // Lock body scroll when popup open
   useEffect(() => {
     const prev = document.body.style.overflow;
     if (showPopup) document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev || "";
-    };
+    return () => (document.body.style.overflow = prev || "");
   }, [showPopup]);
 
-  // Focus & ESC close
+  // Focus & ESC
   useEffect(() => {
     if (!showPopup) return;
     const t = setTimeout(() => (msgRef.current || closeBtnRef.current)?.focus?.(), 50);
     const onKey = (e) => e.key === "Escape" && setShowPopup(false);
     window.addEventListener("keydown", onKey);
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => { clearTimeout(t); window.removeEventListener("keydown", onKey); };
   }, [showPopup]);
 
   const logoRail = useMemo(() => [...BASE_LOGOS, ...BASE_LOGOS, ...BASE_LOGOS], []);
@@ -81,7 +74,7 @@ export default function HeroShowcase() {
     if (!form.message.trim()) e.message = "Please share your requirements.";
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address.";
-    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
+    if (form.phone && !/^[0-9+()\\- \\s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
     return e;
   };
@@ -102,12 +95,12 @@ export default function HeroShowcase() {
     setForm({ name: "", email: "", phone: "", message: "" });
   };
 
-  // ---------- responsive styles ----------
+  // styles
   const wrapperStyle = {
-    width: "100%",
-    height: "100dvh", // stable on mobile (avoids address bar jump)
-    overflow: "hidden",
     position: "relative",
+    width: "100%",
+    height: "100dvh",
+    overflow: "hidden",
   };
 
   const infoBoxStyle = isMobile
@@ -115,8 +108,8 @@ export default function HeroShowcase() {
         position: "absolute",
         left: "50%",
         transform: "translateX(-50%)",
-        bottom: "28%", // lifted above logos
-        zIndex: 80, // above everything interactive
+        bottom: "28%",
+        zIndex: 100,
         pointerEvents: "auto",
         maxWidth: "92vw",
         width: "92vw",
@@ -132,7 +125,7 @@ export default function HeroShowcase() {
         position: "absolute",
         left: "4%",
         bottom: "16%",
-        zIndex: 80,
+        zIndex: 100,
         pointerEvents: "auto",
         maxWidth: "700px",
         background:
@@ -145,24 +138,12 @@ export default function HeroShowcase() {
       };
 
   const titleStyle = isMobile
-    ? {
-        color: "#fff",
-        marginBottom: 12,
-        fontWeight: 800,
-        fontSize: "clamp(20px, 5.6vw, 26px)",
-        lineHeight: 1.2,
-      }
-    : {
-        color: "#fff",
-        marginBottom: 16,
-        fontWeight: 800,
-        fontSize: "clamp(26px, 3.8vw, 48px)",
-        lineHeight: 1.2,
-      };
+    ? { color: "#fff", marginBottom: 12, fontWeight: 800, fontSize: "clamp(20px, 5.6vw, 26px)", lineHeight: 1.2 }
+    : { color: "#fff", marginBottom: 16, fontWeight: 800, fontSize: "clamp(26px, 3.8vw, 48px)", lineHeight: 1.2 };
 
   const bodyTextStyle = isMobile
     ? { color: "#D7D7D7", fontSize: "clamp(13px, 3.6vw, 15px)", lineHeight: 1.55, marginBottom: 10 }
-    : { color: "#CCCCCC", fontSize: "clamp(14px, 1.3vw, 18px)", lineHeight: 1.6, marginBottom: 12 };
+    : { color: "#CCC", fontSize: "clamp(14px, 1.3vw, 18px)", lineHeight: 1.6, marginBottom: 12 };
 
   const ctaStyle = isMobile
     ? { background: RUBY, color: "#fff", borderRadius: 999, border: "none", fontWeight: 700, padding: "10px 16px", fontSize: 14 }
@@ -173,14 +154,15 @@ export default function HeroShowcase() {
     left: 0,
     right: 0,
     bottom: `calc(8px + env(safe-area-inset-bottom))`,
-    zIndex: 60, // below the info box
+    zIndex: 80,
+    pointerEvents: "auto",
     padding: isMobile ? "8px 0 0" : "18px 0 6px",
   };
 
   const logosRailBoxStyle = {
     margin: "0 auto",
     width: "min(1200px, 92vw)",
-    background: "rgba(0,0,0,0.40)", // darker for readability
+    background: "rgba(0,0,0,0.40)",
     border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: 14,
     padding: isMobile ? "8px 8px" : "10px 12px",
@@ -191,7 +173,7 @@ export default function HeroShowcase() {
     width: isMobile ? 110 : 140,
     maxWidth: isMobile ? "28vw" : "20vw",
     height: isMobile ? 48 : 56,
-    background: "#ffffff",
+    background: "#fff",
     borderRadius: 10,
     border: "1px solid #E5E7EB",
     display: "flex",
@@ -201,8 +183,15 @@ export default function HeroShowcase() {
   };
 
   return (
-    <div className="position-relative" style={wrapperStyle}>
-      {/* Background slider */}
+    <div style={wrapperStyle}>
+      <style>{`
+        .swiper-button-prev, .swiper-button-next, .swiper-pagination-bullets {
+          z-index: 90;
+          pointer-events: auto;
+        }
+      `}</style>
+
+      {/* Background slider (slides are non-interactive to avoid blocking taps) */}
       {shouldInit ? (
         <Swiper
           modules={[Autoplay, Navigation, Pagination]}
@@ -212,32 +201,34 @@ export default function HeroShowcase() {
           pagination={{ clickable: true }}
           speed={800}
           slidesPerView={1}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", zIndex: 1 }}
         >
           {BASE_SLIDES.map((s) => (
             <SwiperSlide key={s.id}>
               <div
                 style={{
-                  height: "100dvh",
+                  position: "relative",
                   width: "100%",
-                  backgroundImage: `
-                    /* Top-only black gradient */
-                    linear-gradient(
-                      to bottom,
-                      rgba(0,0,0,0.70) 0%,
-                      rgba(0,0,0,0.35) 35%,
-                      rgba(0,0,0,0.08) 65%,
-                      rgba(0,0,0,0.00) 100%
-                    ),
-                    url(${s.img})
-                  `,
+                  height: "100dvh",
+                  backgroundImage: `url(${s.img})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
                   filter: "brightness(0.96)",
-                  pointerEvents: "none", // ✅ slide won't steal clicks
+                  pointerEvents: "none",
                 }}
-              />
+              >
+                {/* Top-only black gradient */}
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      "linear-gradient(to bottom, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.08) 65%, rgba(0,0,0,0) 100%)",
+                    pointerEvents: "none",
+                  }}
+                />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -254,8 +245,8 @@ export default function HeroShowcase() {
         <p style={bodyTextStyle}>
           At <strong style={{ color: RUBY }}>NETARK</strong>, we deliver more than just technology — we deliver trust,
           reliability, and future-ready infrastructure. With over 20 years of experience, we specialise in Internet
-          services, networking, data centers, server colocation, hosting, and backup services that support mission-critical
-          businesses.
+          services, networking, data centers, server colocation, hosting, and backup services that support
+          mission-critical businesses.
         </p>
 
         <p style={{ ...bodyTextStyle, marginBottom: isMobile ? 12 : 16 }}>
@@ -263,12 +254,17 @@ export default function HeroShowcase() {
           experts in India.
         </p>
 
-        <button onClick={() => setShowPopup(true)} className="btn" style={ctaStyle}>
+        <button
+          onClick={() => setShowPopup(true)}
+          className="btn"
+          style={ctaStyle}
+          aria-label="Open quick message form"
+        >
           Talk to an Expert
         </button>
       </div>
 
-      {/* Trusted by Industry Leaders */}
+      {/* Logo carousel */}
       <div style={logosWrapStyle}>
         <div
           style={{
@@ -278,7 +274,7 @@ export default function HeroShowcase() {
             fontWeight: 700,
             fontSize: isMobile ? 12 : 14,
             letterSpacing: ".2px",
-            pointerEvents: "none", // header itself is non-interactive
+            pointerEvents: "none",
           }}
         >
           Trusted by Industry Leaders
@@ -318,6 +314,8 @@ export default function HeroShowcase() {
                     <img
                       src={l.img}
                       alt={l.id}
+                      width={120}
+                      height={40}
                       style={{ maxWidth: "88%", maxHeight: "70%", objectFit: "contain" }}
                       loading="lazy"
                     />
