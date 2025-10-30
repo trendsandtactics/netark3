@@ -1,6 +1,7 @@
+// src/Components/Header/HeaderStyle2.jsx
 import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Nav from "./Nav"; // ✅ same folder
+import Nav from "./Nav";
 
 const RUBY = "#9b111e";
 
@@ -24,7 +25,14 @@ export default function HeaderStyle2({ variant }) {
   const closeBtnRef = useRef(null);
   const location = useLocation();
 
-  // Sticky header
+  /* ===== Listen for global "open-quote" to open this popup ===== */
+  useEffect(() => {
+    const onOpen = () => setShowPopup(true);
+    window.addEventListener("open-quote", onOpen);
+    return () => window.removeEventListener("open-quote", onOpen);
+  }, []);
+
+  /* ===== Sticky header ===== */
   useEffect(() => {
     const handleScroll = () => {
       const curr = window.scrollY;
@@ -37,7 +45,7 @@ export default function HeaderStyle2({ variant }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
 
-  // Lock body when mobile menu or popup is open
+  /* ===== Lock body when mobile menu or popup is open ===== */
   useEffect(() => {
     const lock = mobileToggle || showPopup;
     const prev = document.body.style.overflow;
@@ -45,7 +53,7 @@ export default function HeaderStyle2({ variant }) {
     return () => (document.body.style.overflow = prev);
   }, [mobileToggle, showPopup]);
 
-  // Popup: focus + ESC to close
+  /* ===== Popup: focus + ESC to close ===== */
   useEffect(() => {
     if (!showPopup) return;
     const t = setTimeout(() => {
