@@ -74,7 +74,8 @@ export default function HeroShowcase() {
     if (!form.message.trim()) e.message = "Please share your requirements.";
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address.";
-    if (form.phone && !/^[0-9+()\\- \\s]{7,20}$/.test(form.phone))
+    // ✅ FIXED REGEX (no double-escape for hyphen)
+    if (form.phone && !/^[0-9+()\- \s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
     return e;
   };
@@ -489,3 +490,4 @@ const errorStyle = {
   marginTop: 4,
   display: "inline-block",
 };
+
