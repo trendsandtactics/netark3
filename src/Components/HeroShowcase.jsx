@@ -1,4 +1,3 @@
-// src/Components/HeroShowcase.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination, FreeMode } from "swiper/modules";
@@ -30,13 +29,11 @@ const BASE_LOGOS = [
 
 export default function HeroShowcase() {
   const [shouldInit, setShouldInit] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
-  const [errors, setErrors] = useState({});
   const [isMobile, setIsMobile] = useState(
     () => (typeof window !== "undefined" ? window.innerWidth <= 768 : false)
   );
 
+  // refs kept if you ever want to re-add focus mgmt later
   const msgRef = useRef(null);
   const closeBtnRef = useRef(null);
 
@@ -48,53 +45,7 @@ export default function HeroShowcase() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Lock body scroll when popup open
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    if (showPopup) document.body.style.overflow = "hidden";
-    return () => (document.body.style.overflow = prev || "");
-  }, [showPopup]);
-
-  // Focus & ESC
-  useEffect(() => {
-    if (!showPopup) return;
-    const t = setTimeout(() => (msgRef.current || closeBtnRef.current)?.focus?.(), 50);
-    const onKey = (e) => e.key === "Escape" && setShowPopup(false);
-    window.addEventListener("keydown", onKey);
-    return () => { clearTimeout(t); window.removeEventListener("keydown", onKey); };
-  }, [showPopup]);
-
   const logoRail = useMemo(() => [...BASE_LOGOS, ...BASE_LOGOS, ...BASE_LOGOS], []);
-
-  const validate = () => {
-    const e = {};
-    if (!form.name.trim()) e.name = "Full Name is required.";
-    if (!form.email.trim()) e.email = "Email Address is required.";
-    if (!form.phone.trim()) e.phone = "Phone Number is required.";
-    if (!form.message.trim()) e.message = "Please share your requirements.";
-    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      e.email = "Enter a valid email address.";
-    // ✅ FIXED REGEX (no double-escape for hyphen)
-    if (form.phone && !/^[0-9+()\- \s]{7,20}$/.test(form.phone))
-      e.phone = "Enter a valid phone number.";
-    return e;
-  };
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setForm((p) => ({ ...p, [name]: value }));
-    setErrors((p) => ({ ...p, [name]: undefined }));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const eobj = validate();
-    setErrors(eobj);
-    if (Object.keys(eobj).length) return;
-    alert("✅ Message Sent Successfully!");
-    setShowPopup(false);
-    setForm({ name: "", email: "", phone: "", message: "" });
-  };
 
   // styles
   const wrapperStyle = {
@@ -183,6 +134,10 @@ export default function HeroShowcase() {
     boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
   };
 
+  const openQuote = () => {
+    window.dispatchEvent(new CustomEvent("open-quote"));
+  };
+
   return (
     <div style={wrapperStyle}>
       <style>{`
@@ -255,11 +210,12 @@ export default function HeroShowcase() {
           experts in India.
         </p>
 
+        {/* ✅ Opens Header "Get A Quote" popup */}
         <button
-          onClick={() => setShowPopup(true)}
+          onClick={openQuote}
           className="btn"
           style={ctaStyle}
-          aria-label="Open quick message form"
+          aria-label="Open Get A Quote form"
         >
           Talk to an Expert
         </button>
@@ -329,164 +285,6 @@ export default function HeroShowcase() {
           )}
         </div>
       </div>
-
-      {/* Popup */}
-      {showPopup && (
-        <div
-          onClick={() => setShowPopup(false)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.5)",
-            zIndex: 2000,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 12,
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            style={{
-              background: "#fff",
-              color: "#000",
-              width: "min(700px, 95vw)",
-              borderRadius: 12,
-              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
-              border: "1px solid #eee",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                padding: "16px 18px",
-                borderBottom: `3px solid ${RUBY}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <h4 style={{ margin: 0, color: RUBY, fontWeight: 800 }}>Quick Message</h4>
-              <button
-                ref={closeBtnRef}
-                onClick={() => setShowPopup(false)}
-                style={{ border: "none", background: "transparent", fontSize: 22, color: "#000", cursor: "pointer" }}
-                aria-label="Close"
-              >
-                ×
-              </button>
-            </div>
-
-            <form onSubmit={onSubmit} noValidate style={{ padding: 20, color: "#000" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Full Name*</label>
-                  <input
-                    name="name"
-                    type="text"
-                    value={form.name}
-                    onChange={onChange}
-                    placeholder="Your full name"
-                    style={inputStyle(errors.name)}
-                  />
-                  {errors.name && <small style={errorStyle}>{errors.name}</small>}
-                </div>
-
-                <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Email*</label>
-                  <input
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={onChange}
-                    placeholder="you@company.com"
-                    style={inputStyle(errors.email)}
-                  />
-                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
-                </div>
-
-                <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Phone*</label>
-                  <input
-                    name="phone"
-                    type="tel"
-                    value={form.phone}
-                    onChange={onChange}
-                    placeholder="+91 9XXXXXXXXX"
-                    style={inputStyle(errors.phone)}
-                  />
-                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
-                </div>
-
-                <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Your Message*</label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    ref={msgRef}
-                    value={form.message}
-                    onChange={onChange}
-                    placeholder="Briefly describe your requirements…"
-                    style={inputStyle(errors.message)}
-                  />
-                  {errors.message && <small style={errorStyle}>{errors.message}</small>}
-                </div>
-
-                <div style={{ gridColumn: "1 / -1", display: "flex", justifyContent: "flex-end", gap: 10 }}>
-                  <button
-                    type="button"
-                    onClick={() => setShowPopup(false)}
-                    style={{
-                      background: "#f5f5f5",
-                      border: "1px solid #ddd",
-                      color: "#000",
-                      borderRadius: 8,
-                      padding: "10px 16px",
-                      fontWeight: 600,
-                      cursor: "pointer",
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    style={{
-                      background: RUBY,
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: 8,
-                      padding: "10px 18px",
-                      fontWeight: 700,
-                      cursor: "pointer",
-                    }}
-                  >
-                    Send Message
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
-
-const inputStyle = (hasError) => ({
-  width: "100%",
-  padding: "10px 12px",
-  borderRadius: 8,
-  border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
-  color: "#000",
-  outline: "none",
-  background: "#fff",
-});
-
-const errorStyle = {
-  color: "#e03131",
-  fontSize: 12,
-  marginTop: 4,
-  display: "inline-block",
-};
