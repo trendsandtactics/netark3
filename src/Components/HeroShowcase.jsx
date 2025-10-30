@@ -115,17 +115,21 @@ export default function HeroShowcase() {
                   height: "100vh",
                   width: "100%",
                   backgroundImage: `
+                    /* Stronger, cinematic gradient with ruby branding at the bottom */
                     linear-gradient(
-                      180deg,
-                      rgba(0,0,0,0.15) 0%,
-                      rgba(0,0,0,0.35) 45%,
-                      rgba(0,0,0,0.60) 100%
+                      to bottom,
+                      rgba(0, 0, 0, 0.15) 0%,
+                      rgba(0, 0, 0, 0.45) 42%,
+                      rgba(0, 0, 0, 0.62) 72%,
+                      rgba(155, 17, 30, 0.75) 100%
                     ),
                     url(${s.img})
                   `,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
+                  transition: "transform 0.8s ease-in-out, filter 1s ease",
+                  filter: "brightness(0.95)",
                 }}
               />
             </SwiperSlide>
