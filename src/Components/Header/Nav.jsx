@@ -12,7 +12,9 @@ const Nav = ({ onNavigate }) => {
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
-    setMobileOpen(false); // ✅ close menu after navigation
+    setMobileOpen(false);
+    // scroll to top on route change from mobile menu
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const Nav = ({ onNavigate }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // close menu when route changes
+  // close on route change (safety)
   useEffect(() => setMobileOpen(false), [location.pathname]);
 
   const links = [
@@ -38,12 +40,12 @@ const Nav = ({ onNavigate }) => {
     { path: "/contact", label: "Contact" },
   ];
 
-  const linkColor = scrolled ? RUBY : "#fff"; // same as your original
+  const linkColor = scrolled ? RUBY : "#fff";
 
   return (
     <>
       <nav className="main-nav">
-        {/* Desktop menu (UNCHANGED) */}
+        {/* Desktop menu (unchanged) */}
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -61,7 +63,7 @@ const Nav = ({ onNavigate }) => {
           </ul>
         )}
 
-        {/* Mobile hamburger (tap again to close) */}
+        {/* Mobile hamburger */}
         {isMobile && (
           <button
             type="button"
@@ -69,7 +71,7 @@ const Nav = ({ onNavigate }) => {
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
-            onClick={() => setMobileOpen(v => !v)}
+            onClick={() => setMobileOpen((v) => !v)}
           >
             <span className="bar" />
             <span className="bar" />
@@ -78,9 +80,18 @@ const Nav = ({ onNavigate }) => {
         )}
       </nav>
 
-      {/* Mobile overlay menu (FULL SCREEN). No extra close button */}
+      {/* Mobile overlay menu + CLOSE (×) button */}
       {isMobile && mobileOpen && (
         <div id="mobile-menu" className="mobile-menu" role="dialog" aria-modal="true">
+          {/* CLOSE button (visible) */}
+          <button
+            className="mobile-close"
+            aria-label="Close menu"
+            onClick={() => setMobileOpen(false)}
+          >
+            ×
+          </button>
+
           <ul className="mobile-list">
             {links.map(({ path, label }) => (
               <li key={path} className="mobile-item">
@@ -97,9 +108,8 @@ const Nav = ({ onNavigate }) => {
         </div>
       )}
 
-      {/* ⬇️ Desktop CSS is your original block; only added the mobile overlay styles */}
       <style>{`
-        /* ===== Centered Transparent Navbar (ORIGINAL) ===== */
+        /* ===== Desktop (as before) ===== */
         .main-nav {
           width: 100%;
           position: sticky;
@@ -111,7 +121,6 @@ const Nav = ({ onNavigate }) => {
           background: transparent;
           transition: all 0.3s ease;
         }
-
         .nav-list {
           list-style: none;
           margin: 0;
@@ -121,7 +130,6 @@ const Nav = ({ onNavigate }) => {
           justify-content: center;
           gap: 40px;
         }
-
         .nav-list a {
           font-weight: 600;
           font-size: 1rem;
@@ -134,23 +142,15 @@ const Nav = ({ onNavigate }) => {
           box-shadow: none !important;
           display: inline-block;
         }
-
         .nav-list a.active::after {
           content: "";
           position: absolute;
-          left: 0;
-          right: 0;
-          bottom: -3px;
-          height: 2px;
-          background: ${RUBY};
-          border-radius: 1px;
+          left: 0; right: 0; bottom: -3px;
+          height: 2px; background: ${RUBY}; border-radius: 1px;
         }
+        .nav-list a:hover { color: ${RUBY}; }
 
-        .nav-list a:hover {
-          color: ${RUBY};
-        }
-
-        /* ===== Mobile-only (NEW) ===== */
+        /* ===== Mobile ===== */
         @media (max-width: 991px) {
           .nav-list { display: none; }
 
@@ -169,18 +169,27 @@ const Nav = ({ onNavigate }) => {
           .hamburger.is-open .bar:nth-child(2){ opacity: 0; }
           .hamburger.is-open .bar:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
 
-          /* Full-screen overlay menu */
           .mobile-menu{
             position: fixed; inset: 0;
             background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
             z-index: 1090; padding: 64px 16px 16px;
             overflow-y: auto;
           }
-          /* Hide any theme duplicate close icons (if any) */
-          .mobile-menu .cs_close,
-          .mobile-menu .close,
-          .mobile-menu [data-close],
-          .mobile-menu .offcanvas-close{ display: none !important; }
+
+          /* Close (×) button */
+          .mobile-close{
+            position: fixed;
+            top: 12px; right: 12px;
+            width: 40px; height: 40px;
+            display: grid; place-items: center;
+            background: transparent;
+            border: none;
+            font-size: 34px;
+            line-height: 1;
+            color: ${RUBY};
+            cursor: pointer;
+            z-index: 1105;
+          }
 
           .mobile-list{ list-style: none; margin: 0; padding: 0 8px; }
           .mobile-item + .mobile-item{ border-top: 1px solid #eee; }
