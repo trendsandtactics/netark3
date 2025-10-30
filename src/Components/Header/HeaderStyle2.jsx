@@ -1,4 +1,3 @@
-// src/Components/Nav.jsx
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -55,6 +54,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           </div>
         )}
 
+        {/* Desktop menu */}
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -72,6 +72,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           </ul>
         )}
 
+        {/* Mobile hamburger — only red lines */}
         {isMobile && (
           <button
             type="button"
@@ -88,6 +89,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
         )}
       </nav>
 
+      {/* Mobile menu */}
       {isMobile && (
         <div
           id="mobile-menu"
@@ -95,7 +97,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           role="dialog"
           aria-modal="true"
         >
-          {/* ✅ Only addition: Close button */}
+          {/* ✅ Close button (only addition user requested) */}
           <button
             className="menu-close"
             aria-label="Close navigation"
@@ -121,6 +123,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
       )}
 
       <style>{`
+        /* ===== Desktop / Core ===== */
         .main-nav {
           width: 100%;
           position: sticky;
@@ -129,108 +132,4 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          min-height: 64px;
-          background: transparent;
-          transition: all 0.3s;
-        }
-
-        .nav-list {
-          list-style: none;
-          margin: 0;
-          padding: 20px 30px;
-          display: flex;
-          gap: 40px;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .nav-list a {
-          font-weight: 600;
-          font-size: 1rem;
-          text-decoration: none;
-          position: relative;
-          padding: 6px 0;
-          transition: color 0.3s ease;
-          background: transparent !important;
-        }
-
-        .nav-list a.active::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: -3px;
-          height: 2px;
-          background: ${RUBY};
-          border-radius: 1px;
-        }
-
-        .nav-list a:hover { color: ${RUBY}; }
-
-        .brand { position: absolute; left: 16px; top: 10px; }
-        .brand-img { height: 36px; width: auto; display: block; }
-
-        @media (max-width: 991px) {
-          .nav-list { display: none; }
-
-          .hamburger {
-            -webkit-appearance: none !important;
-            appearance: none !important;
-            background: none !important;
-            background-image: none !important;
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-            color: transparent !important;
-            -webkit-tap-highlight-color: transparent;
-            font-size: 0; line-height: 0;
-            position: fixed; top: 10px; right: 16px;
-            width: 44px; height: 44px;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center; gap: 6px;
-            z-index: 1102; cursor: pointer;
-          }
-          .hamburger::before, .hamburger::after { content: none !important; }
-
-          .hamburger .bar {
-            width: 24px; height: 2.4px; background: ${RUBY};
-            border-radius: 2px;
-            transition: transform 0.3s, opacity 0.2s;
-          }
-          .hamburger.is-open .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-          .hamburger.is-open .bar:nth-child(2) { opacity: 0; }
-          .hamburger.is-open .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-          .mobile-menu {
-            position: fixed; top: 0; left: 0; right: 0;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(8px);
-            transform: translateY(-100%);
-            transition: transform 0.3s;
-            z-index: 1090; padding: 64px 20px 20px;
-          }
-          .mobile-menu.open { transform: translateY(0); }
-
-          /* ✅ Close button (only change) */
-          .menu-close {
-            position: absolute; top: 12px; right: 12px;
-            width: 40px; height: 40px; display: grid; place-items: center;
-            background: none; border: none; outline: none; box-shadow: none;
-            color: #000; font-size: 28px; line-height: 1; cursor: pointer;
-          }
-
-          .mobile-list { list-style: none; margin: 0; padding: 0 8px; }
-          .mobile-item + .mobile-item { border-top: 1px solid #eee; }
-          .mobile-item a {
-            display: block; padding: 14px 4px; font-weight: 600; font-size: 1.05rem;
-            color: #111; text-decoration: none;
-          }
-          .mobile-item a:hover, .mobile-item a.active { color: ${RUBY}; }
-        }
-      `}</style>
-    </>
-  );
-};
-
-export default Nav;
- 
+          min-height: 64p
