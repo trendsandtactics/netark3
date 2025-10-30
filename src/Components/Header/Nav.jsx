@@ -26,13 +26,11 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // lock body scroll when menu open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => (document.body.style.overflow = "");
   }, [mobileOpen]);
 
-  // close menu on route change
   useEffect(() => setMobileOpen(false), [location.pathname]);
 
   const links = [
@@ -47,17 +45,17 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
 
   return (
     <>
-      <nav className="main-nav" data-own-nav>
-        {/* optional logo (kept) */}
+      <nav className="main-nav">
+        {/* logo */}
         {logoSrc && (
           <div className="brand">
-            <Link to="/" onClick={handleNavigate} className="brand-link">
+            <Link to="/" onClick={handleNavigate}>
               <img src={logoSrc} alt={logoAlt} className="brand-img" />
             </Link>
           </div>
         )}
 
-        {/* desktop menu (unchanged) */}
+        {/* desktop menu */}
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -81,8 +79,6 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
             type="button"
             className={`hamburger ${mobileOpen ? "is-open" : ""}`}
             aria-label="Toggle menu"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
             onClick={() => setMobileOpen((v) => !v)}
           >
             <span className="bar" />
@@ -94,13 +90,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
 
       {/* mobile slide menu */}
       {isMobile && (
-        <div
-          id="mobile-menu"
-          className={`mobile-menu ${mobileOpen ? "open" : ""}`}
-          role="dialog"
-          aria-modal="true"
-          data-own-nav
-        >
+        <div className={`mobile-menu ${mobileOpen ? "open" : ""}`}>
           <ul className="mobile-list">
             {links.map(({ path, label }) => (
               <li key={path} className="mobile-item">
@@ -118,95 +108,140 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
       )}
 
       <style>{`
-        /* ===== CORE / DESKTOP ===== */
-        .main-nav{
-          width:100%;
-          position:sticky; top:0; z-index:1000;
-          display:flex; justify-content:center; align-items:center;
-          background:transparent; transition:all .3s ease;
-          min-height:64px;
+        .main-nav {
+          width: 100%;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 64px;
+          background: transparent;
+          transition: all 0.3s ease;
         }
-        .nav-list{
-          list-style:none; margin:0; padding:20px 30px;
-          display:flex; align-items:center; justify-content:center; gap:40px;
+
+        /* ✅ Remove any bottom line, bar, or unwanted box */
+        .main-nav::after {
+          display: none !important;
+          content: none !important;
+          background: none !important;
+          border: none !important;
         }
-        .nav-list a{
-          font-weight:600; font-size:1rem; text-decoration:none; position:relative;
-          padding:6px 0; transition:color .3s ease; background:transparent!important;
-          outline:none!important; box-shadow:none!important; display:inline-block;
+
+        /* also remove background overlays / shadow under nav */
+        .main-nav,
+        header,
+        .header,
+        .navbar,
+        .menu-bar,
+        .header-bottom,
+        .nav-bottom {
+          background: transparent !important;
+          box-shadow: none !important;
+          border: none !important;
         }
-        .nav-list a.active::after{
-          content:""; position:absolute; left:0; right:0; bottom:-3px; height:2px;
-          background:${RUBY}; border-radius:1px;
+
+        .nav-list {
+          list-style: none;
+          margin: 0;
+          padding: 20px 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 40px;
         }
-        .nav-list a:hover{ color:${RUBY}; }
 
-        /* logo */
-        .brand{ position:absolute; left:16px; top:10px; z-index:1050; display:flex; align-items:center; }
-        .brand-link{ display:inline-flex; text-decoration:none; background:transparent!important; }
-        .brand-img{ height:36px; width:auto; display:block; -webkit-user-drag:none; user-select:none; }
+        .nav-list a {
+          font-weight: 600;
+          font-size: 1rem;
+          text-decoration: none;
+          position: relative;
+          padding: 6px 0;
+          transition: color 0.3s ease;
+          background: transparent !important;
+        }
 
-        /* ===== MOBILE ===== */
-        @media (max-width:991px){
-          .nav-list{ display:none; }
+        .nav-list a.active::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -3px;
+          height: 2px;
+          background: ${RUBY};
+          border-radius: 1px;
+        }
+        .nav-list a:hover { color: ${RUBY}; }
 
-          /* keep ONLY our nav in mobile; hide duplicate theme navbars */
-          header nav:not(.main-nav),
-          header .nav:not(.main-nav),
-          header .navbar,
-          header .cs_top_header,
-          header .cs_main_header,
-          header .top-header,
-          header .header-area,
-          header .header-sticky,
-          header .sticky-header,
-          .site-header .navbar,
-          .site-header .main-menu,
-          .menu-wrapper,
-          .main-menu,
-          .menu,
-          .mobile-header-bar,
-          .mobile-nav-trigger,
-          .web-renu-nav {           /* if the other bar has this/ similar class */
-            display: none !important;
+        .brand {
+          position: absolute;
+          left: 16px;
+          top: 10px;
+        }
+        .brand-img {
+          height: 36px;
+          width: auto;
+          display: block;
+        }
+
+        @media (max-width: 991px) {
+          .nav-list { display: none; }
+
+          .hamburger {
+            appearance: none;
+            border: none;
+            background: none;
+            position: fixed;
+            top: 10px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            z-index: 1100;
           }
 
-          /* our hamburger (no native icons) */
-          .hamburger{
-            -webkit-appearance:none!important; appearance:none!important;
-            background:none!important; background-image:none!important;
-            border:none!important; outline:none!important; box-shadow:none!important;
-            padding:0; margin:0; cursor:pointer;
-
-            position:fixed; top:10px; right:16px; width:44px; height:44px;
-            display:grid; place-items:center; z-index:1100;
+          .hamburger .bar {
+            width: 22px;
+            height: 2px;
+            background: ${RUBY};
+            margin: 4px 0;
+            transition: transform 0.3s ease, opacity 0.2s ease;
           }
-          .hamburger::before,.hamburger::after{ content:none!important; }
-          summary::-webkit-details-marker{ display:none!important; }
 
-          .hamburger .bar{
-            display:block; width:22px; height:2px; background:${RUBY};
-            margin:4px 0; transition:transform .3s ease, opacity .2s ease;
-          }
-          .hamburger.is-open .bar:nth-child(1){ transform:translateY(6px) rotate(45deg); }
-          .hamburger.is-open .bar:nth-child(2){ opacity:0; }
-          .hamburger.is-open .bar:nth-child(3){ transform:translateY(-6px) rotate(-45deg); }
+          .hamburger.is-open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+          .hamburger.is-open .bar:nth-child(2) { opacity: 0; }
+          .hamburger.is-open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-          .mobile-menu{
-            position:fixed; top:0; left:0; right:0;
-            background:rgba(255,255,255,0.98); backdrop-filter:blur(8px);
-            transform:translateY(-100%); transition:transform .3s ease;
-            z-index:1090; padding:64px 20px 20px; box-shadow:0 10px 30px rgba(0,0,0,0.12);
+          .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(8px);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1090;
+            padding: 64px 20px 20px;
           }
-          .mobile-menu.open{ transform:translateY(0); }
+          .mobile-menu.open { transform: translateY(0); }
 
-          .mobile-list{ list-style:none!important; margin:0; padding:0 8px; }
-          .mobile-item + .mobile-item{ border-top:1px solid #eee; }
-          .mobile-item a{
-            display:block; padding:14px 4px; font-weight:600; font-size:1.05rem;
-            color:#111; text-decoration:none;
+          .mobile-list { list-style: none; padding: 0; margin: 0; }
+          .mobile-item + .mobile-item { border-top: 1px solid #eee; }
+          .mobile-item a {
+            display: block;
+            padding: 14px 4px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #111;
+            text-decoration: none;
           }
-          .mobile-item a:hover, .mobile-item a.active{ color:${RUBY}; }
+          .mobile-item a:hover, .mobile-item a.active { color: ${RUBY}; }
+
+          /* optional: uncomment below to remove "web renu" nav if still showing */
+          /* .web-renu-nav { display: none !important; } */
         }
       `}</style>
     </>
