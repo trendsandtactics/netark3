@@ -155,18 +155,25 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           .nav-list{ display:none; }
 
           .hamburger{
+            all: unset;
             -webkit-appearance:none !important; appearance:none !important;
-            background:none !important; background-image:none !important;
+            background:transparent !important; background-image:none !important;
             border:none !important; outline:none !important; box-shadow:none !important;
-            color:transparent !important;            /* kills fallback glyph */
-            -webkit-tap-highlight-color: transparent;/* remove tap flash */
-            font-size:0; line-height:0;             /* hide any text nodes */
+            color:transparent !important;
+            -webkit-tap-highlight-color: transparent;
+            font-size:0; line-height:0;
             position:fixed; top:10px; right:16px;
             width:44px; height:44px; display:flex; flex-direction:column;
             justify-content:center; align-items:center; gap:6px; z-index:1100;
+            cursor: pointer;
           }
           .hamburger::before,.hamburger::after{ content:none !important; }
-          summary::-webkit-details-marker{ display:none !important; }
+          .hamburger *, .hamburger::before, .hamburger::after {
+            background-image: none !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+          }
 
           .hamburger .bar{
             width:24px; height:2.4px; background:${RUBY};
