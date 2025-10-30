@@ -6,10 +6,12 @@ const RUBY = "#A1162A";
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
+    setMobileOpen(false); // close mobile menu after navigation
   };
 
   useEffect(() => {
@@ -19,13 +21,22 @@ const Nav = ({ onNavigate }) => {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) setScrolled(true);
-      else setScrolled(false);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => (document.body.style.overflow = "");
+  }, [mobileOpen]);
+
+  // Close menu when route changes (safety)
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
 
   const links = [
     { path: "/", label: "Home" },
@@ -40,6 +51,7 @@ const Nav = ({ onNavigate }) => {
   return (
     <>
       <nav className="main-nav">
+        {/* Desktop (unchanged) */}
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -56,10 +68,49 @@ const Nav = ({ onNavigate }) => {
             ))}
           </ul>
         )}
+
+        {/* Mobile hamburger button (only visible on <= 991px) */}
+        {isMobile && (
+          <button
+            className={`hamburger ${mobileOpen ? "is-open" : ""}`}
+            aria-label="Menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            <span className="bar" />
+            <span className="bar" />
+            <span className="bar" />
+          </button>
+        )}
       </nav>
 
+      {/* Mobile slide-down menu */}
+      {isMobile && (
+        <div
+          id="mobile-menu"
+          className={`mobile-menu ${mobileOpen ? "open" : ""}`}
+          role="dialog"
+          aria-modal="true"
+        >
+          <ul className="mobile-list">
+            {links.map(({ path, label }) => (
+              <li key={path} className="mobile-item">
+                <Link
+                  to={path}
+                  onClick={handleNavigate}
+                  className={location.pathname === path ? "active" : ""}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <style>{`
-        /* ===== Centered Transparent Navbar ===== */
+        /* ===== Centered Transparent Navbar (DESKTOP - unchanged) ===== */
         .main-nav {
           width: 100%;
           position: sticky;
@@ -89,9 +140,9 @@ const Nav = ({ onNavigate }) => {
           position: relative;
           padding: 6px 0;
           transition: color 0.3s ease;
-          background: transparent !important;   /* ✅ No background ever */
-          outline: none !important;              /* ✅ No focus highlight */
-          box-shadow: none !important;           /* ✅ No glow or white box */
+          background: transparent !important;
+          outline: none !important;
+          box-shadow: none !important;
           display: inline-block;
         }
 
@@ -110,9 +161,79 @@ const Nav = ({ onNavigate }) => {
           color: ${RUBY};
         }
 
+        /* ===== Mobile only ===== */
         @media (max-width: 991px) {
-          .nav-list {
-            display: none;
+          .nav-list { display: none; }
+
+          .hamburger {
+            position: fixed;
+            top: 12px;
+            right: 16px;
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(6px);
+            z-index: 1100;
+          }
+          .hamburger .bar {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: ${RUBY};
+            margin: 3px 0;
+            transition: transform 0.3s ease, opacity 0.2s ease;
+          }
+          .hamburger.is-open .bar:nth-child(1) {
+            transform: translateY(5px) rotate(45deg);
+          }
+          .hamburger.is-open .bar:nth-child(2) {
+            opacity: 0;
+          }
+          .hamburger.is-open .bar:nth-child(3) {
+            transform: translateY(-5px) rotate(-45deg);
+          }
+
+          .mobile-menu {
+            position: fixed;
+            inset: 0 0 auto 0; /* top full width */
+            top: 0;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(8px);
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1090;
+            padding: 64px 20px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+          }
+          .mobile-menu.open {
+            transform: translateY(0);
+          }
+
+          .mobile-list {
+            list-style: none;
+            margin: 0;
+            padding: 0 8px;
+          }
+          .mobile-item + .mobile-item {
+            border-top: 1px solid #eee;
+          }
+          .mobile-item a {
+            display: block;
+            padding: 14px 4px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #111;
+            text-decoration: none;
+          }
+          .mobile-item a:hover {
+            color: ${RUBY};
+          }
+          .mobile-item a.active {
+            color: ${RUBY};
           }
         }
       `}</style>
