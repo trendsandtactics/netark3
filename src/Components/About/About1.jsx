@@ -1,3 +1,4 @@
+// src/Components/About1.jsx
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
@@ -11,15 +12,26 @@ const About1 = ({
 }) => {
   return (
     <div className="about-area">
+      {/* style for mobile layout to avoid overlap */}
+      <style>{`
+        @media (max-width: 767px) {
+          .about-area .about-thumb { position: relative; }
+          .about-area .about-thumb img {
+            display:block; width:100%; height:auto; border-radius:12px;
+          }
+          /* completely hide the old title on mobile & desktop */
+          .about-area .about-title { display:none !important; }
+        }
+      `}</style>
+
       <div className="container">
         <div className="row align-items-center">
           {/* IMAGE SIDE */}
           <div className="col-lg-6">
             <div className="about-thumb">
               <img src={MainImg} alt="about-thumb" />
-              <div className="about-shape">
-              </div>
-              <h4 className="about-title">{ImgTitle}</h4>
+              <div className="about-shape" />
+              {/* removed About NETARK text */}
             </div>
           </div>
 
