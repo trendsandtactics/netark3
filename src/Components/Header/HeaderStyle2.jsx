@@ -141,18 +141,6 @@ export default function HeaderStyle2({ variant }) {
               {/* Center: Nav + burger */}
               <div className="cs_main_header_center">
                 <div className="cs_nav cs_primary_font fw-medium">
-                  <button
-                    className={
-                      mobileToggle
-                        ? "cs-munu_toggle cs_teggle_active"
-                        : "cs-munu_toggle"
-                    }
-                    aria-label="Toggle navigation"
-                    aria-expanded={mobileToggle}
-                    onClick={() => setMobileToggle((v) => !v)}
-                  >
-                    <span></span>
-                  </button>
                   <Nav onNavigate={() => setMobileToggle(false)} open={mobileToggle} />
                 </div>
               </div>
