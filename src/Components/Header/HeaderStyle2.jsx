@@ -1,6 +1,6 @@
 // src/Components/Header/HeaderStyle2.jsx
 import { useEffect, useState, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
 const RUBY = "#9b111e";
@@ -24,8 +24,14 @@ export default function HeaderStyle2({ variant }) {
   const messageRef = useRef(null);
   const closeBtnRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  /* ===== Listen for global "open-quote" to open this popup ===== */
+  /* ===== Scroll to top on navigation ===== */
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
+
+  /* ===== Listen for global "open-quote" ===== */
   useEffect(() => {
     const onOpen = () => setShowPopup(true);
     window.addEventListener("open-quote", onOpen);
@@ -45,7 +51,7 @@ export default function HeaderStyle2({ variant }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
 
-  /* ===== Lock body when mobile menu or popup is open ===== */
+  /* ===== Lock body when mobile menu or popup open ===== */
   useEffect(() => {
     const lock = mobileToggle || showPopup;
     const prev = document.body.style.overflow;
@@ -53,7 +59,7 @@ export default function HeaderStyle2({ variant }) {
     return () => (document.body.style.overflow = prev);
   }, [mobileToggle, showPopup]);
 
-  /* ===== Popup: focus + ESC to close ===== */
+  /* ===== Popup focus & ESC ===== */
   useEffect(() => {
     if (!showPopup) return;
     const t = setTimeout(() => {
@@ -128,7 +134,7 @@ export default function HeaderStyle2({ variant }) {
         <div className="cs_main_header">
           <div className="container-fluid">
             <div className="cs_main_header_in">
-              {/* Left: Logo */}
+              {/* ===== LEFT: Logo ===== */}
               <div className="cs_main_header_left">
                 <Link
                   to="/"
@@ -146,14 +152,19 @@ export default function HeaderStyle2({ variant }) {
                 </Link>
               </div>
 
-              {/* Center: Nav + burger (unchanged layout) */}
+              {/* ===== CENTER: Navigation ===== */}
               <div className="cs_main_header_center">
                 <div className="cs_nav cs_primary_font fw-medium">
-                  <Nav onNavigate={() => setMobileToggle(false)} />
+                  <Nav
+                    onNavigate={() => {
+                      setMobileToggle(false);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  />
                 </div>
               </div>
 
-              {/* Right: CTA */}
+              {/* ===== RIGHT: CTA ===== */}
               <div className="cs_main_header_right">
                 <div className="header-btn">
                   <button
@@ -172,12 +183,33 @@ export default function HeaderStyle2({ variant }) {
                   </button>
                 </div>
               </div>
+
+              {/* ===== MOBILE CLOSE BUTTON ===== */}
+              {mobileToggle && (
+                <button
+                  onClick={() => setMobileToggle(false)}
+                  style={{
+                    position: "absolute",
+                    top: 18,
+                    right: 18,
+                    background: "transparent",
+                    border: "none",
+                    fontSize: 30,
+                    color: "#000",
+                    cursor: "pointer",
+                    zIndex: 100,
+                  }}
+                  aria-label="Close Menu"
+                >
+                  ×
+                </button>
+              )}
             </div>
           </div>
         </div>
       </header>
 
-      {/* Popup */}
+      {/* ===== POPUP ===== */}
       {showPopup && (
         <div
           className="popup-overlay"
@@ -236,7 +268,7 @@ export default function HeaderStyle2({ variant }) {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} noValidate style={{ padding: 20, color: "#000" }}>
+            <form onSubmit={handleSubmit} noValidate style={{ padding: 20 }}>
               <div
                 style={{
                   display: "grid",
@@ -245,9 +277,7 @@ export default function HeaderStyle2({ variant }) {
                 }}
               >
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600, color: "#000" }}>
-                    Full Name*
-                  </label>
+                  <label style={{ fontWeight: 600 }}>Full Name*</label>
                   <input
                     name="name"
                     type="text"
@@ -260,7 +290,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Email*</label>
+                  <label style={{ fontWeight: 600 }}>Email*</label>
                   <input
                     name="email"
                     type="email"
@@ -273,7 +303,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Phone*</label>
+                  <label style={{ fontWeight: 600 }}>Phone*</label>
                   <input
                     name="phone"
                     type="tel"
@@ -286,7 +316,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Service</label>
+                  <label style={{ fontWeight: 600 }}>Service</label>
                   <select
                     name="service"
                     value={form.service}
@@ -303,7 +333,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Solution</label>
+                  <label style={{ fontWeight: 600 }}>Solution</label>
                   <select
                     name="solution"
                     value={form.solution}
@@ -320,9 +350,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600, color: "#000" }}>
-                    Your Message*
-                  </label>
+                  <label style={{ fontWeight: 600 }}>Your Message*</label>
                   <textarea
                     name="message"
                     rows={4}
@@ -387,13 +415,10 @@ const inputStyle = (hasError) => ({
   padding: "10px 12px",
   borderRadius: 8,
   border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
-  color: "#000",
   outline: "none",
-  background: "#fff",
 });
 const errorStyle = {
   color: "#e03131",
   fontSize: 12,
   marginTop: 4,
-  display: "inline-block",
 };
