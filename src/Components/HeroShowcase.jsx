@@ -33,14 +33,17 @@ export default function HeroShowcase() {
   const [showPopup, setShowPopup] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState({});
-  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" ? window.innerWidth <= 768 : false);
+  const [isMobile, setIsMobile] = useState(
+    () => (typeof window !== "undefined" ? window.innerWidth <= 768 : false)
+  );
 
   const msgRef = useRef(null);
   const closeBtnRef = useRef(null);
 
+  // mount only on client (avoid SSR mismatch)
   useEffect(() => setShouldInit(true), []);
 
-  // responsive
+  // responsive flag
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener("resize", onResize);
@@ -51,7 +54,9 @@ export default function HeroShowcase() {
   useEffect(() => {
     const prev = document.body.style.overflow;
     if (showPopup) document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = prev || ""; };
+    return () => {
+      document.body.style.overflow = prev || "";
+    };
   }, [showPopup]);
 
   // Focus & ESC close
@@ -60,7 +65,10 @@ export default function HeroShowcase() {
     const t = setTimeout(() => (msgRef.current || closeBtnRef.current)?.focus?.(), 50);
     const onKey = (e) => e.key === "Escape" && setShowPopup(false);
     window.addEventListener("keydown", onKey);
-    return () => { clearTimeout(t); window.removeEventListener("keydown", onKey); };
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("keydown", onKey);
+    };
   }, [showPopup]);
 
   const logoRail = useMemo(() => [...BASE_LOGOS, ...BASE_LOGOS, ...BASE_LOGOS], []);
@@ -71,8 +79,10 @@ export default function HeroShowcase() {
     if (!form.email.trim()) e.email = "Email Address is required.";
     if (!form.phone.trim()) e.phone = "Phone Number is required.";
     if (!form.message.trim()) e.message = "Please share your requirements.";
-    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Enter a valid email address.";
-    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone)) e.phone = "Enter a valid phone number.";
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      e.email = "Enter a valid email address.";
+    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
+      e.phone = "Enter a valid phone number.";
     return e;
   };
 
@@ -92,10 +102,10 @@ export default function HeroShowcase() {
     setForm({ name: "", email: "", phone: "", message: "" });
   };
 
-  // ---- styles that adapt to mobile ----
+  // ---------- responsive styles ----------
   const wrapperStyle = {
     width: "100%",
-    height: "100dvh", // better on mobile than 100vh
+    height: "100dvh", // stable on mobile (avoids address bar jump)
     overflow: "hidden",
     position: "relative",
   };
@@ -105,11 +115,13 @@ export default function HeroShowcase() {
         position: "absolute",
         left: "50%",
         transform: "translateX(-50%)",
-        bottom: "28%", // lift above logos
-        zIndex: 3,
+        bottom: "28%", // lifted above logos
+        zIndex: 80, // above everything interactive
+        pointerEvents: "auto",
         maxWidth: "92vw",
         width: "92vw",
-        background: "linear-gradient(180deg, rgba(20,25,40,0.72) 0%, rgba(15,18,30,0.85) 100%)",
+        background:
+          "linear-gradient(180deg, rgba(20,25,40,0.72) 0%, rgba(15,18,30,0.85) 100%)",
         border: "1px solid rgba(255,255,255,0.10)",
         borderRadius: "16px",
         padding: "18px 16px",
@@ -120,9 +132,11 @@ export default function HeroShowcase() {
         position: "absolute",
         left: "4%",
         bottom: "16%",
-        zIndex: 3,
+        zIndex: 80,
+        pointerEvents: "auto",
         maxWidth: "700px",
-        background: "linear-gradient(180deg, rgba(20,25,40,0.70) 0%, rgba(15,18,30,0.80) 100%)",
+        background:
+          "linear-gradient(180deg, rgba(20,25,40,0.70) 0%, rgba(15,18,30,0.80) 100%)",
         border: "1px solid rgba(255,255,255,0.10)",
         borderRadius: "16px",
         padding: "36px 40px",
@@ -131,8 +145,20 @@ export default function HeroShowcase() {
       };
 
   const titleStyle = isMobile
-    ? { color: "#fff", marginBottom: 12, fontWeight: 800, fontSize: "clamp(20px, 5.6vw, 26px)", lineHeight: 1.2 }
-    : { color: "#fff", marginBottom: 16, fontWeight: 800, fontSize: "clamp(26px, 3.8vw, 48px)", lineHeight: 1.2 };
+    ? {
+        color: "#fff",
+        marginBottom: 12,
+        fontWeight: 800,
+        fontSize: "clamp(20px, 5.6vw, 26px)",
+        lineHeight: 1.2,
+      }
+    : {
+        color: "#fff",
+        marginBottom: 16,
+        fontWeight: 800,
+        fontSize: "clamp(26px, 3.8vw, 48px)",
+        lineHeight: 1.2,
+      };
 
   const bodyTextStyle = isMobile
     ? { color: "#D7D7D7", fontSize: "clamp(13px, 3.6vw, 15px)", lineHeight: 1.55, marginBottom: 10 }
@@ -147,14 +173,14 @@ export default function HeroShowcase() {
     left: 0,
     right: 0,
     bottom: `calc(8px + env(safe-area-inset-bottom))`,
-    zIndex: 3,
+    zIndex: 60, // below the info box
     padding: isMobile ? "8px 0 0" : "18px 0 6px",
   };
 
   const logosRailBoxStyle = {
     margin: "0 auto",
     width: "min(1200px, 92vw)",
-    background: "rgba(0,0,0,0.40)", // slightly darker for contrast
+    background: "rgba(0,0,0,0.40)", // darker for readability
     border: "1px solid rgba(255,255,255,0.08)",
     borderRadius: 14,
     padding: isMobile ? "8px 8px" : "10px 12px",
@@ -209,6 +235,7 @@ export default function HeroShowcase() {
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
                   filter: "brightness(0.96)",
+                  pointerEvents: "none", // ✅ slide won't steal clicks
                 }}
               />
             </SwiperSlide>
@@ -251,6 +278,7 @@ export default function HeroShowcase() {
             fontWeight: 700,
             fontSize: isMobile ? 12 : 14,
             letterSpacing: ".2px",
+            pointerEvents: "none", // header itself is non-interactive
           }}
         >
           Trusted by Industry Leaders
@@ -356,33 +384,85 @@ export default function HeroShowcase() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label style={{ fontWeight: 600, color: "#000" }}>Full Name*</label>
-                  <input name="name" type="text" value={form.name} onChange={onChange} placeholder="Your full name" style={inputStyle(errors.name)} />
+                  <input
+                    name="name"
+                    type="text"
+                    value={form.name}
+                    onChange={onChange}
+                    placeholder="Your full name"
+                    style={inputStyle(errors.name)}
+                  />
                   {errors.name && <small style={errorStyle}>{errors.name}</small>}
                 </div>
 
                 <div>
                   <label style={{ fontWeight: 600, color: "#000" }}>Email*</label>
-                  <input name="email" type="email" value={form.email} onChange={onChange} placeholder="you@company.com" style={inputStyle(errors.email)} />
+                  <input
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={onChange}
+                    placeholder="you@company.com"
+                    style={inputStyle(errors.email)}
+                  />
                   {errors.email && <small style={errorStyle}>{errors.email}</small>}
                 </div>
 
                 <div>
                   <label style={{ fontWeight: 600, color: "#000" }}>Phone*</label>
-                  <input name="phone" type="tel" value={form.phone} onChange={onChange} placeholder="+91 9XXXXXXXXX" style={inputStyle(errors.phone)} />
+                  <input
+                    name="phone"
+                    type="tel"
+                    value={form.phone}
+                    onChange={onChange}
+                    placeholder="+91 9XXXXXXXXX"
+                    style={inputStyle(errors.phone)}
+                  />
                   {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                 </div>
 
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label style={{ fontWeight: 600, color: "#000" }}>Your Message*</label>
-                  <textarea name="message" rows={4} ref={msgRef} value={form.message} onChange={onChange} placeholder="Briefly describe your requirements…" style={inputStyle(errors.message)} />
+                  <textarea
+                    name="message"
+                    rows={4}
+                    ref={msgRef}
+                    value={form.message}
+                    onChange={onChange}
+                    placeholder="Briefly describe your requirements…"
+                    style={inputStyle(errors.message)}
+                  />
                   {errors.message && <small style={errorStyle}>{errors.message}</small>}
                 </div>
 
                 <div style={{ gridColumn: "1 / -1", display: "flex", justifyContent: "flex-end", gap: 10 }}>
-                  <button type="button" onClick={() => setShowPopup(false)} style={{ background: "#f5f5f5", border: "1px solid #ddd", color: "#000", borderRadius: 8, padding: "10px 16px", fontWeight: 600, cursor: "pointer" }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowPopup(false)}
+                    style={{
+                      background: "#f5f5f5",
+                      border: "1px solid #ddd",
+                      color: "#000",
+                      borderRadius: 8,
+                      padding: "10px 16px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
                     Cancel
                   </button>
-                  <button type="submit" style={{ background: RUBY, color: "#fff", border: "none", borderRadius: 8, padding: "10px 18px", fontWeight: 700, cursor: "pointer" }}>
+                  <button
+                    type="submit"
+                    style={{
+                      background: RUBY,
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: 8,
+                      padding: "10px 18px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
                     Send Message
                   </button>
                 </div>
