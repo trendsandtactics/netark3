@@ -54,6 +54,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           </div>
         )}
 
+        {/* Desktop menu */}
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -71,13 +72,15 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           </ul>
         )}
 
-        {/* 🔴 Mobile hamburger – only red lines visible */}
+        {/* Mobile hamburger — only red lines */}
         {isMobile && (
           <button
             type="button"
             className={`hamburger ${mobileOpen ? "is-open" : ""}`}
             aria-label="Toggle menu"
-            onClick={() => setMobileOpen((v) => !v)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMobileOpen(v => !v)}
           >
             <span className="bar" />
             <span className="bar" />
@@ -86,8 +89,14 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
         )}
       </nav>
 
+      {/* Mobile menu */}
       {isMobile && (
-        <div className={`mobile-menu ${mobileOpen ? "open" : ""}`}>
+        <div
+          id="mobile-menu"
+          className={`mobile-menu ${mobileOpen ? "open" : ""}`}
+          role="dialog"
+          aria-modal="true"
+        >
           <ul className="mobile-list">
             {links.map(({ path, label }) => (
               <li key={path} className="mobile-item">
@@ -105,158 +114,83 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
       )}
 
       <style>{`
-        /* ===== Desktop Nav ===== */
-        .main-nav {
-          width: 100%;
-          position: sticky;
-          top: 0;
-          z-index: 1000;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 64px;
-          background: transparent;
-          transition: all 0.3s ease;
+        /* ===== Core / Desktop ===== */
+        .main-nav{
+          width:100%;
+          position:sticky; top:0; z-index:1000;
+          display:flex; justify-content:center; align-items:center;
+          min-height:64px; background:transparent; transition:all .3s;
         }
 
-        .nav-list {
-          list-style: none;
-          margin: 0;
-          padding: 20px 30px;
-          display: flex;
-          gap: 40px;
+        /* ✅ desktop white square killer */
+        .main-nav a:empty,
+        .main-nav button:empty,
+        .main-nav .ghost,
+        .main-nav .blank {
+          display:none !important;
+        }
+        .main-nav *{
+          background-image:none !important;
         }
 
-        .nav-list a {
-          font-weight: 600;
-          font-size: 1rem;
-          text-decoration: none;
-          position: relative;
-          padding: 6px 0;
-          color: ${linkColor};
-          transition: color 0.3s ease;
+        .nav-list{
+          list-style:none; margin:0; padding:20px 30px;
+          display:flex; gap:40px; align-items:center; justify-content:center;
         }
+        .nav-list a{
+          font-weight:600; font-size:1rem; text-decoration:none; position:relative;
+          padding:6px 0; transition:color .3s ease; background:transparent !important;
+        }
+        .nav-list a.active::after{
+          content:""; position:absolute; left:0; right:0; bottom:-3px; height:2px;
+          background:${RUBY}; border-radius:1px;
+        }
+        .nav-list a:hover{ color:${RUBY}; }
 
-        .nav-list a.active::after {
-          content: "";
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: -3px;
-          height: 2px;
-          background: ${RUBY};
-          border-radius: 1px;
-        }
-
-        .nav-list a:hover {
-          color: ${RUBY};
-        }
-
-        .brand {
-          position: absolute;
-          left: 16px;
-          top: 10px;
-        }
-
-        .brand-img {
-          height: 36px;
-          width: auto;
-          display: block;
-        }
+        .brand{ position:absolute; left:16px; top:10px; }
+        .brand-img{ height:36px; width:auto; display:block; }
 
         /* ===== Mobile ===== */
-        @media (max-width: 991px) {
-          .nav-list { display: none; }
+        @media (max-width:991px){
+          .nav-list{ display:none; }
 
-          .hamburger {
-            -webkit-appearance: none !important;
-            appearance: none !important;
-            background: none !important;
-            background-image: none !important;
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-            color: transparent !important;
-            position: fixed;
-            top: 10px;
-            right: 16px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            z-index: 1100;
+          .hamburger{
+            -webkit-appearance:none !important; appearance:none !important;
+            background:none !important; background-image:none !important;
+            border:none !important; outline:none !important; box-shadow:none !important;
+            color:transparent !important;            /* kills fallback glyph */
+            -webkit-tap-highlight-color: transparent;/* remove tap flash */
+            font-size:0; line-height:0;             /* hide any text nodes */
+            position:fixed; top:10px; right:16px;
+            width:44px; height:44px; display:flex; flex-direction:column;
+            justify-content:center; align-items:center; gap:6px; z-index:1100;
           }
+          .hamburger::before,.hamburger::after{ content:none !important; }
+          summary::-webkit-details-marker{ display:none !important; }
 
-          .hamburger::before,
-          .hamburger::after {
-            content: none !important;
+          .hamburger .bar{
+            width:24px; height:2.4px; background:${RUBY};
+            border-radius:2px; transition:transform .3s, opacity .2s;
           }
+          .hamburger.is-open .bar:nth-child(1){ transform:translateY(8px) rotate(45deg); }
+          .hamburger.is-open .bar:nth-child(2){ opacity:0; }
+          .hamburger.is-open .bar:nth-child(3){ transform:translateY(-8px) rotate(-45deg); }
 
-          summary::-webkit-details-marker {
-            display: none !important;
+          .mobile-menu{
+            position:fixed; top:0; left:0; right:0;
+            background:rgba(255,255,255,0.98); backdrop-filter:blur(8px);
+            transform:translateY(-100%); transition:transform .3s; z-index:1090;
+            padding:64px 20px 20px;
           }
+          .mobile-menu.open{ transform:translateY(0); }
 
-          .hamburger .bar {
-            width: 24px;
-            height: 2.4px;
-            background: ${RUBY};
-            border-radius: 2px;
-            transition: transform 0.3s ease, opacity 0.2s ease;
+          .mobile-list{ list-style:none; margin:0; padding:0 8px; }
+          .mobile-item + .mobile-item{ border-top:1px solid #eee; }
+          .mobile-item a{
+            display:block; padding:14px 4px; font-weight:600; font-size:1.05rem;
+            color:#111; text-decoration:none;
           }
-
-          .hamburger.is-open .bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-          }
-          .hamburger.is-open .bar:nth-child(2) {
-            opacity: 0;
-          }
-          .hamburger.is-open .bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-          }
-
-          .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(8px);
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-            z-index: 1090;
-            padding: 64px 20px 20px;
-          }
-
-          .mobile-menu.open {
-            transform: translateY(0);
-          }
-
-          .mobile-list {
-            list-style: none;
-            margin: 0;
-            padding: 0 8px;
-          }
-
-          .mobile-item + .mobile-item {
-            border-top: 1px solid #eee;
-          }
-
-          .mobile-item a {
-            display: block;
-            padding: 14px 4px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: #111;
-            text-decoration: none;
-          }
-
-          .mobile-item a:hover,
-          .mobile-item a.active {
-            color: ${RUBY};
-          }
+          .mobile-item a:hover, .mobile-item a.active{ color:${RUBY}; }
         }
       `}</style>
     </>
