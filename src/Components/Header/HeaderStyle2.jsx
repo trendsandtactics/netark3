@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Nav from "../Nav"; // adjust if your relative path differs
+import Nav from "./Nav"; // ✅ same folder
 
 const RUBY = "#9b111e";
 
@@ -138,7 +138,7 @@ export default function HeaderStyle2({ variant }) {
                 </Link>
               </div>
 
-              {/* Center: Nav + burger (no layout change) */}
+              {/* Center: Nav + burger (unchanged layout) */}
               <div className="cs_main_header_center">
                 <div className="cs_nav cs_primary_font fw-medium">
                   <Nav onNavigate={() => setMobileToggle(false)} />
