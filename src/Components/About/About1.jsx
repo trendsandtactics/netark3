@@ -1,8 +1,5 @@
-// src/Components/About1.jsx
 import parse from "html-react-parser";
 import { Link } from "react-router-dom";
-
-const RUBY = "#9B111E";
 
 const About1 = ({
   MainImg = "/assets/images/about-thumb.png",
@@ -15,66 +12,14 @@ const About1 = ({
 }) => {
   return (
     <div className="about-area">
-      {/* 🔒 mobile-only fix (scoped) */}
-      <style>{`
-        @media (max-width: 767px) {
-          .about-area .about-thumb {
-            position: relative;
-          }
-          .about-area .about-thumb img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-          }
-          /* red box/badge for the title */
-          .about-area .about-badge {
-            position: absolute;
-            left: 14px;
-            bottom: 14px;
-            background: ${RUBY};
-            color: #fff;
-            font-weight: 800;
-            font-size: 16px;
-            line-height: 1.2;
-            padding: 10px 14px;
-            border-radius: 14px;
-            box-shadow: 0 6px 18px rgba(155, 17, 30, 0.35);
-            z-index: 2;
-            /* prevent long text from wrapping weirdly */
-            max-width: calc(100% - 28px);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          /* if your theme already has a red shape, keep it behind the badge */
-          .about-area .about-shape {
-            position: absolute;
-            left: 8px;
-            bottom: 8px;
-            z-index: 1;
-          }
-          /* hide the old overlapping heading on mobile to avoid double text */
-          .about-area .about-title {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-          }
-        }
-      `}</style>
-
       <div className="container">
         <div className="row align-items-center">
           {/* IMAGE SIDE */}
           <div className="col-lg-6">
             <div className="about-thumb">
               <img src={MainImg} alt="about-thumb" />
-              {/* keep existing shape if you had one */}
-              <div className="about-shape" />
-              {/* ✅ mobile red badge (inside ruby box) */}
-              <div className="about-badge">{ImgTitle}</div>
-
-              {/* desktop keeps your old title placement */}
+              <div className="about-shape">
+              </div>
               <h4 className="about-title">{ImgTitle}</h4>
             </div>
           </div>
