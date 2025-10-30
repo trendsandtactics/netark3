@@ -29,7 +29,6 @@ const BASE_LOGOS = [
 ];
 
 export default function HeroShowcase() {
-  // Keep hook order identical across all renders
   const [shouldInit, setShouldInit] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -37,12 +36,10 @@ export default function HeroShowcase() {
   const msgRef = useRef(null);
   const closeBtnRef = useRef(null);
 
-  // Client-only flag (no early returns)
   useEffect(() => {
     setShouldInit(true);
   }, []);
 
-  // Body scroll lock when popup is open
   useEffect(() => {
     const prev = document.body.style.overflow;
     if (showPopup) document.body.style.overflow = "hidden";
@@ -51,7 +48,6 @@ export default function HeroShowcase() {
     };
   }, [showPopup]);
 
-  // Focus & ESC close
   useEffect(() => {
     if (!showPopup) return;
     const t = setTimeout(() => (msgRef.current || closeBtnRef.current)?.focus?.(), 50);
@@ -96,7 +92,7 @@ export default function HeroShowcase() {
 
   return (
     <div className="position-relative" style={{ width: "100%", height: "100vh", overflow: "hidden" }}>
-      {/* Background slider (rendered only on client to avoid SSR mismatches) */}
+      {/* Background slider */}
       {shouldInit ? (
         <Swiper
           modules={[Autoplay, Navigation, Pagination]}
@@ -115,32 +111,29 @@ export default function HeroShowcase() {
                   height: "100vh",
                   width: "100%",
                   backgroundImage: `
-                    /* Stronger, cinematic gradient with ruby branding at the bottom */
                     linear-gradient(
                       to bottom,
-                      rgba(0, 0, 0, 0.15) 0%,
-                      rgba(0, 0, 0, 0.45) 42%,
-                      rgba(0, 0, 0, 0.62) 72%,
-                      rgba(155, 17, 30, 0.75) 100%
+                      rgba(0, 0, 0, 0.2) 0%,
+                      rgba(0, 0, 0, 0.5) 45%,
+                      rgba(0, 0, 0, 0.8) 100%
                     ),
                     url(${s.img})
                   `,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
-                  transition: "transform 0.8s ease-in-out, filter 1s ease",
                   filter: "brightness(0.95)",
+                  transition: "transform 0.8s ease-in-out, filter 1s ease",
                 }}
               />
             </SwiperSlide>
           ))}
         </Swiper>
       ) : (
-        // skeleton to keep DOM shape stable on first paint
         <div style={{ width: "100%", height: "100%", background: "#111" }} />
       )}
 
-      {/* Info box – bottom left */}
+      {/* Info box */}
       <div
         style={{
           position: "absolute",
@@ -211,7 +204,7 @@ export default function HeroShowcase() {
         </button>
       </div>
 
-      {/* Trusted by Industry Leaders – bottom center */}
+      {/* Trusted by Industry Leaders */}
       <div
         style={{
           position: "absolute",
