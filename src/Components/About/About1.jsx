@@ -2,8 +2,7 @@ import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 
 const About1 = ({
-  MainImg = "/assets/images/about-thumb.png",
-  ImgTitle = "About NETARK",
+  MainImg = "/assets/images/about-thumb01.png",
   SubTitle = "ABOUT US",
   Title = "About <span>NETARK – Experts</span> in Networking & Secure IT Infrastructure",
   Content = "Founded by seasoned networking professionals with two decades of hands-on experience, NETARK Technologies India Pvt. Ltd. has grown into a trusted partner for businesses seeking robust and secure IT infrastructure solutions and Internet services. Our mission is simple: to empower businesses with IT systems that are secure, scalable, and built for performance.",
