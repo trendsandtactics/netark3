@@ -46,7 +46,6 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
   return (
     <>
       <nav className="main-nav">
-        {/* logo */}
         {logoSrc && (
           <div className="brand">
             <Link to="/" onClick={handleNavigate}>
@@ -55,7 +54,6 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           </div>
         )}
 
-        {/* desktop menu */}
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -73,7 +71,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           </ul>
         )}
 
-        {/* mobile hamburger */}
+        {/* 🔴 Mobile hamburger – only red lines visible */}
         {isMobile && (
           <button
             type="button"
@@ -88,7 +86,6 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
         )}
       </nav>
 
-      {/* mobile slide menu */}
       {isMobile && (
         <div className={`mobile-menu ${mobileOpen ? "open" : ""}`}>
           <ul className="mobile-list">
@@ -108,6 +105,7 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
       )}
 
       <style>{`
+        /* ===== Desktop Nav ===== */
         .main-nav {
           width: 100%;
           position: sticky;
@@ -121,34 +119,11 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           transition: all 0.3s ease;
         }
 
-        /* ✅ Remove any bottom line, bar, or unwanted box */
-        .main-nav::after {
-          display: none !important;
-          content: none !important;
-          background: none !important;
-          border: none !important;
-        }
-
-        /* also remove background overlays / shadow under nav */
-        .main-nav,
-        header,
-        .header,
-        .navbar,
-        .menu-bar,
-        .header-bottom,
-        .nav-bottom {
-          background: transparent !important;
-          box-shadow: none !important;
-          border: none !important;
-        }
-
         .nav-list {
           list-style: none;
           margin: 0;
           padding: 20px 30px;
           display: flex;
-          align-items: center;
-          justify-content: center;
           gap: 40px;
         }
 
@@ -158,8 +133,8 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           text-decoration: none;
           position: relative;
           padding: 6px 0;
+          color: ${linkColor};
           transition: color 0.3s ease;
-          background: transparent !important;
         }
 
         .nav-list a.active::after {
@@ -172,47 +147,75 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
           background: ${RUBY};
           border-radius: 1px;
         }
-        .nav-list a:hover { color: ${RUBY}; }
+
+        .nav-list a:hover {
+          color: ${RUBY};
+        }
 
         .brand {
           position: absolute;
           left: 16px;
           top: 10px;
         }
+
         .brand-img {
           height: 36px;
           width: auto;
           display: block;
         }
 
+        /* ===== Mobile ===== */
         @media (max-width: 991px) {
           .nav-list { display: none; }
 
           .hamburger {
-            appearance: none;
-            border: none;
-            background: none;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            background: none !important;
+            background-image: none !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            color: transparent !important;
             position: fixed;
             top: 10px;
             right: 16px;
             width: 44px;
             height: 44px;
-            display: grid;
-            place-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
             z-index: 1100;
           }
 
+          .hamburger::before,
+          .hamburger::after {
+            content: none !important;
+          }
+
+          summary::-webkit-details-marker {
+            display: none !important;
+          }
+
           .hamburger .bar {
-            width: 22px;
-            height: 2px;
+            width: 24px;
+            height: 2.4px;
             background: ${RUBY};
-            margin: 4px 0;
+            border-radius: 2px;
             transition: transform 0.3s ease, opacity 0.2s ease;
           }
 
-          .hamburger.is-open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-          .hamburger.is-open .bar:nth-child(2) { opacity: 0; }
-          .hamburger.is-open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+          .hamburger.is-open .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+          }
+          .hamburger.is-open .bar:nth-child(2) {
+            opacity: 0;
+          }
+          .hamburger.is-open .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+          }
 
           .mobile-menu {
             position: fixed;
@@ -226,10 +229,21 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
             z-index: 1090;
             padding: 64px 20px 20px;
           }
-          .mobile-menu.open { transform: translateY(0); }
 
-          .mobile-list { list-style: none; padding: 0; margin: 0; }
-          .mobile-item + .mobile-item { border-top: 1px solid #eee; }
+          .mobile-menu.open {
+            transform: translateY(0);
+          }
+
+          .mobile-list {
+            list-style: none;
+            margin: 0;
+            padding: 0 8px;
+          }
+
+          .mobile-item + .mobile-item {
+            border-top: 1px solid #eee;
+          }
+
           .mobile-item a {
             display: block;
             padding: 14px 4px;
@@ -238,10 +252,11 @@ const Nav = ({ onNavigate, logoSrc = null, logoAlt = "Logo" }) => {
             color: #111;
             text-decoration: none;
           }
-          .mobile-item a:hover, .mobile-item a.active { color: ${RUBY}; }
 
-          /* optional: uncomment below to remove "web renu" nav if still showing */
-          /* .web-renu-nav { display: none !important; } */
+          .mobile-item a:hover,
+          .mobile-item a.active {
+            color: ${RUBY};
+          }
         }
       `}</style>
     </>
