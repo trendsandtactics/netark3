@@ -1,3 +1,4 @@
+// src/Components/Header/Nav.jsx
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -5,12 +6,13 @@ const RUBY = "#A1162A";
 
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
-    setMobileOpen(false); // ✅ closes menu when a link is clicked
+    setMobileOpen(false); // ✅ close menu after navigation
   };
 
   useEffect(() => {
@@ -19,6 +21,13 @@ const Nav = ({ onNavigate }) => {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // close menu when route changes
   useEffect(() => setMobileOpen(false), [location.pathname]);
 
   const links = [
@@ -29,14 +38,22 @@ const Nav = ({ onNavigate }) => {
     { path: "/contact", label: "Contact" },
   ];
 
+  const linkColor = scrolled ? RUBY : "#fff"; // same as your original
+
   return (
     <>
       <nav className="main-nav">
+        {/* Desktop menu (UNCHANGED) */}
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
               <li key={path}>
-                <Link to={path} onClick={handleNavigate}>
+                <Link
+                  to={path}
+                  onClick={handleNavigate}
+                  className={location.pathname === path ? "active" : ""}
+                  style={{ color: linkColor }}
+                >
                   {label}
                 </Link>
               </li>
@@ -44,11 +61,15 @@ const Nav = ({ onNavigate }) => {
           </ul>
         )}
 
-        {/* Mobile hamburger */}
+        {/* Mobile hamburger (tap again to close) */}
         {isMobile && (
           <button
+            type="button"
             className={`hamburger ${mobileOpen ? "is-open" : ""}`}
-            onClick={() => setMobileOpen((v) => !v)}
+            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMobileOpen(v => !v)}
           >
             <span className="bar" />
             <span className="bar" />
@@ -57,21 +78,17 @@ const Nav = ({ onNavigate }) => {
         )}
       </nav>
 
-      {/* ✅ Mobile menu + Close button */}
+      {/* Mobile overlay menu (FULL SCREEN). No extra close button */}
       {isMobile && mobileOpen && (
-        <div className="mobile-menu">
-          <button
-            className="menu-close"
-            aria-label="Close menu"
-            onClick={() => setMobileOpen(false)} // ✅ closes menu manually
-          >
-            ×
-          </button>
-
+        <div id="mobile-menu" className="mobile-menu" role="dialog" aria-modal="true">
           <ul className="mobile-list">
             {links.map(({ path, label }) => (
-              <li key={path}>
-                <Link to={path} onClick={handleNavigate}>
+              <li key={path} className="mobile-item">
+                <Link
+                  to={path}
+                  onClick={handleNavigate}
+                  className={location.pathname === path ? "active" : ""}
+                >
                   {label}
                 </Link>
               </li>
@@ -80,35 +97,99 @@ const Nav = ({ onNavigate }) => {
         </div>
       )}
 
+      {/* ⬇️ Desktop CSS is your original block; only added the mobile overlay styles */}
       <style>{`
-        .hamburger {
-          background:none; border:none; outline:none;
-          position:fixed; top:10px; right:16px; z-index:1001;
-          width:44px; height:44px; display:flex; flex-direction:column;
-          justify-content:center; align-items:center; gap:6px; cursor:pointer;
+        /* ===== Centered Transparent Navbar (ORIGINAL) ===== */
+        .main-nav {
+          width: 100%;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: transparent;
+          transition: all 0.3s ease;
         }
-        .hamburger .bar {
-          width:24px; height:2.4px; background:${RUBY};
-          border-radius:2px; transition:transform .3s, opacity .3s;
-        }
-        .hamburger.is-open .bar:nth-child(1) { transform:translateY(8px) rotate(45deg); }
-        .hamburger.is-open .bar:nth-child(2) { opacity:0; }
-        .hamburger.is-open .bar:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
 
-        .mobile-menu {
-          position:fixed; top:0; left:0; right:0; bottom:0;
-          background:rgba(255,255,255,0.98);
-          z-index:1000; padding:60px 20px 20px;
+        .nav-list {
+          list-style: none;
+          margin: 0;
+          padding: 20px 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 40px;
         }
-        .menu-close {
-          position:absolute; top:14px; right:18px;
-          font-size:28px; border:none; background:none; cursor:pointer;
-          color:#000;
+
+        .nav-list a {
+          font-weight: 600;
+          font-size: 1rem;
+          text-decoration: none;
+          position: relative;
+          padding: 6px 0;
+          transition: color 0.3s ease;
+          background: transparent !important;
+          outline: none !important;
+          box-shadow: none !important;
+          display: inline-block;
         }
-        .mobile-list { list-style:none; padding:0; margin:0; }
-        .mobile-list li { padding:14px 0; border-bottom:1px solid #eee; }
-        .mobile-list a { text-decoration:none; color:#111; font-weight:600; }
-        .mobile-list a:hover { color:${RUBY}; }
+
+        .nav-list a.active::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -3px;
+          height: 2px;
+          background: ${RUBY};
+          border-radius: 1px;
+        }
+
+        .nav-list a:hover {
+          color: ${RUBY};
+        }
+
+        /* ===== Mobile-only (NEW) ===== */
+        @media (max-width: 991px) {
+          .nav-list { display: none; }
+
+          .hamburger{
+            background: none; border: none; outline: none;
+            position: fixed; top: 10px; right: 16px; z-index: 1102;
+            width: 44px; height: 44px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            gap: 6px; cursor: pointer; -webkit-appearance: none; appearance: none;
+          }
+          .hamburger .bar{
+            width: 24px; height: 2.4px; background: ${RUBY};
+            border-radius: 2px; transition: transform .3s, opacity .3s;
+          }
+          .hamburger.is-open .bar:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+          .hamburger.is-open .bar:nth-child(2){ opacity: 0; }
+          .hamburger.is-open .bar:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+
+          /* Full-screen overlay menu */
+          .mobile-menu{
+            position: fixed; inset: 0;
+            background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+            z-index: 1090; padding: 64px 16px 16px;
+            overflow-y: auto;
+          }
+          /* Hide any theme duplicate close icons (if any) */
+          .mobile-menu .cs_close,
+          .mobile-menu .close,
+          .mobile-menu [data-close],
+          .mobile-menu .offcanvas-close{ display: none !important; }
+
+          .mobile-list{ list-style: none; margin: 0; padding: 0 8px; }
+          .mobile-item + .mobile-item{ border-top: 1px solid #eee; }
+          .mobile-item a{
+            display: block; padding: 14px 4px; font-weight: 600; font-size: 1.05rem;
+            color: #111; text-decoration: none;
+          }
+          .mobile-item a:hover, .mobile-item a.active{ color: ${RUBY}; }
+        }
       `}</style>
     </>
   );
