@@ -110,9 +110,9 @@ export default function HeroShowcase() {
                     linear-gradient(
                       to bottom,
                       rgba(0,0,0,0.65) 0%,
-                      rgba(0,0,0,0.35) 40%,
-                      rgba(0,0,0,0.10) 80%,
-                      rgba(0,0,0,0.0) 100%
+                      rgba(0,0,0,0.35) 35%,
+                      rgba(0,0,0,0.1) 70%,
+                      rgba(0,0,0,0) 100%
                     ),
                     url(${s.img})
                   `,
@@ -120,7 +120,6 @@ export default function HeroShowcase() {
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
                   filter: "brightness(0.95)",
-                  transition: "transform 0.8s ease-in-out, filter 1s ease",
                 }}
               />
             </SwiperSlide>
@@ -201,8 +200,240 @@ export default function HeroShowcase() {
         </button>
       </div>
 
-      {/* Trusted logos, popup, and form remain same below */}
-      {/* ... (keep the same as your current version) */}
+      {/* Trusted by Industry Leaders */}
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 24,
+          zIndex: 3,
+          padding: "18px 0 6px",
+        }}
+      >
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: 12,
+            color: "#EAEAEA",
+            fontWeight: 600,
+            fontSize: "14px",
+            letterSpacing: ".2px",
+          }}
+        >
+          Trusted by Industry Leaders
+          <div
+            style={{
+              width: 76,
+              height: 3,
+              margin: "6px auto 0",
+              background: RUBY,
+              borderRadius: 999,
+              opacity: 0.95,
+            }}
+          />
+        </div>
+
+        <div
+          style={{
+            margin: "0 auto",
+            width: "min(1200px, 92vw)",
+            background: "rgba(0,0,0,0.35)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: 14,
+            padding: "10px 12px",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          {shouldInit ? (
+            <Swiper
+              modules={[Autoplay, FreeMode]}
+              loop
+              freeMode={{ enabled: true, momentum: false }}
+              autoplay={{ delay: 1, disableOnInteraction: false, pauseOnMouseEnter: false }}
+              speed={4000}
+              slidesPerView={7}
+              spaceBetween={16}
+              allowTouchMove={false}
+              breakpoints={{
+                0: { slidesPerView: 3, spaceBetween: 12 },
+                480: { slidesPerView: 4, spaceBetween: 14 },
+                768: { slidesPerView: 5, spaceBetween: 16 },
+                1024: { slidesPerView: 7, spaceBetween: 18 },
+              }}
+            >
+              {logoRail.map((l, i) => (
+                <SwiperSlide key={`${l.id}-${i}`} style={{ display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      width: 140,
+                      maxWidth: "20vw",
+                      height: 56,
+                      background: "#ffffff",
+                      borderRadius: 10,
+                      border: "1px solid #E5E7EB",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                    }}
+                  >
+                    <img
+                      src={l.img}
+                      alt={l.id}
+                      style={{ maxWidth: "90%", maxHeight: "70%", objectFit: "contain" }}
+                      loading="lazy"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <div style={{ height: 80 }} />
+          )}
+        </div>
+      </div>
+
+      {/* Popup */}
+      {showPopup && (
+        <div
+          onClick={() => setShowPopup(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 12,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            style={{
+              background: "#fff",
+              color: "#000",
+              width: "min(700px, 95vw)",
+              borderRadius: 12,
+              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
+              border: "1px solid #eee",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                padding: "16px 18px",
+                borderBottom: `3px solid ${RUBY}`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <h4 style={{ margin: 0, color: RUBY, fontWeight: 800 }}>Quick Message</h4>
+              <button
+                ref={closeBtnRef}
+                onClick={() => setShowPopup(false)}
+                style={{ border: "none", background: "transparent", fontSize: 22, color: "#000", cursor: "pointer" }}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+
+            <form onSubmit={onSubmit} noValidate style={{ padding: 20, color: "#000" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Full Name*</label>
+                  <input
+                    name="name"
+                    type="text"
+                    value={form.name}
+                    onChange={onChange}
+                    placeholder="Your full name"
+                    style={inputStyle(errors.name)}
+                  />
+                  {errors.name && <small style={errorStyle}>{errors.name}</small>}
+                </div>
+
+                <div>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Email*</label>
+                  <input
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={onChange}
+                    placeholder="you@company.com"
+                    style={inputStyle(errors.email)}
+                  />
+                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
+                </div>
+
+                <div>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Phone*</label>
+                  <input
+                    name="phone"
+                    type="tel"
+                    value={form.phone}
+                    onChange={onChange}
+                    placeholder="+91 9XXXXXXXXX"
+                    style={inputStyle(errors.phone)}
+                  />
+                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
+                </div>
+
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Your Message*</label>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    ref={msgRef}
+                    value={form.message}
+                    onChange={onChange}
+                    placeholder="Briefly describe your requirements…"
+                    style={inputStyle(errors.message)}
+                  />
+                  {errors.message && <small style={errorStyle}>{errors.message}</small>}
+                </div>
+
+                <div style={{ gridColumn: "1 / -1", display: "flex", justifyContent: "flex-end", gap: 10 }}>
+                  <button
+                    type="button"
+                    onClick={() => setShowPopup(false)}
+                    style={{
+                      background: "#f5f5f5",
+                      border: "1px solid #ddd",
+                      color: "#000",
+                      borderRadius: 8,
+                      padding: "10px 16px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      background: RUBY,
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: 8,
+                      padding: "10px 18px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Send Message
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
