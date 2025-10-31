@@ -172,7 +172,7 @@ export default function HeaderStyle2({ variant }) {
                     style={{
                       backgroundColor: RUBY,
                       border: "none",
-                      color: "#050a1e",
+                      color: "#fff",
                       fontWeight: 700,
                       cursor: "pointer",
                       padding: "10px 18px",
