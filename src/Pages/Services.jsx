@@ -29,6 +29,7 @@ const Services = () => {
           <h2
             style={{
               fontWeight: 800,
+              color: "#fff",
               fontSize: "2rem",
               marginBottom: "1rem",
             }}
