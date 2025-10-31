@@ -1,254 +1,424 @@
-// src/Components/About/About1.jsx
-import React, { useEffect } from 'react';
-import Slider from 'react-slick';
-import loadBackgroudImages from '../Common/loadBackgroudImages';
+// src/Components/Header/HeaderStyle2.jsx
+import { useEffect, useState, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Nav from "./Nav";
 
-const About1 = () => {
+const RUBY = "#9b111e";
+
+export default function HeaderStyle2({ variant }) {
+  const [mobileToggle, setMobileToggle] = useState(false);
+  const [isSticky, setIsSticky] = useState("");
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    solution: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const messageRef = useRef(null);
+  const closeBtnRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  /* ===== Scroll to top on navigation ===== */
   useEffect(() => {
-    loadBackgroudImages();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
+
+  /* ===== Listen for global "open-quote" ===== */
+  useEffect(() => {
+    const onOpen = () => setShowPopup(true);
+    window.addEventListener("open-quote", onOpen);
+    return () => window.removeEventListener("open-quote", onOpen);
   }, []);
 
-  const logos = [
-    { img: '/logosss01.png', alt: 'Global Gateway Logistics' },
-    { img: '/logosss03.png', alt: 'OECL Supply Chain' },
-    { img: '/logosss02.png', alt: 'Global Consol' },
-    { img: '/Haixun_logo.png', alt: 'Hai Xun Logistics' },
-    { img: '/one.png', alt: 'ONE Global Logistics' },
-    { img: '/logosss04.png', alt: 'Moltech Energy' },
-    { img: '/logosss05.png', alt: 'CityGn Distribution' },
+  /* ===== Sticky header ===== */
+  useEffect(() => {
+    const handleScroll = () => {
+      const curr = window.scrollY;
+      if (curr > prevScrollPos) setIsSticky("cs-gescout_sticky");
+      else if (curr !== 0) setIsSticky("cs-gescout_show cs-gescout_sticky");
+      else setIsSticky("");
+      setPrevScrollPos(curr);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
+
+  /* ===== Lock body when mobile menu or popup open ===== */
+  useEffect(() => {
+    const lock = mobileToggle || showPopup;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = lock ? "hidden" : prev || "";
+    return () => (document.body.style.overflow = prev);
+  }, [mobileToggle, showPopup]);
+
+  /* ===== Popup focus & ESC ===== */
+  useEffect(() => {
+    if (!showPopup) return;
+    const t = setTimeout(() => {
+      (messageRef.current || closeBtnRef.current)?.focus?.();
+    }, 60);
+    const onKey = (e) => e.key === "Escape" && setShowPopup(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [showPopup]);
+
+  const services = [
+    "Internet Services",
+    "Data Center Hosting",
+    "Cloud Solutions",
+    "Connectivity",
+    "Information Security",
+    "Managed IT",
+    "Others",
+  ];
+  const solutions = [
+    "Campus Networking & IT Infrastructure",
+    "Surveillance & Security Systems",
+    "Enterprise Systems & Servers",
   ];
 
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    arrows: false,
-    swipeToSlide: true,
-    autoplay: true,
-    autoplaySpeed: 2200,
-    responsive: [
-      { breakpoint: 1399, settings: { slidesToShow: 5 } },
-      { breakpoint: 1199, settings: { slidesToShow: 4 } },
-      { breakpoint: 991,  settings: { slidesToShow: 3 } },
-      { breakpoint: 767,  settings: { slidesToShow: 2, centerMode: true, centerPadding: '10px' } },
-      { breakpoint: 575,  settings: { slidesToShow: 1, centerMode: true, centerPadding: '30px' } },
-    ],
+  const validate = () => {
+    const e = {};
+    if (!form.name.trim()) e.name = "Full Name is required.";
+    if (!form.email.trim()) e.email = "Email Address is required.";
+    if (!form.phone.trim()) e.phone = "Phone Number is required.";
+    if (!form.message.trim()) e.message = "Please share your requirements.";
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+      e.email = "Enter a valid email address.";
+    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
+      e.phone = "Enter a valid phone number.";
+    return e;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((p) => ({ ...p, [name]: value }));
+    setErrors((p) => ({ ...p, [name]: undefined }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const eobj = validate();
+    setErrors(eobj);
+    if (Object.keys(eobj).length) return;
+    alert("✅ Message Sent Successfully!");
+    setShowPopup(false);
+    setForm({
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      solution: "",
+      message: "",
+    });
   };
 
   return (
-    <section
-      className="about-section bg-cover"
-      data-background="/about-bg.png"
-      style={{ padding: '56px 0 24px', overflow: 'hidden' }}
-    >
-      <style>{`
-        .about-wrapper { width: 100%; }
-        .about-section { overflow-x: hidden; } /* prevent sideways scroll */
-
-        @media (min-width: 992px) {
-          .about-photo-wrap { margin-right: 40px; }
-        }
-
-        .about-photo-wrap { width: 100%; text-align: center; }
-        .about-photo {
-          width: min(100%, 940px);
-          height: auto;
-          border-radius: 22px;
-          object-fit: cover;
-          box-shadow: 0 16px 50px rgba(0,0,0,.24);
-          transform: scale(1.03);
-          transition: transform .3s ease, box-shadow .3s ease;
-        }
-        .about-photo:hover {
-          transform: scale(1.07);
-          box-shadow: 0 22px 66px rgba(0,0,0,.26);
-        }
-
-        .about-content .section-title h2 { margin-bottom: 18px; }
-
-        .about-items {
-          position: relative;
-          display: flex;
-          align-items: flex-start;
-          gap: 16px;
-          margin-bottom: 28px;
-        }
-        .about-items .icon {
-          position: relative;
-          width: 60px;
-          height: 60px;
-          min-width: 60px;
-          border-radius: 50%;
-          background-color: #26B6E0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 1;
-          box-shadow: 0 4px 10px rgba(38,182,224,0.35);
-        }
-        .about-items .icon img {
-          width: 28px; height: 28px;
-          filter: brightness(0) invert(1);
-        }
-        .about-items:not(:last-child)::after {
-          content: "";
-          position: absolute;
-          left: 29px; top: 60px;
-          width: 2px;
-          height: calc(100% - 30px);
-          background: repeating-linear-gradient(
-            to bottom, #26B6E0, #26B6E0 4px, transparent 4px, transparent 8px
-          );
-          z-index: 0;
-        }
-        .about-items .content h5 {
-          font-weight: 700; margin-bottom: 4px; color: #0E0F2C;
-        }
-        .about-items .content p {
-          margin: 0; line-height: 1.5; color: #444; font-size: 15px;
-        }
-
-        .brand-block { margin-top: 60px; padding-top: 0; }
-        .brand-title { text-align: center; margin: 0 0 15px; font-weight: 700; }
-        .brand-slider-wrap { max-width: 1100px; margin: 0 auto; padding: 0 8px; }
-        .brand-slide { display:flex; align-items:center; justify-content:center; height:110px; padding-left:10px; }
-        .brand-logo { max-height: 90px; width:auto; object-fit:contain; transition: transform .2s ease; }
-        .brand-logo:hover { transform: translateY(-2px); }
-
-        @media (max-width: 991.98px) {
-          .about-section { padding: 40px 0 16px !important; }
-          .about-photo { width: 100%; transform: scale(1.0); border-radius: 18px; }
-          .brand-slide { height: 96px; }
-          .brand-logo { max-height: 80px; }
-          .brand-block { margin-top: 40px; }
-        }
-
-        @media (max-width: 768px) {
-          .about-section { padding: 32px 0 12px !important; }
-          .container { padding-left: 16px; padding-right: 16px; }
-
-          .about-wrapper .row { flex-direction: column; gap: 18px; }
-          .col-lg-7, .col-lg-5 { width: 100%; max-width: 100%; }
-
-          .about-photo { transform: none; border-radius: 14px; box-shadow: 0 10px 26px rgba(0,0,0,.15); }
-          .about-photo:hover { transform: none; }
-
-          .about-content .section-title h2 {
-            font-size: clamp(22px, 5vw, 28px);
-            line-height: 1.2;
-            text-align: left;
-            margin-bottom: 12px;
-          }
-
-          .about-items { gap: 12px; margin-bottom: 20px; }
-          .about-items .icon {
-            width: 48px; height: 48px; min-width: 48px;
-            box-shadow: 0 3px 8px rgba(38,182,224,0.30);
-          }
-          .about-items .icon img { width: 22px; height: 22px; }
-          .about-items:not(:last-child)::after {
-            left: 24px; top: 48px; height: calc(100% - 24px);
-          }
-          .about-items .content h5 { font-size: 16px; margin-bottom: 2px; }
-          .about-items .content p { font-size: 14px; }
-
-          .brand-block { margin-top: 28px; }
-          .brand-title { margin-bottom: 10px; font-size: 18px; }
-          .brand-slide { height: 80px; }
-          .brand-logo { max-height: 64px; }
-        }
-
-        @media (max-width: 480px) {
-          .about-items .icon { width: 44px; height: 44px; min-width: 44px; }
-          .about-items .icon img { width: 20px; height: 20px; }
-          .brand-slide { height: 72px; }
-          .brand-logo { max-height: 56px; }
-        }
-      `}</style>
-
-      <div className="container">
-        <div className="about-wrapper">
-          <div className="row g-4 align-items-center">
-            {/* Left Image */}
-            <div className="col-lg-7 d-flex justify-content-center">
-              <div className="about-photo-wrap">
-                <img
-                  src="/team.jpg"
-                  alt="1 Global Enterprises Group"
-                  className="about-photo"
-                />
+    <>
+      <header
+        className={`cs_site_header header_style_2 cs_style_1 ${variant || ""} cs_sticky_header cs_site_header_full_width ${
+          mobileToggle ? "cs_mobile_toggle_active" : ""
+        } ${isSticky}`}
+      >
+        <div className="cs_main_header">
+          <div className="container-fluid">
+            <div className="cs_main_header_in">
+              {/* ===== LEFT: Logo ===== */}
+              <div className="cs_main_header_left">
+                <Link
+                  to="/"
+                  className="cs_site_branding"
+                  onClick={() => setMobileToggle(false)}
+                >
+                  <img
+                    src={
+                      location.pathname === "/" || location.pathname === "/home"
+                        ? "/assets/images/logo.png"
+                        : "/assets/images/footer-logo.png"
+                    }
+                    alt="Logo"
+                  />
+                </Link>
               </div>
-            </div>
 
-            {/* Right Text */}
-            <div className="col-lg-5">
-              <div className="about-content">
-                <div className="section-title">
-                  <h2>1 Global Enterprises</h2>
+              {/* ===== CENTER: Navigation ===== */}
+              <div className="cs_main_header_center">
+                <div className="cs_nav cs_primary_font fw-medium">
+                  <Nav
+                    onNavigate={() => {
+                      setMobileToggle(false);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  />
                 </div>
-
-                <div className="about-area mt-3">
-                  <div className="about-items">
-                    <div className="icon">
-                      <img src="/assets/img/icon/05.svg" alt="Who We Are" />
-                    </div>
-                    <div className="content">
-                      <h5>Who We Are</h5>
-                      <p>
-                        A diversified group with interests in Shipping, Logistics,
-                        Distribution, IT, Clean Energy & Trading.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="about-items">
-                    <div className="icon">
-                      <img src="/assets/img/icon/06.svg" alt="Our Reach" />
-                    </div>
-                    <div className="content">
-                      <h5>Our Reach</h5>
-                      <p>A global workforce of 700+ professionals.</p>
-                    </div>
-                  </div>
-
-                  <div className="about-items">
-                    <div className="icon">
-                      <img src="/assets/img/icon/07.svg" alt="Expertise" />
-                    </div>
-                    <div className="content">
-                      <h5>Expertise</h5>
-                      <p>
-                        Each business unit is led by experts ensuring sustainability,
-                        execution & growth.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* ✅ “Vision & Strategy” button removed here */}
               </div>
-            </div>
-          </div>
 
-          {/* Group Companies */}
-          <div className="brand-block">
-            <h4 className="brand-title">Group Companies</h4>
-            <div className="brand-slider-wrap">
-              <Slider {...sliderSettings}>
-                {logos.map((item, i) => (
-                  <div key={i} className="brand-slide">
-                    <img src={item.img} alt={item.alt} className="brand-logo" />
-                  </div>
-                ))}
-              </Slider>
+              {/* ===== RIGHT: CTA ===== */}
+              <div className="cs_main_header_right">
+                <div className="header-btn">
+                  <button
+                    onClick={() => setShowPopup(true)}
+                    style={{
+                      backgroundColor: RUBY,
+                      border: "none",
+                      color: "#fff",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      padding: "10px 18px",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    Get A Quote NOW <i className="bi bi-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+
+              {/* ===== MOBILE CLOSE BUTTON ===== */}
+              {mobileToggle && (
+                <button
+                  onClick={() => setMobileToggle(false)}
+                  style={{
+                    position: "absolute",
+                    top: 18,
+                    right: 18,
+                    background: "transparent",
+                    border: "none",
+                    fontSize: 30,
+                    color: "#000",
+                    cursor: "pointer",
+                    zIndex: 100,
+                  }}
+                  aria-label="Close Menu"
+                >
+                  ×
+                </button>
+              )}
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-};
+      </header>
 
-export default About1;
+      {/* ===== POPUP ===== */}
+      {showPopup && (
+        <div
+          className="popup-overlay"
+          onClick={() => setShowPopup(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 12,
+          }}
+        >
+          <div
+            className="popup-card"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            style={{
+              background: "#fff",
+              color: "#000",
+              width: "min(700px, 95vw)",
+              borderRadius: 12,
+              boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
+              border: "1px solid #eee",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                padding: "16px 18px",
+                borderBottom: `3px solid ${RUBY}`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <h4 style={{ margin: 0, color: RUBY, fontWeight: 800 }}>
+                Quick Message
+              </h4>
+              <button
+                ref={closeBtnRef}
+                onClick={() => setShowPopup(false)}
+                style={{
+                  border: "none",
+                  background: "transparent",
+                  fontSize: 22,
+                  color: "#000",
+                  cursor: "pointer",
+                }}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} noValidate style={{ padding: 20 }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: 12,
+                }}
+              >
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={{ fontWeight: 600,  color: "#000" }}>Full Name*</label>
+                  <input
+                    name="name"
+                    type="text"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Your full name"
+                    style={inputStyle(errors.name)}
+                  />
+                  {errors.name && <small style={errorStyle}>{errors.name}</small>}
+                </div>
+
+                <div>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Email*</label>
+                  <input
+                    name="email"
+                    type="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="you@company.com"
+                    style={inputStyle(errors.email)}
+                  />
+                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
+                </div>
+
+                <div>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Phone*</label>
+                  <input
+                    name="phone"
+                    type="tel"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="+91 9XXXXXXXXX"
+                    style={inputStyle(errors.phone)}
+                  />
+                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
+                </div>
+
+                <div>
+                  <label style={{ fontWeight: 600,  color: "#000" }}>Service</label>
+                  <select
+                    name="service"
+                    value={form.service}
+                    onChange={handleChange}
+                    style={inputStyle()}
+                  >
+                    <option value="">Select a service</option>
+                    {services.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ fontWeight: 600,  color: "#000" }}>Solution</label>
+                  <select
+                    name="solution"
+                    value={form.solution}
+                    onChange={handleChange}
+                    style={inputStyle()}
+                  >
+                    <option value="">Select a solution</option>
+                    {solutions.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={{ fontWeight: 600,  color: "#000" }}>Your Message*</label>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    ref={messageRef}
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Briefly describe your requirements…"
+                    style={inputStyle(errors.message)}
+                  />
+                  {errors.message && <small style={errorStyle}>{errors.message}</small>}
+                </div>
+
+                <div
+                  style={{
+                    gridColumn: "1 / -1",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    gap: 10,
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setShowPopup(false)}
+                    style={{
+                      background: "#f5f5f5",
+                      border: "1px solid #ddd",
+                      color: "#000",
+                      borderRadius: 8,
+                      padding: "10px 16px",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    style={{
+                      background: RUBY,
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: 8,
+                      padding: "10px 18px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                    }}
+                  >
+                    Send Message
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+const inputStyle = (hasError) => ({
+  width: "100%",
+  padding: "10px 12px",
+  borderRadius: 8,
+  border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
+  outline: "none",
+});
+const errorStyle = {
+  color: "#e03131",
+  fontSize: 12,
+  marginTop: 4,
+};
