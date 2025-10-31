@@ -47,9 +47,7 @@ const Home = () => {
       </section>
 
       {/* ===== CONTACT ===== */}
-      <section >
-        <Contact1 />
-      </section>
+
 
       {/* ===== PAGE STYLES ===== */}
       <style>{`
