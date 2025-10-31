@@ -83,7 +83,7 @@ const Solutions = () => {
         </div>
 
         {/* Solution Cards */}
-        <div className="row g-4 justify-content-center">
+        <div className="row g-4 justify-content-center mb-5">
           {data.map((item, i) => (
             <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
               <div
@@ -95,7 +95,8 @@ const Solutions = () => {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.border = `2px solid ${RUBY}`;
-                  e.currentTarget.style.boxShadow = "0 10px 25px rgba(0,0,0,0.1)";
+                  e.currentTarget.style.boxShadow =
+                    "0 10px 25px rgba(0,0,0,0.1)";
                   e.currentTarget.style.transform = "translateY(-6px)";
                 }}
                 onMouseLeave={(e) => {
@@ -165,6 +166,56 @@ const Solutions = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ✅ CTA Section */}
+        <div className="text-center mt-5">
+          <h3
+            style={{
+              fontWeight: 700,
+              color: "#0f172a",
+              marginBottom: "1rem",
+              fontSize: "1.6rem",
+            }}
+          >
+            Ready to Elevate Your IT Infrastructure?
+          </h3>
+          <p
+            style={{
+              color: "#555",
+              maxWidth: "600px",
+              margin: "0 auto 1.5rem",
+              fontSize: "1rem",
+            }}
+          >
+            Connect with <strong style={{ color: RUBY }}>NETARK</strong> today
+            to discover scalable, secure, and future-ready IT & networking
+            solutions for your business.
+          </p>
+          <a
+            href="/contact"
+            className="btn btn-lg"
+            style={{
+              background: RUBY,
+              color: "#fff",
+              fontWeight: 600,
+              borderRadius: "50px",
+              padding: "12px 32px",
+              transition: "all 0.3s ease",
+              textDecoration: "none",
+              display: "inline-block",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#7d0d18";
+              e.currentTarget.style.transform = "scale(1.05)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = RUBY;
+              e.currentTarget.style.transform = "scale(1)";
+            }}
+          >
+            Get in Touch →
+          </a>
         </div>
       </div>
     </div>
