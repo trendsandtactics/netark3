@@ -277,7 +277,7 @@ export default function HeaderStyle2({ variant }) {
                 }}
               >
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600 }}>Full Name*</label>
+                  <label style={{ fontWeight: 600,  color: "#000" }}>Full Name*</label>
                   <input
                     name="name"
                     type="text"
@@ -290,7 +290,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600 }}>Email*</label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Email*</label>
                   <input
                     name="email"
                     type="email"
@@ -303,7 +303,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600 }}>Phone*</label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Phone*</label>
                   <input
                     name="phone"
                     type="tel"
@@ -316,7 +316,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600 }}>Service</label>
+                  <label style={{ fontWeight: 600,  color: "#000" }}>Service</label>
                   <select
                     name="service"
                     value={form.service}
@@ -333,7 +333,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600 }}>Solution</label>
+                  <label style={{ fontWeight: 600,  color: "#000" }}>Solution</label>
                   <select
                     name="solution"
                     value={form.solution}
@@ -350,7 +350,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
 
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600 }}>Your Message*</label>
+                  <label style={{ fontWeight: 600,  color: "#000" }}>Your Message*</label>
                   <textarea
                     name="message"
                     rows={4}
