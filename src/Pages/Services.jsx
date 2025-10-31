@@ -21,6 +21,8 @@ const Services = () => {
           background: `linear-gradient(90deg, ${RUBY}, #c81e30)`,
           color: "#fff",
           borderRadius: "0",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
         <div className="container">
@@ -33,6 +35,7 @@ const Services = () => {
           >
             Need Custom IT or Networking Solutions?
           </h2>
+
           <p
             style={{
               fontSize: "1.1rem",
@@ -46,26 +49,34 @@ const Services = () => {
             business growth.
           </p>
 
+          {/* 🔧 Use a unique class and strong inline styles to avoid theme overrides */}
           <a
             href="/contact"
-            className="btn btn-lg"
+            aria-label="Contact NETARK"
+            className="netark-cta-btn"
             style={{
-              backgroundColor: "#fff",
+              display: "inline-block",
+              backgroundColor: "#ffffff",
               color: RUBY,
               fontWeight: 700,
               borderRadius: "50px",
               padding: "12px 32px",
               textDecoration: "none",
-              transition: "all 0.3s ease",
-              display: "inline-block",
+              border: `1px solid rgba(0,0,0,0.08)`,
+              boxShadow: "0 8px 22px rgba(0,0,0,0.18)",
+              cursor: "pointer",
+              transform: "translateZ(0)",
+              transition: "transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#f5f5f5";
               e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.backgroundColor = "#f5f5f5";
+              e.currentTarget.style.boxShadow = "0 10px 28px rgba(0,0,0,0.22)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "#fff";
               e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.backgroundColor = "#ffffff";
+              e.currentTarget.style.boxShadow = "0 8px 22px rgba(0,0,0,0.18)";
             }}
           >
             Contact Us →
@@ -73,7 +84,7 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Optional: Blog or Team sections if you want to keep them later */}
+      {/* Optional: Blog or Team sections */}
       {/* <Team1 /> */}
       {/* <Blog1 /> */}
     </div>
