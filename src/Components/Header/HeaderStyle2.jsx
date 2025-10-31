@@ -15,6 +15,7 @@ export default function HeaderStyle2({ variant }) {
     name: "",
     email: "",
     phone: "",
+    lookingFor: "",     // <-- NEW
     service: "",
     solution: "",
     message: "",
@@ -94,15 +95,39 @@ export default function HeaderStyle2({ variant }) {
     if (!form.email.trim()) e.email = "Email Address is required.";
     if (!form.phone.trim()) e.phone = "Phone Number is required.";
     if (!form.message.trim()) e.message = "Please share your requirements.";
+
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address.";
     if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
+
+    // NEW: LookingFor required + conditional requirement
+    if (!form.lookingFor) {
+      e.lookingFor = "Please choose what you are looking for.";
+    } else if (form.lookingFor === "services" && !form.service) {
+      e.service = "Please select a service.";
+    } else if (form.lookingFor === "solutions" && !form.solution) {
+      e.solution = "Please select a solution.";
+    }
+
     return e;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    // When switching "lookingFor", clear the opposite field
+    if (name === "lookingFor") {
+      setForm((p) => ({
+        ...p,
+        lookingFor: value,
+        service: value === "services" ? p.service : "",
+        solution: value === "solutions" ? p.solution : "",
+      }));
+      setErrors((p) => ({ ...p, lookingFor: undefined, service: undefined, solution: undefined }));
+      return;
+    }
+
     setForm((p) => ({ ...p, [name]: value }));
     setErrors((p) => ({ ...p, [name]: undefined }));
   };
@@ -112,12 +137,14 @@ export default function HeaderStyle2({ variant }) {
     const eobj = validate();
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
+
     alert("✅ Message Sent Successfully!");
     setShowPopup(false);
     setForm({
       name: "",
       email: "",
       phone: "",
+      lookingFor: "",   // reset new field
       service: "",
       solution: "",
       message: "",
@@ -277,7 +304,7 @@ export default function HeaderStyle2({ variant }) {
                 }}
               >
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600,  color: "#000" }}>Full Name*</label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Full Name*</label>
                   <input
                     name="name"
                     type="text"
@@ -315,42 +342,71 @@ export default function HeaderStyle2({ variant }) {
                   {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                 </div>
 
-                <div>
-                  <label style={{ fontWeight: 600,  color: "#000" }}>Service</label>
+                {/* NEW: Looking For */}
+                <div style={{ gridColumn: "1 / -1" }}>
+                  <label style={{ fontWeight: 700, color: "#000" }}>
+                    What are you looking for? *
+                  </label>
                   <select
-                    name="service"
-                    value={form.service}
+                    name="lookingFor"
+                    value={form.lookingFor}
                     onChange={handleChange}
-                    style={inputStyle()}
+                    style={inputStyle(errors.lookingFor)}
                   >
-                    <option value="">Select a service</option>
-                    {services.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
-                    ))}
+                    <option value="">Select an option</option>
+                    <option value="services">Services</option>
+                    <option value="solutions">Solutions</option>
                   </select>
+                  {errors.lookingFor && (
+                    <small style={errorStyle}>{errors.lookingFor}</small>
+                  )}
                 </div>
 
-                <div>
-                  <label style={{ fontWeight: 600,  color: "#000" }}>Solution</label>
-                  <select
-                    name="solution"
-                    value={form.solution}
-                    onChange={handleChange}
-                    style={inputStyle()}
-                  >
-                    <option value="">Select a solution</option>
-                    {solutions.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                {/* Conditionally show Services or Solutions */}
+                {form.lookingFor === "services" && (
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={{ fontWeight: 600, color: "#000" }}>Service*</label>
+                    <select
+                      name="service"
+                      value={form.service}
+                      onChange={handleChange}
+                      style={inputStyle(errors.service)}
+                    >
+                      <option value="">Select a service</option>
+                      {services.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.service && <small style={errorStyle}>{errors.service}</small>}
+                  </div>
+                )}
+
+                {form.lookingFor === "solutions" && (
+                  <div style={{ gridColumn: "1 / -1" }}>
+                    <label style={{ fontWeight: 600, color: "#000" }}>Solution*</label>
+                    <select
+                      name="solution"
+                      value={form.solution}
+                      onChange={handleChange}
+                      style={inputStyle(errors.solution)}
+                    >
+                      <option value="">Select a solution</option>
+                      {solutions.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.solution && (
+                      <small style={errorStyle}>{errors.solution}</small>
+                    )}
+                  </div>
+                )}
 
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600,  color: "#000" }}>Your Message*</label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>Your Message*</label>
                   <textarea
                     name="message"
                     rows={4}
@@ -416,7 +472,10 @@ const inputStyle = (hasError) => ({
   borderRadius: 8,
   border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
   outline: "none",
+  color: "#000", // ensure text is black
+  background: "#fff"
 });
+
 const errorStyle = {
   color: "#e03131",
   fontSize: 12,
