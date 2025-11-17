@@ -19,23 +19,21 @@ const Services4 = () => {
         <div className="row align-items-center mb-5">
           <div className="col-lg-12">
             <div className="section-title text-center">
-
-              {/* ❌ REMOVED NETARK COMPANY */}
               <SectionTitle
                 SubTitle=""
                 Title="Choose <span>Netark</span> for reliable IT service, connectivity, and managed infrastructure across India"
               />
-
-              <br></br>
+              <br />
             </div>
           </div>
         </div>
 
-        <br></br>
+        <br />
 
         <div className="row g-4 justify-content-center">
           {data.map((item, i) => {
             const points = toPoints(item.desc);
+
             return (
               <div key={i} className="col-xl-3 col-lg-4 col-md-6 d-flex">
                 <div
@@ -44,6 +42,7 @@ const Services4 = () => {
                     backgroundColor: "#fff",
                     border: "1px solid #eee",
                     transition: "all 0.3s ease",
+                    minHeight: "260px"
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.border = `2px solid ${RUBY}`;
@@ -56,25 +55,8 @@ const Services4 = () => {
                     e.currentTarget.style.transform = "translateY(0)";
                   }}
                 >
-                  <div
-                    className="service-thumb mb-3"
-                    style={{
-                      width: "100%",
-                      height: "180px",
-                      overflow: "hidden",
-                      borderRadius: "12px",
-                      backgroundColor: "#f7f7f7",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                    />
-                  </div>
+
+                  {/* ❌ REMOVED IMAGE BLOCK */}
 
                   <div className="service-content flex-grow-1 text-start">
                     <h3
@@ -91,6 +73,7 @@ const Services4 = () => {
                     >
                       {item.title}
                     </h3>
+
                     <ul
                       style={{
                         listStyleType: "disc",
@@ -108,6 +91,7 @@ const Services4 = () => {
                       ))}
                     </ul>
                   </div>
+
                 </div>
               </div>
             );
