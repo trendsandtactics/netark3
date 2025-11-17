@@ -221,32 +221,6 @@ export default function HeroShowcase() {
         </button>
       </div>
 
-      {/* Logo carousel */}
-      <div style={logosWrapStyle}>
-        <div
-          style={{
-            textAlign: "center",
-            marginBottom: isMobile ? 6 : 12,
-            color: "#EAEAEA",
-            fontWeight: 700,
-            fontSize: isMobile ? 12 : 14,
-            letterSpacing: ".2px",
-            pointerEvents: "none",
-          }}
-        >
-          Trusted by Industry Leaders
-          <div
-            style={{
-              width: 72,
-              height: 3,
-              margin: "6px auto 0",
-              background: RUBY,
-              borderRadius: 999,
-              opacity: 0.95,
-            }}
-          />
-        </div>
-
         <div style={logosRailBoxStyle}>
           {shouldInit ? (
             <Swiper
