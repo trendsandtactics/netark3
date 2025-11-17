@@ -19,15 +19,19 @@ const Services4 = () => {
         <div className="row align-items-center mb-5">
           <div className="col-lg-12">
             <div className="section-title text-center">
+
+              {/* ❌ REMOVED NETARK COMPANY */}
               <SectionTitle
-                SubTitle="NETARK COMPANY"
+                SubTitle=""
                 Title="Choose <span>Netark</span> for reliable IT service, connectivity, and managed infrastructure across India"
               />
-              <br></br> 
+
+              <br></br>
             </div>
           </div>
         </div>
-        <br></br> 
+
+        <br></br>
 
         <div className="row g-4 justify-content-center">
           {data.map((item, i) => {
