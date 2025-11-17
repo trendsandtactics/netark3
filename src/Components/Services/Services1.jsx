@@ -24,9 +24,11 @@ const Services1 = () => {
   return (
     <section className="service-area py-20 md:py-24 bg-white mb-64 md:mb-72">
       <div className="container">
+        
+        {/* ❌ REMOVED THE BADGE — Only Section Title remains */}
         <div className="text-center mb-12">
           <SectionTitle
-            SubTitle="NETARK TECHNOLOGIES"
+            SubTitle=""
             Title={`Professional IT Services<br> That Drive <span style='color:${RUBY_RED};'>Success.</span>`}
           />
         </div>
@@ -59,7 +61,6 @@ const Services1 = () => {
           ))}
         </div>
 
-        {/* ===== Bottom CTA ===== */}
         <div className="cta-wrap">
           <button className="cta-btn" onClick={() => navigate("/services")}>
             Explore All Services
@@ -68,7 +69,6 @@ const Services1 = () => {
       </div>
 
       <style>{`
-        /* GRID */
         .services-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -76,7 +76,6 @@ const Services1 = () => {
           justify-items: center;
         }
 
-        /* CARD */
         .service-card {
           width: 100%;
           max-width: 300px;
@@ -95,7 +94,6 @@ const Services1 = () => {
         }
         .service-card:hover .title { color: #fff; }
 
-        /* MEDIA */
         .media {
           position: relative;
           width: 100%;
@@ -114,7 +112,6 @@ const Services1 = () => {
           opacity: 0.9;
         }
 
-        /* BADGE */
         .badge {
           position: absolute;
           left: 14px;
@@ -132,12 +129,11 @@ const Services1 = () => {
         }
         .service-card:hover .badge { transform: scale(1.05); }
 
-        .badge .badge-icon {
+        .badge-icon {
           stroke: ${RUBY_RED} !important;
           color: ${RUBY_RED} !important;
         }
 
-        /* CONTENT */
         .content {
           padding: 14px 16px 18px;
           text-align: left;
@@ -151,7 +147,6 @@ const Services1 = () => {
           transition: color .3s ease;
         }
 
-        /* CTA */
         .cta-wrap {
           display: flex;
           justify-content: center;
@@ -168,9 +163,7 @@ const Services1 = () => {
           cursor: pointer;
           box-shadow: 0 10px 24px rgba(155, 17, 30, 0.25);
         }
-        /* no hover color change (as requested style across header/nav) */
 
-        /* RESPONSIVE */
         @media (max-width:1280px) {
           .services-grid { grid-template-columns: repeat(3,1fr); }
         }
