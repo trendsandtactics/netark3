@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
 const RUBY = "#9b111e";
-const FORMSUBMIT_URL = "https://formsubmit.co/ajax/hariharantt015@gmail.com";
 
 export default function HeaderStyle2({ variant }) {
   const [mobileToggle, setMobileToggle] = useState(false);
@@ -22,7 +21,6 @@ export default function HeaderStyle2({ variant }) {
     message: "",
   });
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const messageRef = useRef(null);
   const closeBtnRef = useRef(null);
@@ -139,61 +137,15 @@ export default function HeaderStyle2({ variant }) {
     setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (isSubmitting) return;
-
+  // NOTE: do NOT preventDefault if the form is valid, so the browser can POST to formsubmit.co
+  const handleSubmit = (e) => {
     const eobj = validate();
-    setErrors(eobj);
-    if (Object.keys(eobj).length) return;
-
-    try {
-      setIsSubmitting(true);
-
-      const payload = {
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        lookingFor: form.lookingFor,
-        service: form.service || "N/A",
-        solution: form.solution || "N/A",
-        message: form.message,
-        _subject: "New Quote Request from NETARK Website",
-        _template: "table",
-      };
-
-      const res = await fetch(FORMSUBMIT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-      if (data.success === "true" || data.success === true) {
-        alert("Message sent successfully!");
-        setShowPopup(false);
-        setForm({
-          name: "",
-          email: "",
-          phone: "",
-          lookingFor: "",
-          service: "",
-          solution: "",
-          message: "",
-        });
-      } else {
-        console.error("FormSubmit error:", data);
-        alert("There was a problem sending your message. Please try again.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("There was a problem sending your message. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+    if (Object.keys(eobj).length) {
+      e.preventDefault(); // stop submit if there are validation errors
+      setErrors(eobj);
+      return;
     }
+    // if no errors -> allow normal HTML POST to FormSubmit
   };
 
   return (
@@ -343,7 +295,23 @@ export default function HeaderStyle2({ variant }) {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} noValidate style={{ padding: 20 }}>
+            {/* IMPORTANT: standard HTML form POST to FormSubmit */}
+            <form
+              onSubmit={handleSubmit}
+              action="https://formsubmit.co/hariharantt015@gmail.com"
+              method="POST"
+              noValidate
+              style={{ padding: 20 }}
+            >
+              {/* FormSubmit options */}
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Quote Request from NETARK Website"
+              />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+
               <div
                 style={{
                   display: "grid",
@@ -513,7 +481,6 @@ export default function HeaderStyle2({ variant }) {
                   </button>
                   <button
                     type="submit"
-                    disabled={isSubmitting}
                     style={{
                       background: RUBY,
                       color: "#fff",
@@ -521,11 +488,10 @@ export default function HeaderStyle2({ variant }) {
                       borderRadius: 8,
                       padding: "10px 18px",
                       fontWeight: 700,
-                      cursor: isSubmitting ? "not-allowed" : "pointer",
-                      opacity: isSubmitting ? 0.7 : 1,
+                      cursor: "pointer",
                     }}
                   >
-                    {isSubmitting ? "Sending..." : "Send Message"}
+                    Send Message
                   </button>
                 </div>
               </div>
