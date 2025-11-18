@@ -45,10 +45,7 @@ export default function HeroShowcase() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const logoRail = useMemo(
-    () => [...BASE_LOGOS, ...BASE_LOGOS, ...BASE_LOGOS],
-    []
-  );
+  const logoRail = useMemo(() => [...BASE_LOGOS, ...BASE_LOGOS, ...BASE_LOGOS], []);
 
   // styles
   const wrapperStyle = {
@@ -93,54 +90,16 @@ export default function HeroShowcase() {
       };
 
   const titleStyle = isMobile
-    ? {
-        color: "#fff",
-        marginBottom: 12,
-        fontWeight: 800,
-        fontSize: "clamp(20px, 5.6vw, 26px)",
-        lineHeight: 1.2,
-      }
-    : {
-        color: "#fff",
-        marginBottom: 16,
-        fontWeight: 800,
-        fontSize: "clamp(26px, 3.8vw, 48px)",
-        lineHeight: 1.2,
-      };
+    ? { color: "#fff", marginBottom: 12, fontWeight: 800, fontSize: "clamp(20px, 5.6vw, 26px)", lineHeight: 1.2 }
+    : { color: "#fff", marginBottom: 16, fontWeight: 800, fontSize: "clamp(26px, 3.8vw, 48px)", lineHeight: 1.2 };
 
   const bodyTextStyle = isMobile
-    ? {
-        color: "#D7D7D7",
-        fontSize: "clamp(13px, 3.6vw, 15px)",
-        lineHeight: 1.55,
-        marginBottom: 10,
-      }
-    : {
-        color: "#CCC",
-        fontSize: "clamp(14px, 1.3vw, 18px)",
-        lineHeight: 1.6,
-        marginBottom: 12,
-      };
+    ? { color: "#D7D7D7", fontSize: "clamp(13px, 3.6vw, 15px)", lineHeight: 1.55, marginBottom: 10 }
+    : { color: "#CCC", fontSize: "clamp(14px, 1.3vw, 18px)", lineHeight: 1.6, marginBottom: 12 };
 
   const ctaStyle = isMobile
-    ? {
-        background: RUBY,
-        color: "#fff",
-        borderRadius: 999,
-        border: "none",
-        fontWeight: 700,
-        padding: "10px 16px",
-        fontSize: 14,
-      }
-    : {
-        background: RUBY,
-        color: "#fff",
-        borderRadius: 999,
-        border: "none",
-        fontWeight: 700,
-        padding: "10px 20px",
-        fontSize: 16,
-      };
+    ? { background: RUBY, color: "#fff", borderRadius: 999, border: "none", fontWeight: 700, padding: "10px 16px", fontSize: 14 }
+    : { background: RUBY, color: "#fff", borderRadius: 999, border: "none", fontWeight: 700, padding: "10px 20px", fontSize: 16 };
 
   const logosWrapStyle = {
     position: "absolute",
@@ -182,15 +141,13 @@ export default function HeroShowcase() {
   return (
     <div style={wrapperStyle}>
       <style>{`
-        .swiper-button-prev,
-        .swiper-button-next,
-        .swiper-pagination-bullets {
+        .swiper-button-prev, .swiper-button-next, .swiper-pagination-bullets {
           z-index: 90;
           pointer-events: auto;
         }
       `}</style>
 
-      {/* Background slider */}
+      {/* Background slider (slides are non-interactive to avoid blocking taps) */}
       {shouldInit ? (
         <Swiper
           modules={[Autoplay, Navigation, Pagination]}
@@ -242,20 +199,18 @@ export default function HeroShowcase() {
         </h2>
 
         <p style={bodyTextStyle}>
-          At <strong style={{ color: RUBY }}>NETARK</strong>, we deliver more
-          than just technology — we deliver trust, reliability, and
-          future-ready infrastructure. With over 20 years of experience, we
-          specialise in Internet services, networking, data centers, server
-          colocation, hosting, and backup services that support
+          At <strong style={{ color: RUBY }}>NETARK</strong>, we deliver more than just technology — we deliver trust,
+          reliability, and future-ready infrastructure. With over 20 years of experience, we specialise in Internet
+          services, networking, data centers, server colocation, hosting, and backup services that support
           mission-critical businesses.
         </p>
 
         <p style={{ ...bodyTextStyle, marginBottom: isMobile ? 12 : 16 }}>
-          Partner with{" "}
-          <span style={{ color: RUBY }}>NETARK</span> – Your trusted Internet
-          and Data Center Infrastructure experts in India.
+          Partner with <span style={{ color: RUBY }}>NETARK</span> – Your trusted Internet and Data Center Infrastructure
+          experts in India.
         </p>
 
+        {/* ✅ Opens Header "Get A Quote" popup */}
         <button
           onClick={openQuote}
           className="btn"
@@ -266,19 +221,39 @@ export default function HeroShowcase() {
         </button>
       </div>
 
-      {/* Logos rail */}
+      {/* Logo carousel */}
       <div style={logosWrapStyle}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: isMobile ? 6 : 12,
+            color: "#EAEAEA",
+            fontWeight: 700,
+            fontSize: isMobile ? 12 : 14,
+            letterSpacing: ".2px",
+            pointerEvents: "none",
+          }}
+        >
+          Trusted Partners
+          <div
+            style={{
+              width: 72,
+              height: 3,
+              margin: "6px auto 0",
+              background: RUBY,
+              borderRadius: 999,
+              opacity: 0.95,
+            }}
+          />
+        </div>
+
         <div style={logosRailBoxStyle}>
           {shouldInit ? (
             <Swiper
               modules={[Autoplay, FreeMode]}
               loop
               freeMode={{ enabled: true, momentum: false }}
-              autoplay={{
-                delay: 1,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: false,
-              }}
+              autoplay={{ delay: 1, disableOnInteraction: false, pauseOnMouseEnter: false }}
               speed={4000}
               slidesPerView={isMobile ? 3.2 : 7}
               spaceBetween={isMobile ? 10 : 16}
@@ -291,21 +266,14 @@ export default function HeroShowcase() {
               }}
             >
               {logoRail.map((l, i) => (
-                <SwiperSlide
-                  key={`${l.id}-${i}`}
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
+                <SwiperSlide key={`${l.id}-${i}`} style={{ display: "flex", justifyContent: "center" }}>
                   <div style={logoTileStyle}>
                     <img
                       src={l.img}
                       alt={l.id}
                       width={120}
                       height={40}
-                      style={{
-                        maxWidth: "88%",
-                        maxHeight: "70%",
-                        objectFit: "contain",
-                      }}
+                      style={{ maxWidth: "88%", maxHeight: "70%", objectFit: "contain" }}
                       loading="lazy"
                     />
                   </div>
