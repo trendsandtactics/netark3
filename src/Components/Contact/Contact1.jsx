@@ -152,7 +152,7 @@ const Contact1 = () => {
                 Phone
               </h5>
               <p style={{ color: "#444", marginBottom: 0 }}>
-                0422-4280009 &nbsp;|&nbsp; +91 95006 44411
+               +91 73392 70444 &nbsp;|&nbsp; +91 96296 88889
               </p>
             </div>
 
