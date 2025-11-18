@@ -102,6 +102,7 @@ const Footer = () => {
               <br />
               Saibaba Colony, Coimbatore – 641 011
               <br />
+              <br />
               <strong>Phone:</strong> +91 73392 70444 ,+91 96296 88889 
               <br />
               <strong>Email:</strong> sales@netark.co.in
