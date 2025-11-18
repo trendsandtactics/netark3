@@ -10,7 +10,6 @@ const Contact1 = () => {
     loadBackgroudImages();
   }, []);
 
-  // --- Form State ---
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -45,12 +44,12 @@ const Contact1 = () => {
     if (!form.phone.trim()) e.phone = "Phone Number is required.";
     if (!form.message.trim()) e.message = "Please share your requirements.";
 
-    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       e.email = "Enter a valid email address.";
-    }
-    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone)) {
+
+    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
-    }
+
     return e;
   };
 
@@ -60,7 +59,6 @@ const Contact1 = () => {
     setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
-  // Only block submit if there are validation errors
   const handleSubmit = (e) => {
     const eobj = validate();
     if (Object.keys(eobj).length) {
@@ -68,8 +66,6 @@ const Contact1 = () => {
       setErrors(eobj);
       return;
     }
-    setErrors({});
-    // if valid, allow normal POST to FormSubmit
   };
 
   return (
@@ -79,7 +75,8 @@ const Contact1 = () => {
     >
       <div className="container">
         <div className="row align-items-start g-4">
-          {/* ===== LEFT: Address + Map ===== */}
+
+          {/* LEFT SIDE */}
           <div className="col-lg-6 col-md-7">
             <div className="section-title text-left mb-3">
               <SectionTitle
@@ -102,7 +99,7 @@ const Contact1 = () => {
               team is here to help.
             </p>
 
-            {/* Address Card */}
+            {/* ADDRESS BOX */}
             <div
               className="shadow-sm"
               style={{
@@ -122,12 +119,10 @@ const Contact1 = () => {
                   fontSize: "1rem",
                 }}
               >
-                Office Address
+                OFFICE ADDRESS
               </h5>
-              <p
-                className="mb-3"
-                style={{ color: "#444", lineHeight: "1.7", fontSize: "0.95rem" }}
-              >
+
+              <p style={{ color: "#444", lineHeight: "1.7", fontSize: "0.95rem" }}>
                 <strong>NETARK Technologies India Pvt. Ltd.</strong>
                 <br />
                 Third Floor, Thachil Complex,
@@ -145,14 +140,14 @@ const Contact1 = () => {
                   fontSize: "1rem",
                 }}
               >
-                Phone
+                PHONE
               </h5>
               <p style={{ color: "#444", marginBottom: 0 }}>
                 +91 73392 70444 &nbsp;|&nbsp; +91 96296 88889
               </p>
             </div>
 
-            {/* Map */}
+            {/* MAP */}
             <div
               className="map-box shadow-sm rounded-3 overflow-hidden"
               style={{ border: `3px solid ${RUBY}`, height: 300, borderRadius: 10 }}
@@ -164,14 +159,15 @@ const Contact1 = () => {
                 height="100%"
                 style={{ border: 0 }}
                 loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
           </div>
 
-          {/* ===== RIGHT: Form ===== */}
-          <div className="col-lg-6 col-md-5">
+          {/* RIGHT SIDE – FORM (SHIFTED DOWN) */}
+          <div
+            className="col-lg-6 col-md-5"
+            style={{ marginTop: "40px" }}   // ← SHIFTED DOWN
+          >
             <div
               className="contact-form shadow-sm rounded-3"
               style={{
@@ -193,7 +189,7 @@ const Contact1 = () => {
                   paddingBottom: 6,
                 }}
               >
-                Get in Touch
+                GET IN TOUCH
               </h4>
 
               <form
@@ -202,7 +198,7 @@ const Contact1 = () => {
                 method="POST"
                 noValidate
               >
-                {/* FormSubmit options */}
+                {/* FormSubmit hidden fields */}
                 <input
                   type="hidden"
                   name="_subject"
@@ -213,101 +209,73 @@ const Contact1 = () => {
 
                 <div className="row g-2">
                   <div className="col-12">
-                    <label
-                      className="form-label"
-                      htmlFor="name"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <label className="form-label" style={{ fontWeight: 600 }}>
                       Full Name*
                     </label>
                     <input
-                      id="name"
                       name="name"
                       type="text"
                       value={form.name}
                       onChange={handleChange}
                       className="form-control"
                       placeholder="Your full name"
-                      required
                       style={inputStyle(errors.name)}
                     />
                     {errors.name && <small style={errorStyle}>{errors.name}</small>}
                   </div>
 
                   <div className="col-12">
-                    <label
-                      className="form-label"
-                      htmlFor="company"
-                      style={{ fontWeight: 600 }}
-                    >
-                      Company / Organization
+                    <label className="form-label" style={{ fontWeight: 600 }}>
+                      Company Name
                     </label>
                     <input
-                      id="company"
                       name="company"
                       type="text"
                       value={form.company}
                       onChange={handleChange}
                       className="form-control"
-                      placeholder="Company name (optional)"
+                      placeholder="Company (optional)"
                       style={inputStyle()}
                     />
                   </div>
 
                   <div className="col-md-6">
-                    <label
-                      className="form-label"
-                      htmlFor="email"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <label className="form-label" style={{ fontWeight: 600 }}>
                       Email Address*
                     </label>
                     <input
-                      id="email"
                       name="email"
                       type="email"
                       value={form.email}
                       onChange={handleChange}
                       className="form-control"
                       placeholder="you@company.com"
-                      required
                       style={inputStyle(errors.email)}
                     />
                     {errors.email && <small style={errorStyle}>{errors.email}</small>}
                   </div>
 
                   <div className="col-md-6">
-                    <label
-                      className="form-label"
-                      htmlFor="phone"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <label className="form-label" style={{ fontWeight: 600 }}>
                       Phone Number*
                     </label>
                     <input
-                      id="phone"
                       name="phone"
                       type="tel"
                       value={form.phone}
                       onChange={handleChange}
                       className="form-control"
                       placeholder="+91 9XXXXXXXXX"
-                      required
                       style={inputStyle(errors.phone)}
                     />
                     {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
                   </div>
 
                   <div className="col-md-6">
-                    <label
-                      className="form-label"
-                      htmlFor="service"
-                      style={{ fontWeight: 600 }}
-                    >
-                      Service Interested In
+                    <label className="form-label" style={{ fontWeight: 600 }}>
+                      Service Interested
                     </label>
                     <select
-                      id="service"
                       name="service"
                       value={form.service}
                       onChange={handleChange}
@@ -316,23 +284,16 @@ const Contact1 = () => {
                     >
                       <option value="">Select a service</option>
                       {services.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
+                        <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
                   </div>
 
                   <div className="col-md-6">
-                    <label
-                      className="form-label"
-                      htmlFor="solution"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <label className="form-label" style={{ fontWeight: 600 }}>
                       Solution
                     </label>
                     <select
-                      id="solution"
                       name="solution"
                       value={form.solution}
                       onChange={handleChange}
@@ -341,35 +302,25 @@ const Contact1 = () => {
                     >
                       <option value="">Select a solution</option>
                       {solutions.map((s) => (
-                        <option key={s} value={s}>
-                          {s}
-                        </option>
+                        <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
                   </div>
 
                   <div className="col-12">
-                    <label
-                      className="form-label"
-                      htmlFor="message"
-                      style={{ fontWeight: 600 }}
-                    >
+                    <label className="form-label" style={{ fontWeight: 600 }}>
                       Your Message / Requirements*
                     </label>
                     <textarea
-                      id="message"
                       name="message"
                       rows={4}
                       value={form.message}
                       onChange={handleChange}
                       className="form-control"
                       placeholder="Briefly describe your requirements…"
-                      required
                       style={inputStyle(errors.message)}
                     />
-                    {errors.message && (
-                      <small style={errorStyle}>{errors.message}</small>
-                    )}
+                    {errors.message && <small style={errorStyle}>{errors.message}</small>}
                   </div>
 
                   <div className="col-12">
@@ -392,14 +343,13 @@ const Contact1 = () => {
               </form>
             </div>
           </div>
-          {/* ===== END RIGHT ===== */}
+
         </div>
       </div>
     </div>
   );
 };
 
-// helpers
 const inputStyle = (hasError) => ({
   borderRadius: 8,
   border: `1px solid ${hasError ? "#e03131" : "#e5e5e5"}`,
