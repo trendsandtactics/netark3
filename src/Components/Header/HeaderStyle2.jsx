@@ -8,7 +8,6 @@ const RUBY = "#9b111e";
 export default function HeaderStyle2({ variant }) {
   const [mobileToggle, setMobileToggle] = useState(false);
   const [isSticky, setIsSticky] = useState("");
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   const [showPopup, setShowPopup] = useState(false);
   const [form, setForm] = useState({
@@ -39,18 +38,21 @@ export default function HeaderStyle2({ variant }) {
     return () => window.removeEventListener("open-quote", onOpen);
   }, []);
 
-  /* ===== Sticky header ===== */
+  /* ===== Sticky header (always visible when scrolled) ===== */
   useEffect(() => {
     const handleScroll = () => {
       const curr = window.scrollY;
-      if (curr > prevScrollPos) setIsSticky("cs-gescout_sticky");
-      else if (curr !== 0) setIsSticky("cs-gescout_show cs-gescout_sticky");
-      else setIsSticky("");
-      setPrevScrollPos(curr);
+      if (curr > 0) {
+        // Always show sticky header when not at the very top
+        setIsSticky("cs-gescout_show cs-gescout_sticky");
+      } else {
+        setIsSticky("");
+      }
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos]);
+  }, []);
 
   /* ===== Lock body when mobile menu or popup open ===== */
   useEffect(() => {
