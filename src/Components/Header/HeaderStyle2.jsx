@@ -27,19 +27,19 @@ export default function HeaderStyle2({ variant }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  /* ===== Scroll to top on navigation ===== */
+  // Scroll to top on navigation
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.pathname]);
 
-  /* ===== Listen for global "open-quote" ===== */
+  // Listen for global "open-quote"
   useEffect(() => {
     const onOpen = () => setShowPopup(true);
     window.addEventListener("open-quote", onOpen);
     return () => window.removeEventListener("open-quote", onOpen);
   }, []);
 
-  /* ===== Sticky header ===== */
+  // Sticky header
   useEffect(() => {
     const handleScroll = () => {
       const curr = window.scrollY;
@@ -52,7 +52,7 @@ export default function HeaderStyle2({ variant }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [prevScrollPos]);
 
-  /* ===== Lock body when mobile menu or popup open ===== */
+  // Lock body when mobile menu or popup open
   useEffect(() => {
     const lock = mobileToggle || showPopup;
     const prev = document.body.style.overflow;
@@ -62,7 +62,7 @@ export default function HeaderStyle2({ variant }) {
     };
   }, [mobileToggle, showPopup]);
 
-  /* ===== Popup focus & ESC ===== */
+  // Popup focus & ESC
   useEffect(() => {
     if (!showPopup) return;
     const t = setTimeout(() => {
@@ -137,15 +137,15 @@ export default function HeaderStyle2({ variant }) {
     setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
-  // NOTE: do NOT preventDefault if the form is valid, so the browser can POST to formsubmit.co
+  // Only block submit if there are validation errors
   const handleSubmit = (e) => {
     const eobj = validate();
     if (Object.keys(eobj).length) {
-      e.preventDefault(); // stop submit if there are validation errors
+      e.preventDefault();
       setErrors(eobj);
       return;
     }
-    // if no errors -> allow normal HTML POST to FormSubmit
+    // if valid, allow normal POST to FormSubmit
   };
 
   return (
@@ -295,10 +295,10 @@ export default function HeaderStyle2({ variant }) {
               </button>
             </div>
 
-            {/* IMPORTANT: standard HTML form POST to FormSubmit */}
+            {/* Standard HTML form POST to FormSubmit */}
             <form
               onSubmit={handleSubmit}
-              action="https://formsubmit.co/hariharantt015@gmail.com"
+              action="https://formsubmit.co/sales@netark.co.in"
               method="POST"
               noValidate
               style={{ padding: 20 }}
@@ -469,7 +469,7 @@ export default function HeaderStyle2({ variant }) {
                     onClick={() => setShowPopup(false)}
                     style={{
                       background: "#f5f5f5",
-                      border: "1px solid #ddd",
+                      border: "1px solid "#ddd",
                       color: "#000",
                       borderRadius: 8,
                       padding: "10px 16px",
