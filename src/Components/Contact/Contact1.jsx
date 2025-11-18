@@ -145,6 +145,20 @@ const Contact1 = () => {
               <p style={{ color: "#444", marginBottom: 0 }}>
                 +91 73392 70444 &nbsp;|&nbsp; +91 96296 88889
               </p>
+
+              <h5
+                style={{
+                  color: RUBY,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  fontSize: "1rem",
+                }}
+              >
+                EMAIL
+              </h5>
+              <p style={{ color: "#444", marginBottom: 0 }}>
+                sales@netark.co.in
+              </p>
             </div>
 
             {/* MAP */}
