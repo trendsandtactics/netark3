@@ -17,11 +17,10 @@ const Contact1 = () => {
     email: "",
     phone: "",
     service: "",
-    solution: "", // ✅ added
+    solution: "",
     message: "",
   });
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
 
   const services = [
     "Internet Services",
@@ -33,7 +32,6 @@ const Contact1 = () => {
     "Others",
   ];
 
-  // ✅ Solution options
   const solutions = [
     "Campus Networking & IT Infrastructure",
     "Surveillance & Security Systems",
@@ -46,10 +44,13 @@ const Contact1 = () => {
     if (!form.email.trim()) e.email = "Email Address is required.";
     if (!form.phone.trim()) e.phone = "Phone Number is required.";
     if (!form.message.trim()) e.message = "Please share your requirements.";
-    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       e.email = "Enter a valid email address.";
-    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
+    }
+    if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone)) {
       e.phone = "Enter a valid phone number.";
+    }
     return e;
   };
 
@@ -59,21 +60,16 @@ const Contact1 = () => {
     setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
+  // Only block submit if there are validation errors
   const handleSubmit = (e) => {
-    e.preventDefault();
     const eobj = validate();
-    setErrors(eobj);
-    if (Object.keys(eobj).length) return;
-    setSubmitted(true);
-    setForm({
-      name: "",
-      company: "",
-      email: "",
-      phone: "",
-      service: "",
-      solution: "", // ✅ reset
-      message: "",
-    });
+    if (Object.keys(eobj).length) {
+      e.preventDefault();
+      setErrors(eobj);
+      return;
+    }
+    setErrors({});
+    // if valid, allow normal POST to FormSubmit
   };
 
   return (
@@ -101,9 +97,9 @@ const Contact1 = () => {
               }}
             >
               At NETARK Technologies, we believe the best solutions start with a
-              conversation. Whether you’re looking for enterprise networking, data
-              center hosting, cloud services, or IT security solutions, our team is
-              here to help.
+              conversation. Whether you’re looking for enterprise networking,
+              data center hosting, cloud services, or IT security solutions, our
+              team is here to help.
             </p>
 
             {/* Address Card */}
@@ -152,11 +148,11 @@ const Contact1 = () => {
                 Phone
               </h5>
               <p style={{ color: "#444", marginBottom: 0 }}>
-               +91 73392 70444 &nbsp;|&nbsp; +91 96296 88889
+                +91 73392 70444 &nbsp;|&nbsp; +91 96296 88889
               </p>
             </div>
 
-            {/* Map - Clean View Only */}
+            {/* Map */}
             <div
               className="map-box shadow-sm rounded-3 overflow-hidden"
               style={{ border: `3px solid ${RUBY}`, height: 300, borderRadius: 10 }}
@@ -185,7 +181,6 @@ const Contact1 = () => {
                 borderRadius: 10,
               }}
             >
-              {/* ===== New Title Above Form ===== */}
               <h4
                 style={{
                   fontWeight: 800,
@@ -201,26 +196,21 @@ const Contact1 = () => {
                 Get in Touch
               </h4>
 
-              {submitted && (
-                <div
-                  className="alert"
-                  role="alert"
-                  style={{
-                    background: "#f1fff3",
-                    border: "1px solid #cfead5",
-                    color: "#0f5132",
-                    padding: "12px 14px",
-                    borderRadius: 8,
-                    marginBottom: 12,
-                    fontWeight: 600,
-                  }}
-                >
-                  Thank you for contacting <strong>NETARK</strong>. Our team will
-                  review your request and get back to you shortly.
-                </div>
-              )}
+              <form
+                onSubmit={handleSubmit}
+                action="https://formsubmit.co/sales@netark.co.in"
+                method="POST"
+                noValidate
+              >
+                {/* FormSubmit options */}
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="New Contact Request from NETARK Website"
+                />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_captcha" value="false" />
 
-              <form onSubmit={handleSubmit} noValidate>
                 <div className="row g-2">
                   <div className="col-12">
                     <label
@@ -333,7 +323,6 @@ const Contact1 = () => {
                     </select>
                   </div>
 
-                  {/* ✅ Solution dropdown */}
                   <div className="col-md-6">
                     <label
                       className="form-label"
@@ -419,6 +408,7 @@ const inputStyle = (hasError) => ({
   width: "100%",
   boxShadow: "none",
 });
+
 const errorStyle = {
   color: "#e03131",
   fontSize: 12,
