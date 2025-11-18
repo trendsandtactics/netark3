@@ -103,13 +103,7 @@ const Footer = () => {
               Saibaba Colony, Coimbatore – 641 011
               <br />
               <br />
-              <strong>Phone:</strong> 0422-4280009  |{" "}
-              <a
-                href="tel:+919500644411"
-                style={{ color: "#fff", textDecoration: "none" }}
-              >
-                +91 95006 44411
-              </a>
+              <strong>Email:</strong> sales@netark.co.in  |{" "}
             </address>
           </div>
         </div>
