@@ -11,7 +11,7 @@ const Footer = () => {
       "At NETARK, we believe the best solutions start with a conversation. Whether you’re looking for enterprise networking, data center hosting, cloud services, or IT security solutions, our team is here to help.",
   };
 
-  // ✅ scroll + navigate handler
+  // scroll + navigate handler
   const handleNav = (path) => {
     navigate(path);
     setTimeout(() => {
@@ -30,7 +30,7 @@ const Footer = () => {
     >
       <div className="container">
         <div className="row gy-5 align-items-start">
-          {/* ===== LEFT ===== */}
+          {/* LEFT */}
           <div className="col-lg-4 col-md-6 text-center text-md-start">
             <img
               src={LogoContent.img1}
@@ -50,7 +50,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* ===== CENTER: QUICK LINKS ===== */}
+          {/* CENTER */}
           <div className="col-lg-4 col-md-6 text-center">
             <h5
               className="fw-semibold mb-3"
@@ -78,7 +78,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* ===== RIGHT: OFFICE ADDRESS ===== */}
+          {/* RIGHT */}
           <div className="col-lg-4 col-md-12 text-center text-md-start">
             <h5
               className="fw-semibold mb-3"
@@ -103,12 +103,12 @@ const Footer = () => {
               Saibaba Colony, Coimbatore – 641 011
               <br />
               <br />
-              <strong>Email:</strong> sales@netark.co.in  |{" "}
+              <strong>Email:</strong> sales@netark.co.in
             </address>
           </div>
         </div>
 
-        {/* ===== FOOTER BOTTOM ===== */}
+        {/* FOOTER BOTTOM */}
         <div
           className="footer-bottom text-center mt-5 pt-3"
           style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
@@ -123,7 +123,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* ===== INLINE STYLES ===== */}
+      {/* INLINE STYLES */}
       <style>{`
         .footer-link-btn {
           background: none;
