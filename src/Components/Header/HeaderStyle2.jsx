@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
 const RUBY = "#9b111e";
+const FORMSUBMIT_URL = "https://formsubmit.co/ajax/hariharantt015@gmail.com";
 
 export default function HeaderStyle2({ variant }) {
   const [mobileToggle, setMobileToggle] = useState(false);
@@ -15,12 +16,13 @@ export default function HeaderStyle2({ variant }) {
     name: "",
     email: "",
     phone: "",
-    lookingFor: "",     // <-- NEW
+    lookingFor: "",
     service: "",
     solution: "",
     message: "",
   });
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const messageRef = useRef(null);
   const closeBtnRef = useRef(null);
@@ -57,7 +59,9 @@ export default function HeaderStyle2({ variant }) {
     const lock = mobileToggle || showPopup;
     const prev = document.body.style.overflow;
     document.body.style.overflow = lock ? "hidden" : prev || "";
-    return () => (document.body.style.overflow = prev);
+    return () => {
+      document.body.style.overflow = prev;
+    };
   }, [mobileToggle, showPopup]);
 
   /* ===== Popup focus & ESC ===== */
@@ -101,7 +105,6 @@ export default function HeaderStyle2({ variant }) {
     if (form.phone && !/^[0-9+()\-\s]{7,20}$/.test(form.phone))
       e.phone = "Enter a valid phone number.";
 
-    // NEW: LookingFor required + conditional requirement
     if (!form.lookingFor) {
       e.lookingFor = "Please choose what you are looking for.";
     } else if (form.lookingFor === "services" && !form.service) {
@@ -116,7 +119,6 @@ export default function HeaderStyle2({ variant }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // When switching "lookingFor", clear the opposite field
     if (name === "lookingFor") {
       setForm((p) => ({
         ...p,
@@ -124,7 +126,12 @@ export default function HeaderStyle2({ variant }) {
         service: value === "services" ? p.service : "",
         solution: value === "solutions" ? p.solution : "",
       }));
-      setErrors((p) => ({ ...p, lookingFor: undefined, service: undefined, solution: undefined }));
+      setErrors((p) => ({
+        ...p,
+        lookingFor: undefined,
+        service: undefined,
+        solution: undefined,
+      }));
       return;
     }
 
@@ -132,36 +139,76 @@ export default function HeaderStyle2({ variant }) {
     setErrors((p) => ({ ...p, [name]: undefined }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const eobj = validate();
     setErrors(eobj);
     if (Object.keys(eobj).length) return;
 
-    alert("✅ Message Sent Successfully!");
-    setShowPopup(false);
-    setForm({
-      name: "",
-      email: "",
-      phone: "",
-      lookingFor: "",   // reset new field
-      service: "",
-      solution: "",
-      message: "",
-    });
+    try {
+      setIsSubmitting(true);
+
+      const payload = {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        lookingFor: form.lookingFor,
+        service: form.service || "N/A",
+        solution: form.solution || "N/A",
+        message: form.message,
+        _subject: "New Quote Request from NETARK Website",
+        _template: "table",
+      };
+
+      const res = await fetch(FORMSUBMIT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (data.success === "true" || data.success === true) {
+        alert("Message sent successfully!");
+        setShowPopup(false);
+        setForm({
+          name: "",
+          email: "",
+          phone: "",
+          lookingFor: "",
+          service: "",
+          solution: "",
+          message: "",
+        });
+      } else {
+        console.error("FormSubmit error:", data);
+        alert("There was a problem sending your message. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("There was a problem sending your message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
       <header
-        className={`cs_site_header header_style_2 cs_style_1 ${variant || ""} cs_sticky_header cs_site_header_full_width ${
+        className={`cs_site_header header_style_2 cs_style_1 ${
+          variant || ""
+        } cs_sticky_header cs_site_header_full_width ${
           mobileToggle ? "cs_mobile_toggle_active" : ""
         } ${isSticky}`}
       >
         <div className="cs_main_header">
           <div className="container-fluid">
             <div className="cs_main_header_in">
-              {/* ===== LEFT: Logo ===== */}
+              {/* LEFT: Logo */}
               <div className="cs_main_header_left">
                 <Link
                   to="/"
@@ -170,7 +217,8 @@ export default function HeaderStyle2({ variant }) {
                 >
                   <img
                     src={
-                      location.pathname === "/" || location.pathname === "/home"
+                      location.pathname === "/" ||
+                      location.pathname === "/home"
                         ? "/assets/images/logo.png"
                         : "/assets/images/footer-logo.png"
                     }
@@ -179,7 +227,7 @@ export default function HeaderStyle2({ variant }) {
                 </Link>
               </div>
 
-              {/* ===== CENTER: Navigation ===== */}
+              {/* CENTER: Navigation */}
               <div className="cs_main_header_center">
                 <div className="cs_nav cs_primary_font fw-medium">
                   <Nav
@@ -191,7 +239,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
               </div>
 
-              {/* ===== RIGHT: CTA ===== */}
+              {/* RIGHT: CTA */}
               <div className="cs_main_header_right">
                 <div className="header-btn">
                   <button
@@ -211,7 +259,7 @@ export default function HeaderStyle2({ variant }) {
                 </div>
               </div>
 
-              {/* ===== MOBILE CLOSE BUTTON ===== */}
+              {/* MOBILE CLOSE BUTTON */}
               {mobileToggle && (
                 <button
                   onClick={() => setMobileToggle(false)}
@@ -236,7 +284,7 @@ export default function HeaderStyle2({ variant }) {
         </div>
       </header>
 
-      {/* ===== POPUP ===== */}
+      {/* POPUP */}
       {showPopup && (
         <div
           className="popup-overlay"
@@ -304,7 +352,9 @@ export default function HeaderStyle2({ variant }) {
                 }}
               >
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Full Name*</label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>
+                    Full Name*
+                  </label>
                   <input
                     name="name"
                     type="text"
@@ -313,11 +363,15 @@ export default function HeaderStyle2({ variant }) {
                     placeholder="Your full name"
                     style={inputStyle(errors.name)}
                   />
-                  {errors.name && <small style={errorStyle}>{errors.name}</small>}
+                  {errors.name && (
+                    <small style={errorStyle}>{errors.name}</small>
+                  )}
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Email*</label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>
+                    Email*
+                  </label>
                   <input
                     name="email"
                     type="email"
@@ -326,11 +380,15 @@ export default function HeaderStyle2({ variant }) {
                     placeholder="you@company.com"
                     style={inputStyle(errors.email)}
                   />
-                  {errors.email && <small style={errorStyle}>{errors.email}</small>}
+                  {errors.email && (
+                    <small style={errorStyle}>{errors.email}</small>
+                  )}
                 </div>
 
                 <div>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Phone*</label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>
+                    Phone*
+                  </label>
                   <input
                     name="phone"
                     type="tel"
@@ -339,10 +397,12 @@ export default function HeaderStyle2({ variant }) {
                     placeholder="+91 9XXXXXXXXX"
                     style={inputStyle(errors.phone)}
                   />
-                  {errors.phone && <small style={errorStyle}>{errors.phone}</small>}
+                  {errors.phone && (
+                    <small style={errorStyle}>{errors.phone}</small>
+                  )}
                 </div>
 
-                {/* NEW: Looking For */}
+                {/* Looking For */}
                 <div style={{ gridColumn: "1 / -1" }}>
                   <label style={{ fontWeight: 700, color: "#000" }}>
                     What are you looking for? *
@@ -362,10 +422,11 @@ export default function HeaderStyle2({ variant }) {
                   )}
                 </div>
 
-                {/* Conditionally show Services or Solutions */}
                 {form.lookingFor === "services" && (
                   <div style={{ gridColumn: "1 / -1" }}>
-                    <label style={{ fontWeight: 600, color: "#000" }}>Service*</label>
+                    <label style={{ fontWeight: 600, color: "#000" }}>
+                      Service*
+                    </label>
                     <select
                       name="service"
                       value={form.service}
@@ -379,13 +440,17 @@ export default function HeaderStyle2({ variant }) {
                         </option>
                       ))}
                     </select>
-                    {errors.service && <small style={errorStyle}>{errors.service}</small>}
+                    {errors.service && (
+                      <small style={errorStyle}>{errors.service}</small>
+                    )}
                   </div>
                 )}
 
                 {form.lookingFor === "solutions" && (
                   <div style={{ gridColumn: "1 / -1" }}>
-                    <label style={{ fontWeight: 600, color: "#000" }}>Solution*</label>
+                    <label style={{ fontWeight: 600, color: "#000" }}>
+                      Solution*
+                    </label>
                     <select
                       name="solution"
                       value={form.solution}
@@ -406,7 +471,9 @@ export default function HeaderStyle2({ variant }) {
                 )}
 
                 <div style={{ gridColumn: "1 / -1" }}>
-                  <label style={{ fontWeight: 600, color: "#000" }}>Your Message*</label>
+                  <label style={{ fontWeight: 600, color: "#000" }}>
+                    Your Message*
+                  </label>
                   <textarea
                     name="message"
                     rows={4}
@@ -416,7 +483,9 @@ export default function HeaderStyle2({ variant }) {
                     placeholder="Briefly describe your requirements…"
                     style={inputStyle(errors.message)}
                   />
-                  {errors.message && <small style={errorStyle}>{errors.message}</small>}
+                  {errors.message && (
+                    <small style={errorStyle}>{errors.message}</small>
+                  )}
                 </div>
 
                 <div
@@ -444,6 +513,7 @@ export default function HeaderStyle2({ variant }) {
                   </button>
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     style={{
                       background: RUBY,
                       color: "#fff",
@@ -451,10 +521,11 @@ export default function HeaderStyle2({ variant }) {
                       borderRadius: 8,
                       padding: "10px 18px",
                       fontWeight: 700,
-                      cursor: "pointer",
+                      cursor: isSubmitting ? "not-allowed" : "pointer",
+                      opacity: isSubmitting ? 0.7 : 1,
                     }}
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </div>
@@ -472,8 +543,8 @@ const inputStyle = (hasError) => ({
   borderRadius: 8,
   border: `1px solid ${hasError ? "#e03131" : "#ccc"}`,
   outline: "none",
-  color: "#000", // ensure text is black
-  background: "#fff"
+  color: "#000",
+  background: "#fff",
 });
 
 const errorStyle = {
