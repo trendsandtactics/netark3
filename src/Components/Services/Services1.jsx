@@ -9,7 +9,7 @@ const SERVICES = [
   { title: "Internet Services", icon: Wifi, image: "/assets/images/InternetServices.jpg" },
   { title: "Co-Location & Hosting", icon: Server, image: "/assets/images/Colocationhosting.png" },
   { title: "Connectivity Services", icon: Network, image: "/assets/images/Connectivityservices.webp" },
-  { title: "Cloud Solution", icon: Cloud, image: "/assets/images/Cloudsolutions.jpg" },
+  { title: "Cloud Services", icon: Cloud, image: "/assets/images/Cloudsolutions.jpg" },
   { title: "Information Security", icon: Shield, image: "/assets/images/Informationsecurityy.jpg" },
   { title: "Data Storage & Backup", icon: Database, image: "/assets/images/Datastorage.png" },
   { title: "Managed IT & Facility Services", icon: Monitor, image: "/assets/images/ManagedIT .png" },
