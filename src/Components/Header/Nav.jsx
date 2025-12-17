@@ -6,12 +6,14 @@ const RUBY = "#A1162A";
 
 const Nav = ({ onNavigate }) => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 991);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
   const handleNavigate = () => {
     if (typeof onNavigate === "function") onNavigate();
     setMobileOpen(false);
+    // scroll to top on route change from mobile menu
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -22,8 +24,13 @@ const Nav = ({ onNavigate }) => {
   }, []);
 
   useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // close on route change (safety)
+  useEffect(() => setMobileOpen(false), [location.pathname]);
 
   const links = [
     { path: "/", label: "Home" },
@@ -33,10 +40,12 @@ const Nav = ({ onNavigate }) => {
     { path: "/contact", label: "Contact" },
   ];
 
+  const linkColor = scrolled ? RUBY : "#fff";
+
   return (
     <>
       <nav className="main-nav">
-        {/* Desktop menu */}
+        {/* Desktop menu (unchanged) */}
         {!isMobile && (
           <ul className="nav-list">
             {links.map(({ path, label }) => (
@@ -45,6 +54,7 @@ const Nav = ({ onNavigate }) => {
                   to={path}
                   onClick={handleNavigate}
                   className={location.pathname === path ? "active" : ""}
+                  style={{ color: linkColor }}
                 >
                   {label}
                 </Link>
@@ -70,14 +80,10 @@ const Nav = ({ onNavigate }) => {
         )}
       </nav>
 
-      {/* Mobile overlay menu */}
+      {/* Mobile overlay menu + CLOSE (×) button */}
       {isMobile && mobileOpen && (
-        <div
-          id="mobile-menu"
-          className="mobile-menu"
-          role="dialog"
-          aria-modal="true"
-        >
+        <div id="mobile-menu" className="mobile-menu" role="dialog" aria-modal="true">
+          {/* CLOSE button (visible) */}
           <button
             className="mobile-close"
             aria-label="Close menu"
@@ -103,7 +109,7 @@ const Nav = ({ onNavigate }) => {
       )}
 
       <style>{`
-        /* ===== Header ===== */
+        /* ===== Desktop (as before) ===== */
         .main-nav {
           width: 100%;
           position: sticky;
@@ -112,11 +118,9 @@ const Nav = ({ onNavigate }) => {
           display: flex;
           justify-content: center;
           align-items: center;
-          background: #ffffff; /* PURE WHITE ALWAYS */
-          border-bottom: 1px solid #eee;
+          background: transparent;
+          transition: all 0.3s ease;
         }
-
-        /* ===== Desktop ===== */
         .nav-list {
           list-style: none;
           margin: 0;
@@ -126,96 +130,58 @@ const Nav = ({ onNavigate }) => {
           justify-content: center;
           gap: 40px;
         }
-
         .nav-list a {
           font-weight: 600;
           font-size: 1rem;
           text-decoration: none;
           position: relative;
           padding: 6px 0;
-          color: ${RUBY};
           transition: color 0.3s ease;
           background: transparent !important;
           outline: none !important;
           box-shadow: none !important;
+          display: inline-block;
         }
-
-        .nav-list a:hover {
-          color: ${RUBY};
-        }
-
         .nav-list a.active::after {
           content: "";
           position: absolute;
-          left: 0;
-          right: 0;
-          bottom: -3px;
-          height: 2px;
-          background: ${RUBY};
-          border-radius: 1px;
+          left: 0; right: 0; bottom: -3px;
+          height: 2px; background: ${RUBY}; border-radius: 1px;
         }
+        .nav-list a:hover { color: ${RUBY}; }
 
         /* ===== Mobile ===== */
         @media (max-width: 991px) {
-          .nav-list {
-            display: none;
-          }
+          .nav-list { display: none; }
 
-          .hamburger {
-            background: none;
-            border: none;
-            outline: none;
-            position: fixed;
-            top: 10px;
-            right: 16px;
-            z-index: 1102;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
+          .hamburger{
+            background: none; border: none; outline: none;
+            position: fixed; top: 10px; right: 16px; z-index: 1102;
+            width: 44px; height: 44px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            gap: 6px; cursor: pointer; -webkit-appearance: none; appearance: none;
           }
-
-          .hamburger .bar {
-            width: 24px;
-            height: 2.4px;
-            background: ${RUBY};
-            border-radius: 2px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+          .hamburger .bar{
+            width: 24px; height: 2.4px; background: ${RUBY};
+            border-radius: 2px; transition: transform .3s, opacity .3s;
           }
+          .hamburger.is-open .bar:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+          .hamburger.is-open .bar:nth-child(2){ opacity: 0; }
+          .hamburger.is-open .bar:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
 
-          .hamburger.is-open .bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-          }
-
-          .hamburger.is-open .bar:nth-child(2) {
-            opacity: 0;
-          }
-
-          .hamburger.is-open .bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-          }
-
-          .mobile-menu {
-            position: fixed;
-            inset: 0;
-            background: #ffffff; /* PURE WHITE */
-            z-index: 1090;
-            padding: 64px 16px 16px;
+          .mobile-menu{
+            position: fixed; inset: 0;
+            background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+            z-index: 1090; padding: 64px 16px 16px;
             overflow-y: auto;
           }
 
-          .mobile-close {
+          /* Close (×) button */
+          .mobile-close{
             position: fixed;
-            top: 12px;
-            right: 12px;
-            width: 40px;
-            height: 40px;
-            display: grid;
-            place-items: center;
+            top: 12px; right: 12px;
+            width: 40px; height: 40px;
+            display: grid; place-items: center;
             background: transparent;
             border: none;
             font-size: 34px;
@@ -225,29 +191,13 @@ const Nav = ({ onNavigate }) => {
             z-index: 1105;
           }
 
-          .mobile-list {
-            list-style: none;
-            margin: 0;
-            padding: 0 8px;
+          .mobile-list{ list-style: none; margin: 0; padding: 0 8px; }
+          .mobile-item + .mobile-item{ border-top: 1px solid #eee; }
+          .mobile-item a{
+            display: block; padding: 14px 4px; font-weight: 600; font-size: 1.05rem;
+            color: #111; text-decoration: none;
           }
-
-          .mobile-item + .mobile-item {
-            border-top: 1px solid #eee;
-          }
-
-          .mobile-item a {
-            display: block;
-            padding: 14px 4px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: #111;
-            text-decoration: none;
-          }
-
-          .mobile-item a:hover,
-          .mobile-item a.active {
-            color: ${RUBY};
-          }
+          .mobile-item a:hover, .mobile-item a.active{ color: ${RUBY}; }
         }
       `}</style>
     </>
